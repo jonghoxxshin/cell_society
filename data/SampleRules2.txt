@@ -1,0 +1,27 @@
+2 (type of game) - state dependent on current state AS WELL AS neighbor state
+
+
+currentState state:neighborsInThatState state:neighborsInThatState finalState
+
+first is going to be current state, after that will be neighbors in each state, last will be state to go to if that's true
+
+
+instance variable for RulesParser
+HashMap of Integer,Integer
+--> eventually going to need that when constructing the Rules object
+
+currentLine = myScanner.next();
+lineSplit = currentLine.split("\\s+");
+int currentState = Integer.parseInt(lineSplit[0]);
+int finalState = Integer.parseInt(lineSplit[lineSplit.length-1]);
+
+for(int i=1; i<lineSplit.length-1; i++){
+    int state = Integer.parseInt(lineSplit[i].split(":")[0]);
+    int neighborsInThatState = Integer.parseInt(lineSplit[i].split(":")[1]);
+
+
+
+}
+
+
+
