@@ -20,7 +20,7 @@ public class State {
     }
 
     //Get rules for that state
-    private ArrayList<int[]> getRulesForState() {
+    public ArrayList<int[]> getRulesForState() {
         return rulesForState;
     }
 }
