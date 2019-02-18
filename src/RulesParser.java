@@ -2,29 +2,28 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.Inet4Address;
 import java.util.ArrayList;
 
 public class RulesParser {
     private static final String LIFE_RULES = "GameOfLifeRules.txt";
     private static final String PERCOLATE_RULES = "GameOfLifeRules.txt";
-    State[] possibleStates;
+    private ArrayList<State> possibleStates;
     private  String gameName;
-    ArrayList<Integer> stateArray;
-    ArrayList<int[]> rulesArray;
-
-    //set Rule's possibleStates
+    private ArrayList<Integer> stateArray;
+    private ArrayList<int[]> rulesArray;
 
 
-    private void getInfo(String game) {
-        RulesParser myRulesParse = new RulesParser();
+    //Read text file, update possibleStates, gameName, stateArray, and rulesArray from file
+    public RulesParser(String game) {
+        rulesArray = new ArrayList<int[]>();
+        stateArray = new ArrayList<Integer>();
         String fileName = null;
         if (game.equals("life")){
             fileName = LIFE_RULES;
         } else if (game.equals("percolate")) {
             fileName = PERCOLATE_RULES;
         }
-        InputStream in = myRulesParse.getClass().getClassLoader().getResourceAsStream(fileName);
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream(fileName);
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String currentLine = null;
         try{
@@ -45,9 +44,10 @@ public class RulesParser {
         } catch (IOException e) {
             System.out.println("Failed to read rules configuration file");
         }
-        // open the text file, read in the lines
-        // this.posibleStates = Scanner.next();
+        makeRules();
     }
+
+    //Parse line with rule from file
     private void getRulesFromLine (String line) {
         String[] splitByWhiteSpace = line.split("\\s+");
         Integer startState = Integer.parseInt(splitByWhiteSpace[0]);
@@ -67,11 +67,17 @@ public class RulesParser {
         }
     }
 
-    //once we've gotten all the rules from the config file
 
-    public Rules makeRules(){
-        return new Rules(possibleStates);
+    private  ArrayList<State> makeRules(){
+        possibleStates = new ArrayList<State>();
+        for (Integer state : stateArray) {
+            possibleStates.add(new State(state, rulesArray));
+        }
+        return possibleStates;
     }
 
+    public ArrayList<State> getPossibleStates(){
+        return possibleStates;
+    }
 
 }
