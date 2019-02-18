@@ -8,7 +8,7 @@ public class RulesParser {
     private static final String LIFE_RULES = "GameOfLifeRules.txt";
     private static final String PERCOLATE_RULES = "GameOfLifeRules.txt";
     private ArrayList<State> possibleStates;
-    private  String gameName;
+    private String gameName;
     private ArrayList<Integer> stateArray;
     private ArrayList<int[]> rulesArray;
 
