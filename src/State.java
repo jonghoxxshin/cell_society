@@ -4,7 +4,7 @@ public class State {
     private int myState;
     private ArrayList<int[]> rulesForState;
 
-    //State Constructor
+    //State Constructor, gets rules that apply when that state is initial state
     public State(int state, ArrayList<int[]> rulesList){
         myState = state;
         for (int[] rule : rulesList) {

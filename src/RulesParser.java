@@ -67,7 +67,7 @@ public class RulesParser {
         }
     }
 
-
+    //Add rules that appply to each state to a state object if possibleStates
     private  ArrayList<State> makeRules(){
         possibleStates = new ArrayList<State>();
         for (Integer state : stateArray) {
@@ -76,6 +76,7 @@ public class RulesParser {
         return possibleStates;
     }
 
+    // return possibleStates, ArrayList of State objects
     public ArrayList<State> getPossibleStates(){
         return possibleStates;
     }
