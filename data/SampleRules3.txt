@@ -1,0 +1,6 @@
+3 (type of game) - dependent on neighbors, current state, current state can change with probability
+
+
+currentState state:neighborsInThatState state:neighborsInThatState finalState
+
+but at some point we'll need a probability
