@@ -8,7 +8,7 @@ numNeighbors stateNeighborsAreIN newStateToGoTo
 
 Take into account:
 - Current state
-- (Potentially multiple) Neighbor State
+- (Potentially multiple) Neighbor app.State
 - Probabilities
 
 

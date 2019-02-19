@@ -1,3 +1,7 @@
+package app;
+
+import app.Button;
+
 public class StartButton extends Button {
 
     public void onPress(){

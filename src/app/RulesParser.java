@@ -1,3 +1,7 @@
+package app;
+
+import app.Rules;
+
 public class RulesParser {
     State[] possibleStates;
 

@@ -1,3 +1,5 @@
+package app;
+
 public class Board {
     Cell[][] cells;
 
