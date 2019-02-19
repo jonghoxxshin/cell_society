@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Rules {
     private static final String LIFE = "life";
     private static final String PERCOLATE = "percolate";
-    ArrayList<State> possibleStates;
+    private ArrayList<State> possibleStates;
 
     //Sets up rules by updating possibleStates ArrayList
     public Rules(String game) {

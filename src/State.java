@@ -15,7 +15,7 @@ public class State {
     }
 
     //Get state
-    private int getMyState (){
+    public int getMyState (){
         return myState;
     }
 

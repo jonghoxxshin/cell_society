@@ -10,6 +10,7 @@ public class Cell {
     //Need to get size from CSV FILE:
     private static final int TEMP_SIZE  = 100;
 
+    //Cell constructor
     public Cell(int state, int x, int y){
         myState = state;
         myX = x;
@@ -17,7 +18,8 @@ public class Cell {
         neighbors = findNeighbors();
     }
 
-    private ArrayList<int[]> findNeighbors(){
+    //get ArrayList of (x,y) coordinates for valid neighbor cells
+    private ArrayList<int[]> findNeighbors() {
         // code to get neighbors based on current cell's coordinates
         ArrayList<int[]> tempNeighbors = new ArrayList<int[]>();
         for (int[] offSet : NEIGHBOURS) {
@@ -29,7 +31,51 @@ public class Cell {
         return tempNeighbors;
     }
 
+    //find number of neighbors in a given state
+    private int findNumberOfNeighborsInState(int state, ArrayList<int[]> neighborsList, Board board) {
+        int count = 0;
+        for (int[] neighbor : neighborsList) {
+            if (board.getCells()[neighbor[0]][neighbor[1]].getMyState() == state) {
+                count ++;
+            }
+        }
+        return count;
+    }
 
+    //for current cell, get next state based on a given Rules object
+    public int getNextState(Rules currentRules, Board board) {
+        for (State state : currentRules.getPossibleStates()) {
+            if (myState == state.getMyState()){
+                for (int[] rule : state.getRulesForState()) {
+                    int actual = findNumberOfNeighborsInState(rule[1], neighbors, board);
+                    if (actual == rule[2]) {
+                        return rule[3];
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+
+    //set cell state
+    public void setMyState(int state){
+        myState = state;
+    }
+
+    //get state
+    public int getMyState(){
+        return myState;
+    }
+
+    //get myX
+    public int getMyX(){
+        return myX;
+    }
+
+    //get myY
+    public int getMyY(){
+        return myX;
+    }
 
 
 
