@@ -1,38 +1,71 @@
 import java.util.ArrayList;
 
 public class Cell {
-    private static final int[][] NEIGHBOURS = {{-1, -1}, {-1, 0}, {-1, +1}, { 0, -1}, { 0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
+    private static final int[][] NEIGHBORS = {{-1, -1}, {-1, 0}, {-1, +1}, { 0, -1}, { 0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
     private int myX;
     private int myY;
-    private ArrayList<int[]> neighbors;
+    private int[][] neighbors;
     private int myState;
+    private int boardHeight;
+    private int boardWidth;
 
     //Need to get size from CSV FILE:
     private static final int TEMP_SIZE  = 100;
 
-    //Cell constructor
-    public Cell(int state, int x, int y){
+    //Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
+    public Cell(int state, int x, int y, int boardHeight, int boardWidth){
         myState = state;
         myX = x;
         myY = y;
+        this.boardHeight = boardHeight;
+        this.boardWidth = boardWidth;
+
         neighbors = findNeighbors();
+
     }
 
-    //get ArrayList of (x,y) coordinates for valid neighbor cells
-    private ArrayList<int[]> findNeighbors() {
-        // code to get neighbors based on current cell's coordinates
-        ArrayList<int[]> tempNeighbors = new ArrayList<int[]>();
-        for (int[] offSet : NEIGHBOURS) {
-            if ( myX + offSet[0] > 0 && myX + offSet[0] < TEMP_SIZE &&  myY + offSet[1] > 0 && myY + offSet[1] < TEMP_SIZE) {
-                int[] tempArray = {myX + offSet[0], myY + offSet[1]};
-                neighbors.add(tempArray);
-            }
+    //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
+    private int[][] findNeighbors() {
+        // code to get expectedNeighbors based on current cell's coordinates
+        int[][] tempNeighbors = new int[8][2];
+        for (int i=0; i<tempNeighbors.length; i++) {
+            tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS[i]);
         }
         return tempNeighbors;
     }
 
-    //find number of neighbors in a given state
-    private int findNumberOfNeighborsInState(int state, ArrayList<int[]> neighborsList, Board board) {
+
+    int[] getNeighbor(int x, int y, int[] offSet){
+        int tempX;
+        int tempY;
+
+        if(x + offSet[0] >= boardWidth){
+            tempX = 0;
+        }
+        else if(x + offSet[0] < 0){
+            tempX = boardWidth-1;
+        }
+        else{
+            tempX = x + offSet[0];
+        }
+
+        if(y + offSet[1] >= boardHeight){
+            tempY = 0;
+        }
+        else if(y + offSet[1] < 0){
+            tempY = boardHeight-1;
+        }
+        else{
+            tempY = y + offSet[1];
+        }
+
+        int[] toBeReturned = {tempX, tempY};
+        return toBeReturned;
+    }
+
+
+    //find number of expectedNeighbors in a given state
+    private int findNumberOfNeighborsInState(int state, int[][] neighborsList, Board board) {
         int count = 0;
         for (int[] neighbor : neighborsList) {
             if (board.getCells()[neighbor[0]][neighbor[1]].getMyState() == state) {
@@ -77,7 +110,25 @@ public class Cell {
         return myX;
     }
 
+    // get neighbors
+    public int[][] getNeighbors() {
+        return neighbors;
+    }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Cell){
+            Cell tempCell = (Cell) obj;
 
+            if(tempCell.myState == this.myState && tempCell.myX == this.myX && tempCell.myY == this.myY){
+                return true;
+            }
+        }
+        return false;
+    }
 
+    @Override
+    public String toString() {
+        return "Cell with state " + this.myState + " and x is " + this.myX + " and y is " + this.myY;
+    }
 }
