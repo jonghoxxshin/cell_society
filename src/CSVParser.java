@@ -6,7 +6,7 @@ public class CSVParser {
     private int myWidth;
     private String gameType;
 
-    Cell[][] cells;
+    private Cell[][] cells;
 
     public CSVParser(String filename){
         this.cells = generateCells(filename);
@@ -46,4 +46,13 @@ public class CSVParser {
     public int getMyWidth() {
         return myWidth;
     }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+
+    public static void main(String[] args){
+        CSVParser test = new CSVParser("GameOfLifeConfig.csv");
+    }
+
 }

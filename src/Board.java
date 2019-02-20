@@ -12,7 +12,7 @@ public class Board {
     }
 
 
-    //Update board's cells based on current cell configuration
+    //Update board's expectedCells based on current cell configuration
     private void updateBoard(Rules rules) {
         Cell[][] tempCells = new Cell[myWidth][myHeight];
         for (Cell[] row : cells) {
@@ -26,7 +26,7 @@ public class Board {
         cells = tempCells;
     }
 
-    //get cells array
+    //get expectedCells array
     public Cell[][] getCells(){
         return cells;
     }

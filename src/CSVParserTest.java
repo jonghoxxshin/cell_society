@@ -1,7 +1,7 @@
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Nested;
+
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +10,7 @@ public class CSVParserTest {
     int status = 1;
     int myHeight;
     int myWidth;
-    Cell[][] cells;
+    Cell[][] expectedCells;
     String filename;
     CSVParser tester;
     String gameType;
@@ -26,15 +26,15 @@ public class CSVParserTest {
         this.myHeight = 5;
         this.myWidth = 5;
 
-        this.cells = new Cell[myHeight][myWidth];
+        this.expectedCells = new Cell[myHeight][myWidth];
 
         for(int i=0; i<myHeight; i++){
             for(int j=0; j<myWidth; j++){
                 if(i==j){
-                    cells[i][j] = new Cell(1, j, i, myHeight, myWidth);
+                    expectedCells[i][j] = new Cell(1, j, i, myHeight, myWidth);
                 }
                 else{
-                    cells[i][j] = new Cell(0, j, i, myHeight, myWidth);
+                    expectedCells[i][j] = new Cell(0, j, i, myHeight, myWidth);
                 }
             }
         }
@@ -52,7 +52,21 @@ public class CSVParserTest {
 
     @Test
     void readCSVTest(){
-        assertArrayEquals(this.cells, tester.cells);
+        boolean myBool = true;
+
+        for(int i=0; i<myHeight; i++){
+            for(int j=0; j<myWidth; j++){
+                if(!expectedCells[i][j].equals(tester.getCells()[i][j])){
+                    System.out.println("Expected cell: " + expectedCells[i][j].toString());
+                    System.out.println("Actual cell: " + tester.getCells()[i][j].toString());
+
+                    myBool = false;
+                }
+            }
+
+        }
+
+        assertTrue(myBool);
 
     }
 
