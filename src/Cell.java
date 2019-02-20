@@ -6,16 +6,22 @@ public class Cell {
     private int myY;
     private ArrayList<int[]> neighbors;
     private int myState;
+    private int boardHeight;
+    private int boardWidth;
 
     //Need to get size from CSV FILE:
     private static final int TEMP_SIZE  = 100;
 
-    //Cell constructor
-    public Cell(int state, int x, int y){
+    //Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
+    public Cell(int state, int x, int y, int boardHeight, int boardWidth){
         myState = state;
         myX = x;
         myY = y;
+        this.boardHeight = boardHeight;
+        this.boardWidth = boardWidth;
+
         neighbors = findNeighbors();
+
     }
 
     //get ArrayList of (x,y) coordinates for valid neighbor cells
@@ -23,9 +29,9 @@ public class Cell {
         // code to get neighbors based on current cell's coordinates
         ArrayList<int[]> tempNeighbors = new ArrayList<int[]>();
         for (int[] offSet : NEIGHBOURS) {
-            if ( myX + offSet[0] > 0 && myX + offSet[0] < TEMP_SIZE &&  myY + offSet[1] > 0 && myY + offSet[1] < TEMP_SIZE) {
+            if ( myX + offSet[0] > 0 && myX + offSet[0] < boardWidth &&  myY + offSet[1] > 0 && myY + offSet[1] < boardHeight) {
                 int[] tempArray = {myX + offSet[0], myY + offSet[1]};
-                neighbors.add(tempArray);
+                tempNeighbors.add(tempArray);
             }
         }
         return tempNeighbors;
@@ -77,7 +83,15 @@ public class Cell {
         return myX;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(obj instanceof Cell){
+            Cell tempCell = (Cell) obj;
 
-
-
+            if(tempCell.myState == this.myState && tempCell.myX == this.myX && tempCell.myY == this.myY){
+                return true;
+            }
+        }
+        return false;
+    }
 }

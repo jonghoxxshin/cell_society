@@ -8,24 +8,9 @@ public class Board {
         myHeight = height;
         myWidth = width;
         cells = new Cell[width][height];
-        setUpBoardFromCSV();
+        //setUpBoardFromCSV();
     }
 
-    //add cell to each cell in cells
-    private void setUpBoardFromCSV() {
-        for (int i = 0; i < myHeight; i++) {
-            for (int j = 0; j < myWidth; j++) {
-                cells[j][i] = makeCellFromCSV(i,j);
-            }
-        }
-        cells = cells;
-    }
-
-    //create new cell to be returned, based on config in CSV file
-    private Cell makeCellFromCSV(int x, int y) {
-        //Need to implement creation of new cell based on configuration in CSV file
-        return new Cell (0,x,y);
-    }
 
     //Update board's cells based on current cell configuration
     private void updateBoard(Rules rules) {
@@ -34,7 +19,7 @@ public class Board {
             for (Cell cell : row) {
                 int tempX = cell.getMyX();
                 int tempY = cell.getMyY();
-                Cell tempCell = new Cell(cell.getNextState(rules, this), tempX, tempY);
+                Cell tempCell = new Cell(cell.getNextState(rules, this), tempX, tempY, myHeight, myWidth);
                 tempCells[tempX][tempY] = tempCell;
             }
         }
