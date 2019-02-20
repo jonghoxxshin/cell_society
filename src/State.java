@@ -6,6 +6,7 @@ public class State {
 
     //State Constructor, gets rules that apply when that state is initial state
     public State(int state, ArrayList<int[]> rulesList){
+        rulesForState = new ArrayList<int[]>();
         myState = state;
         for (int[] rule : rulesList) {
             if (rule[0] == state) {

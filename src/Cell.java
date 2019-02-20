@@ -34,8 +34,8 @@ public class Cell {
         return tempNeighbors;
     }
 
-
-    int[] getNeighbor(int x, int y, int[] offSet){
+    //get neighbor coordinates from offset with respect to toroidal edges
+    private int[] getNeighbor(int x, int y, int[] offSet){
         int tempX;
         int tempY;
 
@@ -116,6 +116,7 @@ public class Cell {
     }
 
     @Override
+    //compare two cells for equality
     public boolean equals(Object obj) {
         if(obj instanceof Cell){
             Cell tempCell = (Cell) obj;
@@ -128,6 +129,7 @@ public class Cell {
     }
 
     @Override
+    //convert cell data to easily readable string
     public String toString() {
         return "Cell with state " + this.myState + " and x is " + this.myX + " and y is " + this.myY;
     }
