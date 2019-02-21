@@ -20,8 +20,8 @@ public class Start extends Application {
     private String myGame;
     @Override
     public void start(Stage stage) throws Exception {
-        Board b = new Board("GameOfLifeConfig.csv");
-        Rules r = new Rules("GameOfLifeConfig.csv");
+        Board b = new Board("life");
+        Rules r = new Rules("life");
         BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells());
         SimulationController simulationController = new SimulationController(new Simulation(b,r),new SimulationView(bv),APP_WIDHT,APP_HEIGHT);
         //MainView mv = new MainView(new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells())); this responsibility will be moved to simulationController
