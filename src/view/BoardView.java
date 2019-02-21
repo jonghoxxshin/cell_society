@@ -40,7 +40,7 @@ public class BoardView {
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){
                 Rectangle r = new Rectangle(cellWidth,cellHeight);
-                
+
                 Cell c = myBoard[i][j];
                 if(c.getMyState()==0){
                     r.setFill(Color.WHITE);
@@ -48,12 +48,22 @@ public class BoardView {
                     r.setFill(Color.BLACK);
                 }
                 myColorBoard[i][j] = r;
-                r.setX(BOARD_WIDTH/(i+1));
-                r.setY(BOARD_HEIGHT/(j+1));
+                int[] loc = getLocation(i,j,width_num,height_num);
+                r.setX(loc[0]);
+                r.setY(loc[1]);
                 result.getChildren().add(r);
             }
         }
 
+        return result;
+    }
+
+    private int[] getLocation(int i, int j, int width_num, int height_num){
+        int[] result = new int[2];
+        int xval = (int) BOARD_WIDTH/width_num * i;
+        int yval = (int) BOARD_HEIGHT/height_num * j;
+        result[0] = xval;
+        result[1] = yval;
         return result;
     }
 
