@@ -74,6 +74,7 @@ public class RulesParser {
     private  ArrayList<State> makeRules(){
         possibleStates = new ArrayList<State>();
         for (Integer state : stateArray) {
+
             possibleStates.add(new State(state, rulesArray));
         }
         return possibleStates;
