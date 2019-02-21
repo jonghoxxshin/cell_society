@@ -17,7 +17,7 @@ public class BoardView {
     protected double cellHeight;
     protected double cellWidth;
     private Group myRoot;
-    private Rectangle[][]  myColorBoard;
+    private Rectangle[][] myColorBoard;
     private Cell[][] myBoard;
     private Scene myScene;
 
@@ -29,7 +29,7 @@ public class BoardView {
         cellWidth = BOARD_WIDTH/width;
         myColorBoard = new Rectangle[myBoardWidth][myBoardHeight];
         myRoot = new Group();
-        myRoot.getChildren().add(createColorBoard(width,height));
+        myRoot = createColorBoard(width,height);
     }
 
     public Rectangle[][] getMyBoard(){return myColorBoard;}
@@ -40,17 +40,16 @@ public class BoardView {
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){
                 Rectangle r = new Rectangle(cellWidth,cellHeight);
-                System.out.println(i + " is i " + j + " is j");
+                
                 Cell c = myBoard[i][j];
-                System.out.println(c.getMyState());
                 if(c.getMyState()==0){
-                    System.out.println("colred white");
                     r.setFill(Color.WHITE);
                 }else{
-                    System.out.println("colored black");
                     r.setFill(Color.BLACK);
                 }
                 myColorBoard[i][j] = r;
+                r.setX(BOARD_WIDTH/(i+1));
+                r.setY(BOARD_HEIGHT/(j+1));
                 result.getChildren().add(r);
             }
         }
@@ -58,6 +57,7 @@ public class BoardView {
         return result;
     }
 
+    public Rectangle[][] getMycolorBoard(){return myColorBoard;}
 
 
 }

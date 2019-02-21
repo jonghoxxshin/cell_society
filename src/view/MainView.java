@@ -9,11 +9,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 
-import javax.swing.*;
 
 public class MainView {
     public static final int VIEW_WIDTH = 1000;
@@ -33,10 +34,10 @@ public class MainView {
     public MainView(BoardView bv) {
         myBoardView = bv;
         BorderPane root = new BorderPane();
-//        root.setCenter(this.makeGrid());
         root.setTop(this.makeTop());
         root.setBottom(this.makeBottom());
         root.setCenter(this.makeCenter());
+
         myScene = new Scene(root, VIEW_WIDTH, VIEW_HEIGHT);
 
 
