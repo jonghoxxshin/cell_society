@@ -37,5 +37,13 @@ public class Board {
         return cells;
     }
 
+    public int getMyWidth() {
+        return myWidth;
+    }
+
+    public int getMyHeight() {
+        return myHeight;
+    }
+
 
 }

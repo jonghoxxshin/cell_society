@@ -9,8 +9,8 @@ import javafx.scene.shape.Rectangle;
 
 
 public class BoardView {
-    public static final double BOARD_WIDTH = 600;
-    public static final double BOARD_HEIGHT = 400;
+    public double BOARD_WIDTH;
+    public double BOARD_HEIGHT;
 
     protected int myBoardWidth;
     protected int myBoardHeight;
@@ -21,15 +21,17 @@ public class BoardView {
     private Cell[][] myBoard;
     private Scene myScene;
 
-    public BoardView(int width, int height, Cell[][] board){
-        myBoardWidth = width;
-        myBoardHeight = height;
+    public BoardView(int height, int width, int numRows, int numCols, Cell[][] board){
+        BOARD_HEIGHT = height;
+        BOARD_WIDTH = width;
+        myBoardWidth = numRows;
+        myBoardHeight = numCols;
         myBoard = board;
-        cellHeight = BOARD_HEIGHT/height;
-        cellWidth = BOARD_WIDTH/width;
+        cellHeight = BOARD_HEIGHT/numCols;
+        cellWidth = BOARD_WIDTH/numRows;
         myColorBoard = new Rectangle[myBoardWidth][myBoardHeight];
         myRoot = new Group();
-        myRoot = createColorBoard(width,height);
+        myRoot = createColorBoard(numRows,numCols);
     }
 
     public Rectangle[][] getMyBoard(){return myColorBoard;}

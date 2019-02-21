@@ -8,12 +8,14 @@ import app.view.MainView;
 
 public class Start extends Application {
     public static final String TITLE = "SIMULATION";
-    public static final int APP_WIDTH = 800;
-    public static final int APP_HEIGHT = 600;
+    public int APP_WIDTH;
+    public int APP_HEIGHT;
     @Override
     public void start(Stage stage) throws Exception {
         Board b = new Board("GameOfLifeConfig.csv");
-        MainView mv = new MainView(new BoardView(5,5,b.getCells()));
+        APP_WIDTH = b.getMyWidth();
+        APP_HEIGHT = b.getMyHeight();
+        MainView mv = new MainView(new BoardView(APP_WIDTH, APP_HEIGHT, 5,5,b.getCells()));
         stage.setTitle(TITLE);
         stage.setScene(mv.getScene());
         stage.setResizable(false);
