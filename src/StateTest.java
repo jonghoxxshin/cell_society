@@ -14,7 +14,7 @@ class StateTest {
 
 
     @Test
-    void getMyState() {
+    void CheckStatesFromGetMyState() {
         testBool = true;
         for (State state : lifeStates) {
             if (state.getMyState() > 2 && state.getMyState() < 0) {
@@ -29,8 +29,9 @@ class StateTest {
         assertTrue(testBool);
     }
 
+
     @Test
-    void getRulesForState() {
+    void CheckRightRulesGetRulesForState() {
         testBool = true;
         for (State state : lifeStates) {
             for (int[] rule : state.getRulesForState()) {

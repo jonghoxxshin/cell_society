@@ -61,10 +61,12 @@ class CellTest {
     }
 
     @Test
-    void getNextState() {
+    void getNextStateLife() {
+        Rules myRules = new Rules("life");
     }
 
-    @Test
-    void setMyState() {
+    void getNextStatePercolate() {
+        Rules myRules = new Rules("percolate");
     }
+
 }
