@@ -6,9 +6,10 @@ currentState state:neighborsInThatState state:neighborsInThatState finalState
 first is going to be current state, after that will be neighbors in each state, last will be state to go to if that's true
 
 
-instance variable for model.RulesParser
+instance variable for RulesParser
 HashMap of Integer,Integer
---> eventually going to need that when constructing the model.Rules object
+--> eventually going to need that when constructing the Rules object
+
 
 currentLine = myScanner.next();
 lineSplit = currentLine.split("\\s+");

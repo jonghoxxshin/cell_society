@@ -1,7 +1,7 @@
-package controller;
+package app.controller;
 
-import model.Simulation;
-import view.SimulationView;
+import app.model.Simulation;
+import app.view.SimulationView;
 
 public class SimulationController {
     private Simulation mySimulationModel;

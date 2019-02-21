@@ -1,4 +1,4 @@
-package model;
+package app.model;
 
 
 import java.io.BufferedReader;
@@ -81,7 +81,7 @@ public class RulesParser {
 
 
 
-    // return possibleStates, ArrayList of model.State objects
+    // return possibleStates, ArrayList of app.model.State objects
     public ArrayList<State> getPossibleStates(){
         return possibleStates;
     }

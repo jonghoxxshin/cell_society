@@ -1,5 +1,6 @@
-import model.RulesParser;
-import model.State;
+package app.model;
+
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

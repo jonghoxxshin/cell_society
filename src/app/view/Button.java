@@ -1,4 +1,4 @@
-package view;
+package app.view;
 
 public abstract class Button {
 

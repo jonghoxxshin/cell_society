@@ -1,10 +1,10 @@
-package controller;
+package app.controller;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import model.Board;
-import view.BoardView;
-import view.MainView;
+import app.model.Board;
+import app.view.BoardView;
+import app.view.MainView;
 
 public class Start extends Application {
     public static final String TITLE = "SIMULATION";

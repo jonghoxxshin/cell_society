@@ -1,5 +1,6 @@
-import model.CSVParser;
-import model.Cell;
+package app.model;
+
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,6 +1,6 @@
-package model;
+package app.model;
 
-import model.Cell;
+import app.model.Cell;
 
 
 public class Board {
@@ -9,7 +9,7 @@ public class Board {
     private int myHeight;
     private String myGame;
 
-    //model.Board Constructor
+    //app.model.Board Constructor
     public Board(String game) {
         myGame = game;
         CSVParser parser = new CSVParser(game);

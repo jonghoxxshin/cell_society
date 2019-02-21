@@ -1,10 +1,10 @@
-package view;
+package app.view;
 
 import javafx.scene.Group;
 
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import model.Cell;
+import app.model.Cell;
 import javafx.scene.shape.Rectangle;
 
 

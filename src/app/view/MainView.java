@@ -1,4 +1,4 @@
-package view;
+package app.view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -9,11 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Rectangle;
 
 
 public class MainView {

@@ -1,4 +1,4 @@
-package view;
+package app.view;
 
 public class StartButton extends Button {
 

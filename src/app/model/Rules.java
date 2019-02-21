@@ -1,4 +1,4 @@
-package model;
+package app.model;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class Rules {
         this.possibleStates = myRulesParser.getPossibleStates();
     }
 
-    //Get model.Rules For a Game
+    //Get app.model.Rules For a Game
     public ArrayList<State> getPossibleStates(){
         return possibleStates;
     }
