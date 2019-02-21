@@ -1,4 +1,6 @@
-import org.junit.jupiter.api.BeforeAll;
+package app.model;
+
+
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ class StateTest {
                 }
             }
         }
-        for (State state : lifeStates) {
+        for (State state : percolateStates) {
             for (int[] rule : state.getRulesForState()) {
                 if (state.getMyState() != rule[0]) {
                     testBool = false;

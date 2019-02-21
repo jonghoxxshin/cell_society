@@ -1,19 +1,25 @@
+package app.model;
+
+import app.model.Cell;
+
+
 public class Board {
     Cell[][] cells;
     private int myWidth;
     private int myHeight;
+    private String myGame;
 
-    //Board Constructor
-    public Board(int height, int width) {
-        myHeight = height;
-        myWidth = width;
-        cells = new Cell[width][height];
-        //setUpBoardFromCSV();
+    //app.model.Board Constructor
+    public Board(String game) {
+        myGame = game;
+        CSVParser parser = new CSVParser(game);
+        cells = parser.getCells();
+        myHeight = parser.getMyHeight();
+        myWidth = parser.getMyWidth();
     }
 
-
     //Update board's expectedCells based on current cell configuration
-    private void updateBoard(Rules rules) {
+    public void updateBoard(Rules rules) {
         Cell[][] tempCells = new Cell[myWidth][myHeight];
         for (Cell[] row : cells) {
             for (Cell cell : row) {
