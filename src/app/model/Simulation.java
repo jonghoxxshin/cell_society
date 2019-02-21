@@ -2,10 +2,35 @@ package app.model;
 
 public class Simulation {
 
+    private Board myBoard;
+    private Cell[][] myCells;
+    private Rules myRules;
+
+
+    public Simulation(Board board, Rules rule){
+        myBoard = board;
+        myCells = board.getCells();
+        myRules = rule;
+    }
+
+    public void nextStep(){
+        myBoard.updateBoard(myRules);
+
+    }
+
+
+
+
+
+
     double timeTillChange; // note - represent in seconds?
     double probability; // probability we successfully move from one state to another on an event defined in app.model.Rules.
                         // In a normal game, this would be 100%, but in another game, user defined
                         // so, we'd want smulation
+
+
+
+
 
     // if we're using java fx, e
 

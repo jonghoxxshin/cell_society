@@ -16,6 +16,7 @@ public class Board {
         cells = parser.getCells();
         myHeight = parser.getMyHeight();
         myWidth = parser.getMyWidth();
+
     }
 
     //Update board's expectedCells based on current cell configuration
