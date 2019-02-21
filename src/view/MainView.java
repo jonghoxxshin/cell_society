@@ -2,6 +2,7 @@ package view;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,6 +16,9 @@ import javafx.scene.layout.VBox;
 import javax.swing.*;
 
 public class MainView {
+    public static final int VIEW_WIDTH = 1000;
+    public static final int VIEW_HEIGHT = 600;
+    private BoardView myBoardView;
     private Scene myScene;
     private Button myButton1;
     private Button myButton2;
@@ -26,21 +30,19 @@ public class MainView {
 
 
 
-    public MainView() {
+    public MainView(BoardView bv) {
+        myBoardView = bv;
         BorderPane root = new BorderPane();
 //        root.setCenter(this.makeGrid());
         root.setTop(this.makeTop());
         root.setBottom(this.makeBottom());
-        myScene = new Scene(root, 800, 800);
+        root.setCenter(this.makeCenter());
+        myScene = new Scene(root, VIEW_WIDTH, VIEW_HEIGHT);
 
 
     }
 
     public Scene getScene(){return myScene;}
-
-//    private Node makeGrid(){
-////
-////    }
 
 
     private void back(){}
@@ -55,6 +57,12 @@ public class MainView {
         myLabel = new Label("hi");
         myLabel.setText("hello");
         return myLabel;
+    }
+
+    private Node makeCenter(){
+        var result = new Group();
+        result = myBoardView.getMyRoot();
+        return result;
     }
 
     private Button makeButton(String name, EventHandler<ActionEvent> handler){

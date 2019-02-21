@@ -1,3 +1,6 @@
+package model;
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -76,9 +79,23 @@ public class RulesParser {
         return possibleStates;
     }
 
-    // return possibleStates, ArrayList of State objects
+
+
+    // return possibleStates, ArrayList of model.State objects
     public ArrayList<State> getPossibleStates(){
         return possibleStates;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public ArrayList<Integer> getStateArray() {
+        return stateArray;
+    }
+
+    public ArrayList<int[]> getRulesArray() {
+        return rulesArray;
     }
 
 }

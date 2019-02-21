@@ -1,3 +1,5 @@
+package view;
+
 public class StartButton extends Button {
 
     public void onPress(){

@@ -1,4 +1,5 @@
-import org.junit.jupiter.api.BeforeEach;
+import model.Rules;
+import model.State;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

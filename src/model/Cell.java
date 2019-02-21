@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+package model;
 
 public class Cell {
     private static final int[][] NEIGHBORS = {{-1, -1}, {-1, 0}, {-1, +1}, { 0, -1}, { 0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
@@ -12,7 +12,7 @@ public class Cell {
     //Need to get size from CSV FILE:
     private static final int TEMP_SIZE  = 100;
 
-    //Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
+    //model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
     public Cell(int state, int x, int y, int boardHeight, int boardWidth){
         myState = state;
         myX = x;
@@ -75,7 +75,7 @@ public class Cell {
         return count;
     }
 
-    //for current cell, get next state based on a given Rules object
+    //for current cell, get next state based on a given model.Rules object
     public int getNextState(Rules currentRules, Board board) {
         for (State state : currentRules.getPossibleStates()) {
             if (myState == state.getMyState()){
@@ -131,6 +131,6 @@ public class Cell {
     @Override
     //convert cell data to easily readable string
     public String toString() {
-        return "Cell with state " + this.myState + " and x is " + this.myX + " and y is " + this.myY;
+        return "model.Cell with state " + this.myState + " and x is " + this.myX + " and y is " + this.myY;
     }
 }

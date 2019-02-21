@@ -1,9 +1,12 @@
+package model;
+
 import java.util.ArrayList;
 
 public class Rules {
     private static final String LIFE = "life";
     private static final String PERCOLATE = "percolate";
     private ArrayList<State> possibleStates;
+    private RulesParser myRulesParser;
 
     //Sets up rules by updating possibleStates ArrayList
     public Rules(String game) {
@@ -16,13 +19,14 @@ public class Rules {
 
     //Setup rules for the specific game
     private void rulesSetup (String game) {
-        RulesParser myRulesParser = new RulesParser(game);
+        myRulesParser = new RulesParser(game);
         this.possibleStates = myRulesParser.getPossibleStates();
     }
 
-    //Get Rules For a Game
+    //Get model.Rules For a Game
     public ArrayList<State> getPossibleStates(){
         return possibleStates;
     }
+    public RulesParser getMyRulesParser(){return myRulesParser;}
 
 }

@@ -1,12 +1,12 @@
 
 ##
-How does a Cell know what rules to apply for its simulation?
+How does a model.Cell know what rules to apply for its simulation?
 
     The cell will be an abstract class with a method that can be called to determine which rule to apply dependent on the neighbors.
 ##
-How does a Cell know about its neighbors? How can it update itself without affecting its neighbors update?
+How does a model.Cell know about its neighbors? How can it update itself without affecting its neighbors update?
 
-    Cell is able to access the neighbors through assigned instance varibales when instantiated.
+    model.Cell is able to access the neighbors through assigned instance varibales when instantiated.
 ##
 What behaviors does the Grid itself have? How can it update all of the Cells it contains?
 
