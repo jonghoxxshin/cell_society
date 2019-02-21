@@ -4,7 +4,7 @@ import app.model.Cell;
 
 
 public class Board {
-    public static final String csvName = "GameOfLifeConfig.csv";
+    public static final String csvName = "GameOfLifeConfig1.csv";
 
     Cell[][] cells;
     private int myWidth;

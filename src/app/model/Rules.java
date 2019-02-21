@@ -3,20 +3,20 @@ package app.model;
 import java.util.ArrayList;
 
 public class Rules {
-    private static final String LIFE = "life";
-    private static final String PERCOLATE = "percolate";
+    private static final String LIFE = "GameOfLife";
+    private static final String PERCOLATE = "Percolation";
     private ArrayList<State> possibleStates;
     private RulesParser myRulesParser;
 
     //Sets up rules by updating possibleStates ArrayList
     public Rules(String game) {
+        String trimmedGame = game.split("Config")[0];
 
-        if (game.equals(LIFE)) {
+        if (trimmedGame.equals(LIFE)) {
+            rulesSetup(trimmedGame);
+        } else if (trimmedGame.equals(PERCOLATE)) {
+            rulesSetup(trimmedGame);
 
-            rulesSetup(game);
-        } else if (game.equals(PERCOLATE)) {
-
-            rulesSetup(game);
         }
     }
 

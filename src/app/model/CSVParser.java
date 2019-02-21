@@ -22,8 +22,8 @@ public class CSVParser {
 
         String[] dimensions = csvScanner.next().split(",");
 
-        this.myWidth = Integer.parseInt(dimensions[0]);
-        this.myHeight = Integer.parseInt(dimensions[1]);
+        this.myWidth = Integer.parseInt(dimensions[1]);
+        this.myHeight = Integer.parseInt(dimensions[0]);
 
         Cell[][] cellsGenerated = new Cell[myWidth][myHeight];
 

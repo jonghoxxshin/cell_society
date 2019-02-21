@@ -12,7 +12,7 @@ class RulesParserTest {
 
     @Test
     void getPossibleStatesForLife() {
-        RulesParser myRulesParser = new RulesParser("life");
+        RulesParser myRulesParser = new RulesParser("GameOfLife");
         Boolean myTestBool = true;
         ArrayList<Integer> expectedStates = new ArrayList<Integer>();
         expectedStates.add(0);
@@ -30,7 +30,7 @@ class RulesParserTest {
 
     @Test
     void getPossibleStatesForPercolate() {
-        RulesParser myRulesParser = new RulesParser("percolate");
+        RulesParser myRulesParser = new RulesParser("Percolation");
         Boolean myTestBool = true;
         ArrayList<Integer> expectedStates = new ArrayList<Integer>();
         expectedStates.add(0);
