@@ -10,6 +10,7 @@ instance variable for RulesParser
 HashMap of Integer,Integer
 --> eventually going to need that when constructing the Rules object
 
+
 currentLine = myScanner.next();
 lineSplit = currentLine.split("\\s+");
 int currentState = Integer.parseInt(lineSplit[0]);

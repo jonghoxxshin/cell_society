@@ -1,3 +1,5 @@
+package app.model;
+
 import java.util.Scanner;
 
 public class CSVParser {
@@ -13,6 +15,7 @@ public class CSVParser {
     }
 
     private Cell[][] generateCells(String filename){
+
         Scanner csvScanner = new Scanner(CSVParser.class.getClassLoader().getResourceAsStream(filename));
 
         this.gameType = csvScanner.next();
@@ -22,14 +25,13 @@ public class CSVParser {
         this.myWidth = Integer.parseInt(dimensions[0]);
         this.myHeight = Integer.parseInt(dimensions[1]);
 
-        Cell[][] cellsGenerated = new Cell[myHeight][myWidth];
+        Cell[][] cellsGenerated = new Cell[myWidth][myHeight];
 
         for(int i=0; i<myHeight; i++){
             String[] currentRow = csvScanner.next().split(",");
 
             for(int j=0; j<myWidth; j++){
                 cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth);
-
             }
         }
         return cellsGenerated;
@@ -51,8 +53,5 @@ public class CSVParser {
         return cells;
     }
 
-    public static void main(String[] args){
-        CSVParser test = new CSVParser("GameOfLifeConfig.csv");
-    }
 
 }
