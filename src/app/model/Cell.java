@@ -78,7 +78,6 @@ public class Cell {
     //for current cell, get next state based on a given app.model.Rules object
     public int getNextState(Rules currentRules, Board board) {
         for (State state : currentRules.getPossibleStates()) {
-
             if (myState == state.getMyState()){
                 for (int[] rule : state.getRulesForState()) {
                     int actual = findNumberOfNeighborsInState(rule[1], neighbors, board);
@@ -88,7 +87,7 @@ public class Cell {
                 }
             }
         }
-        return -1;
+        return myState;
     }
 
     //set cell state
