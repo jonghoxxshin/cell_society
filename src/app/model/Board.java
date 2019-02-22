@@ -12,6 +12,7 @@ public class Board {
     private String myGame;
 
 
+
     //app.model.Board Constructor
     public Board(String game) {
         myGame = game;
@@ -24,7 +25,7 @@ public class Board {
     }
 
     //Update board's expectedCells based on current cell configuration
-    public void updateBoard(Rules rules) {
+    public Cell[][] updateBoard(Rules rules) {
         Cell[][] tempCells = new Cell[myWidth][myHeight];
         for(int i =0; i<myWidth;i++){
             for(int j =0; j<myHeight;j++){
@@ -33,18 +34,14 @@ public class Board {
                 tempCells[i][j] = tempCell;
             }
         }
-
-//        for (Cell[] row : cells) {
-//            for (Cell thisCell : row) {
-//                System.out.println(thisCell.getMyX());
-//                int tempX = thisCell.getMyX();
-//                int tempY = thisCell.getMyY();
-//
-//                Cell tempCell = new Cell(thisCell.getNextState(rules, this), tempX, tempY, myHeight, myWidth);
-//                tempCells[tempX][tempY] = tempCell;
-//            }
-//        }
+        for(int i=0;i<5;i++){
+            for(int j =0; j<5; j++){
+                System.out.println("At " + i + " " + j);
+                System.out.println(tempCells[i][j].getMyState());
+            }
+        }
         cells = tempCells;
+        return tempCells;
     }
 
     //get expectedCells array

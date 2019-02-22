@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -17,6 +18,7 @@ public class MainView {
     public static final int VIEW_WIDTH = 1000;
     public static final int VIEW_HEIGHT = 600;
     private BoardView myBoardView;
+    private BorderPane myRoot;
     private Scene myScene;
     private Button myButton1;
     private Button myButton2;
@@ -30,12 +32,12 @@ public class MainView {
 
     public MainView(BoardView bv) {
         myBoardView = bv;
-        BorderPane root = new BorderPane();
-        root.setTop(this.makeTop());
-        root.setBottom(this.makeBottom());
-        root.setCenter(this.makeCenter());
+        myRoot = new BorderPane();
+        myRoot.setTop(this.makeTop());
+        myRoot.setBottom(this.makeBottom());
+        myRoot.setCenter(this.makeCenter());
 
-        myScene = new Scene(root, VIEW_WIDTH, VIEW_HEIGHT);
+        myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
 
 
     }
@@ -91,6 +93,16 @@ public class MainView {
         myButton1 = makeButton("submit", e->this.back());
         result.getChildren().add(myButton1);
         return result;
+    }
+
+
+    public void setMyBoardView(BoardView bv){
+        myBoardView = bv;
+        myRoot.setCenter(bv.getMyRoot());
+    }
+
+    public BoardView getMyBoardView(){
+        return myBoardView;
     }
 
 

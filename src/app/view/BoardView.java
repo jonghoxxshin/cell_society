@@ -1,5 +1,6 @@
 package app.view;
 
+import app.model.Board;
 import javafx.scene.Group;
 
 import javafx.scene.Scene;
@@ -35,16 +36,21 @@ public class BoardView {
     public Rectangle[][] getMyBoard(){return myColorBoard;}
     public Group getMyRoot(){return myRoot;}
 
+    public void updateBoard(Board board){
+        myBoard = board.getCells();
+        myRoot = createColorBoard(myBoardWidth,myBoardHeight);
+    }
+
     private Group createColorBoard(int width_num, int height_num){
         var result = new Group();
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){
                 Rectangle r = new Rectangle(cellWidth,cellHeight);
-
                 Cell c = myBoard[i][j];
+                System.out.println("this is cell state" + c.getMyState());
                 if(c.getMyState()==0){
                     r.setFill(Color.WHITE);
-                }else{
+                }else if(c.getMyState()==1){
                     r.setFill(Color.BLACK);
                 }
                 myColorBoard[i][j] = r;
@@ -54,9 +60,9 @@ public class BoardView {
                 result.getChildren().add(r);
             }
         }
-
         return result;
     }
+
 
     private int[] getLocation(int i, int j, int width_num, int height_num){
         int[] result = new int[2];

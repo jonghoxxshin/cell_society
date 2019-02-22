@@ -22,7 +22,6 @@ public class Start extends Application {
         Board b = new Board("GameOfLifeConfig1.csv");
         Rules r = new Rules("GameOfLifeConfig1.csv");
 
-
         BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells());
         SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT);
         //MainView mv = new MainView(new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells())); this responsibility will be moved to simulationController
