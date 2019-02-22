@@ -12,10 +12,11 @@ public class CSVParser {
 
     public CSVParser(String filename){
         this.cells = generateCells(filename);
+        System.out.println(filename);
     }
 
     private Cell[][] generateCells(String filename){
-
+        System.out.println(filename);
         Scanner csvScanner = new Scanner(CSVParser.class.getClassLoader().getResourceAsStream(filename));
 
         this.gameType = csvScanner.next();
@@ -31,7 +32,7 @@ public class CSVParser {
             String[] currentRow = csvScanner.next().split(",");
 
             for(int j=0; j<myWidth; j++){
-                cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth);
+                cellsGenerated[j][i] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth);
             }
         }
         return cellsGenerated;

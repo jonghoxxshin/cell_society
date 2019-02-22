@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import app.model.Cell;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 
@@ -52,6 +53,8 @@ public class BoardView {
                     r.setFill(Color.WHITE);
                 }else if(c.getMyState()==1){
                     r.setFill(Color.BLACK);
+                }else if(c.getMyState()==2){
+                    r.setFill(Color.BLUE);
                 }
                 myColorBoard[i][j] = r;
                 int[] loc = getLocation(i,j,width_num,height_num);

@@ -4,7 +4,6 @@ import app.model.Cell;
 
 
 public class Board {
-    public static final String csvName = "GameOfLifeConfig1.csv";
 
     Cell[][] cells;
     private int myWidth;
@@ -16,7 +15,7 @@ public class Board {
     //app.model.Board Constructor
     public Board(String game) {
         myGame = game;
-        CSVParser parser = new CSVParser(csvName);
+        CSVParser parser = new CSVParser(game);
         cells = parser.getCells();
         myHeight = parser.getMyHeight();
         myWidth = parser.getMyWidth();
