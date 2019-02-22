@@ -5,7 +5,7 @@ public class Simulation {
     private Board myBoard;
     private Cell[][] myCells;
     private Rules myRules;
-
+    private boolean start;
 
     public Simulation(Board board, Rules rule){
         myBoard = board;
@@ -14,10 +14,16 @@ public class Simulation {
     }
 
     public void nextStep(){
-        myBoard.updateBoard(myRules);
 
+        if(start)myCells = myBoard.updateBoard(myRules);
     }
 
+    public void startSimulation(){
+        start = true;
+    }
+    public Cell[][] getMyCells(){
+        return myCells;
+    }
 
 
 

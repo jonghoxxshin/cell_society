@@ -77,6 +77,7 @@ public class Cell {
 
     //for current cell, get next state based on a given app.model.Rules object
     public int getNextState(Rules currentRules, Board board) {
+        System.out.println(currentRules.getPossibleStates().toArray());
         for (State state : currentRules.getPossibleStates()) {
             if (myState == state.getMyState()){
                 for (int[] rule : state.getRulesForState()) {
@@ -87,7 +88,7 @@ public class Cell {
                 }
             }
         }
-        return myState;
+        return 0;
     }
 
     //set cell state

@@ -22,17 +22,20 @@ public class SimulationController {
     private Board myBoard;
     private Rules myRules;
     private MainView myMainView;
+    private BoardView myBoardView;
 
-    public SimulationController( int height, int width){//Will change to instantiating simulation and simulationView inside controller, not as input
-        myBoard = new Board("GameOfLifeConfig1.csv");
-        myRules = new Rules("GameOfLifeConfig1.csv");
+    public SimulationController( int height, int width, String game){//Will change to instantiating simulation and simulationView inside controller, not as input
+        myBoard = new Board(game);
+        myRules = new Rules(game);
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells());
         mySimulationModel = new Simulation(myBoard,myRules);
-        mySimulationView = new SimulationView(new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells()));
+        mySimulationView = new SimulationView(myBoardView);
         appHeight = height;
         appWidth = width;
-        myFramesPerSecond = 2;//magic number that is set for now, need to be changed into form of input later
+        myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
         setUpScene();
         setTimeline();
+        mySimulationModel.startSimulation();
     }
 
     public Scene getMyScene(){return myScene;}
@@ -45,8 +48,13 @@ public class SimulationController {
         return new KeyFrame(Duration.millis(1000/myFramesPerSecond), e -> next(1.0/myFramesPerSecond));
     }
 
-    private void next(double elaspedTime){
-        if(mySimulationModel!=null){mySimulationModel.nextStep();}
+    private void next(double elaspedTime) {//need to update model and view for each step
+        if (mySimulationModel != null) {
+            mySimulationModel.nextStep();
+            System.out.println(mySimulationModel.getMyCells());
+        }
+        myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells()));
+
     }
 
     private void setTimeline(){
@@ -57,10 +65,9 @@ public class SimulationController {
     }
 
     private void setUpScene(){
-        myMainView = new MainView(new BoardView(5,5,myBoard.getCells()));
+        myMainView = new MainView(myBoardView);
         myScene = myMainView.getScene();
     }
-
 
     public void pauseSimulation(){
         myAnimation.pause();

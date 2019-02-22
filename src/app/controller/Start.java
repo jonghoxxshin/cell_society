@@ -13,18 +13,15 @@ public class Start extends Application {
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 600;
 
-
-
-    private String myGame;
     @Override
     public void start(Stage stage) throws Exception {
+        String game = "GameOfLifeConfig1.csv";
 
-        Board b = new Board("GameOfLifeConfig1.csv");
-        Rules r = new Rules("GameOfLifeConfig1.csv");
-
+        Board b = new Board(game);
+        Rules r = new Rules(game);
 
         BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells());
-        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT);
+        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT,game);
         //MainView mv = new MainView(new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells())); this responsibility will be moved to simulationController
         stage.setTitle(TITLE);
         stage.setScene(simulationController.getMyScene());
