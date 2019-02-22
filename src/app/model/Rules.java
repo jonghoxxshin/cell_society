@@ -11,6 +11,7 @@ public class Rules {
     //Sets up rules by updating possibleStates ArrayList
     public Rules(String game) {
         String trimmedGame = game.split("Config")[0];
+        System.out.println(trimmedGame);
 
         if (trimmedGame.equals(LIFE)) {
             rulesSetup(trimmedGame);

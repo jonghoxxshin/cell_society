@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RulesTest {
 
-    private static final String LIFE = "life";
-    private static final String PERCOLATE = "percolate";
+    private static final String LIFE = "GameOfLifeConfig1.csv";
+    private static final String PERCOLATE= "PercolationConfig1.csv";
 
 
     @Test
