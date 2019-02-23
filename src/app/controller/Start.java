@@ -12,11 +12,11 @@ public class Start extends Application {
     public static final String TITLE = "CELL SIMULATION";
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 600;
-    public static int configNumber = 3;
+    public static int configNumber = 1;
 
     @Override
     public void start(Stage stage) throws Exception {
-        String game = "GameOfLife";
+        String game = "Percolation";
 
         Board b = new Board(game, configNumber);
         Rules r = new Rules(game);
