@@ -19,8 +19,8 @@ public class CSVParserTest {
     @BeforeEach
     void setup(){
         // generate the object to be tested
-        this.filename = "GameOfLifeConfig1.csv";
-        this.tester = new CSVParser(filename);
+        this.filename = "GameOfLife";
+        this.tester = new CSVParser(filename, 1);
 
         // manually create parameters
         this.gameType = "GameOfLife";
@@ -32,10 +32,10 @@ public class CSVParserTest {
         for(int i=0; i<myHeight; i++){
             for(int j=0; j<myWidth; j++){
                 if(i==j){
-                    expectedCells[i][j] = new Cell(1, j, i, myHeight, myWidth);
+                    expectedCells[j][i] = new Cell(1, j, i, myHeight, myWidth);
                 }
                 else{
-                    expectedCells[i][j] = new Cell(0, j, i, myHeight, myWidth);
+                    expectedCells[j][i] = new Cell(0, j, i, myHeight, myWidth);
                 }
             }
         }

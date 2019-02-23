@@ -10,8 +10,7 @@ public class Rules {
 
     //Sets up rules by updating possibleStates ArrayList
     public Rules(String game) {
-        String trimmedGame = game.split("Config")[0];
-        rulesSetup(trimmedGame);
+        rulesSetup(game);
     }
 
     //Setup rules for the specific game

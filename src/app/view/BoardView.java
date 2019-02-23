@@ -48,7 +48,7 @@ public class BoardView {
             for(int j=0; j<height_num;j++){
                 Rectangle r = new Rectangle(cellWidth,cellHeight);
                 Cell c = myBoard[i][j];
-                System.out.println("this is cell state" + c.getMyState());
+                //System.out.println("this is cell state" + c.getMyState());
                 if(c.getMyState()==0){
                     r.setFill(Color.WHITE);
                 }else if(c.getMyState()==1){

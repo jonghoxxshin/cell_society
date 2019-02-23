@@ -28,10 +28,13 @@ public class SimulationController {
     private int appWidth;
     private boolean startSimulation;
 
-    public SimulationController( int height, int width, String game){//Will change to instantiating simulation and simulationView inside controller, not as input
-        myBoard = new Board(game);
+
+
+    public SimulationController( int height, int width, String game, int config){//Will change to instantiating simulation and simulationView inside controller, not as input
+        myBoard = new Board(game, config);
+
         myRules = new Rules(game);
-        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells());
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells());
         mySimulationModel = new Simulation(myBoard,myRules);
         mySimulationView = new SimulationView(myBoardView);
         appHeight = height;
@@ -55,17 +58,16 @@ public class SimulationController {
     }
 
     private void next(double elaspedTime) {//need to update model and view for each step
-        startSimulation = myMainView.getMyStartBoolean();
+         startSimulation = myMainView.getMyStartBoolean();
         System.out.println(startSimulation);
-        if(startSimulation) {
-            System.out.println("came in");
+        if (startSimulation) {
             if (mySimulationModel != null) {
-                System.out.println("next step");
+                mySimulationModel.printMyCells();
                 mySimulationModel.nextStep();
             }
-            myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells()));
-        }
+            //myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells()));
 
+        }
     }
 
 

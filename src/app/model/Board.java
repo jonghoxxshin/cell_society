@@ -13,9 +13,9 @@ public class Board {
 
 
     //app.model.Board Constructor
-    public Board(String game) {
+    public Board(String game, int config) {
         myGame = game;
-        CSVParser parser = new CSVParser(game);
+        CSVParser parser = new CSVParser(game, config);
         cells = parser.getCells();
         myHeight = parser.getMyHeight();
         myWidth = parser.getMyWidth();
