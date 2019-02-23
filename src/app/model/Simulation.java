@@ -14,15 +14,25 @@ public class Simulation {
     }
 
     public void nextStep(){
-
         if(start)myCells = myBoard.updateBoard(myRules);
     }
 
     public void startSimulation(){
         start = true;
     }
+
     public Cell[][] getMyCells(){
         return myCells;
+    }
+
+    public void printMyCells(){
+        for (int i = 0; i < myCells.length; i++) {
+            for (int j = 0; j < myCells[i].length; j++){
+                System.out.print(i + ",");
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
 

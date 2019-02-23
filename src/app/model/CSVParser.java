@@ -36,11 +36,9 @@ public class CSVParser {
             }
         }
         this.cells = generateCells(csvGame);
-        //System.out.println(csvGame);
     }
 
     private Cell[][] generateCells(String filename){
-        System.out.println(filename);
         Scanner csvScanner = new Scanner(CSVParser.class.getClassLoader().getResourceAsStream(filename));
 
         this.gameType = csvScanner.next();
