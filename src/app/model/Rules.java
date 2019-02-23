@@ -3,8 +3,6 @@ package app.model;
 import java.util.ArrayList;
 
 public class Rules {
-    private static final String LIFE = "GameOfLife";
-    private static final String PERCOLATE = "Percolation";
     private ArrayList<State> possibleStates;
     private RulesParser myRulesParser;
 

@@ -13,6 +13,7 @@ public class CSVParser {
     private static final String PERCOLATION_1 = "PercolationConfig1.csv";
     private static final String PERCOLATION_2 = "PercolationConfig2.csv";
     private static final String PERCOLATION_3 = "PercolationConfig3.csv";
+    private static final String RPS_1 = "RockPaperScissorsConfig1.csv";
 
     private Cell[][] cells;
 
@@ -34,6 +35,8 @@ public class CSVParser {
             }else if (config == 3) {
                 csvGame = PERCOLATION_3;
             }
+        } else if (filename.equals("RockPaperScissors")) {
+            csvGame = RPS_1;
         }
         this.cells = generateCells(csvGame);
     }

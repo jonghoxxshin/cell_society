@@ -16,7 +16,7 @@ public class Start extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        String game = "Percolation";
+        String game = "RockPaperScissors";
 
         Board b = new Board(game, configNumber);
         Rules r = new Rules(game);
