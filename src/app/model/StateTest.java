@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StateTest {
-    private static Rules lifeRules  = new Rules("GameOfLifeConfig1.csv");
+    private static Rules lifeRules  = new Rules("GameOfLife");
     private static ArrayList<State> lifeStates = lifeRules.getPossibleStates();
-    private static Rules percolateRules = new Rules("PercolationConfig1.csv");
+    private static Rules percolateRules = new Rules("Percolation");
     private static ArrayList<State> percolateStates = percolateRules.getPossibleStates();
     private  Boolean testBool;
 

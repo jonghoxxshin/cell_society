@@ -62,11 +62,11 @@ class CellTest {
 
     @Test
     void getNextStateLife() {
-        Rules myRules = new Rules("life");
+        Rules myRules = new Rules("GameOfLife");
     }
 
     void getNextStatePercolate() {
-        Rules myRules = new Rules("percolate");
+        Rules myRules = new Rules("Percolation");
     }
 
 }
