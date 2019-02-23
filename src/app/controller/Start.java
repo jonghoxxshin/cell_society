@@ -17,11 +17,11 @@ public class Start extends Application {
     public void start(Stage stage) throws Exception {
         String game = "GameOfLife";
 
-        Board b = new Board(game);
+        Board b = new Board(game, 1);
         Rules r = new Rules(game);
 
         BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells());
-        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT,game);
+        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT,game, 1);
         //MainView mv = new MainView(new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells())); this responsibility will be moved to simulationController
         stage.setTitle(TITLE);
         stage.setScene(simulationController.getMyScene());

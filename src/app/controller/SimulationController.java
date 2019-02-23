@@ -24,8 +24,8 @@ public class SimulationController {
     private MainView myMainView;
     private BoardView myBoardView;
 
-    public SimulationController( int height, int width, String game){//Will change to instantiating simulation and simulationView inside controller, not as input
-        myBoard = new Board(game);
+    public SimulationController( int height, int width, String game, int config){//Will change to instantiating simulation and simulationView inside controller, not as input
+        myBoard = new Board(game, config);
         myRules = new Rules(game);
         myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells());
         mySimulationModel = new Simulation(myBoard,myRules);
