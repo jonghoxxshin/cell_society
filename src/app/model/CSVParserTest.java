@@ -32,10 +32,10 @@ public class CSVParserTest {
         for(int i=0; i<myHeight; i++){
             for(int j=0; j<myWidth; j++){
                 if(i==j){
-                    expectedCells[i][j] = new Cell(1, j, i, myHeight, myWidth);
+                    expectedCells[j][i] = new Cell(1, j, i, myHeight, myWidth);
                 }
                 else{
-                    expectedCells[i][j] = new Cell(0, j, i, myHeight, myWidth);
+                    expectedCells[j][i] = new Cell(0, j, i, myHeight, myWidth);
                 }
             }
         }
