@@ -19,8 +19,8 @@ public class CSVParserTest {
     @BeforeEach
     void setup(){
         // generate the object to be tested
-        this.filename = "GameOfLifeConfig1.csv";
-        this.tester = new CSVParser(filename);
+        this.filename = "GameOfLife";
+        this.tester = new CSVParser(filename, 1);
 
         // manually create parameters
         this.gameType = "GameOfLife";
