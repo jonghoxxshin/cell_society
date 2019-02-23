@@ -19,8 +19,6 @@ public class Board {
         cells = parser.getCells();
         myHeight = parser.getMyHeight();
         myWidth = parser.getMyWidth();
-
-
     }
 
     //Update board's expectedCells based on current cell configuration
@@ -31,12 +29,6 @@ public class Board {
                 Cell thisCell = cells[i][j];
                 Cell tempCell = new Cell(thisCell.getNextState(rules, this), i,j,myHeight,myWidth);
                 tempCells[i][j] = tempCell;
-            }
-        }
-        for(int i=0;i<5;i++){
-            for(int j =0; j<5; j++){
-                System.out.println("At " + i + " " + j);
-                System.out.println(tempCells[i][j].getMyState());
             }
         }
         cells = tempCells;

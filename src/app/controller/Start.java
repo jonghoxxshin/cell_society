@@ -15,7 +15,7 @@ public class Start extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        String game = "PercolationConfig1.csv";
+        String game = "GameOfLifeConfig1.csv";
 
         Board b = new Board(game);
         Rules r = new Rules(game);

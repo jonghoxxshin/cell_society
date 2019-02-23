@@ -9,7 +9,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -23,33 +22,42 @@ public class MainView {
     private Button myButton1;
     private Button myButton2;
     private Button myButton3;
+    private Button myButton4;
+    private Button myButton5;
     private TextField myTextInput;
     private Label myLabel;
     private ComboBox<String> myCombobox;
     private Button mySubmitButton;
 
+    private boolean myStartBoolean;
+
 
 
     public MainView(BoardView bv) {
+        myStartBoolean = false;
         myBoardView = bv;
         myRoot = new BorderPane();
         myRoot.setTop(this.makeTop());
         myRoot.setBottom(this.makeBottom());
         myRoot.setCenter(this.makeCenter());
-
         myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
-
-
     }
 
     public Scene getScene(){return myScene;}
+    public boolean getMyStartBoolean(){return myStartBoolean;}
 
 
     private void back(){}
 
+
+
+    private void start(){
+        myStartBoolean = true;
+    }
+
     private Node makeTop(){
         var result = new HBox();
-        result.getChildren().add(makeNavigationPane());
+        result.getChildren().add(makeControlPane());
         return result;
     }
 
@@ -82,16 +90,20 @@ public class MainView {
 
 
 
-    private Node makeNavigationPane(){
+    private Node makeControlPane(){
         var result = new HBox();
         myButton2 = makeButton("next", e->this.back());
         result.getChildren().add(myButton2);
         myButton3 = makeButton("before", e->this.back());
         result.getChildren().add(myButton3);
-        myTextInput = makeTextInput(40, e->this.back());
+        myTextInput = makeTextInput(20, e->this.back());
         result.getChildren().add(myTextInput);
         myButton1 = makeButton("submit", e->this.back());
         result.getChildren().add(myButton1);
+        myButton4 = makeButton("start", e->this.start());
+        result.getChildren().add(myButton4);
+        myButton5 = makeButton("speed up", e-> this.back());
+        result.getChildren().add(myButton5);
         return result;
     }
 
