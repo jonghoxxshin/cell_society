@@ -10,6 +10,10 @@ import java.util.ArrayList;
 public class RulesParser {
     private static final String LIFE_RULES = "GameOfLifeRules.txt";
     private static final String PERCOLATE_RULES = "PercolationRules.txt";
+    private static final String RPS_RULES = "RockPaperScissorsRules.txt";
+    private static final String SEGREGATION_RULES = "SegregationRules.txt";
+    private static final String PREDATORPREY_RULES = "PredatorPreyRules.txt";
+    private static final String FIRE_RULES = "FireRules.txt";
     private ArrayList<State> possibleStates;
     private String gameName;
     private ArrayList<Integer> stateArray;
@@ -20,13 +24,7 @@ public class RulesParser {
     public RulesParser(String game) {
         rulesArray = new ArrayList<int[]>();
         stateArray = new ArrayList<Integer>();
-        String fileName = null;
-        if (game.equals("GameOfLife")){
-            fileName = LIFE_RULES;
-        } else if (game.equals("Percolation")) {
-            fileName = PERCOLATE_RULES;
-        }
-        InputStream in = this.getClass().getClassLoader().getResourceAsStream(fileName);
+        InputStream in = this.getClass().getClassLoader().getResourceAsStream(getFileName(game));
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String currentLine = null;
         try{
@@ -48,6 +46,23 @@ public class RulesParser {
             System.out.println("Failed to read rules configuration file");
         }
         makeRules();
+    }
+
+    private String getFileName(String game){
+        if (game.equals("GameOfLife")){
+            return LIFE_RULES;
+        } else if (game.equals("Percolation")) {
+            return PERCOLATE_RULES;
+        } else if (game.equals("RockPaperScissors")) {
+            return RPS_RULES;
+        } else if (game.equals("Segregation")) {
+            return SEGREGATION_RULES;
+        } else if (game.equals("PredatorPrey")) {
+            return PREDATORPREY_RULES;
+        } else if (game.equals("Fire")) {
+            return FIRE_RULES;
+        }
+        return null;
     }
 
     //Parse line with rule from file

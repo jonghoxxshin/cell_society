@@ -14,9 +14,10 @@ public class Start extends Application {
     public static final int APP_HEIGHT = 600;
     public static int configNumber = 2;
 
+
     @Override
     public void start(Stage stage) throws Exception {
-        String game = "GameOfLife";
+        String game = "RockPaperScissors";
 
         Board b = new Board(game, configNumber);
         Rules r = new Rules(game);
