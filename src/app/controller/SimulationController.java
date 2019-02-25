@@ -62,10 +62,10 @@ public class SimulationController {
         System.out.println(startSimulation);
         if (startSimulation) {
             if (mySimulationModel != null) {
-                mySimulationModel.printMyCells();
+                //mySimulationModel.printMyCells();
                 mySimulationModel.nextStep();
             }
-            //myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells()));
+            myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells()));
 
         }
     }
