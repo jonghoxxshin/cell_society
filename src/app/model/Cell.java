@@ -1,7 +1,8 @@
 package app.model;
 
 public class Cell {
-    private static final int[][] NEIGHBORS = {{-1, -1}, {-1, 0}, {-1, +1}, { 0, -1}, { 0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
+    private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, { 0, -1}, { 0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
+    private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
     private int myX;
     private int myY;
     private int[][] neighbors;
@@ -9,8 +10,6 @@ public class Cell {
     private int boardHeight;
     private int boardWidth;
 
-    //Need to get size from CSV FILE:
-    private static final int TEMP_SIZE  = 100;
 
     //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
     public Cell(int state, int x, int y, int boardHeight, int boardWidth){
@@ -29,7 +28,7 @@ public class Cell {
         // code to get expectedNeighbors based on current cell's coordinates
         int[][] tempNeighbors = new int[8][2];
         for (int i=0; i<tempNeighbors.length; i++) {
-            tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS[i]);
+            tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_TYPE1[i]);
         }
         return tempNeighbors;
     }

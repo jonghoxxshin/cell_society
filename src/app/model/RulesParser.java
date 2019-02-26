@@ -16,6 +16,7 @@ public class RulesParser {
     private static final String FIRE_RULES = "FireRules.txt";
     private ArrayList<State> possibleStates;
     private String gameName;
+    private int type;
     private ArrayList<Integer> stateArray;
     private ArrayList<int[]> rulesArray;
 
@@ -40,7 +41,7 @@ public class RulesParser {
                 }
             }
             while ((currentLine = br.readLine()) != null) {
-                getRulesFromLine(currentLine);
+                getRulesFromLine(currentLine, type);
             }
         } catch (IOException e) {
             System.out.println("Failed to read rules configuration file");
@@ -66,7 +67,7 @@ public class RulesParser {
     }
 
     //Parse line with rule from file
-    private void getRulesFromLine (String line) {
+    private void getRulesFromLine (String line, int type) {
         String[] splitByWhiteSpace = line.split("\\s+");
         Integer startState = Integer.parseInt(splitByWhiteSpace[0]);
         Integer endState = Integer.parseInt(splitByWhiteSpace[2]);
