@@ -14,12 +14,18 @@ public class CSVParser {
     private static final String PERCOLATION_2 = "PercolationConfig2.csv";
     private static final String PERCOLATION_3 = "PercolationConfig3.csv";
     private static final String RPS_1 = "RockPaperScissorsConfig1.csv";
+    //Fix once we create new config files
+    private static final String FIRE_1 = "RockPaperScissorsConfig1.csv";
+    private static final String SEGREGATION_1 = "RockPaperScissorsConfig1.csv";
+    private static final String PREDATORPREY_1 = "RockPaperScissorsConfig1.csv";
+    private int neighborType;
 
     private Cell[][] cells;
 
     public CSVParser(String filename, int config){
         String csvGame = "";
         if (filename.equals("GameOfLife")) {
+            neighborType = 1;
             if (config == 1) {
                 csvGame = LIFE_1;
             } else if (config == 2) {
@@ -28,6 +34,7 @@ public class CSVParser {
                 csvGame = LIFE_3;
             }
         } else if (filename.equals("Percolation")) {
+            neighborType = 1;
             if (config == 1) {
                 csvGame = PERCOLATION_1;
             } else if (config == 2) {
@@ -36,7 +43,16 @@ public class CSVParser {
                 csvGame = PERCOLATION_3;
             }
         } else if (filename.equals("RockPaperScissors")) {
+            neighborType = 1;
             csvGame = RPS_1;
+        } else if (filename.equals("Segregation")){
+            csvGame = SEGREGATION_1;
+        }  else if (filename.equals("Fire")){
+            neighborType = 2;
+            csvGame = FIRE_1;
+        }  else if (filename.equals("PredatorPrey")){
+            neighborType = 2;
+            csvGame = PREDATORPREY_1;
         }
         this.cells = generateCells(csvGame);
     }
@@ -57,7 +73,7 @@ public class CSVParser {
             String[] currentRow = csvScanner.next().split(",");
 
             for(int j=0; j<myWidth; j++){
-                cellsGenerated[j][i] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth);
+                cellsGenerated[j][i] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType);
             }
         }
         return cellsGenerated;
@@ -77,6 +93,10 @@ public class CSVParser {
 
     public Cell[][] getCells() {
         return cells;
+    }
+
+    public int getNeighborType() {
+        return neighborType;
     }
 
 

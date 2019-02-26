@@ -50,7 +50,7 @@ public class SimulationController {
 
     private void next(double elaspedTime) {//need to update model and view for each step
         if (mySimulationModel != null) {
-            mySimulationModel.printMyCells();
+            //mySimulationModel.printMyCells();
             mySimulationModel.nextStep();
         }
         myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells()));

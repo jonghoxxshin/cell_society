@@ -19,6 +19,11 @@ public class RulesParser {
     private int type;
     private ArrayList<Integer> stateArray;
     private ArrayList<int[]> rulesArray;
+    private static int numberOfNeighbors;
+
+    //NEED TO REPLACE EVENTUALLY
+    private static final double probability = 0.3;
+
 
 
     //Read text file, update possibleStates, gameName, stateArray, and rulesArray from file
@@ -35,6 +40,10 @@ public class RulesParser {
             }
             currentLine = br.readLine();
             if (currentLine != null) {
+                type = Integer.parseInt(currentLine.replace("type:", ""));
+            }
+            currentLine = br.readLine();
+            if (currentLine != null) {
                 String[] splitLine = currentLine.replaceAll("\\s+","").split(",");
                 for (int i = 0; i < splitLine.length; i++){
                     stateArray.add(Integer.parseInt(splitLine[i]));
@@ -46,6 +55,7 @@ public class RulesParser {
         } catch (IOException e) {
             System.out.println("Failed to read rules configuration file");
         }
+        //printRulesArray();
         makeRules();
     }
 
@@ -70,20 +80,45 @@ public class RulesParser {
     private void getRulesFromLine (String line, int type) {
         String[] splitByWhiteSpace = line.split("\\s+");
         Integer startState = Integer.parseInt(splitByWhiteSpace[0]);
-        Integer endState = Integer.parseInt(splitByWhiteSpace[2]);
+        Integer endState = -1;
+        Integer altEndState = -1;
+        if (type == 4 ) {
+            endState = Integer.parseInt(splitByWhiteSpace[2].split(",")[0]);
+            altEndState = Integer.parseInt(splitByWhiteSpace[2].split(",")[1]);
+        } else {
+            endState = Integer.parseInt(splitByWhiteSpace[2]);
+        }
         String[] splitByColon = splitByWhiteSpace[1].split(":");
         Integer desiredNeighborState = Integer.parseInt(splitByColon[0]);
         String requiredAmount = splitByColon[1];
+
         if (requiredAmount.equals("x")) {
             for (int i = 0; i < 9; i++) {
                 int[] tempRuleArray = {startState, desiredNeighborState, i, endState};
                 rulesArray.add(tempRuleArray);
             }
+        } if (requiredAmount.equals("p")){
+            int min = getMinFromProbability();
+            for (int i = min; i < numberOfNeighbors+1; i++) {
+                int[] tempRuleArray = {startState, desiredNeighborState, i, endState};
+                rulesArray.add(tempRuleArray);
+            }
+
         }
         else{
-            int[] tempRuleArray = {startState, desiredNeighborState, Integer.parseInt(requiredAmount), endState};
+            int[] tempRuleArray = {startState, desiredNeighborState, Integer.parseInt(requiredAmount), endState, altEndState};
             rulesArray.add(tempRuleArray);
         }
+    }
+
+    //get minimum number of neighbors to satisfy condition for given priority
+    private int getMinFromProbability() {
+        if (type == 2) {
+            numberOfNeighbors = 4;
+        } else {
+            numberOfNeighbors = 9;
+        }
+        return (int) Math.ceil(numberOfNeighbors*probability);
     }
 
     //Add rules that appply to each state to a state object if possibleStates
@@ -96,6 +131,13 @@ public class RulesParser {
         return possibleStates;
     }
 
+    //print RulesArray
+    private void printRulesArray() {
+        System.out.println("Set of Rules:");
+        for (int[] rule : rulesArray) {
+            System.out.println("Initial: " + rule[0] + " Desired Neighbor: " + rule[1] + " Required Amount: " + rule[2] + " Final: " + rule[3] + " Alt: " + rule[4]) ;
+        }
+    }
 
 
     // return possibleStates, ArrayList of app.model.State objects

@@ -1,8 +1,11 @@
 package app.model;
 
+import java.util.ArrayList;
+
 public class Cell {
     private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, { 0, -1}, { 0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
     private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+    private int type;
     private int myX;
     private int myY;
     private int[][] neighbors;
@@ -12,13 +15,13 @@ public class Cell {
 
 
     //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
-    public Cell(int state, int x, int y, int boardHeight, int boardWidth){
+    public Cell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType){
         myState = state;
         myX = x;
         myY = y;
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
-
+        type = neighborType;
         neighbors = findNeighbors();
 
     }
@@ -26,9 +29,13 @@ public class Cell {
     //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
     private int[][] findNeighbors() {
         // code to get expectedNeighbors based on current cell's coordinates
-        int[][] tempNeighbors = new int[8][2];
+        int[][] tempNeighbors = getTempNeighborsForType();
         for (int i=0; i<tempNeighbors.length; i++) {
-            tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_TYPE1[i]);
+            if (type == 1) {
+                tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_TYPE1[i]);
+            } else  if (type == 2){
+                tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_TYPE2[i]);
+            }
         }
         return tempNeighbors;
     }
@@ -60,6 +67,15 @@ public class Cell {
 
         int[] toBeReturned = {tempX, tempY};
         return toBeReturned;
+    }
+
+    private int[][] getTempNeighborsForType(){
+        if (type == 2) {
+            int[][] tempNeighbors = new int[3][2];
+            return tempNeighbors;
+        }
+        int[][] returnNeighbors = new int[8][2];
+        return returnNeighbors;
     }
 
 
