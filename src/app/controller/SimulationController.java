@@ -12,11 +12,11 @@ import javafx.scene.Scene;
 import javafx.util.Duration;
 
 public class SimulationController {
+
     private Simulation mySimulationModel;
     private SimulationView mySimulationView;
 
     private Scene myScene;
-
     private Timeline myAnimation;
     private Board myBoard;
     private Rules myRules;
