@@ -12,8 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-
-import java.util.Enumeration;
 import java.util.ResourceBundle;
 
 
@@ -38,7 +36,7 @@ public class MainView {
 
 
     public MainView(BoardView bv, SimulationController sc) {
-        myProperties = ResourceBundle.getBundle("resources/resources");
+        myProperties = ResourceBundle.getBundle("resources");
         mySimulationController = sc;
         myStartBoolean = false;
         myBoardView = bv;

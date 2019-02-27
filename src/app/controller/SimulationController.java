@@ -77,6 +77,7 @@ public class SimulationController {
 
 
     private void setTimeline(){
+        if(myAnimation != null) myAnimation.stop();
         myAnimation = new Timeline();
         myAnimation.setCycleCount(Timeline.INDEFINITE);
         myAnimation.getKeyFrames().add(this.makeKeyFrame());
