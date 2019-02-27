@@ -94,17 +94,27 @@ public class MainView {
         var result = new HBox();
         myButton2 = makeButton("next", e->this.back());
         result.getChildren().add(myButton2);
-        myButton3 = makeButton("before", e->this.back());
+        myButton3 = makeButton("pause", e->this.pause());
         result.getChildren().add(myButton3);
         myTextInput = makeTextInput(20, e->this.back());
         result.getChildren().add(myTextInput);
-        myButton1 = makeButton("submit", e->this.back());
+        myButton1 = makeButton("new config", e->this.createConfig());
         result.getChildren().add(myButton1);
         myButton4 = makeButton("start", e->this.start());
         result.getChildren().add(myButton4);
         myButton5 = makeButton("speed up", e-> this.back());
         result.getChildren().add(myButton5);
         return result;
+    }
+
+    private void createConfig(){
+
+
+    }
+
+    private void pause(){
+        myStartBoolean = false;
+
     }
 
 
