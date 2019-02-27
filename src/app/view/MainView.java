@@ -1,12 +1,13 @@
 package app.view;
 
+import app.controller.SimulationController;
+import app.model.Simulation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
@@ -26,14 +27,14 @@ public class MainView {
     private Button myButton5;
     private TextField myTextInput;
     private Label myLabel;
-    private ComboBox<String> myCombobox;
-    private Button mySubmitButton;
+    private SimulationController mySimulationController;
 
     private boolean myStartBoolean;
 
 
 
-    public MainView(BoardView bv) {
+    public MainView(BoardView bv, SimulationController sc) {
+        mySimulationController = sc;
         myStartBoolean = false;
         myBoardView = bv;
         myRoot = new BorderPane();
@@ -44,11 +45,8 @@ public class MainView {
     }
 
     public Scene getScene(){return myScene;}
+
     public boolean getMyStartBoolean(){return myStartBoolean;}
-
-
-    private void back(){}
-
 
 
     private void start(){
@@ -81,33 +79,29 @@ public class MainView {
         return result;
     }
 
-    private TextField makeTextInput(int width, EventHandler<ActionEvent> handler){
-        var result = new TextField();
-        result.setPrefColumnCount(width);
-        result.setOnAction(handler);
-        return result;
-    }
 
 
 
     private Node makeControlPane(){
         var result = new HBox();
-        myButton2 = makeButton("next", e->this.back());
+        myButton2 = makeButton("one step", e->this.oneStep());
         result.getChildren().add(myButton2);
         myButton3 = makeButton("pause", e->this.pause());
         result.getChildren().add(myButton3);
-        myTextInput = makeTextInput(20, e->this.back());
-        result.getChildren().add(myTextInput);
-        myButton1 = makeButton("new config", e->this.createConfig());
+        myButton1 = makeButton("new config", e->this.createNewConfig());
         result.getChildren().add(myButton1);
         myButton4 = makeButton("start", e->this.start());
         result.getChildren().add(myButton4);
-        myButton5 = makeButton("speed up", e-> this.back());
+        myButton5 = makeButton("speed up", e-> this.speedUp());
         result.getChildren().add(myButton5);
         return result;
     }
 
-    private void createConfig(){
+    private void speedUp(){
+
+    }
+
+    private void createNewConfig(){
 
 
     }
@@ -115,6 +109,12 @@ public class MainView {
     private void pause(){
         myStartBoolean = false;
 
+    }
+
+    private void oneStep(){
+        myStartBoolean = true;
+        mySimulationController.next();
+        myStartBoolean = false;
     }
 
 

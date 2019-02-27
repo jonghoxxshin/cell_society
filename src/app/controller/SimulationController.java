@@ -54,11 +54,11 @@ public class SimulationController {
     public void setMyFramePerSecond(int input){myFramesPerSecond = input;}
 
     public KeyFrame makeKeyFrame(){
-        return new KeyFrame(Duration.millis(1000/myFramesPerSecond), e -> next(1.0/myFramesPerSecond));
+        return new KeyFrame(Duration.millis(1000/myFramesPerSecond), e -> next());
     }
 
-    private void next(double elaspedTime) {//need to update model and view for each step
-         startSimulation = myMainView.getMyStartBoolean();
+    public void next() {//need to update model and view for each step
+        startSimulation = myMainView.getMyStartBoolean();
         System.out.println(startSimulation);
         if (startSimulation) {
             if (mySimulationModel != null) {
@@ -79,7 +79,7 @@ public class SimulationController {
     }
 
     private void setUpScene(){
-        myMainView = new MainView(myBoardView);
+        myMainView = new MainView(myBoardView, this);
         startSimulation = myMainView.getMyStartBoolean();
         myScene = myMainView.getScene();
     }
