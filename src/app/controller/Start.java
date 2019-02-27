@@ -23,7 +23,6 @@ public class Start extends Application {
 
         BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells());
         SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT,game, configNumber);
-        //MainView mv = new MainView(new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells())); this responsibility will be moved to simulationController
         stage.setTitle(TITLE);
         stage.setScene(simulationController.getMyScene());
         stage.setResizable(false);

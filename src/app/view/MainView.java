@@ -1,17 +1,18 @@
 package app.view;
 
+import app.controller.SimulationController;
+import app.model.Simulation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import java.util.ResourceBundle;
 
 
 public class MainView {
@@ -23,33 +24,44 @@ public class MainView {
     private Button myButton1;
     private Button myButton2;
     private Button myButton3;
+    private Button myButton4;
+    private Button myButton5;
+    private Button myButton6;
+    private Button myButton7;
     private TextField myTextInput;
     private Label myLabel;
-    private ComboBox<String> myCombobox;
-    private Button mySubmitButton;
+    private SimulationController mySimulationController;
+    private ResourceBundle myProperties;
+    private boolean myStartBoolean;
 
 
 
-    public MainView(BoardView bv) {
+    public MainView(BoardView bv, SimulationController sc) {
+        myProperties = ResourceBundle.getBundle("english");
+        mySimulationController = sc;
+        myStartBoolean = false;
         myBoardView = bv;
         myRoot = new BorderPane();
         myRoot.setTop(this.makeTop());
         myRoot.setBottom(this.makeBottom());
         myRoot.setCenter(this.makeCenter());
-
         myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
-
-
     }
 
     public Scene getScene(){return myScene;}
 
+    public boolean getMyStartBoolean(){return myStartBoolean;}
 
-    private void back(){}
+
+    private void start(){
+        myStartBoolean = true;
+        mySimulationController.restartSimulation();
+
+    }
 
     private Node makeTop(){
         var result = new HBox();
-        result.getChildren().add(makeNavigationPane());
+        result.getChildren().add(makeControlPane());
         return result;
     }
 
@@ -73,26 +85,53 @@ public class MainView {
         return result;
     }
 
-    private TextField makeTextInput(int width, EventHandler<ActionEvent> handler){
-        var result = new TextField();
-        result.setPrefColumnCount(width);
-        result.setOnAction(handler);
+    private Node makeControlPane(){
+        var result = new HBox();
+        myButton2 = makeButton(myProperties.getString("one_step_button"), e->this.oneStep());
+        result.getChildren().add(myButton2);
+        myButton3 = makeButton(myProperties.getString("pause_button"), e->this.pause());
+        result.getChildren().add(myButton3);
+        myButton1 = makeButton(myProperties.getString("new_configuration_button"), e->this.createNewConfig());
+        result.getChildren().add(myButton1);
+        myButton4 = makeButton(myProperties.getString("start_button"), e->this.start());
+        result.getChildren().add(myButton4);
+        myButton5 = makeButton(myProperties.getString("speed_up_button"), e-> this.speedUp());
+        result.getChildren().add(myButton5);
+        myButton6 = makeButton(myProperties.getString("speed_down_button"), e-> this.speedDown());
+        result.getChildren().add(myButton6);
+        myButton7 = makeButton(myProperties.getString("load_configuration_button"), e-> this.loadConfig());
+        result.getChildren().add(myButton7);
         return result;
     }
 
+    private void loadConfig(){
+    }
 
+    private void speedDown(){
+        if(mySimulationController.getMyFramesPerSecond()>1){
+            mySimulationController.setMyFramesPerSecond(mySimulationController.getMyFramesPerSecond()-1);
+        }
+    }
 
-    private Node makeNavigationPane(){
-        var result = new HBox();
-        myButton2 = makeButton("next", e->this.back());
-        result.getChildren().add(myButton2);
-        myButton3 = makeButton("before", e->this.back());
-        result.getChildren().add(myButton3);
-        myTextInput = makeTextInput(40, e->this.back());
-        result.getChildren().add(myTextInput);
-        myButton1 = makeButton("submit", e->this.back());
-        result.getChildren().add(myButton1);
-        return result;
+    private void speedUp(){
+        mySimulationController.setMyFramesPerSecond(mySimulationController.getMyFramesPerSecond()+1);
+
+    }
+
+    private void createNewConfig(){
+
+    }
+
+    private void pause(){
+        mySimulationController.pauseSimulation();
+        //myStartBoolean = false;
+
+    }
+
+    private void oneStep(){
+        myStartBoolean = true;
+        mySimulationController.next();
+        myStartBoolean = false;
     }
 
 
