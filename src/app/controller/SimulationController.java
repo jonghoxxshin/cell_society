@@ -22,6 +22,7 @@ public class SimulationController {
     private Rules myRules;
     private MainView myMainView;
     private BoardView myBoardView;
+    private KeyFrame myKeyFrame;
 
     private int myFramesPerSecond;
     private int appHeight;
@@ -49,17 +50,21 @@ public class SimulationController {
 
     public Scene getMyScene(){return myScene;}
 
-    public double getMyFramesPerSecond(){return myFramesPerSecond;}
-
-    public void setMyFramePerSecond(int input){myFramesPerSecond = input;}
+    public int getMyFramesPerSecond(){return myFramesPerSecond;}
 
     public KeyFrame makeKeyFrame(){
         return new KeyFrame(Duration.millis(1000/myFramesPerSecond), e -> next());
     }
 
+    public void setMyFramesPerSecond(int input){
+        myFramesPerSecond = input;
+        setTimeline();
+    }
+
+
     public void next() {//need to update model and view for each step
         startSimulation = myMainView.getMyStartBoolean();
-        System.out.println(startSimulation);
+        System.out.println(myFramesPerSecond);
         if (startSimulation) {
             if (mySimulationModel != null) {
                 //mySimulationModel.printMyCells();
