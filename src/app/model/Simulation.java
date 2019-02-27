@@ -14,10 +14,16 @@ public class Simulation {
     }
 
     public void nextStep(){
-        if(start)myCells = myBoard.updateBoard(myRules);
+
+        System.out.println("this is start variable : " + start);
+        if(start) {
+
+            myCells = myBoard.updateBoard(myRules);
+        }
+
     }
 
-    public void startSimulation(){
+    public void setStart(){
         start = true;
     }
 
