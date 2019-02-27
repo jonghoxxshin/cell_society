@@ -27,6 +27,7 @@ public class MainView {
     private Button myButton4;
     private Button myButton5;
     private Button myButton6;
+    private Button myButton7;
     private TextField myTextInput;
     private Label myLabel;
     private SimulationController mySimulationController;
@@ -36,7 +37,7 @@ public class MainView {
 
 
     public MainView(BoardView bv, SimulationController sc) {
-        myProperties = ResourceBundle.getBundle("resources");
+        myProperties = ResourceBundle.getBundle("english");
         mySimulationController = sc;
         myStartBoolean = false;
         myBoardView = bv;
@@ -54,6 +55,8 @@ public class MainView {
 
     private void start(){
         myStartBoolean = true;
+        mySimulationController.restartSimulation();
+
     }
 
     private Node makeTop(){
@@ -96,7 +99,12 @@ public class MainView {
         result.getChildren().add(myButton5);
         myButton6 = makeButton(myProperties.getString("speed_down_button"), e-> this.speedDown());
         result.getChildren().add(myButton6);
+        myButton7 = makeButton(myProperties.getString("load_configuration_button"), e-> this.loadConfig());
+        result.getChildren().add(myButton7);
         return result;
+    }
+
+    private void loadConfig(){
     }
 
     private void speedDown(){
@@ -115,7 +123,8 @@ public class MainView {
     }
 
     private void pause(){
-        myStartBoolean = false;
+        mySimulationController.pauseSimulation();
+        //myStartBoolean = false;
 
     }
 
