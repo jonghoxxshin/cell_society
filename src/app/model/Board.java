@@ -38,6 +38,10 @@ public class Board {
         return tempCells;
     }
 
+    public Cell getCellAtCoordinates(int x, int y) {
+        return cells[y][x];
+    }
+
     //get expectedCells array
     public Cell[][] getCells(){
         return cells;

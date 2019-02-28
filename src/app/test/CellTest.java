@@ -15,13 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class CellTest {
     Cell testCell;
     int[][] expectedNeighbors;
-    Board myBoard;
     ResourceBundle myProperties;
+    Board testBoard;
+    Rules testRules;
 
     @BeforeEach
     void setUp(){
         myProperties = ResourceBundle.getBundle("test");
-        myBoard = new Board(myProperties);
+        testBoard = new Board(myProperties);
+        testRules = new Rules(myProperties.getString("type_of_game"));
 
         this.testCell = new Cell(0,0,0,5,5, 1);
         int[] neighbor10 = {1,0};
@@ -51,8 +53,13 @@ class CellTest {
     }
 
     @Test
-    void getNextStateForBoard(){
-        myBoard.updateBoard(new Rules("GameOfLife"));
+    void getNextStateForKnown(){
+        Cell testCell = testBoard.getCellAtCoordinates(1,1);
+        int expected = 1;
+        int actual = testCell.getNextState(testRules,testBoard);
+        assertEquals(expected,actual);
+        actual = testCell.getNextState(testRules,testBoard);
+        assertEquals(expected,actual);
     }
 
     @Test
