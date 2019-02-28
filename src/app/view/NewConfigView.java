@@ -33,7 +33,9 @@ public class NewConfigView {
     private ComboBox myDropDown;
     private SimulationController mySimulationController;
 
+
     private TextField nameField;
+    private TextField nameProperties;
     private TextField typeField;
     private TextField des;
 
@@ -89,6 +91,16 @@ public class NewConfigView {
         myRoot.getChildren().add(temp);
     }
 
+    private void setPropNameComponent(String fieldLabel){
+        HBox temp = new HBox();
+        Text tempText = new Text(fieldLabel);
+        nameProperties = new TextField();
+        temp.getChildren().add(tempText);
+        temp.getChildren().add(nameProperties);
+        temp.setAlignment(Pos.CENTER);
+        myRoot.getChildren().add(temp);
+    }
+
 
 
 
@@ -114,12 +126,13 @@ public class NewConfigView {
     }
 
     private void submit(SimulationController sc){//check console to see if it worked!
-        sc.createProperties(nameField.getCharacters().toString(), typeField.getCharacters().toString(), des.getCharacters().toString(), myDropDown.getValue().toString());
+        sc.createProperties(nameField.getCharacters().toString(),nameProperties.getCharacters().toString(),typeField.getCharacters().toString(), des.getCharacters().toString(), myDropDown.getValue().toString());
         myStage.close();
     }
 
     private void setComponent(){
         setNameComponent("Creator's name");
+        setPropNameComponent("Name of the property file");
         setTypeComponent("Simulation name");
         setDesComponent("Description");
     }

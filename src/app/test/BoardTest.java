@@ -17,8 +17,10 @@ class BoardTest {
 
         Boolean testBool = true;
 
+
         Rules myRules = new Rules(myProperties.getString("type_of_game"));
         Board myBoard = new Board(myProperties);
+
 
         Cell[][] currentBoard = myBoard.getCells();
         myBoard.updateBoard(myRules);

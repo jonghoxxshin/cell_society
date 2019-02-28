@@ -14,6 +14,7 @@ public class Start extends Application {
     public static final String TITLE = "CELL SIMULATION";
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 600;
+
     public static int configNumber = 1;
     ResourceBundle myProperties;
 
