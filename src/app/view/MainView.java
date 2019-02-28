@@ -2,6 +2,8 @@ package app.view;
 
 import app.controller.SimulationController;
 import app.model.Simulation;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -9,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -25,9 +28,10 @@ public class MainView {
     private Button myButton2;
     private Button myButton3;
     private Button myButton4;
-    private Button myButton5;
-    private Button myButton6;
+//    private Button myButton5;
+//    private Button myButton6;
     private Button myButton7;
+    private Slider mySlider;
     private TextField myTextInput;
     private Label myLabel;
     private SimulationController mySimulationController;
@@ -95,13 +99,30 @@ public class MainView {
         result.getChildren().add(myButton1);
         myButton4 = makeButton(myProperties.getString("start_button"), e->this.start());
         result.getChildren().add(myButton4);
-        myButton5 = makeButton(myProperties.getString("speed_up_button"), e-> this.speedUp());
-        result.getChildren().add(myButton5);
-        myButton6 = makeButton(myProperties.getString("speed_down_button"), e-> this.speedDown());
-        result.getChildren().add(myButton6);
+//        myButton5 = makeButton(myProperties.getString("speed_up_button"), e-> this.speedUp());
+//        result.getChildren().add(myButton5);
+//        myButton6 = makeButton(myProperties.getString("speed_down_button"), e-> this.speedDown());
+//        result.getChildren().add(myButton6);
         myButton7 = makeButton(myProperties.getString("load_configuration_button"), e-> this.loadConfig());
         result.getChildren().add(myButton7);
+        makeSlider();
+        result.getChildren().add(mySlider);
         return result;
+    }
+
+    private Slider makeSlider() {
+        mySlider = new Slider();
+        mySlider.setMin(mySimulationController.getMyFramesPerSecond());
+        mySlider.setMax(mySimulationController.getMyFramesPerSecond()+10);
+        mySlider.setValue(mySimulationController.getMyFramesPerSecond());
+        mySlider.setShowTickMarks(true);
+        mySlider.valueProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                mySimulationController.setMyFramesPerSecond((int) (mySimulationController.getMyFramesPerSecond()* t1.doubleValue()));
+            }
+        });
+        return mySlider;
     }
 
     private void loadConfig(){
