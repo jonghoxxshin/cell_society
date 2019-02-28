@@ -1,6 +1,7 @@
 package app.view;
 
 import app.controller.SimulationController;
+import app.model.CSVParser;
 import app.model.Simulation;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -37,7 +38,7 @@ public class MainView {
     private Slider mySlider;
     private Label mySliderLabel;
     private ComboBox myDropDown;
-    ObservableList<String> myConfigOptions;
+    private ObservableList<String> myConfigOptions;
     private TextField myTextInput;
     private Label myLabel;
     private SimulationController mySimulationController;
@@ -159,6 +160,7 @@ public class MainView {
     }
 
     private void addToDropDown(String config) {
+        CSVParser newConfig = new CSVParser(config, 1);
         myConfigOptions.add(config);
     }
 

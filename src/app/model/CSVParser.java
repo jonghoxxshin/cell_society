@@ -1,9 +1,10 @@
 package app.model;
 
+import javafx.scene.paint.Color;
+
 import java.util.Scanner;
 
 public class CSVParser {
-
     private int myHeight;
     private int myWidth;
     private String gameType;
@@ -19,7 +20,8 @@ public class CSVParser {
     private static final String SEGREGATION_1 = "RockPaperScissorsConfig1.csv";
     private static final String PREDATORPREY_1 = "RockPaperScissorsConfig1.csv";
     private int neighborType;
-
+    private Color[] myColors;
+    private String myDescription;
     private Cell[][] cells;
 
     public CSVParser(String filename, int config){
