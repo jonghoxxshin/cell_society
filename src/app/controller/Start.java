@@ -30,7 +30,7 @@ public class Start extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        String game = "Percolation";
+        String game = this.filename.split("Config")[0];
 
         Board b = new Board(filename);
         Rules r = new Rules(game);
