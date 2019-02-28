@@ -21,15 +21,11 @@ public class Start extends Application {
 
 
 
-
-    public Start(){
+    @Override
+    public void start(Stage stage) throws Exception {
         this.myProperties = ResourceBundle.getBundle("example");
         this.game = myProperties.getString("type_of_game");
         this.filename = myProperties.getString("name_of_csv");
-    }
-
-    @Override
-    public void start(Stage stage) throws Exception {
         String game = this.filename.split("Config")[0];
 
         Board b = new Board(filename);

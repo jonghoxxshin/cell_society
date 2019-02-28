@@ -55,7 +55,6 @@ public class SimulationController {
         mySimulationModel.setStart();
         setUpScene();
         setTimeline();
-
     }
 
     public ResourceBundle getMyProperties() {
