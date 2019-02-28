@@ -35,6 +35,7 @@ public class MainView {
 //    private Button myButton5;
 //    private Button myButton6;
     private Button myButton7;
+    private Button myButton8;
     private Slider mySlider;
     private Label mySliderLabel;
     private ComboBox myDropDown;
@@ -43,6 +44,7 @@ public class MainView {
     private Label myLabel;
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
+    private NewConfigView myNewConfigView;
     private boolean myStartBoolean;
 
 
@@ -112,11 +114,13 @@ public class MainView {
 //        result.getChildren().add(myButton6);
 //        myButton7 = makeButton(myProperties.getString("load_configuration_button"), e-> this.loadConfig());
 //        result.getChildren().add(myButton7);
+        myButton8 = makeButton("new config", e->this.newConfig());
         makeDropDown();
         makeSlider();
         result.getChildren().add(myDropDown);
         result.getChildren().add(mySliderLabel);
         result.getChildren().add(mySlider);
+        result.getChildren().add(myButton8);
         return result;
     }
 
@@ -157,6 +161,12 @@ public class MainView {
     private void loadConfig(String t1) {
        //load config from model
         System.out.println(t1);
+    }
+
+    private void newConfig(){
+        if(myNewConfigView==null){
+            myNewConfigView = new NewConfigView();
+        }
     }
 
     private void addToDropDown(String config) {
