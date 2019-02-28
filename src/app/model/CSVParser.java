@@ -8,17 +8,6 @@ public class CSVParser {
     private int myHeight;
     private int myWidth;
     private String gameType;
-    private static final String LIFE_1 = "GameOfLifeConfig1.csv";
-    private static final String LIFE_2 = "GameOfLifeConfig2.csv";
-    private static final String LIFE_3 = "GameOfLifeConfig3.csv";
-    private static final String PERCOLATION_1 = "PercolationConfig1.csv";
-    private static final String PERCOLATION_2 = "PercolationConfig2.csv";
-    private static final String PERCOLATION_3 = "PercolationConfig3.csv";
-    private static final String RPS_1 = "RockPaperScissorsConfig1.csv";
-    //Fix once we create new config files
-    private static final String FIRE_1 = "RockPaperScissorsConfig1.csv";
-    private static final String SEGREGATION_1 = "RockPaperScissorsConfig1.csv";
-    private static final String PREDATORPREY_1 = "RockPaperScissorsConfig1.csv";
     private int neighborType;
     private Color[] myColors;
     private String myDescription;

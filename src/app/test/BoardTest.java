@@ -13,16 +13,20 @@ class BoardTest {
     void updateBoardForConfigThatStaysTheSame() {
         Boolean testBool = true;
         Rules myRules = new Rules("GameOfLife");
-        Board myBoard = new Board("GameOfLife1.csv");
+        Board myBoard = new Board("GameOfLifeConfig4.csv");
         Cell[][] currentBoard = myBoard.getCells();
         myBoard.updateBoard(myRules);
         Cell[][] newBoard = myBoard.getCells();
+
         for (int i = 0; i < currentBoard.length; i++) {
             for (int j = 0; j < currentBoard[0].length; j++) {
+                //System.out.print(currentBoard[j][i].getMyState());
+                System.out.print(newBoard[j][i].getMyState());
                 if (currentBoard[j][i].getMyState() != newBoard[j][i].getMyState()) {
                     testBool = false;
                 }
             }
+            System.out.println();
         }
 
         assertTrue(testBool);

@@ -55,7 +55,7 @@ public class RulesParser {
         } catch (IOException e) {
             System.out.println("Failed to read rules configuration file");
         }
-        //printRulesArray();
+        printRulesArray();
         makeRules();
     }
 
@@ -94,18 +94,16 @@ public class RulesParser {
 
         if (requiredAmount.equals("x")) {
             for (int i = 0; i < 9; i++) {
-                int[] tempRuleArray = {startState, desiredNeighborState, i, endState};
+                int[] tempRuleArray = {startState, desiredNeighborState, i, endState, altEndState};
                 rulesArray.add(tempRuleArray);
             }
-        } if (requiredAmount.equals("p")){
+        } else if (requiredAmount.equals("p")){
             int min = getMinFromProbability();
             for (int i = min; i < numberOfNeighbors+1; i++) {
-                int[] tempRuleArray = {startState, desiredNeighborState, i, endState};
+                int[] tempRuleArray = {startState, desiredNeighborState, i, endState, altEndState};
                 rulesArray.add(tempRuleArray);
             }
-
-        }
-        else{
+        } else{
             int[] tempRuleArray = {startState, desiredNeighborState, Integer.parseInt(requiredAmount), endState, altEndState};
             rulesArray.add(tempRuleArray);
         }
@@ -133,7 +131,8 @@ public class RulesParser {
 
     //print RulesArray
     private void printRulesArray() {
-        System.out.println("Set of Rules:");
+        System.out.println("Set of Rules: " + gameName);
+
         for (int[] rule : rulesArray) {
             System.out.println("Initial: " + rule[0] + " Desired Neighbor: " + rule[1] + " Required Amount: " + rule[2] + " Final: " + rule[3] + " Alt: " + rule[4]) ;
         }
