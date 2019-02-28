@@ -3,14 +3,16 @@ package app.controller;
 import app.model.Board;
 import app.model.Rules;
 import app.model.Simulation;
+import app.model.Properties;
 import app.view.BoardView;
+import app.view.ControlView;
 import app.view.MainView;
 import app.view.SimulationView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.util.Duration;
-
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class SimulationController {
@@ -24,13 +26,15 @@ public class SimulationController {
     private Rules myRules;
     private MainView myMainView;
     private BoardView myBoardView;
-    private KeyFrame myKeyFrame;
-
+    private ControlView myControlView;
     private int myFramesPerSecond;
     private int appHeight;
     private int appWidth;
     private boolean startSimulation;
     private ResourceBundle myProperties;
+
+    //properties list, need to be initialized by reading in all the properties we have
+    private ArrayList<Properties> propList;
 
 
 
@@ -42,9 +46,11 @@ public class SimulationController {
         myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells(), myProperties);
         mySimulationModel = new Simulation(myBoard,myRules);
         mySimulationView = new SimulationView(myBoardView);
+        myControlView = new ControlView(this);
         appHeight = height;
         appWidth = width;
 
+        propList = new ArrayList<>();
         myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
         mySimulationModel.setStart();
         setUpScene();
@@ -71,11 +77,11 @@ public class SimulationController {
 
 
     public void next() {//need to update model and view for each step
-        startSimulation = myMainView.getMyStartBoolean();
+        startSimulation = myControlView.getMyStartBoolean();
         System.out.println(myFramesPerSecond);
         if (startSimulation) {
             if (mySimulationModel != null) {
-                //mySimulationModel.printMyCells();
+
                 mySimulationModel.nextStep();
             }
             myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
@@ -83,6 +89,11 @@ public class SimulationController {
         }
     }
 
+    public void createProperties(String name, String type, String des, String csv){
+        Properties temp = new Properties(name,type, des, csv);
+        System.out.println(temp.toString());
+        propList.add(temp);
+    }
 
     private void setTimeline(){
         if(myAnimation != null) myAnimation.stop();
@@ -93,7 +104,7 @@ public class SimulationController {
     }
 
     private void setUpScene(){
-        myMainView = new MainView(myBoardView, this);
+        myMainView = new MainView(myBoardView, this, myControlView);
         startSimulation = myMainView.getMyStartBoolean();
         myScene = myMainView.getScene();
     }
