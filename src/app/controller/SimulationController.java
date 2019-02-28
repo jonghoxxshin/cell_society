@@ -11,8 +11,6 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.util.Duration;
 
-import java.util.ResourceBundle;
-
 public class SimulationController {
 
     private Simulation mySimulationModel;
@@ -30,16 +28,13 @@ public class SimulationController {
     private int appHeight;
     private int appWidth;
     private boolean startSimulation;
-    private ResourceBundle myProperties;
 
 
 
-    public SimulationController( int height, int width, ResourceBundle properties){//Will change to instantiating simulation and simulationView inside controller, not as input
-        myProperties = properties;
-        String filename = properties.getString("name_of_csv");
-        myBoard = new Board(filename);
-        myRules = new Rules(filename.split("Config")[0]);
-        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells(), myProperties);
+    public SimulationController( int height, int width, String game, int config){//Will change to instantiating simulation and simulationView inside controller, not as input
+        myBoard = new Board(game, config);
+        myRules = new Rules(game);
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells());
         mySimulationModel = new Simulation(myBoard,myRules);
         mySimulationView = new SimulationView(myBoardView);
         appHeight = height;
@@ -50,10 +45,6 @@ public class SimulationController {
         setUpScene();
         setTimeline();
 
-    }
-
-    public ResourceBundle getMyProperties() {
-        return myProperties;
     }
 
     public Scene getMyScene(){return myScene;}
@@ -78,7 +69,7 @@ public class SimulationController {
                 //mySimulationModel.printMyCells();
                 mySimulationModel.nextStep();
             }
-            myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
+            myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells()));
 
         }
     }

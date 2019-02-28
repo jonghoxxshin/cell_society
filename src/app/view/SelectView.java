@@ -1,10 +1,11 @@
 package app.view;
 
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 
 public class SelectView {
-    public static final int PAGE_WIDTH = 300;
+    public static final int PAGE_WIDHT = 300;
     public static final int PAGE_HEIGHT = 500;
     public static final String TITLE = "New Configuration";
 
@@ -26,7 +27,7 @@ public class SelectView {
     }
 
     public Scene getMyScene(){
-        myScene = new Scene(myRoot, PAGE_WIDTH, PAGE_HEIGHT);
+        myScene = new Scene(myRoot, PAGE_WIDHT, PAGE_HEIGHT);
 
         return myScene;
     }

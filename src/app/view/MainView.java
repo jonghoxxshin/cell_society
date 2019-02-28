@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
+
 import java.util.ResourceBundle;
 
 
@@ -115,24 +116,9 @@ public class MainView {
         result.getChildren().add(mySliderLabel);
         result.getChildren().add(mySlider);
 
-        result.getChildren().add(makeCreatorText());
+        //result.getChildren().add(makeCreatorText());
 
         return result;
-    }
-
-    private Node makeCreatorText(){
-        // NOTE - JUST A PLACEHOLDER FOR NOW
-        String name = mySimulationController.getMyProperties().getString("name_of_creator");
-        String full = name + "'s Simulation";
-
-        Text nameText = new Text(full);
-
-
-        // how to position??
-        nameText.setX(VIEW_WIDTH - (2 * nameText.getBoundsInParent().getWidth()));
-
-        return nameText;
-
     }
 
     private void loadConfig(){
