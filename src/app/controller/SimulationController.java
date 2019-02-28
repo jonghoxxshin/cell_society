@@ -15,8 +15,6 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import java.util.ResourceBundle;
-
 public class SimulationController {
 
     private Simulation mySimulationModel;
@@ -88,7 +86,7 @@ public class SimulationController {
             }
         }
 
-        public void createProperties(String name, String type, String des, String csv){
+        public void createProperties(String name, String proName, String type, String des, String csv){
             Properties temp = new Properties(name,type, des, csv);
             System.out.println(temp.toString());
             propList.add(temp);
