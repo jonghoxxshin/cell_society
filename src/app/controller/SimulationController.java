@@ -40,9 +40,21 @@ public class SimulationController {
 
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    public SimulationController( int height, int width, ResourceBundle properties){//Will change to instantiating simulation and simulationView inside controller, not as input
+        myProperties = properties;
+        String filename = properties.getString("name_of_csv");
+        myBoard = new Board(filename);
+        myRules = new Rules(filename.split("Config")[0]);
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells(), myProperties);
+=======
+>>>>>>> 9f4aef4d778506e964c94c73da98fdb0bbbcba69
     public SimulationController(int height, int width, String game, ResourceBundle myProperties){//Will change to instantiating simulation and simulationView inside controller, not as input
         this.myProperties = myProperties;
         myBoard = new Board(myProperties);
+<<<<<<< HEAD
             myRules = new Rules(game);
             myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells(), myProperties);
                     mySimulationModel = new Simulation(myBoard,myRules);
@@ -56,6 +68,22 @@ public class SimulationController {
             mySimulationModel.setStart();
             setUpScene();
             setTimeline();
+=======
+        myRules = new Rules(game);
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells());
+>>>>>>> kph18
+        mySimulationModel = new Simulation(myBoard,myRules);
+        mySimulationView = new SimulationView(myBoardView);
+        myControlView = new ControlView(this);
+        appHeight = height;
+        appWidth = width;
+
+        propList = new ArrayList<>();
+        myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
+        mySimulationModel.setStart();
+        setUpScene();
+        setTimeline();
+>>>>>>> 9f4aef4d778506e964c94c73da98fdb0bbbcba69
 
         }
 

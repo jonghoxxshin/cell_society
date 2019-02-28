@@ -97,14 +97,29 @@ public class RulesParser {
                 int[] tempRuleArray = {startState, desiredNeighborState, i, endState, altEndState};
                 rulesArray.add(tempRuleArray);
             }
+<<<<<<< HEAD
 
         } else  if (requiredAmount.equals("p")){
+=======
+<<<<<<< HEAD
+        } else if (requiredAmount.equals("p")){
+=======
+        } else  if (requiredAmount.equals("p")){
+>>>>>>> kph18
+>>>>>>> 9f4aef4d778506e964c94c73da98fdb0bbbcba69
             int min = getMinFromProbability();
             for (int i = min; i < numberOfNeighbors+1; i++) {
                 int[] tempRuleArray = {startState, desiredNeighborState, i, endState, altEndState};
                 rulesArray.add(tempRuleArray);
             }
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+=======
+
+>>>>>>> kph18
+>>>>>>> 9f4aef4d778506e964c94c73da98fdb0bbbcba69
         } else{
             int[] tempRuleArray = {startState, desiredNeighborState, Integer.parseInt(requiredAmount), endState, altEndState};
             rulesArray.add(tempRuleArray);

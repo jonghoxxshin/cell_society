@@ -16,10 +16,20 @@ class BoardTest {
         ResourceBundle myProperties = ResourceBundle.getBundle("test");
 
         Boolean testBool = true;
+<<<<<<< HEAD
 
         Rules myRules = new Rules(myProperties.getString("type_of_game"));
         Board myBoard = new Board(myProperties);
 
+=======
+<<<<<<< HEAD:src/app/test/BoardTest.java
+        Rules myRules = new Rules("GameOfLife");
+        Board myBoard = new Board("GameOfLifeConfig4.csv");
+=======
+        Rules myRules = new Rules(myProperties.getString("type_of_game"));
+        Board myBoard = new Board(myProperties);
+>>>>>>> kph18:src/app/model/BoardTest.java
+>>>>>>> 9f4aef4d778506e964c94c73da98fdb0bbbcba69
         Cell[][] currentBoard = myBoard.getCells();
         myBoard.updateBoard(myRules);
         Cell[][] newBoard = myBoard.getCells();
