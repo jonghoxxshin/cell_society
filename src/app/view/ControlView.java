@@ -1,17 +1,31 @@
 package app.view;
 
 import app.controller.SimulationController;
+import app.model.CSVParser;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControlView {
+
+    private String[] gameNames = {"Game of Life: ", "Percolation: ", "Rock Paper Scissors: ", "Segregation: ", "Fire: ", "Predator Prey: "};
+    private ComboBox myDropDown;
+    private ObservableList<String> myConfigOptions;
+
     private SimulationController mySimulationController;
+    private NewConfigView myNewConfigView;
     private HBox myRoot;
     private Slider mySlider;
     private Button stepButton;
@@ -20,11 +34,23 @@ public class ControlView {
     private Button startButton;
     private ResourceBundle myProperties;
     private Label mySliderLabel;
+
+    private boolean myStartBoolean;
+
     public ControlView (SimulationController sc){
         myProperties = ResourceBundle.getBundle("english");
+        myStartBoolean = false;
         mySimulationController = sc;
         myRoot = new HBox();
         setView();
+    }
+
+    public HBox getMyRoot(){
+        return myRoot;
+    }
+
+    public boolean getMyStartBoolean(){
+        return myStartBoolean;
     }
 
     private Button makeButton(String name, EventHandler<ActionEvent> handler){
@@ -40,13 +66,14 @@ public class ControlView {
         myRoot.getChildren().add(stepButton);
         pauseButton = makeButton(myProperties.getString("pause_button"), e -> this.pause());
         myRoot.getChildren().add(pauseButton);
-        newConfigButton = makeButton(myProperties.getString("new_configuration_button"), e -> this.newConfig);
+        newConfigButton = makeButton(myProperties.getString("new_configuration_button"), e -> this.newConfig());
         myRoot.getChildren().add(newConfigButton);
         startButton = makeButton(myProperties.getString("start_button"), e -> this.start());
         myRoot.getChildren().add(startButton);
     }
 
     private void setView(){
+        makeDropDown();
         setButtons();
         SpeedSlider speedSlider = new SpeedSlider(mySimulationController);
         mySlider = speedSlider.getMySlider();
@@ -54,8 +81,64 @@ public class ControlView {
         mySliderLabel.setLabelFor(mySlider);
         myRoot.getChildren().add(mySlider);
 
-
     }
+
+    private void pause(){
+        mySimulationController.pauseSimulation();
+        //myStartBoolean = false;
+    }
+
+    private void oneStep(){
+        myStartBoolean = true;
+        mySimulationController.next();
+        myStartBoolean = false;
+    }
+
+    private void newConfig(){
+        if(myNewConfigView==null){
+            myNewConfigView = new NewConfigView(mySimulationController);
+        }
+    }
+
+    private void start(){
+        myStartBoolean = true;
+        mySimulationController.restartSimulation();
+    }
+    
+    private void makeDropDown() {
+        ArrayList<String> configList = new ArrayList<String>();
+        for (String game: gameNames){
+            configList.add(game + 1);
+            configList.add(game + 2);
+            configList.add(game + 3);
+        }
+        myConfigOptions = FXCollections.observableArrayList(configList);
+        myDropDown = new ComboBox(myConfigOptions);
+        myDropDown.setPromptText("Load Configuration");
+        myDropDown.valueProperty().addListener(new ChangeListener() {
+            @Override
+            public void changed(ObservableValue observableValue, Object o, Object t1) {
+                loadConfig((String) t1);
+            }
+        });
+        myRoot.getChildren().add(myDropDown);
+    }
+
+    private void loadConfig(String t1) {
+        //load config from model
+        System.out.println(t1);
+    }
+
+    private void addToDropDown(String config) {
+        CSVParser newConfig = new CSVParser(config, 1);
+        myConfigOptions.add(config);
+    }
+
+    private void createNewConfig(){
+        // need to change, currently placeholder to check functionality
+        addToDropDown("a new config");
+    }
+
 
 
 }

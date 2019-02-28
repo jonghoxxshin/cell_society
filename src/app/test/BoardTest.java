@@ -1,5 +1,8 @@
-package app.model;
+package app.test;
 
+import app.model.Board;
+import app.model.Cell;
+import app.model.Rules;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

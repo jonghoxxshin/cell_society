@@ -1,6 +1,8 @@
-package app.model;
+package app.test;
 
 
+import app.model.Cell;
+import app.model.Rules;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

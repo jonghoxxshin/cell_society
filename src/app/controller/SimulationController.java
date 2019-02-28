@@ -5,6 +5,7 @@ import app.model.Rules;
 import app.model.Simulation;
 import app.model.Properties;
 import app.view.BoardView;
+import app.view.ControlView;
 import app.view.MainView;
 import app.view.SimulationView;
 import javafx.animation.KeyFrame;
@@ -25,7 +26,7 @@ public class SimulationController {
     private Rules myRules;
     private MainView myMainView;
     private BoardView myBoardView;
-
+    private ControlView myControlView;
     private int myFramesPerSecond;
     private int appHeight;
     private int appWidth;
@@ -42,6 +43,7 @@ public class SimulationController {
         myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells());
         mySimulationModel = new Simulation(myBoard,myRules);
         mySimulationView = new SimulationView(myBoardView);
+        myControlView = new ControlView(this);
         appHeight = height;
         appWidth = width;
 
@@ -68,7 +70,7 @@ public class SimulationController {
 
 
     public void next() {//need to update model and view for each step
-        startSimulation = myMainView.getMyStartBoolean();
+        startSimulation = myControlView.getMyStartBoolean();
         System.out.println(myFramesPerSecond);
         if (startSimulation) {
             if (mySimulationModel != null) {
@@ -95,7 +97,7 @@ public class SimulationController {
     }
 
     private void setUpScene(){
-        myMainView = new MainView(myBoardView, this);
+        myMainView = new MainView(myBoardView, this, myControlView);
         startSimulation = myMainView.getMyStartBoolean();
         myScene = myMainView.getScene();
     }

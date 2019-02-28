@@ -1,6 +1,8 @@
-package app.model;
+package app.test;
 
 
+import app.model.Rules;
+import app.model.State;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
