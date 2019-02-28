@@ -41,5 +41,32 @@ class BoardTest {
         assertTrue(testBool);
     }
 
+    @Test
+    void updateBoardForKnownConfig_Toad() {
+        ResourceBundle myProperties = ResourceBundle.getBundle("test2");
+        Boolean testBool = true;
+
+        Rules myRules = new Rules(myProperties.getString("type_of_game"));
+        Board myBoard = new Board(myProperties);
+
+        Cell[][] currentBoard = myBoard.getCells();
+        myBoard.updateBoard(myRules);
+        Cell[][] newBoard = myBoard.getCells();
+
+        ResourceBundle propertiesOfExpected = ResourceBundle.getBundle("test3");
+        Board expectedB = new Board(propertiesOfExpected);
+        Cell[][] expectedBoard = expectedB.getCells();
+
+        for (int i = 0; i < currentBoard.length; i++) {
+            for (int j = 0; j < currentBoard[0].length; j++) {
+                if (expectedBoard[j][i].getMyState() != newBoard[j][i].getMyState()) {
+                    testBool = false;
+                }
+            }
+        }
+
+        assertTrue(testBool);
+    }
+
 
 }

@@ -63,6 +63,16 @@ class CellTest {
     }
 
     @Test
+    void getNextStateForKnownCornerCase(){
+        Cell testCell = testBoard.getCellAtCoordinates(4,4);
+        int expected = 1;
+        int actual = testCell.getNextState(testRules,testBoard);
+        assertEquals(expected,actual);
+        actual = testCell.getNextState(testRules,testBoard);
+        assertEquals(expected,actual);
+    }
+
+    @Test
     void getNeighborCornerTest() {
         boolean myBool = true;
         int[][] testNeighbors = testCell.getNeighbors();
