@@ -81,8 +81,8 @@ public class SimulationController {
         System.out.println(myFramesPerSecond);
         if (startSimulation) {
             if (mySimulationModel != null) {
-
                 mySimulationModel.nextStep();
+                mySimulationModel.printMyCells();
             }
             myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
 
