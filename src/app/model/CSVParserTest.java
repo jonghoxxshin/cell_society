@@ -24,8 +24,8 @@ public class CSVParserTest {
 
         // manually create parameters
         this.gameType = "GameOfLife";
-        this.myHeight = 5;
-        this.myWidth = 5;
+        this.myHeight = 20;
+        this.myWidth = 20;
 
         this.expectedCells = new Cell[myHeight][myWidth];
 
