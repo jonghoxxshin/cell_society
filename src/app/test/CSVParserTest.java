@@ -6,6 +6,8 @@ import app.model.Cell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ResourceBundle;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CSVParserTest {
@@ -16,23 +18,30 @@ public class CSVParserTest {
     Cell[][] expectedCells;
     String filename;
     CSVParser tester;
+    CSVParser readerTester;
     String gameType;
 
     @BeforeEach
     void setup(){
+        ResourceBundle myProperties = ResourceBundle.getBundle("example");
+        ResourceBundle readerTestProperties = ResourceBundle.getBundle("test");
+
         // generate the object to be tested
-        this.filename = "GameOfLifeConfig2.csv";
-        this.tester = new CSVParser(filename);
+
+        this.filename = "GameOfLife";
+        this.tester = new CSVParser(myProperties.getString("name_of_csv"));
+        this.readerTester = new CSVParser(readerTestProperties.getString("name_of_csv"));
+
 
         // manually create parameters
         this.gameType = "GameOfLife";
-        this.myHeight = 5;
-        this.myWidth = 5;
+        this.myHeight = 20;
+        this.myWidth = 20;
 
-        this.expectedCells = new Cell[myHeight][myWidth];
+        this.expectedCells = new Cell[5][5];
 
-        for(int i=0; i<myHeight; i++){
-            for(int j=0; j<myWidth; j++){
+        for(int i=0; i<5; i++){
+            for(int j=0; j<5; j++){
                 if(i==j){
                     expectedCells[j][i] = new Cell(1, j, i, myHeight, myWidth, 1);
                 }
@@ -57,11 +66,11 @@ public class CSVParserTest {
     void readCSVTest(){
         boolean myBool = true;
 
-        for(int i=0; i<myHeight; i++){
-            for(int j=0; j<myWidth; j++){
-                if(!expectedCells[i][j].equals(tester.getCells()[i][j])){
+        for(int i=0; i<5; i++){
+            for(int j=0; j<5; j++){
+                if(!expectedCells[i][j].equals(readerTester.getCells()[i][j])){
                     System.out.println("Expected cell: " + expectedCells[i][j].toString());
-                    System.out.println("Actual cell: " + tester.getCells()[i][j].toString());
+                    System.out.println("Actual cell: " + readerTester.getCells()[i][j].toString());
 
                     myBool = false;
                 }

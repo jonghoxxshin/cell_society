@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,10 +16,12 @@ class CellTest {
     Cell testCell;
     int[][] expectedNeighbors;
     Board myBoard;
+    ResourceBundle myProperties;
 
     @BeforeEach
     void setUp(){
-        myBoard = new Board("GameOfLifeConfig4.csv");
+        myProperties = ResourceBundle.getBundle("test");
+        myBoard = new Board(myProperties);
 
         this.testCell = new Cell(0,0,0,5,5, 1);
         int[] neighbor10 = {1,0};

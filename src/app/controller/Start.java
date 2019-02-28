@@ -15,24 +15,21 @@ public class Start extends Application {
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 600;
 
-    private String filename;
-    private String game;
-    private ResourceBundle myProperties;
-
-
+    public static int configNumber = 1;
+    ResourceBundle myProperties;
 
     @Override
     public void start(Stage stage) throws Exception {
-        this.myProperties = ResourceBundle.getBundle("example");
-        this.game = myProperties.getString("type_of_game");
-        this.filename = myProperties.getString("name_of_csv");
-        String game = this.filename.split("Config")[0];
+        myProperties = ResourceBundle.getBundle("example");
 
-        Board b = new Board(filename);
+        String game = myProperties.getString("type_of_game");
+
+        Board b = new Board(myProperties);
         Rules r = new Rules(game);
 
         BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells(), myProperties);
-        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT, myProperties);
+        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT, game, myProperties);
+
         stage.setTitle(TITLE);
         stage.setScene(simulationController.getMyScene());
         stage.setResizable(false);
