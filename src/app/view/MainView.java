@@ -116,28 +116,16 @@ public class MainView {
 //        result.getChildren().add(myButton7);
         myButton8 = makeButton("new config", e->this.newConfig());
         makeDropDown();
-        makeSlider();
         result.getChildren().add(myDropDown);
-        result.getChildren().add(mySliderLabel);
+        SpeedSlider speedSlider = new SpeedSlider(mySimulationController);
+        mySlider = speedSlider.getMySlider();
+        mySliderLabel = new Label("Simulation FPS:");
+        mySliderLabel.setLabelFor(mySlider);
         result.getChildren().add(mySlider);
         result.getChildren().add(myButton8);
         return result;
     }
 
-    private void makeSlider() {
-        mySliderLabel = new Label("Simulation Speed:");
-        mySliderLabel.setLabelFor(mySlider);
-        mySlider = new Slider();
-        mySlider.setMin(mySimulationController.getMyFramesPerSecond());
-        mySlider.setMax(mySimulationController.getMyFramesPerSecond()+10);
-        mySlider.setValue(mySimulationController.getMyFramesPerSecond());
-        mySlider.valueProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                mySimulationController.setMyFramesPerSecond((int) (mySimulationController.getMyFramesPerSecond()* t1.doubleValue()));
-            }
-        });
-    }
 
     private void makeDropDown() {
         ArrayList<String> configList = new ArrayList<String>();
@@ -165,7 +153,7 @@ public class MainView {
 
     private void newConfig(){
         if(myNewConfigView==null){
-            myNewConfigView = new NewConfigView();
+            myNewConfigView = new NewConfigView(mySimulationController);
         }
     }
 
@@ -200,9 +188,6 @@ public class MainView {
     public BoardView getMyBoardView(){
         return myBoardView;
     }
-
-
-
 
 
 

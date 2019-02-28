@@ -3,6 +3,7 @@ package app.controller;
 import app.model.Board;
 import app.model.Rules;
 import app.model.Simulation;
+import app.model.Properties;
 import app.view.BoardView;
 import app.view.MainView;
 import app.view.SimulationView;
@@ -10,6 +11,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.util.Duration;
+
+import java.util.ArrayList;
 
 public class SimulationController {
 
@@ -22,12 +25,14 @@ public class SimulationController {
     private Rules myRules;
     private MainView myMainView;
     private BoardView myBoardView;
-    private KeyFrame myKeyFrame;
 
     private int myFramesPerSecond;
     private int appHeight;
     private int appWidth;
     private boolean startSimulation;
+
+    //properties list, need to be initialized by reading in all the properties we have
+    private ArrayList<Properties> propList;
 
 
 
@@ -40,6 +45,7 @@ public class SimulationController {
         appHeight = height;
         appWidth = width;
 
+        propList = new ArrayList<>();
         myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
         mySimulationModel.setStart();
         setUpScene();
@@ -74,6 +80,11 @@ public class SimulationController {
         }
     }
 
+    public void createProperties(String name, String type, String des, String csv){
+        Properties temp = new Properties(name,type, des, csv);
+        System.out.println(temp.toString());
+        propList.add(temp);
+    }
 
     private void setTimeline(){
         if(myAnimation != null) myAnimation.stop();

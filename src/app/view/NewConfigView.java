@@ -1,9 +1,13 @@
 package app.view;
 
+import app.controller.SimulationController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,17 +22,25 @@ public class NewConfigView {
     public static final int PAGE_HEIGHT = 500;
     public static final String TITLE = "New Configuration";
 
-
+    //this part will be replaced by observable model
+    //temporary place holder
+    private String[] CSVList = {"GameOfLifeConfig1.csv", "GameOfLifeConfig2.csv", "GameOfLifeConfig3.csv"};
+    private ObservableList<String> myCSVOptions;
     private Button mySubmitButton;
-    private TextField myGameType;
-    private TextField myCreatorName;
-    private TextField myDescription;
-    private TextField myCSV;
     private Scene myScene;
     private VBox myRoot;
     private Stage myStage;
+    private ComboBox myDropDown;
+    private SimulationController mySimulationController;
 
-    public NewConfigView(){
+    private TextField nameField;
+    private TextField typeField;
+    private TextField des;
+
+
+
+    public NewConfigView(SimulationController sc){
+        mySimulationController = sc;
         myStage = new Stage();
         setScene();
         myStage.setScene(myScene);
@@ -46,32 +58,70 @@ public class NewConfigView {
         myScene = new Scene(myRoot,PAGE_WIDTH, PAGE_HEIGHT);
     }
 
-    private void setHorizontalComponent(String fieldLabel){
+    //this part need to be refactored, soon enough
+    private void setNameComponent(String fieldLabel){
         HBox temp = new HBox();
         Text tempText = new Text(fieldLabel);
-        TextField tempField = new TextField();
+        nameField = new TextField();
         temp.getChildren().add(tempText);
-        temp.getChildren().add(tempField);
+        temp.getChildren().add(nameField);
         temp.setAlignment(Pos.CENTER);
         myRoot.getChildren().add(temp);
     }
+
+    private void setTypeComponent(String fieldLabel){
+        HBox temp = new HBox();
+        Text tempText = new Text(fieldLabel);
+        typeField = new TextField();
+        temp.getChildren().add(tempText);
+        temp.getChildren().add(typeField);
+        temp.setAlignment(Pos.CENTER);
+        myRoot.getChildren().add(temp);
+    }
+
+    private void setDesComponent(String fieldLabel){
+        HBox temp = new HBox();
+        Text tempText = new Text(fieldLabel);
+        des = new TextField();
+        temp.getChildren().add(tempText);
+        temp.getChildren().add(des);
+        temp.setAlignment(Pos.CENTER);
+        myRoot.getChildren().add(temp);
+    }
+
+
+
+
 
     private void setDropDown(){
-
-
+        ArrayList<String> configList = new ArrayList<>();
+        for(String csv : CSVList){
+            configList.add(csv);
+        }
+        myCSVOptions = FXCollections.observableArrayList(configList);
+        myDropDown = new ComboBox(myCSVOptions);
+        myDropDown.setPromptText("Choose CSV configuration");
+        myRoot.getChildren().add(myDropDown);
     }
+
     private void setBottom(){
         HBox temp = new HBox();
-        Button tempButton = new Button("submit");
-        temp.getChildren().add(tempButton);
+        mySubmitButton = new Button("submit");
+        mySubmitButton.setOnAction(e -> this.submit(mySimulationController));
+        temp.getChildren().add(mySubmitButton);
         temp.setAlignment(Pos.CENTER);
         myRoot.getChildren().add(temp);
+    }
+
+    private void submit(SimulationController sc){//check console to see if it worked!
+        sc.createProperties(nameField.getCharacters().toString(), typeField.getCharacters().toString(), des.getCharacters().toString(), myDropDown.getValue().toString());
+        myStage.close();
     }
 
     private void setComponent(){
-        setHorizontalComponent("Creator's name");
-        setHorizontalComponent("Simulation name");
-        setHorizontalComponent("Description");
+        setNameComponent("Creator's name");
+        setTypeComponent("Simulation name");
+        setDesComponent("Description");
     }
 
 
