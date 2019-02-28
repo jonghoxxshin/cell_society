@@ -1,18 +1,11 @@
 package app.view;
 
 import app.controller.SimulationController;
-import app.model.CSVParser;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import java.util.ArrayList;
+import javafx.scene.control.Label;
 import java.util.ResourceBundle;
 
 

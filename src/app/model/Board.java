@@ -14,10 +14,10 @@ public class Board {
 
 
     //app.model.Board Constructor
-    public Board(String game, int config) {
-        myGame = game;
-        CSVParser parser = new CSVParser(game, config);
-        neighborType = parser.getNeighborType();
+    public Board(String filename) {
+        myGame = filename.split("Config")[0];
+        CSVParser parser = new CSVParser(filename);
+
         cells = parser.getCells();
         myHeight = parser.getMyHeight();
         myWidth = parser.getMyWidth();

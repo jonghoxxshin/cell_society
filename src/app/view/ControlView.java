@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -104,7 +105,7 @@ public class ControlView {
         myStartBoolean = true;
         mySimulationController.restartSimulation();
     }
-    
+
     private void makeDropDown() {
         ArrayList<String> configList = new ArrayList<String>();
         for (String game: gameNames){
@@ -130,7 +131,7 @@ public class ControlView {
     }
 
     private void addToDropDown(String config) {
-        CSVParser newConfig = new CSVParser(config, 1);
+        CSVParser newConfig = new CSVParser(config);
         myConfigOptions.add(config);
     }
 
@@ -138,6 +139,19 @@ public class ControlView {
         // need to change, currently placeholder to check functionality
         addToDropDown("a new config");
     }
+
+//    private Node makeCreatorText(){
+//        // NOTE - JUST A PLACEHOLDER FOR NOW
+//        String name = mySimulationController.getMyProperties().getString("name_of_creator");
+//        String full = name + "'s Simulation";
+//
+//        Text nameText = new Text(full);
+//
+//        nameText.setX(VIEW_WIDTH - (2 * nameText.getBoundsInParent().getWidth()));
+//
+//        return nameText;
+//
+//    }
 
 
 

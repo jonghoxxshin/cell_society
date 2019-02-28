@@ -24,42 +24,14 @@ public class CSVParser {
     private String myDescription;
     private Cell[][] cells;
 
-    public CSVParser(String filename, int config){
-        String csvGame = "";
-        if (filename.equals("GameOfLife")) {
-            neighborType = 1;
-            if (config == 1) {
-                csvGame = LIFE_1;
-            } else if (config == 2) {
-                csvGame = LIFE_2;
-            }else if (config == 3) {
-                csvGame = LIFE_3;
-            }
-        } else if (filename.equals("Percolation")) {
-            neighborType = 1;
-            if (config == 1) {
-                csvGame = PERCOLATION_1;
-            } else if (config == 2) {
-                csvGame = PERCOLATION_2;
-            }else if (config == 3) {
-                csvGame = PERCOLATION_3;
-            }
-        } else if (filename.equals("RockPaperScissors")) {
-            neighborType = 1;
-            csvGame = RPS_1;
-        } else if (filename.equals("Segregation")){
-            csvGame = SEGREGATION_1;
-        }  else if (filename.equals("Fire")){
-            neighborType = 2;
-            csvGame = FIRE_1;
-        }  else if (filename.equals("PredatorPrey")){
-            neighborType = 2;
-            csvGame = PREDATORPREY_1;
-        }
+    public CSVParser(String filename){
+        String csvGame = filename;
+
         this.cells = generateCells(csvGame);
     }
 
     private Cell[][] generateCells(String filename){
+
         Scanner csvScanner = new Scanner(CSVParser.class.getClassLoader().getResourceAsStream(filename));
 
         this.gameType = csvScanner.next();
