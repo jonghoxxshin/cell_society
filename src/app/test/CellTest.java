@@ -92,12 +92,21 @@ class CellTest {
     }
 
     @Test
-    void getNextStateLife() {
-        Rules myRules = new Rules("GameOfLife");
+    void checkEquality() {
+        Cell cell1 = new Cell(1,1,2,5,5, 1);
+        Cell cell2 = new Cell(1,1,2,5,5, 1);
+        assertTrue(cell1.equals(cell2));
+
     }
 
-    void getNextStatePercolate() {
-        Rules myRules = new Rules("Percolation");
+    @Test
+    void checkEqualityAfterUpdate() {
+        Cell testCell = testBoard.getCellAtCoordinates(4,4);
+        Cell testCell2 = testCell;
+        testCell.setMyState(testCell.getNextState(testRules,testBoard));
+        testCell2.setMyState(testCell2.getNextState(testRules,testBoard));
+        assertTrue(testCell.equals(testCell2));
+
     }
 
 }
