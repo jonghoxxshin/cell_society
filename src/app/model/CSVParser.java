@@ -15,12 +15,7 @@ public class CSVParser {
 
     public CSVParser(String filename){
         String csvGame = filename;
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-=======
->>>>>>> 9f4aef4d778506e964c94c73da98fdb0bbbcba69
         String gameName = filename.split("Config")[0];
 
         if (gameName.equals("GameOfLife")) {
@@ -41,10 +36,6 @@ public class CSVParser {
         }  else if (filename.equals("PredatorPrey")){
             neighborType = 2;
         }
-<<<<<<< HEAD
-=======
->>>>>>> kph18
->>>>>>> 9f4aef4d778506e964c94c73da98fdb0bbbcba69
 
         this.cells = generateCells(csvGame);
     }

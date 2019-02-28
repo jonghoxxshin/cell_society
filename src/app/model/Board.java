@@ -16,24 +16,11 @@ public class Board {
 
 
     //app.model.Board Constructor
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
-    public Board(String filename) {
-        myGame = filename.split("Config")[0];
-        CSVParser parser = new CSVParser(filename);
-
-=======
->>>>>>> 9f4aef4d778506e964c94c73da98fdb0bbbcba69
     public Board(ResourceBundle myProperties) {
         myGame = myProperties.getString("type_of_game");
         CSVParser parser = new CSVParser(myProperties.getString("name_of_csv"));
         neighborType = parser.getNeighborType();
-<<<<<<< HEAD
-=======
->>>>>>> kph18
->>>>>>> 9f4aef4d778506e964c94c73da98fdb0bbbcba69
         cells = parser.getCells();
         myHeight = parser.getMyHeight();
         myWidth = parser.getMyWidth();
