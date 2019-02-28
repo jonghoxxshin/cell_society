@@ -1,6 +1,7 @@
 package app.test;
 
 
+import app.model.Board;
 import app.model.Cell;
 import app.model.Rules;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,9 +14,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class CellTest {
     Cell testCell;
     int[][] expectedNeighbors;
+    Board myBoard;
 
     @BeforeEach
     void setUp(){
+        myBoard = new Board("GameOfLifeConfig4.csv");
+
         this.testCell = new Cell(0,0,0,5,5, 1);
         int[] neighbor10 = {1,0};
         int[] neighbor11 = {1,1};
@@ -41,6 +45,11 @@ class CellTest {
         expectedNeighbors[6] = neighbor10;
         expectedNeighbors[7] = neighbor11;
 
+    }
+
+    @Test
+    void getNextStateForBoard(){
+        myBoard.updateBoard(new Rules("GameOfLife"));
     }
 
     @Test

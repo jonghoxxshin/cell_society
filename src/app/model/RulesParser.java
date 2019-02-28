@@ -55,7 +55,7 @@ public class RulesParser {
         } catch (IOException e) {
             System.out.println("Failed to read rules configuration file");
         }
-        //printRulesArray();
+        printRulesArray();
         makeRules();
     }
 
