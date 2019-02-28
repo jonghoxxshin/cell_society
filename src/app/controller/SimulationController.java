@@ -15,6 +15,8 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import java.util.ResourceBundle;
+
 public class SimulationController {
 
     private Simulation mySimulationModel;
@@ -38,12 +40,19 @@ public class SimulationController {
 
 
 
+<<<<<<< HEAD
     public SimulationController( int height, int width, ResourceBundle properties){//Will change to instantiating simulation and simulationView inside controller, not as input
         myProperties = properties;
         String filename = properties.getString("name_of_csv");
         myBoard = new Board(filename);
         myRules = new Rules(filename.split("Config")[0]);
         myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells(), myProperties);
+=======
+    public SimulationController(int height, int width, String game, ResourceBundle myProperties){//Will change to instantiating simulation and simulationView inside controller, not as input
+        myBoard = new Board(myProperties);
+        myRules = new Rules(game);
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells());
+>>>>>>> kph18
         mySimulationModel = new Simulation(myBoard,myRules);
         mySimulationView = new SimulationView(myBoardView);
         myControlView = new ControlView(this);

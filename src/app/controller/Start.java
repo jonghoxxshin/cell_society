@@ -14,6 +14,7 @@ public class Start extends Application {
     public static final String TITLE = "CELL SIMULATION";
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 600;
+<<<<<<< HEAD
 
     private String filename;
     private String game;
@@ -37,6 +38,22 @@ public class Start extends Application {
 
         BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells(), myProperties);
         SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT, myProperties);
+=======
+    public static int configNumber = 1;
+    ResourceBundle myProperties;
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        myProperties = ResourceBundle.getBundle("example");
+
+        String game = myProperties.getString("type_of_game");
+
+        Board b = new Board(myProperties);
+        Rules r = new Rules(game);
+
+        BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells());
+        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT,game, myProperties);
+>>>>>>> kph18
         stage.setTitle(TITLE);
         stage.setScene(simulationController.getMyScene());
         stage.setResizable(false);

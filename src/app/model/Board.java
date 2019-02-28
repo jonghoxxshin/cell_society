@@ -2,6 +2,8 @@ package app.model;
 
 import app.model.Cell;
 
+import java.util.ResourceBundle;
+
 
 public class Board {
 
@@ -14,10 +16,17 @@ public class Board {
 
 
     //app.model.Board Constructor
+<<<<<<< HEAD
     public Board(String filename) {
         myGame = filename.split("Config")[0];
         CSVParser parser = new CSVParser(filename);
 
+=======
+    public Board(ResourceBundle myProperties) {
+        myGame = myProperties.getString("type_of_game");
+        CSVParser parser = new CSVParser(myProperties.getString("name_of_csv"));
+        neighborType = parser.getNeighborType();
+>>>>>>> kph18
         cells = parser.getCells();
         myHeight = parser.getMyHeight();
         myWidth = parser.getMyWidth();
