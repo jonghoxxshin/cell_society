@@ -24,7 +24,7 @@ public class NewConfigView {
 
     //this part will be replaced by observable model
     //temporary place holder
-    private String[] CSVList = {"GameOfLifeConfig1.csv", "GameOfLifeConfig2.csv", "GameOfLifeConfig3.csv"};
+    private String[] CSVList = {"1", "2", "3"};
     private ObservableList<String> myCSVOptions;
     private Button mySubmitButton;
     private Scene myScene;

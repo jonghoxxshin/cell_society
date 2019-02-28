@@ -127,7 +127,7 @@ public class ControlView {
 
     private void loadConfig(String t1) {
         //load config from model
-        System.out.println(t1);
+        // System.out.println(t1);
     }
 
     private void addToDropDown(String config) {

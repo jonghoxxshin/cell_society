@@ -1,9 +1,6 @@
 package app.controller;
 
-import app.model.Board;
-import app.model.Rules;
-import app.model.Simulation;
-import app.model.Properties;
+import app.model.*;
 import app.view.BoardView;
 import app.view.ControlView;
 import app.view.MainView;
@@ -91,7 +88,8 @@ public class SimulationController {
         }
 
         public void createProperties(String name, String type, String des, String csv){
-            Properties temp = new Properties(name,type, des, csv);
+            PropertiesFileWriter temp = new PropertiesFileWriter(name,type, des, csv);
+
             System.out.println(temp.toString());
             propList.add(temp);
         }
