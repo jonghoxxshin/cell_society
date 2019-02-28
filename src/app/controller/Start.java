@@ -8,26 +8,35 @@ import javafx.stage.Stage;
 import app.model.Board;
 import app.view.BoardView;
 
+import java.util.ResourceBundle;
+
 public class Start extends Application {
     public static final String TITLE = "CELL SIMULATION";
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 600;
-    public static int configNumber = 2;
+
+    private String filename;
+    private String game;
+    private ResourceBundle myProperties;
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> parent of b8196a9... pushing updates w config file
+
+    public Start(){
+        this.myProperties = ResourceBundle.getBundle("example");
+        this.game = myProperties.getString("type_of_game");
+        this.filename = myProperties.getString("name_of_csv");
+    }
+
     @Override
     public void start(Stage stage) throws Exception {
         String game = "GameOfLife";
 
-        Board b = new Board(game, configNumber);
+        Board b = new Board(filename);
         Rules r = new Rules(game);
 
-        BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells());
-        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT,game, configNumber);
+        BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells(), myProperties);
+        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT, myProperties);
         stage.setTitle(TITLE);
         stage.setScene(simulationController.getMyScene());
         stage.setResizable(false);
