@@ -11,6 +11,8 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.util.Duration;
 
+import java.util.ResourceBundle;
+
 public class SimulationController {
 
     private Simulation mySimulationModel;
@@ -31,8 +33,8 @@ public class SimulationController {
 
 
 
-    public SimulationController( int height, int width, String game, int config){//Will change to instantiating simulation and simulationView inside controller, not as input
-        myBoard = new Board(game, config);
+    public SimulationController(int height, int width, String game, ResourceBundle myProperties){//Will change to instantiating simulation and simulationView inside controller, not as input
+        myBoard = new Board(myProperties);
         myRules = new Rules(game);
         myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells());
         mySimulationModel = new Simulation(myBoard,myRules);

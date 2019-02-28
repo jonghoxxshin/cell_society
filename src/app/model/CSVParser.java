@@ -22,38 +22,29 @@ public class CSVParser {
 
     private Cell[][] cells;
 
-    public CSVParser(String filename, int config){
-        String csvGame = "";
-        if (filename.equals("GameOfLife")) {
+    public CSVParser(String filename){
+        String csvGame = filename;
+        String gameName = filename.split("Config")[0];
+
+        if (gameName.equals("GameOfLife")) {
             neighborType = 1;
-            if (config == 1) {
-                csvGame = LIFE_1;
-            } else if (config == 2) {
-                csvGame = LIFE_2;
-            }else if (config == 3) {
-                csvGame = LIFE_3;
-            }
-        } else if (filename.equals("Percolation")) {
+
+        } else if (gameName.equals("Percolation")) {
             neighborType = 1;
-            if (config == 1) {
-                csvGame = PERCOLATION_1;
-            } else if (config == 2) {
-                csvGame = PERCOLATION_2;
-            }else if (config == 3) {
-                csvGame = PERCOLATION_3;
-            }
-        } else if (filename.equals("RockPaperScissors")) {
+
+        } else if (gameName.equals("RockPaperScissors")) {
             neighborType = 1;
-            csvGame = RPS_1;
-        } else if (filename.equals("Segregation")){
-            csvGame = SEGREGATION_1;
+
+        } else if (gameName.equals("Segregation")){
+
+
         }  else if (filename.equals("Fire")){
             neighborType = 2;
-            csvGame = FIRE_1;
+
         }  else if (filename.equals("PredatorPrey")){
             neighborType = 2;
-            csvGame = PREDATORPREY_1;
         }
+
         this.cells = generateCells(csvGame);
     }
 

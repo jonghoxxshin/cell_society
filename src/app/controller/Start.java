@@ -8,21 +8,26 @@ import javafx.stage.Stage;
 import app.model.Board;
 import app.view.BoardView;
 
+import java.util.ResourceBundle;
+
 public class Start extends Application {
     public static final String TITLE = "CELL SIMULATION";
     public static final int APP_WIDTH = 800;
     public static final int APP_HEIGHT = 600;
-    public static int configNumber = 3;
+    public static int configNumber = 1;
+    ResourceBundle myProperties;
 
     @Override
     public void start(Stage stage) throws Exception {
-        String game = "GameOfLife";
+        myProperties = ResourceBundle.getBundle("example");
 
-        Board b = new Board(game, configNumber);
+        String game = myProperties.getString("type_of_game");
+
+        Board b = new Board(myProperties);
         Rules r = new Rules(game);
 
         BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells());
-        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT,game, configNumber);
+        SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT,game, myProperties);
         stage.setTitle(TITLE);
         stage.setScene(simulationController.getMyScene());
         stage.setResizable(false);
