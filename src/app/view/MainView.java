@@ -16,10 +16,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+<<<<<<< HEAD
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
+=======
+>>>>>>> parent of b8196a9... pushing updates w config file
 import java.util.ResourceBundle;
 
 
@@ -111,6 +114,7 @@ public class MainView {
         result.getChildren().add(myButton4);
         myButton7 = makeButton(myProperties.getString("load_configuration_button"), e-> this.loadConfig());
         result.getChildren().add(myButton7);
+<<<<<<< HEAD
 
         result.getChildren().add(myDropDown);
         result.getChildren().add(mySliderLabel);
@@ -118,6 +122,8 @@ public class MainView {
 
         //result.getChildren().add(makeCreatorText());
 
+=======
+>>>>>>> parent of b8196a9... pushing updates w config file
         return result;
     }
 

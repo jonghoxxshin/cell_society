@@ -15,7 +15,10 @@ public class Start extends Application {
     public static int configNumber = 2;
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of b8196a9... pushing updates w config file
     @Override
     public void start(Stage stage) throws Exception {
         String game = "GameOfLife";

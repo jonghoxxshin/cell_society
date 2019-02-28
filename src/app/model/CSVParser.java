@@ -24,9 +24,33 @@ public class CSVParser {
     private String myDescription;
     private Cell[][] cells;
 
+<<<<<<< HEAD
     public CSVParser(String filename){
         String csvGame = filename;
 
+=======
+    public CSVParser(String filename, int config){
+        String csvGame = "";
+        if (filename.equals("GameOfLife")) {
+            if (config == 1) {
+                csvGame = LIFE_1;
+            } else if (config == 2) {
+                csvGame = LIFE_2;
+            }else if (config == 3) {
+                csvGame = LIFE_3;
+            }
+        } else if (filename.equals("Percolation")) {
+            if (config == 1) {
+                csvGame = PERCOLATION_1;
+            } else if (config == 2) {
+                csvGame = PERCOLATION_2;
+            }else if (config == 3) {
+                csvGame = PERCOLATION_3;
+            }
+        } else if (filename.equals("RockPaperScissors")) {
+            csvGame = RPS_1;
+        }
+>>>>>>> parent of b8196a9... pushing updates w config file
         this.cells = generateCells(csvGame);
     }
 
