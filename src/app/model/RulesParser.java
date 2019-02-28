@@ -131,7 +131,8 @@ public class RulesParser {
 
     //print RulesArray
     private void printRulesArray() {
-        System.out.println("Set of Rules:");
+        System.out.println("Set of Rules: " + gameName);
+
         for (int[] rule : rulesArray) {
             System.out.println("Initial: " + rule[0] + " Desired Neighbor: " + rule[1] + " Required Amount: " + rule[2] + " Final: " + rule[3] + " Alt: " + rule[4]) ;
         }

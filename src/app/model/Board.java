@@ -28,7 +28,7 @@ public class Board {
         Cell[][] tempCells = new Cell[myWidth][myHeight];
         for(int i =0; i<myHeight;i++){
             for(int j =0; j<myWidth;j++){
-                tempCells[i][j] = new Cell(cells[i][j].getNextState(rules, this), i,j,myHeight,myWidth, neighborType);
+                tempCells[j][i] = new Cell(cells[j][i].getNextState(rules, this), i, j, myHeight, myWidth, neighborType);
             }
         }
         cells = tempCells;
