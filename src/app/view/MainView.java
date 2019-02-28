@@ -32,8 +32,6 @@ public class MainView {
     private Button myButton2;
     private Button myButton3;
     private Button myButton4;
-//    private Button myButton5;
-//    private Button myButton6;
     private Button myButton7;
     private Button myButton8;
     private Slider mySlider;
@@ -46,6 +44,9 @@ public class MainView {
     private ResourceBundle myProperties;
     private NewConfigView myNewConfigView;
     private boolean myStartBoolean;
+
+    private ControlView myControlView;
+
 
 
 
