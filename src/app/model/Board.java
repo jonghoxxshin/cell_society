@@ -9,6 +9,7 @@ public class Board {
     private int myWidth;
     private int myHeight;
     private String myGame;
+    private int neighborType;
 
 
 
@@ -16,6 +17,7 @@ public class Board {
     public Board(String filename) {
         myGame = filename.split("Config")[0];
         CSVParser parser = new CSVParser(filename);
+
         cells = parser.getCells();
         myHeight = parser.getMyHeight();
         myWidth = parser.getMyWidth();
@@ -27,7 +29,7 @@ public class Board {
         for(int i =0; i<myWidth;i++){
             for(int j =0; j<myHeight;j++){
                 Cell thisCell = cells[i][j];
-                Cell tempCell = new Cell(thisCell.getNextState(rules, this), i,j,myHeight,myWidth);
+                Cell tempCell = new Cell(thisCell.getNextState(rules, this), i,j,myHeight,myWidth, neighborType);
                 tempCells[i][j] = tempCell;
             }
         }

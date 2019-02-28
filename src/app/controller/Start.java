@@ -28,6 +28,7 @@ public class Start extends Application {
         this.filename = myProperties.getString("name_of_csv");
     }
 
+
     @Override
     public void start(Stage stage) throws Exception {
         String game = "GameOfLife";

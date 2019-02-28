@@ -14,7 +14,7 @@ class CellTest {
 
     @BeforeEach
     void setUp(){
-        this.testCell = new Cell(0,0,0,5,5);
+        this.testCell = new Cell(0,0,0,5,5, 1);
         int[] neighbor10 = {1,0};
         int[] neighbor11 = {1,1};
         int[] neighbor01 = {0,1};

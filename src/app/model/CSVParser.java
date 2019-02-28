@@ -1,9 +1,10 @@
 package app.model;
 
+import javafx.scene.paint.Color;
+
 import java.util.Scanner;
 
 public class CSVParser {
-
     private int myHeight;
     private int myWidth;
     private String gameType;
@@ -14,11 +15,18 @@ public class CSVParser {
     private static final String PERCOLATION_2 = "PercolationConfig2.csv";
     private static final String PERCOLATION_3 = "PercolationConfig3.csv";
     private static final String RPS_1 = "RockPaperScissorsConfig1.csv";
-
+    //Fix once we create new config files
+    private static final String FIRE_1 = "RockPaperScissorsConfig1.csv";
+    private static final String SEGREGATION_1 = "RockPaperScissorsConfig1.csv";
+    private static final String PREDATORPREY_1 = "RockPaperScissorsConfig1.csv";
+    private int neighborType;
+    private Color[] myColors;
+    private String myDescription;
     private Cell[][] cells;
 
     public CSVParser(String filename){
         String csvGame = filename;
+
         this.cells = generateCells(csvGame);
     }
 
@@ -38,7 +46,7 @@ public class CSVParser {
             String[] currentRow = csvScanner.next().split(",");
 
             for(int j=0; j<myWidth; j++){
-                cellsGenerated[j][i] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth);
+                cellsGenerated[j][i] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType);
             }
         }
         return cellsGenerated;
@@ -58,6 +66,10 @@ public class CSVParser {
 
     public Cell[][] getCells() {
         return cells;
+    }
+
+    public int getNeighborType() {
+        return neighborType;
     }
 
 
