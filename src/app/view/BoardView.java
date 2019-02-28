@@ -9,6 +9,9 @@ import app.model.Cell;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+import java.lang.reflect.Field;
+import java.util.ResourceBundle;
+
 
 public class BoardView {
     public static final double BOARD_WIDTH = 600;
@@ -22,8 +25,10 @@ public class BoardView {
     private Rectangle[][] myColorBoard;
     private Cell[][] myBoard;
     private Scene myScene;
+    private ResourceBundle myProperties;
 
-    public BoardView(int width, int height, Cell[][] board){
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties){
+        myProperties = properties;
         myBoardWidth = width;
         myBoardHeight = height;
         myBoard = board;
@@ -49,13 +54,14 @@ public class BoardView {
                 Rectangle r = new Rectangle(cellWidth,cellHeight);
                 Cell c = myBoard[i][j];
                 //System.out.println("this is cell state" + c.getMyState());
-                if(c.getMyState()==0){
-                    r.setFill(Color.WHITE);
-                }else if(c.getMyState()==1){
-                    r.setFill(Color.BLACK);
-                }else if(c.getMyState()==2){
-                    r.setFill(Color.BLUE);
-                }
+
+                int currentState = c.getMyState();
+
+                String colorString = myProperties.getString("color" + Integer.toString(currentState));
+
+                Color color = Color.web(colorString);
+                r.setFill(color);
+
                 myColorBoard[i][j] = r;
                 int[] loc = getLocation(i,j,width_num,height_num);
                 r.setX(loc[0]);

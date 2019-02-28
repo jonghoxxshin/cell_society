@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
+
 import java.util.ResourceBundle;
 
 
@@ -101,7 +103,25 @@ public class MainView {
         result.getChildren().add(myButton6);
         myButton7 = makeButton(myProperties.getString("load_configuration_button"), e-> this.loadConfig());
         result.getChildren().add(myButton7);
+
+        result.getChildren().add(makeCreatorText());
+
         return result;
+    }
+
+    private Node makeCreatorText(){
+        // NOTE - JUST A PLACEHOLDER FOR NOW
+        String name = mySimulationController.getMyProperties().getString("name_of_creator");
+        String full = name + "'s Simulation";
+
+        Text nameText = new Text(full);
+
+
+        // how to position??
+        nameText.setX(VIEW_WIDTH - (2 * nameText.getBoundsInParent().getWidth()));
+
+        return nameText;
+
     }
 
     private void loadConfig(){

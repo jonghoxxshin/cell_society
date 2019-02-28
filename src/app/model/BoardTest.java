@@ -10,7 +10,7 @@ class BoardTest {
     void updateBoardForConfigThatStaysTheSame() {
         Boolean testBool = true;
         Rules myRules = new Rules("GameOfLife");
-        Board myBoard = new Board("GameOfLife", 1);
+        Board myBoard = new Board("GameOfLife1.csv");
         Cell[][] currentBoard = myBoard.getCells();
         myBoard.updateBoard(myRules);
         Cell[][] newBoard = myBoard.getCells();
