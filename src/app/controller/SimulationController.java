@@ -12,6 +12,7 @@ import app.view.SimulationView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -36,6 +37,11 @@ public class SimulationController {
     private boolean startSimulation;
     private ResourceBundle myProperties;
 
+    private Color color0;
+    private Color color1;
+    private Color color2;
+
+
     //properties list, need to be initialized by reading in all the properties we have
     private ArrayList<Properties> propList;
 
@@ -48,7 +54,7 @@ public class SimulationController {
         mySimulationModel = new Simulation(myBoard, myRules);
         mySimulationView = new SimulationView(myBoardView);
         myControlView = new ControlView(this);
-        myRightView = new RightView(this);
+        myRightView = new RightView(this, myBoardView);
         appHeight = height;
         appWidth = width;
         propList = new ArrayList<>();
@@ -79,6 +85,10 @@ public class SimulationController {
         setTimeline();
     }
 
+    public MainView getMyMainView(){
+        return myMainView;
+    }
+
 
     public void next() {//need to update model and view for each step
         startSimulation = myControlView.getMyStartBoolean();
@@ -88,11 +98,14 @@ public class SimulationController {
                 mySimulationModel.nextStep();
                 mySimulationModel.printMyCells();
             }
-            myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
+
+            if(color0 != null) myMainView.setMyBoardView(
+                    new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, color0, color1, color2));
+            else myMainView.setMyBoardView(
+                    new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
 
         }
     }
-
 
         public void createProperties (String propertiesFileName, String name, String type, String des, String csv){
             PropertiesFileWriter temp = new PropertiesFileWriter(propertiesFileName, name, type, des, csv);
@@ -123,9 +136,22 @@ public class SimulationController {
         }
 
         public void restartSimulation(){
-
             myAnimation.play();
         }
+
+        public void changeColor(Color c0, Color c1, Color c2){
+            color0 = c0;
+            color1 = c1;
+            color2 = c2;
+        }
+
+        public void setNewBoard(){
+            myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyWidth(),myBoard.getCells(),myProperties,color0,color1,color2);
+            mySimulationView = new SimulationView(myBoardView);
+            myRightView  = new RightView(this, myBoardView);
+            myMainView.setMyBoardView(myBoardView);
+        }
+
 
 
     }

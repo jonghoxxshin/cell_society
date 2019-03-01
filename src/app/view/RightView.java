@@ -4,12 +4,13 @@ import app.controller.SimulationController;
 import app.model.State;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -22,9 +23,11 @@ public class RightView {
     private ColorPicker myColorPicker0;
     private ColorPicker myColorPicker1;
     private ColorPicker myColorPicker2;
+    private BoardView myBoardView;
 
-    public RightView(SimulationController sc){
+    public RightView(SimulationController sc,BoardView bv){
         mySimulationController = sc;
+        myBoardView = bv;
         myPossibleStates = mySimulationController.getMySimulationModel().getMyRules().getPossibleStates();
         myProperties = ResourceBundle.getBundle("english");
         myRoot = new VBox();
@@ -45,6 +48,9 @@ public class RightView {
         myRoot.getChildren().add(mySubmitButton);
     }
     private void submitColor(){
+        myBoardView.setColors(myColorPicker0.getValue(),myColorPicker1.getValue(),myColorPicker2.getValue());
+        mySimulationController.changeColor(myColorPicker0.getValue(),myColorPicker1.getValue(),myColorPicker2.getValue());
+        mySimulationController.setNewBoard();
 
     }
     private void setHBox0(){
@@ -61,6 +67,7 @@ public class RightView {
         Label tempLabel = new Label(myProperties.getString("state_1_color"));
         temp.getChildren().add(tempLabel);
         myColorPicker1 = new ColorPicker();
+        myColorPicker1.setValue(Color.BLACK);
         temp.getChildren().add(myColorPicker1);
         temp.setAlignment(Pos.CENTER);
         myRoot.getChildren().add(temp);
@@ -71,11 +78,13 @@ public class RightView {
         Label tempLabel = new Label(myProperties.getString("state_2_color"));
         temp.getChildren().add(tempLabel);
         myColorPicker2 = new ColorPicker();
+        myColorPicker2.setValue(Color.BLUE);
         temp.getChildren().add(myColorPicker2);
         temp.setAlignment(Pos.CENTER);
         myRoot.getChildren().add(temp);
 
     }
+
 
 
 

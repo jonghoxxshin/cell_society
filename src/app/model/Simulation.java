@@ -14,7 +14,6 @@ public class Simulation {
     }
 
     public void nextStep(){
-        System.out.println("this is start variable : " + start);
         if(start) {
             myCells = myBoard.updateBoard(myRules);
         }
