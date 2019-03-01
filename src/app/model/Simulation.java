@@ -21,6 +21,10 @@ public class Simulation {
 
     }
 
+    public Rules getMyRules(){
+        return myRules;
+    }
+
     public void setStart(){
         start = true;
     }

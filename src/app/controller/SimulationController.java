@@ -88,8 +88,11 @@ public class SimulationController {
 
         public void createProperties(String name, String proName, String type, String des, String csv){
             Properties temp = new Properties(name,type, des, csv);
-            System.out.println(temp.toString());
             propList.add(temp);
+        }
+
+        public Simulation getMySimulationModel(){
+            return mySimulationModel;
         }
 
         private void setTimeline(){
