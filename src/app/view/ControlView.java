@@ -1,19 +1,15 @@
 package app.view;
 
 import app.controller.SimulationController;
-import app.model.CSVParser;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
-
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -85,7 +81,6 @@ public class ControlView {
         mySliderLabel = new Label(myProperties.getString("slider_label"));
         mySliderLabel.setLabelFor(mySlider);
         myRoot.getChildren().add(mySlider);
-
     }
 
     private void pause(){
@@ -124,8 +119,9 @@ public class ControlView {
     }
 
     private void loadConfig(String t1) {
-        pause();
-        mySimulationController.restartSimulationWithNewConfig(t1);
+        this.pause();
+        mySimulationController.setConfig(t1);
+        //mySimulationController.restartSimulationWithNewConfig(t1);
 
     }
 

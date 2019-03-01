@@ -9,22 +9,15 @@ import app.view.BoardView;
 import app.view.ControlView;
 import app.view.MainView;
 import app.view.SimulationView;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-
 import javafx.scene.Scene;
-
 import javafx.scene.paint.Color;
-
 import javafx.scene.layout.BorderPane;
-
 import javafx.util.Duration;
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.ResourceBundle;
-
-import static app.view.MainView.VIEW_HEIGHT;
-import static app.view.MainView.VIEW_WIDTH;
 
 public class SimulationController {
 
@@ -91,11 +84,6 @@ public class SimulationController {
         return myPropertiesList;
     }
 
-        public ResourceBundle getMyProperties() {
-            return myProperties;
-        }
-
-
     public Scene getMyScene() {
         return myScene;
     }
@@ -113,35 +101,34 @@ public class SimulationController {
         setTimeline();
     }
 
-    public MainView getMyMainView(){
-        return myMainView;
+    public void setConfig(String t1){
+        this.pauseSimulation();
+        myProperties = ResourceBundle.getBundle(t1);
+        myBoard = new Board (myProperties);
+        myRules = new Rules (myProperties.getString("type_of_game"));
+        mySimulationModel = new Simulation(myBoard,myRules);
+        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties);
+        myMainView.setMyBoardView(myBoardView);
+        startSimulation = true;
+        setTimeline();
+        this.restartSimulation();
+
     }
-
-
-//                if (onSwitch){
-//                    System.out.println("should set new board view here:");
-//                    myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
-//                    onSwitch = false;
-//                }
-//                System.out.println(myBoard.getMyWidth() + " " + myBoard.getMyHeight() + " " + myProperties.getString("type_of_game"));
-//                mySimulationModel.printMyCells();
-//                myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
-
 
     public void next() {//need to update model and view for each step
         startSimulation = myControlView.getMyStartBoolean();
         System.out.println(myFramesPerSecond);
         if (startSimulation) {
             if (mySimulationModel != null) {
+                System.out.println("came in here after loading");
+                mySimulationModel.setStart();
                 mySimulationModel.nextStep();
-                mySimulationModel.printMyCells();
+                //mySimulationModel.printMyCells();
             }
-
             if(color0 != null) myMainView.setMyBoardView(
                     new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, color0, color1, color2));
             else myMainView.setMyBoardView(
                     new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
-
         }
     }
 
@@ -165,13 +152,8 @@ public class SimulationController {
         }
 
 
-//        private void setUpScene () {
-//            myMainView = new MainView(myBoardView, this, myControlView, myRightView);
-
         private void setUpScene(){
             this.myRoot = new BorderPane();
-            //this.myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
-
             myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView);
             startSimulation = myMainView.getMyStartBoolean();
             myScene = myMainView.getScene();
@@ -200,38 +182,4 @@ public class SimulationController {
         }
 
 
-
-
-        public void restartSimulationWithNewConfig(String props) {
-            onSwitch = true;
-            System.out.println("gets to load point with: " + props);
-            ResourceBundle newProperties = ResourceBundle.getBundle(props);
-            Board newBoard = new Board (newProperties);
-            Rules newRules = new Rules (newProperties.getString("type_of_game"));
-            Simulation newSimulation = new Simulation(newBoard, newRules);
-            SimulationController newSimulationController = new SimulationController(newBoard.getMyHeight(), newBoard.getMyWidth(), newProperties.getString("type_of_game"), myProperties);
-            BoardView newBoardView = new BoardView(newBoard.getMyWidth(), newBoard.getMyHeight(), newBoard.getCells(), newProperties);
-            SimulationView newSimulationView = new SimulationView(newBoardView);
-            ControlView newControlView = new ControlView(newSimulationController);
-            MainView newMainView = new MainView(newBoardView, myRoot, newSimulationController, newControlView, myRightView);
-
-            this.myProperties = newProperties;
-            this.myBoard = newBoard;
-            this.myRules = newRules;
-            this.mySimulationModel = newSimulation;
-            this.mySimulationView = newSimulationView;
-            this.myMainView = newMainView;
-            this.myBoardView = newBoardView;
-            this.myControlView = newControlView;
-            this.myControlView.setMyStartBoolean(true);
-            setTimeline();
-            setUpScene();
-            this.mySimulationModel.printMyCells();
-            this.myRules.getMyRulesParser().printRulesArray();
-            myAnimation.play();
-        }
-
-    public BoardView getMyBoardView() {
-        return myBoardView;
-    }
 }

@@ -28,6 +28,7 @@ public class Board {
 
     //Update board's expectedCells based on current cell configuration
     public Cell[][] updateBoard(Rules rules) {
+        System.out.println("board being updated");
         Cell[][] tempCells = new Cell[myWidth][myHeight];
         for(int i =0; i<myHeight;i++){
             for(int j =0; j<myWidth;j++){

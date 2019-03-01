@@ -48,7 +48,6 @@ public class MainView {
     }
 
     public Scene getScene(){
-
         return myScene;
     }
 
@@ -73,11 +72,6 @@ public class MainView {
         result = myBoardView.getMyRoot();
         return result;
     }
-    public void replaceCenter(){
-        System.out.println("replace called");
-        myRoot.setCenter(myBoardView.getMyRoot());
-    }
-
 
     public void  setMyBoardView(BoardView bv){
 
