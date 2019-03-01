@@ -31,6 +31,7 @@ public class SimulationController {
     private boolean startSimulation;
     private ResourceBundle myProperties;
     private ArrayList<String> myPropertiesList;
+    private Boolean onSwitch = false;
 
 
 
@@ -91,6 +92,11 @@ public class SimulationController {
                     mySimulationModel.nextStep();
                     mySimulationModel.printMyCells();
                 }
+                if (onSwitch){
+                    System.out.println("should set new board view here:");
+                    myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
+                    onSwitch = false;
+                }
                 myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
 
             }
@@ -125,6 +131,7 @@ public class SimulationController {
         }
 
         public void restartSimulationWithNewConfig(String props) {
+            onSwitch = true;
             System.out.println("gets to load point");
             SimulationController newSim = new SimulationController(appHeight, appWidth, props.replaceAll("\\d",""), ResourceBundle.getBundle(props));
             this.mySimulationModel = newSim.mySimulationModel;
@@ -137,6 +144,7 @@ public class SimulationController {
             this.myMainView.setMyBoardView(newSim.myBoardView);
             this.myBoardView = newSim.myBoardView;
             this.myControlView = newSim.myControlView;
+            this.myControlView.setMyStartBoolean();
             this.myFramesPerSecond = newSim.myFramesPerSecond;
             this.startSimulation = newSim.startSimulation;
             this.myProperties = newSim.myProperties;

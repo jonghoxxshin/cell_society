@@ -54,6 +54,10 @@ public class ControlView {
         return myStartBoolean;
     }
 
+    public void setMyStartBoolean(){
+        myStartBoolean = true;
+    }
+
     private Button makeButton(String name, EventHandler<ActionEvent> handler){
         var result = new Button();
         var text = name;
