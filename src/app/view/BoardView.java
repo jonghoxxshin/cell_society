@@ -54,7 +54,7 @@ public class BoardView {
                 if(c.getMyState()==0){
                     r.setFill(Color.WHITE);
                 }else if(c.getMyState()==1){
-                    System.out.println("is black");
+                    //System.out.println("is black");
                     r.setFill(Color.BLACK);
                 }else if(c.getMyState()==2){
                     r.setFill(Color.BLUE);

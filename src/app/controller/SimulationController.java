@@ -18,7 +18,6 @@ public class SimulationController {
     private Simulation mySimulationModel;
     private SimulationView mySimulationView;
     private final String[] gameNames = {"gameOfLife", "percolation"};
-
     private Scene myScene;
     private Timeline myAnimation;
     private Board myBoard;
@@ -31,10 +30,6 @@ public class SimulationController {
     private int appWidth;
     private boolean startSimulation;
     private ResourceBundle myProperties;
-
-    //properties list, need to be initialized by reading in all the properties we have
-    //private ArrayList<Properties> propList;
-    //replacing above arraylist
     private ArrayList<String> myPropertiesList;
 
 
@@ -64,9 +59,6 @@ public class SimulationController {
             myPropertiesList.add(game + 3);
         }
         myPropertiesList.add("rockPaperScissors1");
-//        for (String prop:myPropertiesList){
-//            System.out.println(prop);
-//        }
     }
 
     public ArrayList<String> getMyPropertiesList() {
@@ -91,7 +83,7 @@ public class SimulationController {
         }
 
 
-        public void next() {//need to update model and view for each step
+        public void next() {
             startSimulation = myControlView.getMyStartBoolean();
             System.out.println(myFramesPerSecond);
             if (startSimulation) {
@@ -148,6 +140,10 @@ public class SimulationController {
             this.myFramesPerSecond = newSim.myFramesPerSecond;
             this.startSimulation = newSim.startSimulation;
             this.myProperties = newSim.myProperties;
+            mySimulationModel.setStart();
+            setUpScene();
+            setTimeline();
+            this.myRules.getMyRulesParser().printRulesArray();
             myAnimation.play();
         }
 

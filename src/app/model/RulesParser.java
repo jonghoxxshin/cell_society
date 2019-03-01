@@ -56,7 +56,7 @@ public class RulesParser {
         } catch (IOException e) {
             System.out.println("Failed to read rules configuration file");
         }
-        printRulesArray();
+        //printRulesArray();
         makeRules();
     }
 
@@ -133,7 +133,7 @@ public class RulesParser {
     }
 
     //print RulesArray
-    private void printRulesArray() {
+    public void printRulesArray() {
         System.out.println("Set of Rules: " + gameName);
 
         for (int[] rule : rulesArray) {

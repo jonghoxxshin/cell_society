@@ -128,7 +128,7 @@ public class NewConfigView {
     private void submit(SimulationController sc){//check console to see if it worked!
         String temp = sc.createProperties(nameProperties.getCharacters().toString(), nameField.getCharacters().toString(),typeField.getCharacters().toString(), des.getCharacters().toString(), myDropDown.getValue().toString());
         System.out.println(temp);
-        //It doesn't wait long enough to look for file 
+        //It doesn't wait long enough to look for file
         sc.restartSimulationWithNewConfig(temp);
         myStage.close();
     }
