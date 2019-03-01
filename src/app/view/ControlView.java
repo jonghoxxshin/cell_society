@@ -35,6 +35,7 @@ public class ControlView {
     private Button startButton;
     private ResourceBundle myProperties;
     private Label mySliderLabel;
+    private ArrayList<String> myPropertiesList;
 
     private boolean myStartBoolean;
 
@@ -43,6 +44,7 @@ public class ControlView {
         myStartBoolean = false;
         mySimulationController = sc;
         myRoot = new HBox();
+        myPropertiesList = sc.getMyPropertiesList();
         setView();
     }
 
@@ -107,13 +109,7 @@ public class ControlView {
     }
 
     private void makeDropDown() {
-        ArrayList<String> configList = new ArrayList<String>();
-        for (String game: gameNames){
-            configList.add(game + 1);
-            configList.add(game + 2);
-            configList.add(game + 3);
-        }
-        myConfigOptions = FXCollections.observableArrayList(configList);
+        myConfigOptions = FXCollections.observableArrayList(myPropertiesList);
         myDropDown = new ComboBox(myConfigOptions);
         myDropDown.setPromptText("Load Configuration");
         myDropDown.valueProperty().addListener(new ChangeListener() {

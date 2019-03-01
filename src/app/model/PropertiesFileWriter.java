@@ -10,10 +10,12 @@ public class PropertiesFileWriter {
     String myGameType;
     String myDescription;
     String fullCSVName;
+    String myPropFile;
     Properties prop;
 
     public PropertiesFileWriter(String propertiesFileName, String name, String gameType, String description, String csvNumber){
         this.myPropFileName = propertiesFileName + ".properties";
+        this.myPropFile = propertiesFileName;
         this.myName = name;
         this.myGameType = gameType;
         this.myDescription = description;
@@ -21,6 +23,10 @@ public class PropertiesFileWriter {
         prop = new Properties();
         setPropertyFileValues();
         writePropertiesFile();
+    }
+
+    public String getMyPropFile() {
+        return myPropFile;
     }
 
 

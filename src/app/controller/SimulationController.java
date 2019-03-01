@@ -17,6 +17,7 @@ public class SimulationController {
 
     private Simulation mySimulationModel;
     private SimulationView mySimulationView;
+    private final String[] gameNames = {"gameOfLife", "percolation"};
 
     private Scene myScene;
     private Timeline myAnimation;
@@ -32,7 +33,9 @@ public class SimulationController {
     private ResourceBundle myProperties;
 
     //properties list, need to be initialized by reading in all the properties we have
-    private ArrayList<Properties> propList;
+    //private ArrayList<Properties> propList;
+    //replacing above arraylist
+    private ArrayList<String> myPropertiesList;
 
 
 
@@ -43,14 +46,31 @@ public class SimulationController {
         myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells(), myProperties);
         mySimulationModel = new Simulation(myBoard,myRules);
         mySimulationView = new SimulationView(myBoardView);
+        initMyPropList();
         myControlView = new ControlView(this);
         appHeight = height;
         appWidth = width;
-        propList = new ArrayList<>();
         myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
         mySimulationModel.setStart();
         setUpScene();
         setTimeline();
+    }
+
+    private void initMyPropList() {
+        myPropertiesList = new ArrayList<String>();
+        for (String game: gameNames){
+            myPropertiesList.add(game + 1);
+            myPropertiesList.add(game + 2);
+            myPropertiesList.add(game + 3);
+        }
+        myPropertiesList.add("rockPaperScissors1");
+//        for (String prop:myPropertiesList){
+//            System.out.println(prop);
+//        }
+    }
+
+    public ArrayList<String> getMyPropertiesList() {
+        return myPropertiesList;
     }
 
         public ResourceBundle getMyProperties() {
@@ -86,8 +106,7 @@ public class SimulationController {
 
         public void createProperties(String propertiesFileName, String name, String type, String des, String csv){
             PropertiesFileWriter temp = new PropertiesFileWriter(propertiesFileName, name,type, des, csv);
-
-            propList.add(temp.getProp());
+            myPropertiesList.add(temp.getMyPropFile());
         }
 
         private void setTimeline(){
