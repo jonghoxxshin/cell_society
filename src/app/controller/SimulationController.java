@@ -151,18 +151,18 @@ public class SimulationController {
             SimulationController newSimulationController = new SimulationController(newBoard.getMyHeight(), newBoard.getMyWidth(), newProperties.getString("type_of_game"), myProperties);
             BoardView newBoardView = new BoardView(newBoard.getMyWidth(), newBoard.getMyHeight(), newBoard.getCells(), newProperties);
             SimulationView newSimulationView = new SimulationView(newBoardView);
-            ControlView newControlView = new ControlView(newSimulationController);
-            MainView newMainView = new MainView(myRoot, newBoardView, newSimulationController, newControlView);
+
 
             this.myProperties = newProperties;
             this.myBoard = newBoard;
             this.myRules = newRules;
             this.mySimulationModel = newSimulation;
             this.mySimulationView = newSimulationView;
-            this.myMainView = newMainView;
             this.myBoardView = newBoardView;
+            ControlView newControlView = new ControlView(this);
             this.myControlView = newControlView;
-            this.myControlView.setMyStartBoolean(true);
+            this.myMainView.modifyMainView(myRoot, newBoardView, newSimulationController, newControlView);
+            //this.myControlView.setMyStartBoolean(true);
             setTimeline();
             setUpScene();
             this.mySimulationModel.printMyCells();

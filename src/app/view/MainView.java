@@ -36,6 +36,14 @@ public class MainView {
         myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
     }
 
+    public void modifyMainView(BorderPane root, BoardView bv, SimulationController sc, ControlView cv) {
+        myProperties = ResourceBundle.getBundle("english");
+        mySimulationController = sc;
+        myStartBoolean = false;
+        myBoardView = bv;
+        myControlView = cv;
+    }
+
     public Scene getScene(){
 
         return myScene;
