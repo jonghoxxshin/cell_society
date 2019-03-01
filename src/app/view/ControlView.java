@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControlView {
-
-    private String[] gameNames = {"Game of Life: ", "Percolation: ", "Rock Paper Scissors: ", "Segregation: ", "Fire: ", "Predator Prey: "};
     private ComboBox myDropDown;
     private ObservableList<String> myConfigOptions;
 
@@ -122,8 +120,9 @@ public class ControlView {
     }
 
     private void loadConfig(String t1) {
-        //load config from model
-        // System.out.println(t1);
+        pause();
+        mySimulationController.restartSimulationWithNewConfig(t1);
+
     }
 
     private void addToDropDown(String config) {

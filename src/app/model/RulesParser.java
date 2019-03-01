@@ -60,17 +60,17 @@ public class RulesParser {
     }
 
     private String getFileName(String game){
-        if (game.equals("GameOfLife")){
+        if (game.toLowerCase().equals("gameoflife")){
             return LIFE_RULES;
-        } else if (game.equals("Percolation")) {
+        } else if (game.equals("percolation")) {
             return PERCOLATE_RULES;
-        } else if (game.equals("RockPaperScissors")) {
+        } else if (game.equals("rockpaperscissors")) {
             return RPS_RULES;
-        } else if (game.equals("Segregation")) {
+        } else if (game.equals("segregation")) {
             return SEGREGATION_RULES;
-        } else if (game.equals("PredatorPrey")) {
+        } else if (game.equals("predatorprey")) {
             return PREDATORPREY_RULES;
-        } else if (game.equals("Fire")) {
+        } else if (game.equals("fire")) {
             return FIRE_RULES;
         }
         return null;

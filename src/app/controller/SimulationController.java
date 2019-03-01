@@ -132,6 +132,12 @@ public class SimulationController {
             myAnimation.play();
         }
 
+        public void restartSimulationWithNewConfig(String props) {
+            SimulationController newSim = new SimulationController(appHeight, appWidth, props.replaceAll("\\d",""), ResourceBundle.getBundle(props));
+
+            myAnimation.play();
+        }
+
 
 
 
