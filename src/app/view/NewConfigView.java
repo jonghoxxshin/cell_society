@@ -24,7 +24,7 @@ public class NewConfigView {
 
     //this part will be replaced by observable model
     //temporary place holder
-    private String[] CSVList = {"GameOfLifeConfig1.csv", "GameOfLifeConfig2.csv", "GameOfLifeConfig3.csv"};
+    private String[] CSVList = {"1", "2", "3"};
     private ObservableList<String> myCSVOptions;
     private Button mySubmitButton;
     private Scene myScene;
@@ -126,7 +126,7 @@ public class NewConfigView {
     }
 
     private void submit(SimulationController sc){//check console to see if it worked!
-        sc.createProperties(nameField.getCharacters().toString(),nameProperties.getCharacters().toString(),typeField.getCharacters().toString(), des.getCharacters().toString(), myDropDown.getValue().toString());
+        sc.createProperties(nameProperties.getCharacters().toString(), nameField.getCharacters().toString(),typeField.getCharacters().toString(), des.getCharacters().toString(), myDropDown.getValue().toString());
         myStage.close();
     }
 

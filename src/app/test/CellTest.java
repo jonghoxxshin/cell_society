@@ -15,13 +15,15 @@ import static org.junit.jupiter.api.Assertions.*;
 class CellTest {
     Cell testCell;
     int[][] expectedNeighbors;
-    Board myBoard;
     ResourceBundle myProperties;
+    Board testBoard;
+    Rules testRules;
 
     @BeforeEach
     void setUp(){
         myProperties = ResourceBundle.getBundle("test");
-        myBoard = new Board(myProperties);
+        testBoard = new Board(myProperties);
+        testRules = new Rules(myProperties.getString("type_of_game"));
 
         this.testCell = new Cell(0,0,0,5,5, 1);
         int[] neighbor10 = {1,0};
@@ -51,8 +53,23 @@ class CellTest {
     }
 
     @Test
-    void getNextStateForBoard(){
-        myBoard.updateBoard(new Rules("GameOfLife"));
+    void getNextStateForKnown(){
+        Cell testCell = testBoard.getCellAtCoordinates(1,1);
+        int expected = 1;
+        int actual = testCell.getNextState(testRules,testBoard);
+        assertEquals(expected,actual);
+        actual = testCell.getNextState(testRules,testBoard);
+        assertEquals(expected,actual);
+    }
+
+    @Test
+    void getNextStateForKnownCornerCase(){
+        Cell testCell = testBoard.getCellAtCoordinates(4,4);
+        int expected = 1;
+        int actual = testCell.getNextState(testRules,testBoard);
+        assertEquals(expected,actual);
+        actual = testCell.getNextState(testRules,testBoard);
+        assertEquals(expected,actual);
     }
 
     @Test
@@ -75,12 +92,21 @@ class CellTest {
     }
 
     @Test
-    void getNextStateLife() {
-        Rules myRules = new Rules("GameOfLife");
+    void checkEquality() {
+        Cell cell1 = new Cell(1,1,2,5,5, 1);
+        Cell cell2 = new Cell(1,1,2,5,5, 1);
+        assertTrue(cell1.equals(cell2));
+
     }
 
-    void getNextStatePercolate() {
-        Rules myRules = new Rules("Percolation");
+    @Test
+    void checkEqualityAfterUpdate() {
+        Cell testCell = testBoard.getCellAtCoordinates(4,4);
+        Cell testCell2 = testCell;
+        testCell.setMyState(testCell.getNextState(testRules,testBoard));
+        testCell2.setMyState(testCell2.getNextState(testRules,testBoard));
+        assertTrue(testCell.equals(testCell2));
+
     }
 
 }

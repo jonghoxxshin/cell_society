@@ -3,13 +3,18 @@ package app.controller;
 import app.model.Board;
 import app.model.Rules;
 import app.model.Simulation;
-import app.model.Properties;
 import app.view.*;
+import app.model.*;
+import app.view.BoardView;
+import app.view.ControlView;
+import app.view.MainView;
+import app.view.SimulationView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.util.Duration;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class SimulationController {
@@ -35,13 +40,12 @@ public class SimulationController {
     private ArrayList<Properties> propList;
 
 
-
-    public SimulationController(int height, int width, String game, ResourceBundle myProperties){//Will change to instantiating simulation and simulationView inside controller, not as input
+    public SimulationController(int height, int width, String game, ResourceBundle myProperties) {//Will change to instantiating simulation and simulationView inside controller, not as input
         this.myProperties = myProperties;
         myBoard = new Board(myProperties);
         myRules = new Rules(game);
-        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells(), myProperties);
-        mySimulationModel = new Simulation(myBoard,myRules);
+        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties);
+        mySimulationModel = new Simulation(myBoard, myRules);
         mySimulationView = new SimulationView(myBoardView);
         myControlView = new ControlView(this);
         myRightView = new RightView(this);
@@ -54,61 +58,67 @@ public class SimulationController {
         setTimeline();
     }
 
-        public ResourceBundle getMyProperties() {
-            return myProperties;
-        }
+    public ResourceBundle getMyProperties() {
+        return myProperties;
+    }
 
-        public Scene getMyScene(){return myScene;}
+    public Scene getMyScene() {
+        return myScene;
+    }
 
-        public int getMyFramesPerSecond(){return myFramesPerSecond;}
+    public int getMyFramesPerSecond() {
+        return myFramesPerSecond;
+    }
 
-        public KeyFrame makeKeyFrame(){
-            return new KeyFrame(Duration.millis(1000/myFramesPerSecond), e -> next());
-        }
+    public KeyFrame makeKeyFrame() {
+        return new KeyFrame(Duration.millis(1000 / myFramesPerSecond), e -> next());
+    }
 
-        public void setMyFramesPerSecond(int input){
-            myFramesPerSecond = input;
-            setTimeline();
-        }
+    public void setMyFramesPerSecond(int input) {
+        myFramesPerSecond = input;
+        setTimeline();
+    }
 
 
-        public void next() {//need to update model and view for each step
-            startSimulation = myControlView.getMyStartBoolean();
-            System.out.println(myFramesPerSecond);
-            if (startSimulation) {
-                if (mySimulationModel != null) {
-                    mySimulationModel.nextStep();
-                    mySimulationModel.printMyCells();
-                }
-                myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
-
+    public void next() {//need to update model and view for each step
+        startSimulation = myControlView.getMyStartBoolean();
+        System.out.println(myFramesPerSecond);
+        if (startSimulation) {
+            if (mySimulationModel != null) {
+                mySimulationModel.nextStep();
+                mySimulationModel.printMyCells();
             }
+            myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
+
+        }
+    }
+
+
+        public void createProperties (String propertiesFileName, String name, String type, String des, String csv){
+            PropertiesFileWriter temp = new PropertiesFileWriter(propertiesFileName, name, type, des, csv);
+
+            propList.add(temp.getProp());
         }
 
-        public void createProperties(String name, String proName, String type, String des, String csv){
-            Properties temp = new Properties(name,type, des, csv);
-            propList.add(temp);
-        }
-
-        public Simulation getMySimulationModel(){
+        public Simulation getMySimulationModel () {
             return mySimulationModel;
         }
 
-        private void setTimeline(){
-            if(myAnimation != null) myAnimation.stop();
+        private void setTimeline () {
+            if (myAnimation != null) myAnimation.stop();
             myAnimation = new Timeline();
             myAnimation.setCycleCount(Timeline.INDEFINITE);
             myAnimation.getKeyFrames().add(this.makeKeyFrame());
             myAnimation.play();
         }
 
-        private void setUpScene(){
+        private void setUpScene () {
             myMainView = new MainView(myBoardView, this, myControlView, myRightView);
             startSimulation = myMainView.getMyStartBoolean();
             myScene = myMainView.getScene();
         }
 
-        public void pauseSimulation(){
+        public void pauseSimulation () {
             myAnimation.pause();
         }
 
@@ -116,14 +126,6 @@ public class SimulationController {
 
             myAnimation.play();
         }
-
-
-
-
-
-
-
-
 
 
     }
