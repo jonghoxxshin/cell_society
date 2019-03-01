@@ -32,7 +32,7 @@ public class Simulation {
     public void printMyCells(){
         for (int i = 0; i < myCells.length; i++) {
             for (int j = 0; j < myCells[i].length; j++){
-                System.out.print(myCells[i][j].getMyState() + ",");
+                System.out.print(myCells[j][i].getMyState() + ",");
             }
             System.out.println();
         }

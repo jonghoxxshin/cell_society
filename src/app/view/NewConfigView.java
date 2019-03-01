@@ -102,9 +102,6 @@ public class NewConfigView {
     }
 
 
-
-
-
     private void setDropDown(){
         ArrayList<String> configList = new ArrayList<>();
         for(String csv : CSVList){

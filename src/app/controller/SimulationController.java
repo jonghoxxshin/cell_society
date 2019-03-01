@@ -85,9 +85,10 @@ public class SimulationController {
 
 
         public void next() {
+            System.out.println("got int next");
             startSimulation = myControlView.getMyStartBoolean();
-            System.out.println(myFramesPerSecond);
             if (startSimulation) {
+                System.out.println("got past startsimulation");
                 if (mySimulationModel != null) {
                     mySimulationModel.nextStep();
                     mySimulationModel.printMyCells();
@@ -97,6 +98,8 @@ public class SimulationController {
                     myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
                     onSwitch = false;
                 }
+                System.out.println(myBoard.getMyWidth() + " " + myBoard.getMyHeight() + " " + myProperties.getString("type_of_game"));
+                mySimulationModel.printMyCells();
                 myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
 
             }
@@ -132,28 +135,31 @@ public class SimulationController {
 
         public void restartSimulationWithNewConfig(String props) {
             onSwitch = true;
-            System.out.println("gets to load point");
-            SimulationController newSim = new SimulationController(appHeight, appWidth, props.replaceAll("\\d",""), ResourceBundle.getBundle(props));
-            this.mySimulationModel = newSim.mySimulationModel;
-            this.mySimulationView = newSim.mySimulationView;
-            this.myScene = newSim.myScene;
-            this.myAnimation = newSim.myAnimation;
-            this.myBoard = newSim.myBoard;
-            this.myRules = newSim.myRules;
-            this.myMainView = newSim.myMainView ;
-            this.myMainView.setMyBoardView(newSim.myBoardView);
-            this.myBoardView = newSim.myBoardView;
-            this.myControlView = newSim.myControlView;
-            this.myControlView.setMyStartBoolean();
-            this.myFramesPerSecond = newSim.myFramesPerSecond;
-            this.startSimulation = newSim.startSimulation;
-            this.myProperties = newSim.myProperties;
-            this.mySimulationModel.setStart();
-            setUpScene();
+            System.out.println("gets to load point with: " + props);
+            ResourceBundle newProperties = ResourceBundle.getBundle(props);
+            Board newBoard = new Board (newProperties);
+            Rules newRules = new Rules (newProperties.getString("type_of_game"));
+            Simulation newSimulation = new Simulation(newBoard, newRules);
+            SimulationController newSimulationController = new SimulationController(newBoard.getMyHeight(), newBoard.getMyWidth(), newProperties.getString("type_of_game"), myProperties);
+            BoardView newBoardView = new BoardView(newBoard.getMyWidth(), newBoard.getMyHeight(), newBoard.getCells(), newProperties);
+            SimulationView newSimulationView = new SimulationView(newBoardView);
+            ControlView newControlView = new ControlView(newSimulationController);
+            MainView newMainView = new MainView(newBoardView, newSimulationController, newControlView);
+
+            this.myProperties = newProperties;
+            this.myBoard = newBoard;
+            this.myRules = newRules;
+            this.mySimulationModel = newSimulation;
+            this.mySimulationView = newSimulationView;
+            this.myMainView = newMainView;
+            this.myBoardView = newBoardView;
+            this.myControlView = newControlView;
+            this.myControlView.setMyStartBoolean(true);
             setTimeline();
+            setUpScene();
+            this.mySimulationModel.printMyCells();
             this.myRules.getMyRulesParser().printRulesArray();
             myAnimation.play();
-            next();
         }
 
 

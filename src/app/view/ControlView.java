@@ -54,8 +54,8 @@ public class ControlView {
         return myStartBoolean;
     }
 
-    public void setMyStartBoolean(){
-        myStartBoolean = true;
+    public void setMyStartBoolean(Boolean b){
+        myStartBoolean = b;
     }
 
     private Button makeButton(String name, EventHandler<ActionEvent> handler){
@@ -129,28 +129,7 @@ public class ControlView {
 
     }
 
-    private void addToDropDown(String config) {
-        CSVParser newConfig = new CSVParser(config);
-        myConfigOptions.add(config);
-    }
 
-    private void createNewConfig(){
-        // need to change, currently placeholder to check functionality
-        addToDropDown("a new config");
-    }
-
-//    private Node makeCreatorText(){
-//        // NOTE - JUST A PLACEHOLDER FOR NOW
-//        String name = mySimulationController.getMyProperties().getString("name_of_creator");
-//        String full = name + "'s Simulation";
-//
-//        Text nameText = new Text(full);
-//
-//        nameText.setX(VIEW_WIDTH - (2 * nameText.getBoundsInParent().getWidth()));
-//
-//        return nameText;
-//
-//    }
 
 
 
