@@ -53,7 +53,6 @@ public class CSVParser {
     }
 
     private Cell[][] generateCells(String filename){
-
         Scanner csvScanner = new Scanner(CSVParser.class.getClassLoader().getResourceAsStream(filename));
 
         this.gameType = csvScanner.next();

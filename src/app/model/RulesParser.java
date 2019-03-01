@@ -30,6 +30,7 @@ public class RulesParser {
     public RulesParser(String game) {
         rulesArray = new ArrayList<int[]>();
         stateArray = new ArrayList<Integer>();
+        System.out.println(game);
         InputStream in = this.getClass().getClassLoader().getResourceAsStream(getFileName(game));
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String currentLine = null;
@@ -62,15 +63,15 @@ public class RulesParser {
     private String getFileName(String game){
         if (game.toLowerCase().equals("gameoflife")){
             return LIFE_RULES;
-        } else if (game.equals("percolation")) {
+        } else if (game.toLowerCase().equals("percolation")) {
             return PERCOLATE_RULES;
-        } else if (game.equals("rockpaperscissors")) {
+        } else if (game.toLowerCase().equals("rockpaperscissors")) {
             return RPS_RULES;
-        } else if (game.equals("segregation")) {
+        } else if (game.toLowerCase().equals("segregation")) {
             return SEGREGATION_RULES;
-        } else if (game.equals("predatorprey")) {
+        } else if (game.toLowerCase().equals("predatorprey")) {
             return PREDATORPREY_RULES;
-        } else if (game.equals("fire")) {
+        } else if (game.toLowerCase().equals("fire")) {
             return FIRE_RULES;
         }
         return null;

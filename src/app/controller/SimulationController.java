@@ -104,9 +104,10 @@ public class SimulationController {
             }
         }
 
-        public void createProperties(String propertiesFileName, String name, String type, String des, String csv){
+        public String createProperties(String propertiesFileName, String name, String type, String des, String csv){
             PropertiesFileWriter temp = new PropertiesFileWriter(propertiesFileName, name,type, des, csv);
             myPropertiesList.add(temp.getMyPropFile());
+            return temp.getMyPropFile();
         }
 
         private void setTimeline(){
@@ -133,8 +134,20 @@ public class SimulationController {
         }
 
         public void restartSimulationWithNewConfig(String props) {
+            System.out.println("gets to load point");
             SimulationController newSim = new SimulationController(appHeight, appWidth, props.replaceAll("\\d",""), ResourceBundle.getBundle(props));
-
+            this.mySimulationModel = newSim.mySimulationModel;
+            this.mySimulationView = newSim.mySimulationView;
+            this.myScene = newSim.myScene;
+            this.myAnimation = newSim.myAnimation;
+            this.myBoard = newSim.myBoard;
+            this.myRules = newSim.myRules;
+            this.myMainView = newSim.myMainView ;
+            this.myBoardView = newSim.myBoardView;
+            this.myControlView = newSim.myControlView;
+            this.myFramesPerSecond = newSim.myFramesPerSecond;
+            this.startSimulation = newSim.startSimulation;
+            this.myProperties = newSim.myProperties;
             myAnimation.play();
         }
 
