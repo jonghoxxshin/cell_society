@@ -121,7 +121,6 @@ public class SimulationController {
         }
 
         public void restartSimulation(){
-
             myAnimation.play();
         }
 
@@ -135,16 +134,18 @@ public class SimulationController {
             this.myBoard = newSim.myBoard;
             this.myRules = newSim.myRules;
             this.myMainView = newSim.myMainView ;
+            this.myMainView.setMyBoardView(newSim.myBoardView);
             this.myBoardView = newSim.myBoardView;
             this.myControlView = newSim.myControlView;
             this.myFramesPerSecond = newSim.myFramesPerSecond;
             this.startSimulation = newSim.startSimulation;
             this.myProperties = newSim.myProperties;
-            mySimulationModel.setStart();
+            this.mySimulationModel.setStart();
             setUpScene();
             setTimeline();
             this.myRules.getMyRulesParser().printRulesArray();
             myAnimation.play();
+            next();
         }
 
 
