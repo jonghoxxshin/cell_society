@@ -7,11 +7,16 @@ import app.view.MainView;
 import app.view.SimulationView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.ResourceBundle;
+
+import static app.view.MainView.VIEW_HEIGHT;
+import static app.view.MainView.VIEW_WIDTH;
 
 public class SimulationController {
 
@@ -32,7 +37,7 @@ public class SimulationController {
     private ResourceBundle myProperties;
     private ArrayList<String> myPropertiesList;
     private Boolean onSwitch = false;
-
+    private BorderPane myRoot;
 
 
     public SimulationController(int height, int width, String game, ResourceBundle myProperties){//Will change to instantiating simulation and simulationView inside controller, not as input
@@ -120,7 +125,10 @@ public class SimulationController {
         }
 
         private void setUpScene(){
-            myMainView = new MainView(myBoardView, this, myControlView);
+            this.myRoot = new BorderPane();
+            //this.myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
+
+            myMainView = new MainView(myRoot, myBoardView, this, myControlView);
             startSimulation = myMainView.getMyStartBoolean();
             myScene = myMainView.getScene();
         }
@@ -144,7 +152,7 @@ public class SimulationController {
             BoardView newBoardView = new BoardView(newBoard.getMyWidth(), newBoard.getMyHeight(), newBoard.getCells(), newProperties);
             SimulationView newSimulationView = new SimulationView(newBoardView);
             ControlView newControlView = new ControlView(newSimulationController);
-            MainView newMainView = new MainView(newBoardView, newSimulationController, newControlView);
+            MainView newMainView = new MainView(myRoot, newBoardView, newSimulationController, newControlView);
 
             this.myProperties = newProperties;
             this.myBoard = newBoard;
@@ -162,13 +170,7 @@ public class SimulationController {
             myAnimation.play();
         }
 
-
-
-
-
-
-
-
-
-
+    public BoardView getMyBoardView() {
+        return myBoardView;
     }
+}

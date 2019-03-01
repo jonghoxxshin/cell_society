@@ -22,20 +22,24 @@ public class MainView {
     private ResourceBundle myProperties;
     private boolean myStartBoolean;
 
-    public MainView(BoardView bv, SimulationController sc, ControlView cv) {
+    public MainView(BorderPane root, BoardView bv, SimulationController sc, ControlView cv) {
         myProperties = ResourceBundle.getBundle("english");
         mySimulationController = sc;
         myStartBoolean = false;
         myBoardView = bv;
         myControlView = cv;
-        myRoot = new BorderPane();
+        this.myRoot = root;
+
         myRoot.setTop(this.makeTop());
         myRoot.setBottom(this.makeBottom());
         myRoot.setCenter(this.makeCenter());
         myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
     }
 
-    public Scene getScene(){return myScene;}
+    public Scene getScene(){
+
+        return myScene;
+    }
 
     public boolean getMyStartBoolean(){return myStartBoolean;}
 
