@@ -4,10 +4,7 @@ import app.model.Board;
 import app.model.Rules;
 import app.model.Simulation;
 import app.model.Properties;
-import app.view.BoardView;
-import app.view.ControlView;
-import app.view.MainView;
-import app.view.SimulationView;
+import app.view.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -27,6 +24,7 @@ public class SimulationController {
     private MainView myMainView;
     private BoardView myBoardView;
     private ControlView myControlView;
+    private RightView myRightView;
     private int myFramesPerSecond;
     private int appHeight;
     private int appWidth;
@@ -46,6 +44,7 @@ public class SimulationController {
         mySimulationModel = new Simulation(myBoard,myRules);
         mySimulationView = new SimulationView(myBoardView);
         myControlView = new ControlView(this);
+        myRightView = new RightView(this);
         appHeight = height;
         appWidth = width;
         propList = new ArrayList<>();
@@ -104,7 +103,7 @@ public class SimulationController {
         }
 
         private void setUpScene(){
-            myMainView = new MainView(myBoardView, this, myControlView);
+            myMainView = new MainView(myBoardView, this, myControlView, myRightView);
             startSimulation = myMainView.getMyStartBoolean();
             myScene = myMainView.getScene();
         }
