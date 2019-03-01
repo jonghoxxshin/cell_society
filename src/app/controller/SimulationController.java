@@ -10,8 +10,7 @@ import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.util.Duration;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 public class SimulationController {
@@ -40,21 +39,19 @@ public class SimulationController {
     public SimulationController(int height, int width, String game, ResourceBundle myProperties){//Will change to instantiating simulation and simulationView inside controller, not as input
         this.myProperties = myProperties;
         myBoard = new Board(myProperties);
-            myRules = new Rules(game);
-            myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells(), myProperties);
-                    mySimulationModel = new Simulation(myBoard,myRules);
-            mySimulationView = new SimulationView(myBoardView);
-            myControlView = new ControlView(this);
-            appHeight = height;
-            appWidth = width;
-
-            propList = new ArrayList<>();
-            myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
-            mySimulationModel.setStart();
-            setUpScene();
-            setTimeline();
-
-        }
+        myRules = new Rules(game);
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(), myBoard.getCells(), myProperties);
+        mySimulationModel = new Simulation(myBoard,myRules);
+        mySimulationView = new SimulationView(myBoardView);
+        myControlView = new ControlView(this);
+        appHeight = height;
+        appWidth = width;
+        propList = new ArrayList<>();
+        myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
+        mySimulationModel.setStart();
+        setUpScene();
+        setTimeline();
+    }
 
         public ResourceBundle getMyProperties() {
             return myProperties;
@@ -87,11 +84,10 @@ public class SimulationController {
             }
         }
 
-        public void createProperties(String name, String type, String des, String csv){
-            PropertiesFileWriter temp = new PropertiesFileWriter(name,type, des, csv);
+        public void createProperties(String propertiesFileName, String name, String type, String des, String csv){
+            PropertiesFileWriter temp = new PropertiesFileWriter(propertiesFileName, name,type, des, csv);
 
-            System.out.println(temp.toString());
-            propList.add(temp);
+            propList.add(temp.getProp());
         }
 
         private void setTimeline(){

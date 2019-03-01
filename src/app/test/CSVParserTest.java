@@ -25,12 +25,9 @@ public class CSVParserTest {
     void setup(){
         ResourceBundle myProperties = ResourceBundle.getBundle("example");
         ResourceBundle readerTestProperties = ResourceBundle.getBundle("test");
-
-        // generate the object to be tested
         this.filename = "GameOfLife";
         this.tester = new CSVParser(myProperties.getString("name_of_csv"));
         this.readerTester = new CSVParser(readerTestProperties.getString("name_of_csv"));
-
 
         // manually create parameters
         this.gameType = "GameOfLife";
