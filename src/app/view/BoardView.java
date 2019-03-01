@@ -18,17 +18,29 @@ public class BoardView {
     protected double cellHeight;
     protected double cellWidth;
 
+    private Color myColor0;
+    private Color myColor1;
+    private Color myColor2;
+
     private Group myRoot;
     private Rectangle[][] myColorBoard;
     private Cell[][] myBoard;
+
     private Scene myScene;
     private ResourceBundle myProperties;
 
     public BoardView(int width, int height, Cell[][] board, ResourceBundle properties){
+        this(width, height, board, properties, Color.WHITE, Color.BLACK, Color.BLUE);
+    }
+
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, Color c0, Color c1, Color c2){
         myProperties = properties;
         myBoardWidth = width;
         myBoardHeight = height;
         myBoard = board;
+        myColor0 = c0;
+        myColor1 = c1;
+        myColor2 = c2;
         cellHeight = BOARD_HEIGHT/height;
         cellWidth = BOARD_WIDTH/width;
         myColorBoard = new Rectangle[myBoardWidth][myBoardHeight];
@@ -36,10 +48,18 @@ public class BoardView {
         myRoot = createColorBoard(width,height);
     }
 
+    public void setColors(Color c0, Color c1, Color c2){
+        myColor0 = c0;
+        myColor1 = c1;
+        myColor2 = c2;
+        updateBoard();
+
+    }
+
     public Group getMyRoot(){return myRoot;}
 
-    public void updateBoard(Board board){
-        myBoard = board.getCells();
+    private void updateBoard(){
+        myRoot.getChildren().clear();
         myRoot = createColorBoard(myBoardWidth,myBoardHeight);
     }
 
@@ -52,12 +72,12 @@ public class BoardView {
                 //System.out.println("this is cell state" + c.getMyState());
 
                 if(c.getMyState()==0){
-                    r.setFill(Color.WHITE);
+                    r.setFill(myColor0);
                 }else if(c.getMyState()==1){
-                    //System.out.println("is black");
-                    r.setFill(Color.BLACK);
+                    r.setFill(myColor1);
+
                 }else if(c.getMyState()==2){
-                    r.setFill(Color.BLUE);
+                    r.setFill(myColor2);
                 }
 
                 myColorBoard[i][j] = r;

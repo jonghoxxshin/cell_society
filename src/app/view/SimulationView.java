@@ -9,7 +9,5 @@ public class SimulationView {
         myBoardView = bv;
     }
 
-    public void updateView(Board board){
-        myBoardView.updateBoard(board);
-    }
+
 }

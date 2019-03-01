@@ -16,23 +16,26 @@ public class MainView {
     private BoardView myBoardView;
     private BorderPane myRoot;
     private ControlView myControlView;
+    private RightView myRightView;
     private Scene myScene;
     private Label myLabel;
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
     private boolean myStartBoolean;
 
-    public MainView(BorderPane root, BoardView bv, SimulationController sc, ControlView cv) {
+    public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv) {
         myProperties = ResourceBundle.getBundle("english");
         mySimulationController = sc;
         myStartBoolean = false;
         myBoardView = bv;
+        myRightView = rv;
         myControlView = cv;
         this.myRoot = root;
 
         myRoot.setTop(this.makeTop());
         myRoot.setBottom(this.makeBottom());
         myRoot.setCenter(this.makeCenter());
+        myRoot.setRight(this.makeRight());
         myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
     }
 
@@ -61,13 +64,22 @@ public class MainView {
         return myLabel;
     }
 
+    private Node makeRight(){
+        return myRightView.getMyRoot();
+    }
+
     private Node makeCenter(){
         var result = new Group();
         result = myBoardView.getMyRoot();
         return result;
     }
+    public void replaceCenter(){
+        System.out.println("replace called");
+        myRoot.setCenter(myBoardView.getMyRoot());
+    }
 
-    public void setMyBoardView(BoardView bv){
+
+    public void  setMyBoardView(BoardView bv){
 
         myBoardView = bv;
         myRoot.setCenter(bv.getMyRoot());

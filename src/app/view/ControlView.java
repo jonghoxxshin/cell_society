@@ -9,10 +9,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
@@ -37,6 +35,7 @@ public class ControlView {
 
     private boolean myStartBoolean;
 
+
     public ControlView (SimulationController sc){
         myProperties = ResourceBundle.getBundle("english");
         myStartBoolean = false;
@@ -44,6 +43,7 @@ public class ControlView {
         myRoot = new HBox();
         myPropertiesList = sc.getMyPropertiesList();
         setView();
+
     }
 
     public HBox getMyRoot(){
