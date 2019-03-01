@@ -75,6 +75,7 @@ public class BoardView {
                     r.setFill(myColor0);
                 }else if(c.getMyState()==1){
                     r.setFill(myColor1);
+
                 }else if(c.getMyState()==2){
                     r.setFill(myColor2);
                 }

@@ -17,35 +17,35 @@ public class CSVParser {
         String csvGame = filename;
         String gameName = filename.split("Config")[0];
 
-        if (gameName.equals("GameOfLife")) {
+        if (gameName.toLowerCase().equals("gameoflife")) {
             neighborType = 1;
-        } else if (gameName.equals("Percolation")) {
+        } else if (gameName.toLowerCase().equals("percolation")) {
             neighborType = 1;
-        } else if (gameName.equals("RockPaperScissors")) {
+        } else if (gameName.toLowerCase().equals("rockpaperscissors")) {
             neighborType = 1;
-        } else if (gameName.equals("Segregation")){
+        } else if (gameName.toLowerCase().equals("segregation")){
 
-        }  else if (filename.equals("Fire")){
+        }  else if (filename.toLowerCase().equals("fire")){
             neighborType = 2;
-        }  else if (filename.equals("PredatorPrey")) {
+        }  else if (filename.toLowerCase().equals("predatorprey")) {
             neighborType = 2;
         }
 
-        if (gameName.equals("GameOfLife")) {
+        if (gameName.toLowerCase().equals("gameOflife")) {
             neighborType = 1;
 
-        } else if (gameName.equals("Percolation")) {
+        } else if (gameName.toLowerCase().equals("percolation")) {
             neighborType = 1;
 
-        } else if (gameName.equals("RockPaperScissors")) {
+        } else if (gameName.toLowerCase().equals("rockpaperscissors")) {
             neighborType = 1;
 
-        } else if (gameName.equals("Segregation")){
+        } else if (gameName.toLowerCase().equals("segregation")){
 
-        }  else if (filename.equals("Fire")){
+        }  else if (filename.toLowerCase().equals("fire")){
             neighborType = 2;
 
-        }  else if (filename.equals("PredatorPrey")){
+        }  else if (filename.toLowerCase().equals("predatorprey")){
             neighborType = 2;
         }
 
@@ -53,7 +53,6 @@ public class CSVParser {
     }
 
     private Cell[][] generateCells(String filename){
-
         Scanner csvScanner = new Scanner(CSVParser.class.getClassLoader().getResourceAsStream(filename));
 
         this.gameType = csvScanner.next();

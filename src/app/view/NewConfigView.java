@@ -102,9 +102,6 @@ public class NewConfigView {
     }
 
 
-
-
-
     private void setDropDown(){
         ArrayList<String> configList = new ArrayList<>();
         for(String csv : CSVList){
@@ -126,7 +123,10 @@ public class NewConfigView {
     }
 
     private void submit(SimulationController sc){//check console to see if it worked!
-        sc.createProperties(nameProperties.getCharacters().toString(), nameField.getCharacters().toString(),typeField.getCharacters().toString(), des.getCharacters().toString(), myDropDown.getValue().toString());
+        String temp = sc.createProperties(nameProperties.getCharacters().toString(), nameField.getCharacters().toString(),typeField.getCharacters().toString(), des.getCharacters().toString(), myDropDown.getValue().toString());
+        System.out.println(temp);
+        //It doesn't wait long enough to look for file
+        sc.restartSimulationWithNewConfig(temp);
         myStage.close();
     }
 

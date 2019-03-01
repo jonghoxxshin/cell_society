@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class ControlView {
-
-    private String[] gameNames = {"Game of Life: ", "Percolation: ", "Rock Paper Scissors: ", "Segregation: ", "Fire: ", "Predator Prey: "};
     private ComboBox myDropDown;
     private ObservableList<String> myConfigOptions;
 
@@ -33,6 +31,7 @@ public class ControlView {
     private Button startButton;
     private ResourceBundle myProperties;
     private Label mySliderLabel;
+    private ArrayList<String> myPropertiesList;
 
     private boolean myStartBoolean;
 
@@ -42,6 +41,7 @@ public class ControlView {
         myStartBoolean = false;
         mySimulationController = sc;
         myRoot = new HBox();
+        myPropertiesList = sc.getMyPropertiesList();
         setView();
 
     }
@@ -52,6 +52,10 @@ public class ControlView {
 
     public boolean getMyStartBoolean(){
         return myStartBoolean;
+    }
+
+    public void setMyStartBoolean(Boolean b){
+        myStartBoolean = b;
     }
 
     private Button makeButton(String name, EventHandler<ActionEvent> handler){
@@ -107,13 +111,7 @@ public class ControlView {
     }
 
     private void makeDropDown() {
-        ArrayList<String> configList = new ArrayList<String>();
-        for (String game: gameNames){
-            configList.add(game + 1);
-            configList.add(game + 2);
-            configList.add(game + 3);
-        }
-        myConfigOptions = FXCollections.observableArrayList(configList);
+        myConfigOptions = FXCollections.observableArrayList(myPropertiesList);
         myDropDown = new ComboBox(myConfigOptions);
         myDropDown.setPromptText("Load Configuration");
         myDropDown.valueProperty().addListener(new ChangeListener() {
@@ -126,32 +124,12 @@ public class ControlView {
     }
 
     private void loadConfig(String t1) {
-        //load config from model
-        // System.out.println(t1);
+        pause();
+        mySimulationController.restartSimulationWithNewConfig(t1);
+
     }
 
-    private void addToDropDown(String config) {
-        CSVParser newConfig = new CSVParser(config);
-        myConfigOptions.add(config);
-    }
 
-    private void createNewConfig(){
-        // need to change, currently placeholder to check functionality
-        addToDropDown("a new config");
-    }
-
-//    private Node makeCreatorText(){
-//        // NOTE - JUST A PLACEHOLDER FOR NOW
-//        String name = mySimulationController.getMyProperties().getString("name_of_creator");
-//        String full = name + "'s Simulation";
-//
-//        Text nameText = new Text(full);
-//
-//        nameText.setX(VIEW_WIDTH - (2 * nameText.getBoundsInParent().getWidth()));
-//
-//        return nameText;
-//
-//    }
 
 
 

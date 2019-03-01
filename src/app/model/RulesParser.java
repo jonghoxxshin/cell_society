@@ -30,6 +30,7 @@ public class RulesParser {
     public RulesParser(String game) {
         rulesArray = new ArrayList<int[]>();
         stateArray = new ArrayList<Integer>();
+        System.out.println(game);
         InputStream in = this.getClass().getClassLoader().getResourceAsStream(getFileName(game));
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String currentLine = null;
@@ -55,22 +56,22 @@ public class RulesParser {
         } catch (IOException e) {
             System.out.println("Failed to read rules configuration file");
         }
-        printRulesArray();
+        //printRulesArray();
         makeRules();
     }
 
     private String getFileName(String game){
-        if (game.equals("GameOfLife")){
+        if (game.toLowerCase().equals("gameoflife")){
             return LIFE_RULES;
-        } else if (game.equals("Percolation")) {
+        } else if (game.toLowerCase().equals("percolation")) {
             return PERCOLATE_RULES;
-        } else if (game.equals("RockPaperScissors")) {
+        } else if (game.toLowerCase().equals("rockpaperscissors")) {
             return RPS_RULES;
-        } else if (game.equals("Segregation")) {
+        } else if (game.toLowerCase().equals("segregation")) {
             return SEGREGATION_RULES;
-        } else if (game.equals("PredatorPrey")) {
+        } else if (game.toLowerCase().equals("predatorprey")) {
             return PREDATORPREY_RULES;
-        } else if (game.equals("Fire")) {
+        } else if (game.toLowerCase().equals("fire")) {
             return FIRE_RULES;
         }
         return null;
@@ -132,8 +133,8 @@ public class RulesParser {
     }
 
     //print RulesArray
-    private void printRulesArray() {
-
+    public void printRulesArray() {
+        System.out.println("Set of Rules: " + gameName);
 
         for (int[] rule : rulesArray) {
             System.out.println("Initial: " + rule[0] + " Desired Neighbor: " + rule[1] + " Required Amount: " + rule[2] + " Final: " + rule[3] + " Alt: " + rule[4]) ;
