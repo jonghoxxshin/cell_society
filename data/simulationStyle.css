@@ -1,0 +1,35 @@
+.button {
+    -fx-text-fill: #006464;
+    -fx-background-color: #DFC931;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8;
+}
+
+.color-picker {
+    -fx-text-fill: #006464;
+    -fx-background-color: #DFC931;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8;
+}
+
+.combo-box{
+    -fx-text-fill: #006464;
+    -fx-background-color: #DFC931;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8;
+}
+
+.cell{
+    -fx-text-fill: #006464;
+    -fx-background-color: #DFC931;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 8;
+}
+.slider{
+    -fx-text-fill: #006464;
+    -fx-background-color: #DFC931;
+}
