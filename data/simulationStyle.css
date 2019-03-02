@@ -1,35 +1,63 @@
 .button {
     -fx-text-fill: #006464;
-    -fx-background-color: #DFC931;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-padding: 8;
+    -fx-background-color: #f5f5dc;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
 }
-
+.root{
+    -fx-background-color: #fff5de;
+}
 .color-picker {
     -fx-text-fill: #006464;
-    -fx-background-color: #DFC931;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-padding: 8;
+    -fx-background-color: #f5f5dc;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
 }
 
 .combo-box{
     -fx-text-fill: #006464;
-    -fx-background-color: #DFC931;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-padding: 8;
+    -fx-background-color: #f5f5dc;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
 }
 
 .cell{
     -fx-text-fill: #006464;
-    -fx-background-color: #DFC931;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
-    -fx-padding: 8;
+    -fx-background-color: #f5f5dc;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
 }
 .slider{
     -fx-text-fill: #006464;
-    -fx-background-color: #DFC931;
+    -fx-background-color: #f5f5dc;
+}
+.text-field{
+    -fx-text-fill: #006464;
+    -fx-background-color: #FFDBAC;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
+}
+.label{
+    -fx-text-fill: #006464;
+    -fx-background-color: #f5f5dc;
+    -fx-background-radius: 10;
+    -fx-padding: 5;
+    -fx-font-family: "Courier New";
+    -fx-font-size: 12;
+    -fx-font-weight: bold;
 }
