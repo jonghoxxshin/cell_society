@@ -37,6 +37,7 @@ public class MainView {
         myRoot.setCenter(this.makeCenter());
         myRoot.setRight(this.makeRight());
         myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
+        myScene.getStylesheets().add(getClass().getResource("/simulationStyle.css").toExternalForm());
     }
 
     public void modifyMainView(BorderPane root, BoardView bv, SimulationController sc, ControlView cv) {

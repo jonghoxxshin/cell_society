@@ -58,6 +58,7 @@ public class NewConfigView {
         setBottom();
         myRoot.setAlignment(Pos.CENTER);
         myScene = new Scene(myRoot,PAGE_WIDTH, PAGE_HEIGHT);
+        myScene.getStylesheets().add(getClass().getResource("/simulationStyle.css").toExternalForm());
     }
 
     //this part need to be refactored, soon enough

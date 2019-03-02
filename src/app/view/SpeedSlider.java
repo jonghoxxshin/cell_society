@@ -1,7 +1,6 @@
 package app.view;
 
 import app.controller.SimulationController;
-import app.model.Simulation;
 import javafx.scene.control.Slider;
 
 public class SpeedSlider {
