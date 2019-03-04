@@ -78,6 +78,8 @@ public class SimulationController {
             myPropertiesList.add(game + 3);
         }
         myPropertiesList.add("rockPaperScissors1");
+        myPropertiesList.add("predatorPrey1");
+        myPropertiesList.add("segregation1");
     }
 
     public ArrayList<String> getMyPropertiesList() {

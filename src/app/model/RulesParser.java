@@ -85,7 +85,11 @@ public class RulesParser {
         Integer altEndState = -1;
         if (type == 4 ) {
             endState = Integer.parseInt(splitByWhiteSpace[2].split(",")[0]);
-            altEndState = Integer.parseInt(splitByWhiteSpace[2].split(",")[1]);
+            try {
+                altEndState = Integer.parseInt(splitByWhiteSpace[2].split(",")[1]);
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                
+            }
         } else {
             endState = Integer.parseInt(splitByWhiteSpace[2]);
         }
