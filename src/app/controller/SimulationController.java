@@ -175,7 +175,7 @@ public class SimulationController {
         }
 
         public void setNewBoard(){
-            myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyWidth(),myBoard.getCells(),myProperties,color0,color1,color2);
+            myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,color0,color1,color2);
             mySimulationView = new SimulationView(myBoardView);
             myRightView  = new RightView(this, myBoardView);
             myMainView.setMyBoardView(myBoardView);

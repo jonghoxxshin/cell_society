@@ -65,7 +65,7 @@ public class Cell {
             tempY = y + offSet[1];
         }
 
-        int[] toBeReturned = {tempX, tempY};
+        int[] toBeReturned = {tempY, tempX};
         return toBeReturned;
     }
 

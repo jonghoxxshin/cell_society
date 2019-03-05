@@ -45,6 +45,10 @@ public class BoardView {
         cellWidth = BOARD_WIDTH/width;
         myColorBoard = new Rectangle[myBoardWidth][myBoardHeight];
         myRoot = new Group();
+
+        System.out.println("In constructor, width for arg is " + width);
+        System.out.println("In constructor, height for arg is " + height);
+
         myRoot = createColorBoard(width,height);
     }
 
@@ -60,15 +64,29 @@ public class BoardView {
 
     private void updateBoard(){
         myRoot.getChildren().clear();
+
         myRoot = createColorBoard(myBoardWidth,myBoardHeight);
     }
 
     private Group createColorBoard(int width_num, int height_num){
         var result = new Group();
+
+        System.out.println("height_num is " + height_num);
+        System.out.println("width_num is " + width_num);
+
+
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){
                 Rectangle r = new Rectangle(cellWidth,cellHeight);
-                Cell c = myBoard[i][j];
+
+                System.out.println("my board height in length is " + myBoard.length);
+                System.out.println("my board width in length of first one is " + myBoard[0].length);
+
+                System.out.println("j is " + j);
+                System.out.println("i is " + i);
+
+
+                Cell c = myBoard[j][i];
                 //System.out.println("this is cell state" + c.getMyState());
 
                 if(c.getMyState()==0){
