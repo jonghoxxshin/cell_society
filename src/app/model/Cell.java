@@ -1,7 +1,6 @@
 package app.model;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Cell {
     private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, {0, -1}, {0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
@@ -39,7 +38,7 @@ public class Cell {
         for (int i = 0; i < tempNeighbors.length; i++) {
             if (type == 1) {
                 tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_TYPE1[i]);
-            } else if (type == 2) {
+            } else if (type == 2 || type == 4) {
                 tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_TYPE2[i]);
             }
         }
@@ -73,7 +72,7 @@ public class Cell {
 
     private int[][] getTempNeighborsForType() {
         if (type == 2) {
-            int[][] tempNeighbors = new int[3][2];
+            int[][] tempNeighbors = new int[4][2];
             return tempNeighbors;
         }
         int[][] returnNeighbors = new int[8][2];
@@ -94,10 +93,16 @@ public class Cell {
 
     //get coordinates of neighbors in desired state
     public ArrayList<Cell> findNeighborsInState(int state, int[][] neighborsList, Board board) {
+        for (int[] neighbor: neighborsList){
+            System.out.println(neighbor[1] +"," + neighbor[0]);
+        }
         ArrayList<Cell> neighborsInState = new ArrayList<Cell>();
         for (int[] neighbor : neighborsList) {
-            if (board.getCells()[neighbor[0]][neighbor[1]].getMyState() == state) {
-                neighborsInState.add(board.getCells()[neighbor[0]][neighbor[1]]);
+            System.out.println("WHY!?!?!?:::" + neighbor[0] + "," + neighbor[1]);
+            Cell tempCell = board.getCells()[neighbor[0]][neighbor[1]];
+            System.out.println(tempCell.getMyX() + "," + tempCell.getMyY());
+            if (tempCell.getMyState() == state) {
+                neighborsInState.add(tempCell);
             }
         }
         return neighborsInState;

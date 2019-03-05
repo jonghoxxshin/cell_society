@@ -18,6 +18,7 @@ public class Board {
 
 
 
+
     //app.model.Board Constructor
 
     public Board(ResourceBundle myProperties) {
@@ -31,7 +32,9 @@ public class Board {
 
     //Update board's expectedCells based on current cell configuration
     public Cell[][] updateBoard(Rules rules) {
-        System.out.println("board being updated");
+        if (rules.getMyRulesParser().getType() == 4){
+            return updateBoardHelper(rules);
+        }
         Cell[][] tempCells = new Cell[myHeight][myWidth];
         for(int i =0; i<myHeight;i++){
             for(int j =0; j<myWidth;j++){
@@ -39,8 +42,71 @@ public class Board {
             }
         }
         cells = tempCells;
+        print2DBoard(cells);
         return tempCells;
     }
+
+    private int getRandomIntFromBound(int bound) {
+        Random newRand = new Random();
+        return newRand.nextInt(bound);
+    }
+
+    private int[][] initializeUpdateBoard(int[][] temp){
+        for(int i =0; i<myHeight;i++) {
+            for (int j = 0; j < myWidth; j++) {
+                temp[i][j] = -1;
+            }
+        }
+        return temp;
+    }
+
+    private Cell[][] updateBoardHelper(Rules rules) {
+        print2DBoard(cells);
+        Cell[][] tempCells = new Cell[myHeight][myWidth];
+        int[][] updateBoard = new int[myHeight][myWidth];
+        initializeUpdateBoard(updateBoard);
+        print2DArray(updateBoard);
+        for (int state : orderToReplace) {
+            for(int i =0; i<myHeight;i++) {
+                for(int j =0; j<myWidth;j++){
+                    if (updateBoard[i][j] == -1) {
+                        if (cells[i][j].getMyState() == state) {
+                            Cell newCell = new Cell(cells[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType);
+                            tempCells[i][j] = newCell;
+                            updateBoard[i][j] = newCell.getMyState();
+                            int[][] neighborCoordinates = cells[i][j].getNeighbors();
+                            System.out.println("updated board with rule:");
+                            print2DArray(updateBoard);
+                            if (newCell.getMyState() == 0 && cells[i][j].getMyState() != 0) {
+                                ArrayList<Cell> neighborCells = newCell.findNeighborsInState(1, neighborCoordinates, this);
+                                if (neighborCells.size() > 0) {
+                                    Cell cellToReplace = neighborCells.get(getRandomIntFromBound(neighborCells.size()));
+                                    cellToReplace.setMyState(cells[i][j].getMyState());
+                                    tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
+                                    updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                    System.out.println("updated board with fish:");
+                                    print2DArray(updateBoard);
+                                } else {
+                                    ArrayList<Cell> emptyNeighborCells = newCell.findNeighborsInState(0, neighborCoordinates, this);
+                                    Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
+                                    cellToReplace.setMyState(cells[i][j].getMyState());
+                                    tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
+                                    updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                    System.out.println("updated board no fish:");
+                                    print2DArray(updateBoard);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        cells = tempCells;
+        System.out.println("Updated Board:");
+        print2DBoard(cells);
+        return tempCells;
+    }
+
 
     private void print2DArray (int[][] myArray) {
         for (int[] row : myArray) {
@@ -54,7 +120,7 @@ public class Board {
     private void print2DBoard (Cell[][] myArray) {
         for (Cell[] row : myArray) {
             for (Cell val : row) {
-                System.out.print(val.getMyState() + ",");
+                System.out.print("(" + val.getMyX() + "," + val.getMyY() + ")");
             }
             System.out.println();
         }
