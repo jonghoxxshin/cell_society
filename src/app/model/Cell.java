@@ -12,6 +12,7 @@ public class Cell {
     private int myState;
     private int boardHeight;
     private int boardWidth;
+    private GridShape myGridShape;
 
 
     //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
@@ -23,6 +24,7 @@ public class Cell {
         this.boardWidth = boardWidth;
         type = neighborType;
         neighbors = findNeighbors();
+        myGridShape = GridShape.RECTANGLE;
 
     }
 
@@ -128,6 +130,10 @@ public class Cell {
     // get neighbors
     public int[][] getNeighbors() {
         return neighbors;
+    }
+
+    public GridShape getMyGridShape() {
+        return myGridShape;
     }
 
     @Override
