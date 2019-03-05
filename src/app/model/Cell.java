@@ -13,8 +13,10 @@ public class Cell {
     private int myState;
     private int boardHeight;
     private int boardWidth;
+
     private int currentChronons;
     private int maxChronons = 10;
+    private GridShape myGridShape;
 
 
     //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
@@ -27,7 +29,7 @@ public class Cell {
         type = neighborType;
         neighbors = findNeighbors();
         currentChronons = 0;
-
+        myGridShape = GridShape.RECTANGLE;
     }
 
     //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
@@ -65,7 +67,7 @@ public class Cell {
             tempY = y + offSet[1];
         }
 
-        int[] toBeReturned = {tempX, tempY};
+        int[] toBeReturned = {tempY, tempX};
         return toBeReturned;
     }
 
@@ -165,6 +167,10 @@ public class Cell {
 
     public int getMaxChronons() {
         return maxChronons;
+    }
+
+    public GridShape getMyGridShape() {
+        return myGridShape;
     }
 
     @Override

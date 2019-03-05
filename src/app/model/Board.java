@@ -35,10 +35,11 @@ public class Board {
         if (rules.getMyRulesParser().getType() == 4) {
             return updateBoardForRulesType4(rules);
         }
-        Cell[][] tempCells = new Cell[myWidth][myHeight];
+        System.out.println("board being updated");
+        Cell[][] tempCells = new Cell[myHeight][myWidth];
         for(int i =0; i<myHeight;i++){
             for(int j =0; j<myWidth;j++){
-                tempCells[j][i] = new Cell(cells[j][i].getNextState(rules, this), i, j, myHeight, myWidth, neighborType);
+                tempCells[i][j] = new Cell(cells[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType);
             }
         }
         cells = tempCells;
