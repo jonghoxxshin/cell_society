@@ -60,6 +60,7 @@ public class RulesParser {
         makeRules();
     }
 
+
     private String getFileName(String game){
         if (game.toLowerCase().equals("gameoflife")){
             return LIFE_RULES;
@@ -88,7 +89,7 @@ public class RulesParser {
             try {
                 altEndState = Integer.parseInt(splitByWhiteSpace[2].split(",")[1]);
             } catch (ArrayIndexOutOfBoundsException ex) {
-                
+
             }
         } else {
             endState = Integer.parseInt(splitByWhiteSpace[2]);
@@ -161,6 +162,10 @@ public class RulesParser {
 
     public ArrayList<int[]> getRulesArray() {
         return rulesArray;
+    }
+
+    public int getType(){
+        return type;
     }
 
 }
