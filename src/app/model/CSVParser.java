@@ -148,7 +148,11 @@ public class CSVParser {
                     errorType = "Invalid state in grid for given game";
                     throw new IOException(this.errorType);
                 }
-                cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType);
+                if (gameType.toLowerCase().equals("predatorprey")) {
+                    cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, 0, 20);
+                } else {
+                    cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, -1, -1 );
+                }
             }
 
         }

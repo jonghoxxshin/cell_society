@@ -38,7 +38,7 @@ public class Board {
         Cell[][] tempCells = new Cell[myHeight][myWidth];
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                tempCells[i][j] = new Cell(cells[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType);
+                tempCells[i][j] = new Cell(cells[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType, -1, -1);
             }
         }
         cells = tempCells;
@@ -72,14 +72,9 @@ public class Board {
                     if (updateBoard[i][j] == -1) {
                         if (cells[i][j].getMyState() == state) {
                             Cell oldCell = cells[i][j];
-                            Cell newCell = new Cell(oldCell.getNextState(rules, this), j, i, myHeight, myWidth, neighborType);
+                            Cell newCell = new Cell(oldCell.getNextState(rules, this), j, i, myHeight, myWidth, neighborType, oldCell.getCurrentChronons(), oldCell.getEnergyLevel());
                             //check if time for reproduction
-                            if (newCell.getMyState() == 0 && oldCell.getMyState() != 0 && oldCell.getCurrentChronons() == maxChronons) {
-                                newCell.resetCurrentChronons();
-                                newCell.setMyState(oldCell.getMyState());
-                            } else {
-                                newCell.increaseCurrentChronons();
-                            }
+
                             //update temp cells
                             tempCells[i][j] = newCell;
                             updateBoard[i][j] = newCell.getMyState();
@@ -89,16 +84,31 @@ public class Board {
                                 ArrayList<Cell> neighborCells = newCell.findNeighborsInState(1, neighborCoordinates, this);
                                 //check if there are any fish neighbors if shark
                                 if (neighborCells.size() > 0 && oldCell.getMyState() == 2) {
-                                    Cell cellToReplace = neighborCells.get(getRandomIntFromBound(neighborCells.size()));
-                                    cellToReplace.setMyState(oldCell.getMyState());
-                                    tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
-                                    updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                    if (oldCell.getMyState() == 2 && oldCell.getEnergyLevel() != 0) {
+                                        oldCell.decrementEnergyLevel();
+                                        Cell cellToReplace = neighborCells.get(getRandomIntFromBound(neighborCells.size()));
+                                        cellToReplace.setMyState(oldCell.getMyState());
+                                        cellToReplace.setCurrentChronons(oldCell.getCurrentChronons());
+                                        cellToReplace.setCurrentEnergyLevel(oldCell.getEnergyLevel()+10);
+                                        tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
+                                        updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                    }
                                 } else {
-                                    ArrayList<Cell> emptyNeighborCells = newCell.findNeighborsInState(0, neighborCoordinates, this);
-                                    Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
-                                    cellToReplace.setMyState(oldCell.getMyState());
-                                    tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
-                                    updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                    if (oldCell.getMyState() == 2 && oldCell.getEnergyLevel() != 0) {
+                                        oldCell.decrementEnergyLevel();
+                                        ArrayList<Cell> emptyNeighborCells = newCell.findNeighborsInState(0, neighborCoordinates, this);
+                                        Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
+                                        cellToReplace.setMyState(oldCell.getMyState());
+                                        cellToReplace.setCurrentEnergyLevel(oldCell.getEnergyLevel());
+                                        tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
+                                        updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                    } else if (oldCell.getMyState() != 2){
+                                        ArrayList<Cell> emptyNeighborCells = newCell.findNeighborsInState(0, neighborCoordinates, this);
+                                        Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
+                                        cellToReplace.setMyState(oldCell.getMyState());
+                                        tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
+                                        updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                    }
                                 }
                             }
                         }

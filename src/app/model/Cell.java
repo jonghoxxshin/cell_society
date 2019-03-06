@@ -20,12 +20,12 @@ public class Cell {
 
     private int currentChronons;
     private int maxChronons = 10;
-    private int energyLevel = 20;
+    private int currentEnergyLevel;
     private GridShape myGridShape;
 
 
     //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
-    public Cell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType) {
+    public Cell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy) {
         myState = state;
         myX = x;
         myY = y;
@@ -34,7 +34,8 @@ public class Cell {
         myGridShape = GridShape.RHOMBUS;
         type = neighborType;
         neighbors = findNeighbors();
-        currentChronons = 0;
+        currentChronons = chronons;
+        currentEnergyLevel = energy;
         myGridShape = GridShape.RECTANGLE;
 
         if(myGridShape==GridShape.RECTANGLE) {
@@ -200,6 +201,11 @@ public class Cell {
     }
 
     //set chronons
+    public void setCurrentChronons(int x) {
+        currentChronons = x;
+    }
+
+    //reset chronons
     public void resetCurrentChronons() {
         currentChronons = 0;
     }
@@ -214,7 +220,15 @@ public class Cell {
     }
 
     public int getEnergyLevel() {
-        return energyLevel;
+        return currentEnergyLevel;
+    }
+
+    public void decrementEnergyLevel(){
+        currentEnergyLevel--;
+    }
+
+    public void setCurrentEnergyLevel(int x){
+        currentEnergyLevel= x;
     }
 
     public GridShape getMyGridShape() {
