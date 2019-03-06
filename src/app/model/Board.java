@@ -15,6 +15,7 @@ public class Board {
     private String myGame;
     private int neighborType;
     private final int[] orderToReplace = {2,1,0};
+    private int maxChronons = 10;
 
 
 
@@ -72,14 +73,24 @@ public class Board {
                     if (updateBoard[i][j] == -1) {
                         if (cells[i][j].getMyState() == state) {
                             Cell newCell = new Cell(cells[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType);
+                            //check if time for reproduction
+                            if (newCell.getMyState() == 0 && cells[i][j].getMyState() != 0 && cells[i][j].getCurrentChronons() == maxChronons){
+                                newCell.resetCurrentChronons();
+                                newCell.setMyState(cells[i][j].getMyState());
+                            } else {
+                                newCell.increaseCurrentChronons();
+                            }
+                            //update temp cells
                             tempCells[i][j] = newCell;
                             updateBoard[i][j] = newCell.getMyState();
                             int[][] neighborCoordinates = cells[i][j].getNeighbors();
                             System.out.println("updated board with rule:");
                             print2DArray(updateBoard);
+                            //check if need to place a shark or fish after movement
                             if (newCell.getMyState() == 0 && cells[i][j].getMyState() != 0) {
                                 ArrayList<Cell> neighborCells = newCell.findNeighborsInState(1, neighborCoordinates, this);
-                                if (neighborCells.size() > 0) {
+                                //check if there are any fish neighbors if shark
+                                if (neighborCells.size() > 0 && cells[i][j].getMyState() == 2) {
                                     Cell cellToReplace = neighborCells.get(getRandomIntFromBound(neighborCells.size()));
                                     cellToReplace.setMyState(cells[i][j].getMyState());
                                     tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;

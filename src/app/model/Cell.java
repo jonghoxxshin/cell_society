@@ -15,6 +15,7 @@ public class Cell {
 
     private int currentChronons;
     private int maxChronons = 10;
+    private int energyLevel = 20;
     private GridShape myGridShape;
 
 
@@ -93,14 +94,9 @@ public class Cell {
 
     //get coordinates of neighbors in desired state
     public ArrayList<Cell> findNeighborsInState(int state, int[][] neighborsList, Board board) {
-        for (int[] neighbor: neighborsList){
-            System.out.println(neighbor[1] +"," + neighbor[0]);
-        }
         ArrayList<Cell> neighborsInState = new ArrayList<Cell>();
         for (int[] neighbor : neighborsList) {
-            System.out.println("WHY!?!?!?:::" + neighbor[0] + "," + neighbor[1]);
             Cell tempCell = board.getCells()[neighbor[0]][neighbor[1]];
-            System.out.println(tempCell.getMyX() + "," + tempCell.getMyY());
             if (tempCell.getMyState() == state) {
                 neighborsInState.add(tempCell);
             }
@@ -152,7 +148,7 @@ public class Cell {
 
     //get myY
     public int getMyY() {
-        return myX;
+        return myY;
     }
 
     // get neighbors
@@ -166,12 +162,21 @@ public class Cell {
     }
 
     //set chronons
-    public void IncreaseCurrentChronons() {
+    public void resetCurrentChronons() {
+        currentChronons = 0;
+    }
+
+    //increment chronons
+    public void increaseCurrentChronons() {
         currentChronons++;
     }
 
     public int getMaxChronons() {
         return maxChronons;
+    }
+
+    public int getEnergyLevel() {
+        return energyLevel;
     }
 
     public GridShape getMyGridShape() {
