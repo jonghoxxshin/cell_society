@@ -64,7 +64,7 @@ public class CSVParser {
 
         if(gameType.equals("")){
             errorStatus = 1;
-            errorType = "Empty filename";
+            errorType = "Empty game name";
             throw new IOException(this.errorType);
             // if parser object's cells == null, throw an exception in the classes that use it so that when board
             // refreshes, we don't execute partially and have an error - instead, just don't refresh at all

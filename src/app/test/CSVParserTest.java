@@ -32,17 +32,17 @@ public class CSVParserTest {
         // manually create parameters
         this.gameType = "GameOfLife";
         this.myHeight = 20;
-        this.myWidth = 20;
+        this.myWidth = 25;
 
         this.expectedCells = new Cell[5][5];
 
         for(int i=0; i<5; i++){
             for(int j=0; j<5; j++){
                 if(i==j){
-                    expectedCells[j][i] = new Cell(1, j, i, myHeight, myWidth, 1,-1,-1);
+                    expectedCells[j][i] = new Cell(1, i, j, 5, 5, 1,-1,-1);
                 }
                 else{
-                    expectedCells[j][i] = new Cell(0, j, i, myHeight, myWidth, 1,-1,-1);
+                    expectedCells[j][i] = new Cell(0, i, j, 5, 5, 1,-1,-1);
                 }
             }
         }
@@ -73,9 +73,50 @@ public class CSVParserTest {
             }
 
         }
-
         assertTrue(myBool);
+    }
 
+    @Test
+    void invalidNameTest(){
+        CSVParser invalidNameTester = new CSVParser("invalidNameTest.csv");
+
+        assertEquals(1, invalidNameTester.getErrorStatus());
+        assertEquals("Invalid game name in CSV", invalidNameTester.getErrorType());
+    }
+
+    @Test
+    void invalidDimensionsStringTest(){
+        CSVParser stringDimensionTester = new CSVParser("invalidDimensionsTest.csv");
+        assertEquals(1, stringDimensionTester.getErrorStatus());
+        assertEquals("Invalid dimensions", stringDimensionTester.getErrorType());
+    }
+
+    @Test
+    void invalidDimensions3DTest(){
+        CSVParser invalidDimensionsTester = new CSVParser("invalidDimensionsTest2.csv");
+        assertEquals(1, invalidDimensionsTester.getErrorStatus());
+        assertEquals("Invalid dimensions", invalidDimensionsTester.getErrorType());
+    }
+
+    @Test
+    void invalidHeightTest(){
+        CSVParser invalidHeightTester = new CSVParser("invalidHeightTest.csv");
+        assertEquals(1, invalidHeightTester.getErrorStatus());
+        assertEquals("Grid incorrectly formatted - height", invalidHeightTester.getErrorType());
+    }
+
+    @Test
+    void invalidWidthTest(){
+        CSVParser invalidWidthTester = new CSVParser("invalidWidthTest.csv");
+        assertEquals(1, invalidWidthTester.getErrorStatus());
+        assertEquals("Grid incorrectly formatted - width", invalidWidthTester.getErrorType());
+    }
+
+    @Test
+    void invalidStateTest(){
+        CSVParser invalidStateTester = new CSVParser("invalidStateTest.csv");
+        assertEquals(1, invalidStateTester.getErrorStatus());
+        assertEquals("Invalid state in grid for given game", invalidStateTester.getErrorType());
     }
 
 }
