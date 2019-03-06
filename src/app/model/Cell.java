@@ -7,6 +7,9 @@ public class Cell {
     private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
     private static final int[][] NEIGHBORS_HEX = {{0, -1}, {-1, -1}, {-1, 0}, {0, 1}, {1, 0}, {1, -1}};
 
+    // NEED TO FINISH RHOMBUS NEIGHBORS
+    private static final int[][] NEIGHBORS_RHOM = {{-1, 0}, {1,0}, {-1, -1}, {1, -1}};
+
     private int type;
     private int myX;
     private int myY;
@@ -24,14 +27,14 @@ public class Cell {
         myY = y;
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
-        myGridShape = GridShape.HEXAGON;
+        myGridShape = GridShape.RHOMBUS;
         type = neighborType;
 
         if(myGridShape==GridShape.RECTANGLE) {
             neighbors = findNeighbors();
         }
 
-        else if(myGridShape == GridShape.HEXAGON){
+        else{// if(myGridShape == GridShape.HEXAGON){
             neighbors = findNeighborsHex();
         }
 

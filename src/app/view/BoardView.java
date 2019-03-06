@@ -59,8 +59,8 @@ public class BoardView {
             myRoot = createColorBoardRect(width, height);
         }
 
-        else if(myGridShape==GridShape.HEXAGON){
-            myRoot = createColorBoardHex(myBoardWidth, myBoardHeight);
+        else{
+            myRoot = createColorBoardPolygon(myBoardWidth, myBoardHeight);
         }
     }
 
@@ -81,8 +81,8 @@ public class BoardView {
             myRoot = createColorBoardRect(myBoardWidth, myBoardHeight);
         }
 
-        else if(myGridShape==GridShape.HEXAGON){
-            myRoot = createColorBoardHex(myBoardWidth, myBoardHeight);
+        else{
+            myRoot = createColorBoardPolygon(myBoardWidth, myBoardHeight);
         }
     }
 
@@ -98,7 +98,8 @@ public class BoardView {
     }
 
 
-    private Group createColorBoardHex(int width_num, int height_num){
+
+    private Group createColorBoardPolygon(int width_num, int height_num){
         var result = new Group();
 
         System.out.println("height_num is " + height_num);
@@ -111,23 +112,66 @@ public class BoardView {
                 Cell c = myBoard[j][i];
                 //System.out.println("this is cell state" + c.getMyState());
 
-                Polygon myHex = new Polygon();
+                Polygon myPoly = new Polygon();
 
                 // add polygon points
 
-                assignColor(c, myHex);
+                assignColor(c, myPoly);
 
-                myColorBoard[i][j] = myHex;
+                myColorBoard[i][j] = myPoly;
 
-                myHex.getPoints().addAll(getHexPoints(j, i));
+                if(myGridShape==GridShape.HEXAGON) {
+                    myPoly.getPoints().addAll(getHexPoints(j, i));
+                }
 
-                myHex.setStroke(Color.BLACK);
-                myHex.setStrokeWidth(1);
+                else if(myGridShape==GridShape.RHOMBUS){
+                    myPoly.getPoints().addAll(getRhombusPoints(j, i));
 
-                result.getChildren().add(myHex);
+                }
+
+                myPoly.setStroke(Color.BLACK);
+                myPoly.setStrokeWidth(1);
+
+                result.getChildren().add(myPoly);
             }
         }
         return result;
+    }
+
+    private Double[] getRhombusPoints(int rowNumber, int columnNumber){
+        Double[] points = new Double[8];
+
+        if(columnNumber % 2 == 0){
+            points[0] = ((cellWidth / 2) * columnNumber) + (cellWidth/2);
+            points[1] = (rowNumber*cellHeight);
+
+            points[2] = ((cellWidth/2) * columnNumber) + cellWidth;
+            points[3] = (rowNumber*cellHeight) + (cellHeight/2);
+
+            points[4] = ((cellWidth / 2) * columnNumber) + (cellWidth/2);
+            points[5] = (rowNumber*cellHeight) + cellHeight;
+
+            points[6] = (cellWidth/2) * columnNumber;
+            points[7] = (rowNumber*cellHeight) + (cellHeight/2);
+        }
+
+        else{
+            // offset of cell height / 2
+            points[0] = ((cellWidth / 2) * columnNumber) + (cellWidth/2);
+            points[1] = (rowNumber*cellHeight) + (cellHeight/2);
+
+            points[2] = ((cellWidth/2) * columnNumber) + cellWidth;
+            points[3] = (rowNumber*cellHeight) + (cellHeight/2) + (cellHeight/2);
+
+            points[4] = ((cellWidth / 2) * columnNumber) + (cellWidth/2);
+            points[5] = (rowNumber*cellHeight) + cellHeight + (cellHeight/2);
+
+            points[6] = (cellWidth/2) * columnNumber;
+            points[7] = (rowNumber*cellHeight) + (cellHeight/2) + (cellHeight/2);
+
+        }
+
+        return points;
     }
 
     private Double[] getHexPoints(int rowNumber, int columnNumber){
@@ -157,28 +201,25 @@ public class BoardView {
         else{
             // offset of cell height / 4
             points[0] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
-            points[1] = (rowNumber*cellHeight) + (cellHeight/4) + (cellWidth/4);
+            points[1] = (rowNumber*cellHeight) + (cellHeight/2);
 
             points[2] = ((3 * cellWidth / 4) * columnNumber) + (3*cellWidth/4);
-            points[3] = (rowNumber*cellHeight) + (cellHeight/4) + (cellWidth/4);
+            points[3] = (rowNumber*cellHeight) + (cellHeight/2);
 
             points[4] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth);
-            points[5] = (rowNumber*cellHeight) + (3 * cellHeight / 4) + (cellWidth/4);
+            points[5] = (rowNumber*cellHeight) + (cellHeight / 2) + (cellHeight/2);
 
             points[6] = ((3 * cellWidth / 4) * columnNumber) + (3*cellWidth/4);
-            points[7] = (rowNumber*cellHeight) + (5*cellHeight / 4) + (cellWidth/4);
+            points[7] = (rowNumber*cellHeight) + cellHeight + (cellHeight/2);
 
             points[8] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
-            points[9] = (rowNumber*cellHeight) + (5*cellHeight / 4) + (cellWidth/4);
+            points[9] = (rowNumber*cellHeight) + cellHeight + (cellHeight/2);
 
             points[10] = (3 * cellWidth / 4) * columnNumber;
-            points[11] = (rowNumber*cellHeight) + (3 * cellHeight / 4) + (cellWidth/4);
+            points[11] = (rowNumber*cellHeight) + (cellHeight / 2) + (cellHeight/2);
 
 
         }
-
-        // calculate six point values based on current row and column, along with width and height of entire board -
-        // that'll give you height and width dimensions
 
         return points;
     }
