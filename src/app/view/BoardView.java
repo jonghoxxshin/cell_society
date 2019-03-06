@@ -21,16 +21,19 @@ import java.util.ResourceBundle;
 public class BoardView {
     public static final double BOARD_WIDTH = 600;
     public static final double BOARD_HEIGHT = 400;
+    public static final int STROKE_WIDTH = 1;
 
     protected int myBoardWidth;
     protected int myBoardHeight;
     protected double cellHeight;
     protected double cellWidth;
-
     private Color myColor0;
     private Color myColor1;
     private Color myColor2;
+    private Color myStrokeColor;
     private boolean useImage;
+    private boolean useStroke;
+
     private Group myRoot;
     private Shape[][] myColorBoard;
     private Cell[][] myBoard;
@@ -56,6 +59,7 @@ public class BoardView {
         myColor0 = c0;
         myColor1 = c1;
         myColor2 = c2;
+        myStrokeColor = Color.BLACK;
         useImage = false;
         cellHeight = BOARD_HEIGHT/height;
         cellWidth = BOARD_WIDTH/width;
@@ -82,6 +86,12 @@ public class BoardView {
         this.myImageArray = input;
         updateBoard();
         mySimulationController.replaceBoardView();
+    }
+
+    public void changeStroke(){
+        if(useStroke){
+            useStroke = false;
+        }else useStroke = true;
     }
 
     public Group getMyRoot(){return myRoot;}
@@ -158,9 +168,7 @@ public class BoardView {
                     myPoly.getPoints().addAll(getRhombusPoints(j, i));
                 }
                 myPoly.setOnMouseClicked(e->cellClicked(c));
-                myPoly.setStroke(Color.BLACK);
-                myPoly.setStrokeWidth(1);
-
+                setStroke(myPoly, myStrokeColor,STROKE_WIDTH);
                 result.getChildren().add(myPoly);
             }
         }
@@ -263,12 +271,18 @@ public class BoardView {
                 r.setOnMouseClicked(e->cellClicked(c));
                 r.setX(loc[0]);
                 r.setY(loc[1]);
-                r.setStroke(Color.BLACK);
-                r.setStrokeWidth(1);
+                setStroke(r, myStrokeColor, STROKE_WIDTH);
                 result.getChildren().add(r);
             }
         }
         return result;
+    }
+
+    private void setStroke(Shape shape, Color color, int stroke_width){
+        if(useStroke){
+            shape.setStroke(color);
+            shape.setStrokeWidth(stroke_width);
+        }
     }
 
     private int[] getLocationRect(int i, int j, int width_num, int height_num){
@@ -286,5 +300,7 @@ public class BoardView {
         updateBoard();
         mySimulationController.replaceBoardView();
     }
+
+
 
 }

@@ -33,6 +33,7 @@ public class SimulationController {
     private BoardView myBoardView;
     private ControlView myControlView;
     private RightView myRightView;
+    private BottomView myBottomView;
     private int myFramesPerSecond;
     private int appHeight;
     private int appWidth;
@@ -62,6 +63,7 @@ public class SimulationController {
         myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
         mySimulationModel = new Simulation(myBoard, myRules);
         mySimulationView = new SimulationView(myBoardView);
+        myBottomView = new BottomView(this, myBoardView, myProperties);
         useImage = false;
         myImageList = new ArrayList<>();
         initMyPropList();
@@ -169,7 +171,7 @@ public class SimulationController {
 
     private void setUpScene(){
         this.myRoot = new BorderPane();
-        myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView);
+        myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView, myBottomView);
         startSimulation = myMainView.getMyStartBoolean();
         myScene = myMainView.getScene();
     }
