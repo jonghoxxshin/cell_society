@@ -3,9 +3,13 @@ package app.view;
 import app.model.Board;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import app.model.Cell;
 import javafx.scene.shape.Rectangle;
+
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -25,7 +29,7 @@ public class BoardView {
     private Group myRoot;
     private Rectangle[][] myColorBoard;
     private Cell[][] myBoard;
-
+    private ArrayList<Image> myImageArray;
     private Scene myScene;
     private ResourceBundle myProperties;
 
@@ -38,6 +42,7 @@ public class BoardView {
         myBoardWidth = width;
         myBoardHeight = height;
         myBoard = board;
+        myImageArray = new ArrayList<>();
         myColor0 = c0;
         myColor1 = c1;
         myColor2 = c2;
@@ -55,6 +60,12 @@ public class BoardView {
         updateBoard();
 
     }
+    public void setMyImageArray(ArrayList<Image> input){
+        System.out.println(input.size());
+        this.myImageArray = input;
+        updateBoard();
+        System.out.println(myImageArray.size());
+    }
 
     public Group getMyRoot(){return myRoot;}
 
@@ -66,25 +77,43 @@ public class BoardView {
     private Group createColorBoard(int width_num, int height_num){
         var result = new Group();
         for(int i =0; i<width_num;i++){
-            for(int j=0; j<height_num;j++){
-                Rectangle r = new Rectangle(cellWidth,cellHeight);
+            for(int j=0; j<height_num;j++) {
+
                 Cell c = myBoard[i][j];
+                int[] loc = getLocation(i, j, width_num, height_num);
                 //System.out.println("this is cell state" + c.getMyState());
 
-                if(c.getMyState()==0){
-                    r.setFill(myColor0);
-                }else if(c.getMyState()==1){
-                    r.setFill(myColor1);
+                if (myImageArray.size() == 3) {
+                    ImageView iv = new ImageView();
+                    if (c.getMyState() == 0) {
+                        System.out.println();
+                         iv.setImage(myImageArray.get(0));
+                    }else if(c.getMyState()==1){
+                        iv.setImage(myImageArray.get(1));
+                    }else if(c.getMyState()==2){
+                        iv.setImage(myImageArray.get(2));
+                    }
+                    iv.setX(loc[0]);
+                    iv.setY(loc[1]);
+                    result.getChildren().add(iv);
+                } else {
+                    Rectangle r = new Rectangle(cellWidth, cellHeight);
+                    if (c.getMyState() == 0) {
+                        r.setFill(myColor0);
+                    } else if (c.getMyState() == 1) {
+                        r.setFill(myColor1);
 
-                }else if(c.getMyState()==2){
-                    r.setFill(myColor2);
+                    } else if (c.getMyState() == 2) {
+                        r.setFill(myColor2);
+                    }
+
+                    myColorBoard[i][j] = r;
+                    r.setX(loc[0]);
+                    r.setY(loc[1]);
+                    result.getChildren().add(r);
+
                 }
 
-                myColorBoard[i][j] = r;
-                int[] loc = getLocation(i,j,width_num,height_num);
-                r.setX(loc[0]);
-                r.setY(loc[1]);
-                result.getChildren().add(r);
             }
         }
         return result;

@@ -14,9 +14,7 @@ public class Simulation {
     }
 
     public void nextStep(){
-        System.out.println("here");
         if(start) {
-            System.out.println("and here");
             myCells = myBoard.updateBoard(myRules);
         }
 
