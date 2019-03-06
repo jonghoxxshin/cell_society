@@ -30,21 +30,15 @@ public class Cell {
         this.boardWidth = boardWidth;
         myGridShape = GridShape.HEXAGON;
         type = neighborType;
-<<<<<<< HEAD
         neighbors = findNeighbors();
         currentChronons = 0;
         myGridShape = GridShape.RECTANGLE;
-=======
 
         if(myGridShape==GridShape.RECTANGLE) {
             neighbors = findNeighbors();
-        }
-
-        else if(myGridShape == GridShape.HEXAGON){
+        } else if(myGridShape == GridShape.HEXAGON){
             neighbors = findNeighborsHex();
         }
-
-
 
     }
 
@@ -57,7 +51,7 @@ public class Cell {
         }
 
         return tempNeighbors;
->>>>>>> 176a52aa71fb2338a8f745bddff677a0a3b1566c
+
     }
 
 
