@@ -71,39 +71,34 @@ public class Board {
                 for (int j = 0; j < myWidth; j++) {
                     if (updateBoard[i][j] == -1) {
                         if (cells[i][j].getMyState() == state) {
-                            Cell newCell = new Cell(cells[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType);
+                            Cell oldCell = cells[i][j];
+                            Cell newCell = new Cell(oldCell.getNextState(rules, this), j, i, myHeight, myWidth, neighborType);
                             //check if time for reproduction
-                            if (newCell.getMyState() == 0 && cells[i][j].getMyState() != 0 && cells[i][j].getCurrentChronons() == maxChronons) {
+                            if (newCell.getMyState() == 0 && oldCell.getMyState() != 0 && oldCell.getCurrentChronons() == maxChronons) {
                                 newCell.resetCurrentChronons();
-                                newCell.setMyState(cells[i][j].getMyState());
+                                newCell.setMyState(oldCell.getMyState());
                             } else {
                                 newCell.increaseCurrentChronons();
                             }
                             //update temp cells
                             tempCells[i][j] = newCell;
                             updateBoard[i][j] = newCell.getMyState();
-                            int[][] neighborCoordinates = cells[i][j].getNeighbors();
-                            System.out.println("updated board with rule:");
-                            print2DArray(updateBoard);
+                            int[][] neighborCoordinates = oldCell.getNeighbors();
                             //check if need to place a shark or fish after movement
-                            if (newCell.getMyState() == 0 && cells[i][j].getMyState() != 0) {
+                            if (newCell.getMyState() == 0 && oldCell.getMyState() != 0) {
                                 ArrayList<Cell> neighborCells = newCell.findNeighborsInState(1, neighborCoordinates, this);
                                 //check if there are any fish neighbors if shark
-                                if (neighborCells.size() > 0 && cells[i][j].getMyState() == 2) {
+                                if (neighborCells.size() > 0 && oldCell.getMyState() == 2) {
                                     Cell cellToReplace = neighborCells.get(getRandomIntFromBound(neighborCells.size()));
-                                    cellToReplace.setMyState(cells[i][j].getMyState());
+                                    cellToReplace.setMyState(oldCell.getMyState());
                                     tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
                                     updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
-                                    System.out.println("updated board with fish:");
-                                    print2DArray(updateBoard);
                                 } else {
                                     ArrayList<Cell> emptyNeighborCells = newCell.findNeighborsInState(0, neighborCoordinates, this);
                                     Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
-                                    cellToReplace.setMyState(cells[i][j].getMyState());
+                                    cellToReplace.setMyState(oldCell.getMyState());
                                     tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
                                     updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
-                                    System.out.println("updated board no fish:");
-                                    print2DArray(updateBoard);
                                 }
                             }
                         }
@@ -112,8 +107,6 @@ public class Board {
             }
         }
         cells = tempCells;
-        System.out.println("Updated Board:");
-        print2DBoard(cells);
         return tempCells;
     }
 
