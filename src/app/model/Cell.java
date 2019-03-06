@@ -2,14 +2,15 @@ package app.model;
 
 import java.util.ArrayList;
 
-public class Cell {
+
+public class Cell{
     private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, {0, -1}, {0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
     private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
     private static final int[][] NEIGHBORS_HEX = {{0, -1}, {-1, -1}, {-1, 0}, {0, 1}, {1, 0}, {1, -1}};
 
     // NEED TO FINISH RHOMBUS NEIGHBORS
-    private static final int[][] NEIGHBORS_RHOM_TYPE1 = {{-1, 0}, {1,0}, {-1, -1}, {1, -1}, {-2, 0}, {2,0}, {0, -1}, {0, 1}};
-    private static final int[][] NEIGHBORS_RHOM_TYPE2 = {{-1, 0}, {1,0}, {-1, -1}, {1, -1}};
+    private static final int[][] NEIGHBORS_RHOM_TYPE1 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}, {-2, 0}, {2,0}, {0, -1}, {0, 1}};
+    private static final int[][] NEIGHBORS_RHOM_TYPE2 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}};
 
     private int type;
     private int myX;
@@ -22,8 +23,8 @@ public class Cell {
     private int currentChronons;
     private int maxChronons = 10;
     private int currentEnergyLevel;
-    private GridShape myGridShape;
-    private int edgeType = 0; //0 = torodial, 1 = finite, 2 = other
+    private int edgeType = 0; //0 = torodial, 1 = finite, 2 = not left
+    private GridShapeType myGridShapeType;
 
 
     //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
@@ -33,12 +34,25 @@ public class Cell {
         myY = y;
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
-        myGridShape = GridShape.RHOMBUS;
+        myGridShapeType = GridShapeType.RECTANGLE;
         type = neighborType;
         currentChronons = chronons;
         currentEnergyLevel = energy;
 
-        if(myGridShape==GridShape.RECTANGLE) {
+        if(type == 1) {
+            neighbors = findNeighbors(NEIGHBORS_TYPE1);
+
+        } else if(type == 2){
+            neighbors = findNeighbors(NEIGHBORS_TYPE2);
+        }
+
+    }
+
+    public Cell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, GridShapeType shape){
+        this(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        myGridShapeType = shape;
+
+        if(myGridShapeType == GridShapeType.RECTANGLE) {
             if(type == 1) {
                 neighbors = findNeighbors(NEIGHBORS_TYPE1);
 
@@ -46,7 +60,7 @@ public class Cell {
                 neighbors = findNeighbors(NEIGHBORS_TYPE2);
             }
 
-        } else if(myGridShape == GridShape.RHOMBUS){
+        } else if(myGridShapeType == GridShapeType.RHOMBUS){
             if(type == 1) {
                 neighbors = findNeighbors(NEIGHBORS_RHOM_TYPE1);
 
@@ -54,10 +68,11 @@ public class Cell {
                 neighbors = findNeighbors(NEIGHBORS_RHOM_TYPE2);
             }
 
-        } else if(myGridShape == GridShape.HEXAGON){
+        } else if(myGridShapeType == GridShapeType.HEXAGON){
             neighbors = findNeighborsHex();
 
         }
+
     }
 
 
@@ -264,8 +279,8 @@ public class Cell {
         currentEnergyLevel= x;
     }
 
-    public GridShape getMyGridShape() {
-        return myGridShape;
+    public GridShapeType getMyGridShapeType() {
+        return myGridShapeType;
     }
 
     @Override
@@ -284,6 +299,6 @@ public class Cell {
     @Override
     //convert cell data to easily readable string
     public String toString() {
-        return "app.model.Cell with state " + this.myState + " and x is " + this.myX + " and y is " + this.myY;
+        return "app.model.Cell with state " + this.myState + " and x is " + this.myX + " and y is " + this.myY + " with shape " + new GridShape().getNameFromShape(myGridShapeType);
     }
 }
