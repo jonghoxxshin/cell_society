@@ -272,7 +272,7 @@ public class BoardView {
                 assignColor(c, r);
                 myColorBoard[i][j] = r;
                 int[] loc = getLocationRect(i,j,width_num,height_num);
-                r.setOnMouseClicked(e->cellClicked(c,r));
+                r.setOnMouseClicked(e->cellClicked(c));
                 r.setX(loc[0]);
                 r.setY(loc[1]);
                 result.getChildren().add(r);
@@ -289,17 +289,12 @@ public class BoardView {
         result[1] = yval;
         return result;
     }
-    private void cellClicked(Cell cell, Shape shape){
+    private void cellClicked(Cell cell){
         int currState = cell.getMyState();
         int nextState = currState+1;
         cell.setMyState(nextState%3);
-
         updateBoard();
         mySimulationController.replaceBoardView();
-
     }
-
-    public Shape[][] getMycolorBoard(){ return myColorBoard; }
-
 
 }

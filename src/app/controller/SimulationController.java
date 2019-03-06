@@ -127,15 +127,15 @@ public class SimulationController {
                 mySimulationModel.nextStep();
                 //mySimulationModel.printMyCells();
             }
-            if(color0 != null) myMainView.setMyBoardView(
-                    new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, color0, color1, color2));
-            else myMainView.setMyBoardView(
-                    new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this));
+            replaceBoardView();
         }
     }
 
     public void replaceBoardView(){
-        myMainView.setMyBoardView(new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),mySimulationModel.getMyCells(),myProperties,this));
+        if(color0 != null) myMainView.setMyBoardView(
+                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, color0, color1, color2));
+        else myMainView.setMyBoardView(
+                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this));
     }
 
 
