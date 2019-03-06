@@ -75,7 +75,6 @@ public class MainView {
     }
 
     public void  setMyBoardView(BoardView bv){
-
         myBoardView = bv;
         myRoot.setCenter(bv.getMyRoot());
     }

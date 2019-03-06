@@ -2,15 +2,21 @@ package app.view;
 
 import app.controller.SimulationController;
 import app.model.State;
+import javafx.animation.Animation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -20,40 +26,49 @@ public class RightView {
     private ResourceBundle myProperties;
     private ArrayList<State> myPossibleStates;
     private Button mySubmitButton;
+    private Button myLoadImageButton;
     private ColorPicker myColorPicker0;
     private ColorPicker myColorPicker1;
     private ColorPicker myColorPicker2;
     private BoardView myBoardView;
+    private ArrayList<Image> myImages;
 
-    public RightView(SimulationController sc,BoardView bv){
+    public RightView(SimulationController sc, BoardView bv) {
         mySimulationController = sc;
         myBoardView = bv;
+        myImages = new ArrayList<>();
         myPossibleStates = mySimulationController.getMySimulationModel().getMyRules().getPossibleStates();
         myProperties = ResourceBundle.getBundle("english");
         myRoot = new VBox();
         setView();
     }
-    public Node getMyRoot(){
+
+    public Node getMyRoot() {
         return myRoot;
     }
-    private void setView(){
+
+    private void setView() {
         setHBox0();
         setHBox1();
         setHBox2();
         setSubmitButton();
+        setLoadImageButton();
     }
-    private void setSubmitButton(){
+
+    private void setSubmitButton() {
         mySubmitButton = new Button(myProperties.getString("submit"));
-        mySubmitButton.setOnAction(e ->  this.submitColor());
+        mySubmitButton.setOnAction(e -> this.submitColor());
         myRoot.getChildren().add(mySubmitButton);
     }
-    private void submitColor(){
-        myBoardView.setColors(myColorPicker0.getValue(),myColorPicker1.getValue(),myColorPicker2.getValue());
-        mySimulationController.changeColor(myColorPicker0.getValue(),myColorPicker1.getValue(),myColorPicker2.getValue());
+
+    private void submitColor() {
+        myBoardView.setColors(myColorPicker0.getValue(), myColorPicker1.getValue(), myColorPicker2.getValue());
+        mySimulationController.changeColor(myColorPicker0.getValue(), myColorPicker1.getValue(), myColorPicker2.getValue());
         mySimulationController.setNewBoard();
 
     }
-    private void setHBox0(){
+
+    private void setHBox0() {
         HBox temp = new HBox();
         Label tempLabel = new Label(myProperties.getString("state_0_color"));
         temp.getChildren().add(tempLabel);
@@ -62,7 +77,8 @@ public class RightView {
         temp.setAlignment(Pos.CENTER);
         myRoot.getChildren().add(temp);
     }
-    private void setHBox1(){
+
+    private void setHBox1() {
         HBox temp = new HBox();
         Label tempLabel = new Label(myProperties.getString("state_1_color"));
         temp.getChildren().add(tempLabel);
@@ -73,7 +89,8 @@ public class RightView {
         myRoot.getChildren().add(temp);
 
     }
-    private void setHBox2(){
+
+    private void setHBox2() {
         HBox temp = new HBox();
         Label tempLabel = new Label(myProperties.getString("state_2_color"));
         temp.getChildren().add(tempLabel);
@@ -85,7 +102,25 @@ public class RightView {
 
     }
 
+    private void setLoadImageButton() {
+        myLoadImageButton = new Button();
+        myLoadImageButton.setText(myProperties.getString("load_image_button"));
+        myLoadImageButton.setOnAction(e -> this.loadImage());
+        myRoot.getChildren().add(myLoadImageButton);
+    }
 
 
+    private void loadImage() {//need to add appropriate exception catcher
+        mySimulationController.pauseSimulation();
+        for (int i = 0; i < 3; i++) {
+            FileChooser fileChooser = new FileChooser();
+            File file = fileChooser.showOpenDialog(null);
+            if (file != null) {
+                myImages.add(new Image(this.getClass().getClassLoader().getResourceAsStream(file.getName())));
+            }
+        }
+        myBoardView.setMyImageArray(myImages);
+        mySimulationController.setNewBoard();
+    }
 
 }
