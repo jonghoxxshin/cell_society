@@ -1,7 +1,5 @@
 package app.model;
 
-import app.model.Cell;
-
 import java.util.*;
 
 
@@ -77,7 +75,7 @@ public class Board {
                         if (cells[i][j].getMyState() == state) {
                             Cell oldCell = cells[i][j];
                             Cell newCell = new Cell(oldCell.getNextState(rules, this), j, i, myHeight, myWidth, neighborType, oldCell.getCurrentChronons(), oldCell.getEnergyLevel());
-                            //check if time for reproduction
+                            //check if time for reproduction here
 
                             //update temp cells
                             tempCells[i][j] = newCell;
@@ -251,5 +249,21 @@ public class Board {
         return myHeight;
     }
 
+
+    public Map<Integer, Double> getCurrentStateData () {
+        Map<Integer, Double> dataDict = new HashMap<Integer, Double>();
+        for (int state : orderToReplace) {
+            double count = 0;
+            for (int i = 0; i < myHeight; i++) {
+                for (int j = 0; j < myWidth; j++) {
+                    if (cells[i][j].getMyState() == state) {
+                        count++;
+                    }
+                }
+            }
+            dataDict.put(state, count/(myHeight*myWidth));
+        }
+        return dataDict;
+    }
 
 }

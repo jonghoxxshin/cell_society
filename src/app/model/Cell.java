@@ -23,6 +23,7 @@ public class Cell {
     private int maxChronons = 10;
     private int currentEnergyLevel;
     private GridShape myGridShape;
+    private int edgeType = 0; //0 = torodial, 1 = finite, 2 = other
 
 
     //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
@@ -83,7 +84,6 @@ public class Cell {
     }
 
     //get neighbor coordinates from offset with respect to toroidal edges
-
     // modified this to handle when x is out of bounds by more than one
     private int[] getNeighbor(int x, int y, int[] offSet) {
         int tempX;
@@ -101,6 +101,30 @@ public class Cell {
             tempY = 0;
         } else if (y + offSet[1] < 0) {
             tempY = boardHeight - 1;
+        } else {
+            tempY = y + offSet[1];
+        }
+
+        int[] toBeReturned = {tempY, tempX};
+        return toBeReturned;
+    }
+
+    private int[] getNeighborFinite(int x, int y, int[] offSet) {
+        int tempX;
+        int tempY;
+
+        if (x + offSet[0] >= boardWidth) {
+            tempX = -1;
+        } else if (x + offSet[0] < 0) {
+            tempX = -1;
+        } else {
+            tempX = x + offSet[0];
+        }
+
+        if (y + offSet[1] >= boardHeight) {
+            tempY = -1;
+        } else if (y + offSet[1] < 0) {
+            tempY = -1;
         } else {
             tempY = y + offSet[1];
         }
