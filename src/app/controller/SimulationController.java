@@ -58,7 +58,7 @@ public class SimulationController {
     public SimulationController(int height, int width, String game, ResourceBundle myProperties) {//Will change to instantiating simulation and simulationView inside controller, not as input
         this.myProperties = myProperties;
         myBoard = new Board(myProperties);
-        myRules = new Rules(game);
+        myRules = new Rules(myProperties);
         myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
         mySimulationModel = new Simulation(myBoard, myRules);
         mySimulationView = new SimulationView(myBoardView);
@@ -110,7 +110,7 @@ public class SimulationController {
         this.pauseSimulation();
         myProperties = ResourceBundle.getBundle(t1);
         myBoard = new Board (myProperties);
-        myRules = new Rules (myProperties.getString("type_of_game"));
+        myRules = new Rules (myProperties);
         mySimulationModel = new Simulation(myBoard,myRules);
         myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
         myMainView.setMyBoardView(myBoardView);
