@@ -151,6 +151,16 @@ public class Cell {
         return myY;
     }
 
+    //set myX
+    public void setMyX(int x) {
+        myX = x;
+    }
+
+    //set myY
+    public void setMyY(int y) {
+        myY = y;
+    }
+
     // get neighbors
     public int[][] getNeighbors() {
         return neighbors;

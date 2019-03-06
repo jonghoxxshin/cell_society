@@ -41,7 +41,8 @@ public class CSVParser {
             neighborType = 1;
             maxState = 2;
         } else if (gameType.toLowerCase().equals("segregation")){
-
+            neighborType = 1;
+            maxState = 2;
         }  else if (gameType.toLowerCase().equals("fire")){
             neighborType = 2;
             maxState = 2;
