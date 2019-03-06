@@ -9,7 +9,8 @@ public class Cell{
     private static final int[][] NEIGHBORS_HEX = {{0, -1}, {-1, -1}, {-1, 0}, {0, 1}, {1, 0}, {1, -1}};
 
     // NEED TO FINISH RHOMBUS NEIGHBORS
-    private static final int[][] NEIGHBORS_RHOM = {{-1, 0}, {1,0}, {-1, -1}, {1, -1}};
+    private static final int[][] NEIGHBORS_RHOM_TYPE1 = {{-1, 0}, {1,0}, {-1, -1}, {1, -1}, {-2, 0}, {2,0}, {0, -1}, {0, 1}};
+    private static final int[][] NEIGHBORS_RHOM_TYPE2 = {{-1, 0}, {1,0}, {-1, -1}, {1, -1}};
 
     private int type;
     private int myX;
@@ -34,18 +35,29 @@ public class Cell{
         this.boardWidth = boardWidth;
         myGridShape = GridShape.RHOMBUS;
         type = neighborType;
-        neighbors = findNeighbors();
         currentChronons = chronons;
         currentEnergyLevel = energy;
-        myGridShape = GridShape.RECTANGLE;
 
         if(myGridShape==GridShape.RECTANGLE) {
-            neighbors = findNeighbors();
+            if(type == 1) {
+                neighbors = findNeighbors(NEIGHBORS_TYPE1);
+
+            } else if(type == 2){
+                neighbors = findNeighbors(NEIGHBORS_TYPE2);
+            }
+
+        } else if(myGridShape == GridShape.RHOMBUS){
+            if(type == 1) {
+                neighbors = findNeighbors(NEIGHBORS_RHOM_TYPE1);
+
+            } else if(type == 2){
+                neighbors = findNeighbors(NEIGHBORS_RHOM_TYPE2);
+            }
 
         } else if(myGridShape == GridShape.HEXAGON){
             neighbors = findNeighborsHex();
-        }
 
+        }
     }
 
 
@@ -61,30 +73,27 @@ public class Cell{
     }
 
 
-
     //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
-    private int[][] findNeighbors() {
+    private int[][] findNeighbors(int[][] neighborsType) {
         // code to get expectedNeighbors based on current cell's coordinates
         int[][] tempNeighbors = getTempNeighborsForType();
         for (int i = 0; i < tempNeighbors.length; i++) {
-            if (type == 1) {
-                tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_TYPE1[i]);
-            } else if (type == 2 || type == 4) {
-                tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_TYPE2[i]);
-            }
+            tempNeighbors[i] = getNeighbor(myX, myY, neighborsType[i]);
         }
         return tempNeighbors;
     }
 
     //get neighbor coordinates from offset with respect to toroidal edges
+
+    // modified this to handle when x is out of bounds by more than one
     private int[] getNeighbor(int x, int y, int[] offSet) {
         int tempX;
         int tempY;
 
         if (x + offSet[0] >= boardWidth) {
-            tempX = 0;
+            tempX = x + offSet[0] - boardWidth;
         } else if (x + offSet[0] < 0) {
-            tempX = boardWidth - 1;
+            tempX = boardWidth + x + offSet[0];
         } else {
             tempX = x + offSet[0];
         }
