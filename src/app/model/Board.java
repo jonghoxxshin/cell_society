@@ -15,21 +15,25 @@ public class Board {
     private final int[] orderToReplace = {2, 1, 0};
     private int maxChronons = 10;
     private double threshold = 0.3;
+    private CSVParser myParser;
 
 
     //app.model.Board Constructor
 
     public Board(ResourceBundle myProperties) {
         myGame = myProperties.getString("type_of_game");
-        CSVParser parser = new CSVParser(myProperties.getString("name_of_csv"));
-        neighborType = parser.getNeighborType();
-        cells = parser.getCells();
-        myHeight = parser.getMyHeight();
-        myWidth = parser.getMyWidth();
+        myParser = new CSVParser(myProperties.getString("name_of_csv"));
+        neighborType = myParser.getNeighborType();
+        cells = myParser.getCells();
+        myHeight = myParser.getMyHeight();
+        myWidth = myParser.getMyWidth();
     }
 
     //Update board's expectedCells based on current cell configuration
     public Cell[][] updateBoard(Rules rules) {
+        if(myParser.getErrorStatus() == 1){
+            return cells;
+        }
         if (rules.getMyRulesParser().getType() == 4) {
             return updateBoardHelper4(rules);
         } else if (rules.getMyRulesParser().getType() == 3) {
@@ -82,7 +86,7 @@ public class Board {
                             int[][] neighborCoordinates = oldCell.getNeighbors();
                             //check if need to place a shark or fish after movement
                             if (newCell.getMyState() == 0 && oldCell.getMyState() != 0) {
-                                ArrayList<Cell> neighborCells = newCell.findNeighborsInState(1, neighborCoordinates, this);
+                                ArrayList<Cell> neighborCells = oldCell.findNeighborsInState(1, neighborCoordinates, this);
                                 //check if there are any fish neighbors if shark
                                 if (neighborCells.size() > 0 && oldCell.getMyState() == 2) {
                                     if (oldCell.getMyState() == 2 && oldCell.getEnergyLevel() != 0) {
@@ -105,10 +109,13 @@ public class Board {
                                         updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
                                     } else if (oldCell.getMyState() != 2){
                                         ArrayList<Cell> emptyNeighborCells = newCell.findNeighborsInState(0, neighborCoordinates, this);
-                                        Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
-                                        cellToReplace.setMyState(oldCell.getMyState());
-                                        tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
-                                        updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                        if (emptyNeighborCells.size() >  0) {
+                                            Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
+                                            cellToReplace.setMyState(oldCell.getMyState());
+                                            tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
+                                            updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                        }
+
                                     }
                                 }
                             }

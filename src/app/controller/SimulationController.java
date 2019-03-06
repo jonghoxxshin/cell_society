@@ -24,7 +24,7 @@ public class SimulationController {
 
     private Simulation mySimulationModel;
     private SimulationView mySimulationView;
-    private final String[] gameNames = {"gameOfLife", "percolation"};
+    private final String[] gameNames = {"gameOfLife", "percolation", "rockPaperScissors", "segregation", "predatorPrey"};
     private Scene myScene;
     private Timeline myAnimation;
     private Board myBoard;
@@ -85,9 +85,6 @@ public class SimulationController {
             myPropertiesList.add(game + 2);
             myPropertiesList.add(game + 3);
         }
-        myPropertiesList.add("rockPaperScissors1");
-        myPropertiesList.add("predatorPrey1");
-        myPropertiesList.add("segregation1");
     }
 
     public ArrayList<String> getMyPropertiesList() {
