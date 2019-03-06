@@ -46,6 +46,7 @@ public class Board {
         return tempCells;
     }
 
+
     private int getRandomIntFromBound(int bound) {
         Random newRand = new Random();
         return newRand.nextInt(bound);

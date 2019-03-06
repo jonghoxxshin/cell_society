@@ -117,23 +117,10 @@ public class RightView {
             File file = fileChooser.showOpenDialog(null);
             if (file != null) {
                 myImages.add(new Image(this.getClass().getClassLoader().getResourceAsStream(file.getName())));
-                System.out.println(myImages.get(0).toString());
-
             }
-
         }
         myBoardView.setMyImageArray(myImages);
-        System.out.println(myImages.size());
+        mySimulationController.setNewBoard();
     }
 
-
-
 }
-
-
-
-
-
-
-
-
