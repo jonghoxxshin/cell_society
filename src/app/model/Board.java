@@ -15,21 +15,25 @@ public class Board {
     private final int[] orderToReplace = {2, 1, 0};
     private int maxChronons = 10;
     private double threshold = 0.3;
+    private CSVParser myParser;
 
 
     //app.model.Board Constructor
 
     public Board(ResourceBundle myProperties) {
         myGame = myProperties.getString("type_of_game");
-        CSVParser parser = new CSVParser(myProperties.getString("name_of_csv"));
-        neighborType = parser.getNeighborType();
-        cells = parser.getCells();
-        myHeight = parser.getMyHeight();
-        myWidth = parser.getMyWidth();
+        myParser = new CSVParser(myProperties.getString("name_of_csv"));
+        neighborType = myParser.getNeighborType();
+        cells = myParser.getCells();
+        myHeight = myParser.getMyHeight();
+        myWidth = myParser.getMyWidth();
     }
 
     //Update board's expectedCells based on current cell configuration
     public Cell[][] updateBoard(Rules rules) {
+        if(myParser.getErrorStatus() == 1){
+            return cells;
+        }
         if (rules.getMyRulesParser().getType() == 4) {
             return updateBoardHelper4(rules);
         } else if (rules.getMyRulesParser().getType() == 3) {
