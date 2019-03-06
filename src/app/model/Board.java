@@ -57,6 +57,7 @@ public class Board {
         return tempCells;
     }
 
+
     private int getRandomIntFromBound(int bound) {
         Random newRand = new Random();
         return newRand.nextInt(bound);
@@ -92,7 +93,7 @@ public class Board {
                             int[][] neighborCoordinates = oldCell.getNeighbors();
                             //check if need to place a shark or fish after movement
                             if (newCell.getMyState() == 0 && oldCell.getMyState() != 0) {
-                                ArrayList<Cell> neighborCells = newCell.findNeighborsInState(1, neighborCoordinates, this);
+                                ArrayList<Cell> neighborCells = oldCell.findNeighborsInState(1, neighborCoordinates, this);
                                 //check if there are any fish neighbors if shark
                                 if (neighborCells.size() > 0 && oldCell.getMyState() == 2) {
                                     if (oldCell.getMyState() == 2 && oldCell.getEnergyLevel() != 0) {
@@ -115,10 +116,13 @@ public class Board {
                                         updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
                                     } else if (oldCell.getMyState() != 2){
                                         ArrayList<Cell> emptyNeighborCells = newCell.findNeighborsInState(0, neighborCoordinates, this);
-                                        Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
-                                        cellToReplace.setMyState(oldCell.getMyState());
-                                        tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
-                                        updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                        if (emptyNeighborCells.size() >  0) {
+                                            Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
+                                            cellToReplace.setMyState(oldCell.getMyState());
+                                            tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
+                                            updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                        }
+
                                     }
                                 }
                             }

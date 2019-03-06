@@ -73,16 +73,6 @@ public class PropertiesFileWriter {
         return prop;
     }
 
-    /*
-    name_of_creator=Ed
-type_of_game=GameOfLife
-description=simulates cellular behavior
-name_of_csv=GameOfLifeConfig1.csv
-color0=white
-color1=blue
-
-
-     */
 
 
 
