@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Cell {
     private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, { 0, -1}, { 0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
     private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+    private static final int[][] NEIGHBORS_HEX = {{0, -1}, {-1, -1}, {-1, 0}, {0, 1}, {1, 0}, {1, -1}};
+
     private int type;
     private int myX;
     private int myY;
@@ -22,11 +24,33 @@ public class Cell {
         myY = y;
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
+        myGridShape = GridShape.HEXAGON;
         type = neighborType;
-        neighbors = findNeighbors();
-        myGridShape = GridShape.RECTANGLE;
+
+        if(myGridShape==GridShape.RECTANGLE) {
+            neighbors = findNeighbors();
+        }
+
+        else if(myGridShape == GridShape.HEXAGON){
+            neighbors = findNeighborsHex();
+        }
+
+
 
     }
+
+
+    private int[][] findNeighborsHex(){
+        int[][] tempNeighbors = new int[6][2];
+
+        for(int i=0; i<tempNeighbors.length; i++){
+            tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_HEX[i]);
+        }
+
+        return tempNeighbors;
+    }
+
+
 
     //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
     private int[][] findNeighbors() {

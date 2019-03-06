@@ -58,6 +58,10 @@ public class BoardView {
         if(myGridShape==GridShape.RECTANGLE) {
             myRoot = createColorBoardRect(width, height);
         }
+
+        else if(myGridShape==GridShape.HEXAGON){
+            myRoot = createColorBoardHex(myBoardWidth, myBoardHeight);
+        }
     }
 
     public void setColors(Color c0, Color c1, Color c2){
@@ -75,6 +79,10 @@ public class BoardView {
 
         if(myGridShape==GridShape.RECTANGLE) {
             myRoot = createColorBoardRect(myBoardWidth, myBoardHeight);
+        }
+
+        else if(myGridShape==GridShape.HEXAGON){
+            myRoot = createColorBoardHex(myBoardWidth, myBoardHeight);
         }
     }
 
@@ -111,7 +119,10 @@ public class BoardView {
 
                 myColorBoard[i][j] = myHex;
 
-                int[] loc = getLocationRect(i,j,width_num,height_num);
+                myHex.getPoints().addAll(getHexPoints(j, i));
+
+                myHex.setStroke(Color.BLACK);
+                myHex.setStrokeWidth(1);
 
                 result.getChildren().add(myHex);
             }
@@ -120,7 +131,51 @@ public class BoardView {
     }
 
     private Double[] getHexPoints(int rowNumber, int columnNumber){
-        Double[] points = new Double[6];
+        Double[] points = new Double[12];
+
+        if(columnNumber % 2 == 0){
+            points[0] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
+            points[1] = (rowNumber*cellHeight);
+
+            points[2] = ((3 * cellWidth / 4) * columnNumber) + (3*cellWidth/4);
+            points[3] = (rowNumber*cellHeight);
+
+            points[4] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth);
+            points[5] = (rowNumber*cellHeight) + (cellHeight / 2);
+
+            points[6] = ((3 * cellWidth / 4) * columnNumber) + (3*cellWidth/4);
+            points[7] = (rowNumber*cellHeight) + cellHeight;
+
+            points[8] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
+            points[9] = (rowNumber*cellHeight) + cellHeight;
+
+            points[10] = (3 * cellWidth / 4) * columnNumber;
+            points[11] = (rowNumber*cellHeight) + (cellHeight / 2);
+
+        }
+
+        else{
+            // offset of cell height / 4
+            points[0] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
+            points[1] = (rowNumber*cellHeight) + (cellHeight/4) + (cellWidth/4);
+
+            points[2] = ((3 * cellWidth / 4) * columnNumber) + (3*cellWidth/4);
+            points[3] = (rowNumber*cellHeight) + (cellHeight/4) + (cellWidth/4);
+
+            points[4] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth);
+            points[5] = (rowNumber*cellHeight) + (3 * cellHeight / 4) + (cellWidth/4);
+
+            points[6] = ((3 * cellWidth / 4) * columnNumber) + (3*cellWidth/4);
+            points[7] = (rowNumber*cellHeight) + (5*cellHeight / 4) + (cellWidth/4);
+
+            points[8] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
+            points[9] = (rowNumber*cellHeight) + (5*cellHeight / 4) + (cellWidth/4);
+
+            points[10] = (3 * cellWidth / 4) * columnNumber;
+            points[11] = (rowNumber*cellHeight) + (3 * cellHeight / 4) + (cellWidth/4);
+
+
+        }
 
         // calculate six point values based on current row and column, along with width and height of entire board -
         // that'll give you height and width dimensions
