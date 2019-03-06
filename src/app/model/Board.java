@@ -87,6 +87,7 @@ public class Board {
                             Cell newCell = new Cell(oldCell.getNextState(rules, this), j, i, myHeight, myWidth, neighborType, oldCell.getCurrentChronons(), oldCell.getEnergyLevel(), myGridShapeType);
                             //check if time for reproduction
 
+
                             //update temp cells
                             tempCells[i][j] = newCell;
                             updateBoard[i][j] = newCell.getMyState();
@@ -206,7 +207,7 @@ public class Board {
     }
 
     //SOURCE: https://www.vogella.com/tutorials/JavaAlgorithmsShuffle/article.html
-    public static void shuffleList(List<Cell> a) {
+    public void shuffleList(List<Cell> a) {
         int n = a.size();
         Random random = new Random();
         random.nextInt();
@@ -217,7 +218,7 @@ public class Board {
     }
 
     //SOURCE: https://www.vogella.com/tutorials/JavaAlgorithmsShuffle/article.html
-    private static void swap(List<Cell> a, int i, int change) {
+    private void swap(List<Cell> a, int i, int change) {
         Cell helper = a.get(i);
         a.set(i, a.get(change));
         a.set(change, helper);
@@ -258,6 +259,23 @@ public class Board {
     public int getMyHeight() {
         return myHeight;
     }
+
+    public Map<Integer, Double> getCurrentStateData () {
+        Map<Integer, Double> dataDict = new HashMap<Integer, Double>();
+        for (int state : orderToReplace) {
+            double count = 0;
+            for (int i = 0; i < myHeight; i++) {
+                for (int j = 0; j < myWidth; j++) {
+                    if (cells[i][j].getMyState() == state) {
+                        count++;
+                    }
+                }
+            }
+            dataDict.put(state, count/(myHeight*myWidth));
+        }
+        return dataDict;
+    }
+
 
     public int getErrorStatus() {
         return errorStatus;
