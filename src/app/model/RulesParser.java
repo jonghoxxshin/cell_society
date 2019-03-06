@@ -15,6 +15,12 @@ public class RulesParser {
     private static final String SEGREGATION_RULES = "SegregationRules.txt";
     private static final String PREDATORPREY_RULES = "PredatorPreyRules.txt";
     private static final String FIRE_RULES = "FireRules.txt";
+    private static final String LIFE = "gameoflife";
+    private static final String PERCOLATE = "percolation";
+    private static final String RPS = "rockpaperscissors";
+    private static final String SEGREGATION = "segregation";
+    private static final String PREDATORPREY = "predatorprey";
+    private static final String FIRE = "fire";
     private ArrayList<State> possibleStates;
     private String gameName;
     private int type;
@@ -23,7 +29,7 @@ public class RulesParser {
     private static int numberOfNeighbors;
 
     //NEED TO REPLACE EVENTUALLY
-    private static final double probability = 0.3;
+    private double probability = 0.3;
 
 
 
@@ -63,17 +69,17 @@ public class RulesParser {
 
 
     private String getFileName(String game){
-        if (game.toLowerCase().equals("gameoflife")){
+        if (game.toLowerCase().equals(LIFE)){
             return LIFE_RULES;
-        } else if (game.toLowerCase().equals("percolation")) {
+        } else if (game.toLowerCase().equals(PERCOLATE)) {
             return PERCOLATE_RULES;
-        } else if (game.toLowerCase().equals("rockpaperscissors")) {
+        } else if (game.toLowerCase().equals(RPS)) {
             return RPS_RULES;
-        } else if (game.toLowerCase().equals("segregation")) {
+        } else if (game.toLowerCase().equals(SEGREGATION)) {
             return SEGREGATION_RULES;
-        } else if (game.toLowerCase().equals("predatorprey")) {
+        } else if (game.toLowerCase().equals(PREDATORPREY)) {
             return PREDATORPREY_RULES;
-        } else if (game.toLowerCase().equals("fire")) {
+        } else if (game.toLowerCase().equals(FIRE)) {
             return FIRE_RULES;
         }
         return null;

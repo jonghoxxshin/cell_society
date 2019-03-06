@@ -11,7 +11,6 @@ public class Board {
     private String myGame;
     private int neighborType;
     private final int[] orderToReplace = {2, 1, 0};
-    private int maxChronons = 10;
     private double threshold = 0.3;
     private CSVParser myParser;
 

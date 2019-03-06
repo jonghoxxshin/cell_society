@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CSVParser {
+    private static final String LIFE = "gameoflife";
+    private static final String PERCOLATE = "percolation";
+    private static final String RPS = "rockpaperscissors";
+    private static final String FIRE = "fire";
+    private static final String PRED = "predatorprey";
+    private static final String SEG = "segregation";
     private int myHeight;
     private int myWidth;
     private String gameType;
@@ -31,22 +37,22 @@ public class CSVParser {
     }
 
     private void determineNeighborType(){
-        if (gameType.toLowerCase().equals("gameoflife")) {
+        if (gameType.toLowerCase().equals(LIFE)) {
             neighborType = 1;
             maxState = 1;
-        } else if (gameType.toLowerCase().equals("percolation")) {
+        } else if (gameType.toLowerCase().equals(PERCOLATE)) {
             neighborType = 1;
             maxState = 2;
-        } else if (gameType.toLowerCase().equals("rockpaperscissors")) {
+        } else if (gameType.toLowerCase().equals(RPS)) {
             neighborType = 1;
             maxState = 2;
-        } else if (gameType.toLowerCase().equals("segregation")){
+        } else if (gameType.toLowerCase().equals(SEG)){
             neighborType = 1;
             maxState = 2;
-        }  else if (gameType.toLowerCase().equals("fire")){
+        }  else if (gameType.toLowerCase().equals(FIRE)){
             neighborType = 2;
             maxState = 2;
-        }  else if (gameType.toLowerCase().equals("predatorprey")) {
+        }  else if (gameType.toLowerCase().equals(PRED)) {
             neighborType = 2;
             maxState = 2;
         }
@@ -112,10 +118,8 @@ public class CSVParser {
             stateList = generateStateList(filename);
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
         } catch(Throwable ee){
             ee.printStackTrace();
-            return null;
         }
 
         Cell[][] cellsGenerated = new Cell[myHeight][myWidth];
