@@ -1,9 +1,9 @@
 package app.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Rules {
-    private ArrayList<State> possibleStates;
+    private List<State> possibleStates;
     private RulesParser myRulesParser;
 
     //Sets up rules by updating possibleStates ArrayList
@@ -19,7 +19,7 @@ public class Rules {
     }
 
     //Get app.model.Rules For a Game
-    public ArrayList<State> getPossibleStates(){
+    public List<State> getPossibleStates(){
 
         return possibleStates;
     }

@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 public class RulesParser {
     private static final String LIFE_RULES = "GameOfLifeRules.txt";
@@ -128,7 +129,7 @@ public class RulesParser {
     }
 
     //Add rules that appply to each state to a state object if possibleStates
-    private  ArrayList<State> makeRules(){
+    private  List<State> makeRules(){
         possibleStates = new ArrayList<State>();
         for (Integer state : stateArray) {
 
@@ -148,7 +149,7 @@ public class RulesParser {
 
 
     // return possibleStates, ArrayList of app.model.State objects
-    public ArrayList<State> getPossibleStates(){
+    public List<State> getPossibleStates(){
         return possibleStates;
     }
 
@@ -156,11 +157,11 @@ public class RulesParser {
         return gameName;
     }
 
-    public ArrayList<Integer> getStateArray() {
+    public List<Integer> getStateArray() {
         return stateArray;
     }
 
-    public ArrayList<int[]> getRulesArray() {
+    public List<int[]> getRulesArray() {
         return rulesArray;
     }
 

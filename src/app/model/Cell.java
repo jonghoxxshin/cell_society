@@ -1,6 +1,7 @@
 package app.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Cell {
     private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, {0, -1}, {0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
@@ -155,8 +156,8 @@ public class Cell {
     }
 
     //get coordinates of neighbors in desired state
-    public ArrayList<Cell> findNeighborsInState(int state, int[][] neighborsList, Board board) {
-        ArrayList<Cell> neighborsInState = new ArrayList<Cell>();
+    public List<Cell> findNeighborsInState(int state, int[][] neighborsList, Board board) {
+        List<Cell> neighborsInState = new ArrayList<Cell>();
         for (int[] neighbor : neighborsList) {
             Cell tempCell = board.getCells()[neighbor[0]][neighbor[1]];
             if (tempCell.getMyState() == state) {

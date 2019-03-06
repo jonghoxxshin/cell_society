@@ -17,6 +17,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SimulationController {
@@ -79,7 +80,7 @@ public class SimulationController {
         }
     }
 
-    public ArrayList<String> getMyPropertiesList() {
+    public List<String> getMyPropertiesList() {
         return myPropertiesList;
     }
 
