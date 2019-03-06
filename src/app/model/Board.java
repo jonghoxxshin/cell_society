@@ -81,7 +81,7 @@ public class Board {
                             int[][] neighborCoordinates = oldCell.getNeighbors();
                             //check if need to place a shark or fish after movement
                             if (newCell.getMyState() == 0 && oldCell.getMyState() != 0) {
-                                ArrayList<Cell> neighborCells = newCell.findNeighborsInState(1, neighborCoordinates, this);
+                                ArrayList<Cell> neighborCells = oldCell.findNeighborsInState(1, neighborCoordinates, this);
                                 //check if there are any fish neighbors if shark
                                 if (neighborCells.size() > 0 && oldCell.getMyState() == 2) {
                                     if (oldCell.getMyState() == 2 && oldCell.getEnergyLevel() != 0) {
