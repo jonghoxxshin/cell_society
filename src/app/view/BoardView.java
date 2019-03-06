@@ -143,33 +143,21 @@ public class BoardView {
     private Group createColorBoardPolygon(int width_num, int height_num){
         var result = new Group();
 
-//        System.out.println("height_num is " + height_num);
-//        System.out.println("width_num is " + width_num);
-
-
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){
 
                 Cell c = myBoard[j][i];
-                //System.out.println("this is cell state" + c.getMyState());
-
                 Polygon myPoly = new Polygon();
-
                 // add polygon points
-
                 assignColor(c, myPoly);
-
                 myColorBoard[i][j] = myPoly;
-
                 if(myGridShape==GridShape.HEXAGON) {
                     myPoly.getPoints().addAll(getHexPoints(j, i));
                 }
-
                 else if(myGridShape==GridShape.RHOMBUS){
                     myPoly.getPoints().addAll(getRhombusPoints(j, i));
-
                 }
-
+                myPoly.setOnMouseClicked(e->cellClicked(c));
                 myPoly.setStroke(Color.BLACK);
                 myPoly.setStrokeWidth(1);
 
@@ -275,6 +263,8 @@ public class BoardView {
                 r.setOnMouseClicked(e->cellClicked(c));
                 r.setX(loc[0]);
                 r.setY(loc[1]);
+                r.setStroke(Color.BLACK);
+                r.setStrokeWidth(1);
                 result.getChildren().add(r);
             }
         }

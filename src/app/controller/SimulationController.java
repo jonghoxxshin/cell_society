@@ -13,6 +13,7 @@ import app.view.SimulationView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
@@ -42,6 +43,9 @@ public class SimulationController {
     private Color color1;
     private Color color2;
 
+    private ArrayList<Image> myImageList;
+    private boolean useImage;
+
 
     //properties list, need to be initialized by reading in all the properties we have
 
@@ -58,6 +62,8 @@ public class SimulationController {
         myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
         mySimulationModel = new Simulation(myBoard, myRules);
         mySimulationView = new SimulationView(myBoardView);
+        useImage = false;
+        myImageList = new ArrayList<>();
         initMyPropList();
         myControlView = new ControlView(this);
         myRightView = new RightView(this, myBoardView);
@@ -132,6 +138,9 @@ public class SimulationController {
     }
 
     public void replaceBoardView(){
+        if(useImage){
+
+        }
         if(color0 != null) myMainView.setMyBoardView(
                 new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, color0, color1, color2));
         else myMainView.setMyBoardView(
