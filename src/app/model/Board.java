@@ -108,10 +108,13 @@ public class Board {
                                         updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
                                     } else if (oldCell.getMyState() != 2){
                                         ArrayList<Cell> emptyNeighborCells = newCell.findNeighborsInState(0, neighborCoordinates, this);
-                                        Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
-                                        cellToReplace.setMyState(oldCell.getMyState());
-                                        tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
-                                        updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                        if (emptyNeighborCells.size() >  0) {
+                                            Cell cellToReplace = emptyNeighborCells.get(getRandomIntFromBound(emptyNeighborCells.size()));
+                                            cellToReplace.setMyState(oldCell.getMyState());
+                                            tempCells[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace;
+                                            updateBoard[cellToReplace.getMyY()][cellToReplace.getMyX()] = cellToReplace.getMyState();
+                                        }
+
                                     }
                                 }
                             }
