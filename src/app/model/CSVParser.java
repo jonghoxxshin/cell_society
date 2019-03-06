@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class CSVParser {
@@ -17,11 +18,31 @@ public class CSVParser {
     private int errorStatus;
     private String errorType;
     private int maxState;
+    private GridShapeType myGridShapeType;
+
+    public CSVParser(ResourceBundle myProperties){
+        this.errorStatus = 0;
+
+        String csvGame = myProperties.getString("name_of_csv");
+
+        System.out.println("Grid shape read in was " + myProperties.getString("shape"));
+
+        myGridShapeType = new GridShape().getShape(myProperties.getString("shape"));
+
+        try {
+            this.cells = generateCells(csvGame);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public CSVParser(String filename){
+        // file name constructor lets us keep tests the same
         this.errorStatus = 0;
 
         String csvGame = filename;
+        myGridShapeType = GridShapeType.RECTANGLE;
 
         try {
             this.cells = generateCells(csvGame);
@@ -35,7 +56,7 @@ public class CSVParser {
             neighborType = 1;
             maxState = 1;
         } else if (gameType.toLowerCase().equals("percolation")) {
-            neighborType = 1;
+            neighborType = 2;
             maxState = 2;
         } else if (gameType.toLowerCase().equals("rockpaperscissors")) {
             neighborType = 1;
@@ -149,9 +170,9 @@ public class CSVParser {
                     throw new IOException(this.errorType);
                 }
                 if (gameType.toLowerCase().equals("predatorprey")) {
-                    cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, 0, 20);
+                    cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, 0, 20, myGridShapeType);
                 } else {
-                    cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, -1, -1 );
+                    cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
                 }
             }
 

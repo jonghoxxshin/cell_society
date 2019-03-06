@@ -1,6 +1,6 @@
 package app.view;
 
-import app.model.GridShape;
+import app.model.GridShapeType;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -29,7 +29,7 @@ public class BoardView {
     private Shape[][] myColorBoard;
     private Cell[][] myBoard;
 
-    private GridShape myGridShape;
+    private GridShapeType myGridShape;
 
     private Scene myScene;
     private ResourceBundle myProperties;
@@ -43,7 +43,8 @@ public class BoardView {
         myBoardWidth = width;
         myBoardHeight = height;
         myBoard = board;
-        myGridShape = myBoard[0][0].getMyGridShape();
+
+        myGridShape = myBoard[0][0].getMyGridShapeType();
         myColor0 = c0;
         myColor1 = c1;
         myColor2 = c2;
@@ -55,7 +56,7 @@ public class BoardView {
 //        System.out.println("In constructor, width for arg is " + width);
 //        System.out.println("In constructor, height for arg is " + height);
 
-        if(myGridShape==GridShape.RECTANGLE) {
+        if(myGridShape==GridShapeType.RECTANGLE) {
             myRoot = createColorBoardRect(width, height);
         }
 
@@ -77,7 +78,7 @@ public class BoardView {
     private void updateBoard(){
         myRoot.getChildren().clear();
 
-        if(myGridShape==GridShape.RECTANGLE) {
+        if(myGridShape==GridShapeType.RECTANGLE) {
             myRoot = createColorBoardRect(myBoardWidth, myBoardHeight);
         }
 
@@ -120,17 +121,17 @@ public class BoardView {
 
                 myColorBoard[i][j] = myPoly;
 
-                if(myGridShape==GridShape.HEXAGON) {
+                if(myGridShape==GridShapeType.HEXAGON) {
                     myPoly.getPoints().addAll(getHexPoints(j, i));
                 }
 
-                else if(myGridShape==GridShape.RHOMBUS){
+                else if(myGridShape==GridShapeType.RHOMBUS){
                     myPoly.getPoints().addAll(getRhombusPoints(j, i));
 
                 }
 
-                myPoly.setStroke(Color.BLACK);
-                myPoly.setStrokeWidth(1);
+//                myPoly.setStroke(Color.BLACK);
+//                myPoly.setStrokeWidth(1);
 
                 result.getChildren().add(myPoly);
             }
