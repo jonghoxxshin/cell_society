@@ -89,7 +89,7 @@ public class Cell{
 
 
     //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
-    private int[][] findNeighbors(int[][] neighborsType) {
+    public int[][] findNeighbors(int[][] neighborsType) {
         // code to get expectedNeighbors based on current cell's coordinates
         int[][] tempNeighbors = getTempNeighborsForType();
         for (int i = 0; i < tempNeighbors.length; i++) {
@@ -100,7 +100,7 @@ public class Cell{
 
     //get neighbor coordinates from offset with respect to toroidal edges
     // modified this to handle when x is out of bounds by more than one
-    private int[] getNeighbor(int x, int y, int[] offSet) {
+    public int[] getNeighbor(int x, int y, int[] offSet) {
         int tempX;
         int tempY;
 
