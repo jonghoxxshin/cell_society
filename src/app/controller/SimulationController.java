@@ -25,7 +25,7 @@ public class SimulationController {
 
     private Simulation mySimulationModel;
     private SimulationView mySimulationView;
-    private final String[] gameNames = {"gameOfLife", "percolation", "rockPaperScissors", "segregation", "predatorPrey"};
+    private final String[] gameNames = {"gameOfLife", "percolation", "rockPaperScissors", "fire", "segregation", "predatorPrey"};
     private Scene myScene;
     private Timeline myAnimation;
     private Board myBoard;

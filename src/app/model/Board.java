@@ -44,6 +44,8 @@ public class Board {
             return updateBoardHelper4(rules);
         } else if (rules.getMyRulesParser().getType() == 3) {
             return updateBoardHelper3(rules);
+        } else if (rules.getMyRulesParser().getType() == 2) {
+            return updateBoardHelper2(rules);
         }
         Cell[][] tempCells = new Cell[myHeight][myWidth];
         for (int i = 0; i < myHeight; i++) {
@@ -52,7 +54,7 @@ public class Board {
             }
         }
         cells = tempCells;
-        print2DBoard(cells);
+        //print2DBoard(cells);
         return tempCells;
     }
 
@@ -72,11 +74,10 @@ public class Board {
     }
 
     private Cell[][] updateBoardHelper4(Rules rules) {
-        print2DBoard(cells);
+        //print2DBoard(cells);
         Cell[][] tempCells = new Cell[myHeight][myWidth];
         int[][] updateBoard = new int[myHeight][myWidth];
         initializeUpdateBoard(updateBoard);
-        print2DArray(updateBoard);
         for (int state : orderToReplace) {
             for (int i = 0; i < myHeight; i++) {
                 for (int j = 0; j < myWidth; j++) {
@@ -128,6 +129,36 @@ public class Board {
                             }
                         }
                     }
+                }
+            }
+        }
+        cells = tempCells;
+        return tempCells;
+    }
+
+    private double growProbability = 0.5;
+    private double catchProbability = 0.01;
+
+    private Cell[][] updateBoardHelper2(Rules rules) {
+        Random generator = new Random();
+        double number;
+        Cell[][] tempCells = new Cell[myHeight][myWidth];
+        for (int i = 0; i < myHeight; i++) {
+            for (int j = 0; j < myWidth; j++) {
+                Cell tempCell = cells[i][j];
+                number = generator.nextDouble();
+                int currState = tempCell.getMyState();
+                int nextState = tempCell.getNextState(rules, this);
+                if (number > growProbability && currState == 0) {
+                    tempCells[i][j] = tempCell;
+                } else if (number > catchProbability && currState == 1) {
+                    if (tempCell.findNeighborsInState(2, tempCell.getNeighbors(),this).size() > 0) {
+                        tempCells[i][j] = new Cell(nextState, j, i, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
+                    } else {
+                        tempCells[i][j] = tempCell;
+                    }
+                }else {
+                    tempCells[i][j] = new Cell(nextState, j, i, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
                 }
             }
         }

@@ -206,7 +206,7 @@ public class Cell{
         if (currentRules.getMyRulesParser().getType() == 4) {
             currentChronons++;
         }
-        return 0;
+        return this.getMyState();
     }
 
     //set cell state
