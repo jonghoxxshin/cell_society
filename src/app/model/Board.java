@@ -99,4 +99,12 @@ public abstract class Board {
     public int getErrorStatus() {
         return errorStatus;
     }
+
+    public int getNeighborType() {
+        return neighborType;
+    }
+
+    public GridShapeType getMyGridShapeType() {
+        return myGridShapeType;
+    }
 }
