@@ -1,5 +1,7 @@
 package app.model;
 
+import java.lang.annotation.Documented;
+
 public class RectangleCell extends Cell{
     private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, {0, -1}, {0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
     private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
@@ -27,4 +29,5 @@ public class RectangleCell extends Cell{
             neighbors = findNeighbors(NEIGHBORS_TYPE2);
         }
     }
+
 }
