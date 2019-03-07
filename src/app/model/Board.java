@@ -144,7 +144,19 @@ public class Board {
                 Cell tempCell = cells[i][j];
                 int[][] neighbors = cells[i][j].getNeighbors();
                 if (tempCell.findNeighborsInState(getOppositeState(tempCell.getMyState()), neighbors, this).size() > maxNumDislike) {
-                    dissatisfiedCells.push(tempCell);
+                    if (tempCell.getMyState() == 0) {
+                        dissatisfiedCells.push(tempCell);
+                    } else {
+                        System.out.println("mine: " + i +"," + j);
+                        for (int[] row : neighbors) {
+                            System.out.println( row[0] + "," + row[1]);
+                        }
+//                        System.out.println("found, max: ");
+//                        System.out.println(tempCell.findNeighborsInState(getOppositeState(tempCell.getMyState()), neighbors, this).size());
+//                        System.out.println(maxNumDislike);
+//                        System.out.println(tempCell.getMyState() + "," + tempCell.getMyX() + "," + tempCell.getMyY());
+                        dissatisfiedCells.push(tempCell);
+                    }
                 } else {
                     satisfiedCells.add(tempCell);
                 }
@@ -160,9 +172,11 @@ public class Board {
         shuffleStack(dissatisfiedCells);
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
+                int[][] neighbors = cells[i][j].getNeighbors();
                 if (updateBoard[i][j] == -1) {
                     updateBoard[i][j] = 1;
                     Cell newCell = dissatisfiedCells.pop();
+                    newCell.setNeighbors(neighbors);
                     newCell.setMyX(j);
                     newCell.setMyY(i);
                     tempCells[i][j] = newCell;

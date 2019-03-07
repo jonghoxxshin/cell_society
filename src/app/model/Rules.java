@@ -1,11 +1,12 @@
 package app.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 
 public class Rules {
-    private List<State> possibleStates;
+    private ArrayList<State> possibleStates;
     private RulesParser myRulesParser;
     private ResourceBundle myProperties;
 
@@ -24,7 +25,7 @@ public class Rules {
 
 
     //Get app.model.Rules For a Game
-    public List<State> getPossibleStates(){
+    public ArrayList<State> getPossibleStates(){
 
         return possibleStates;
     }

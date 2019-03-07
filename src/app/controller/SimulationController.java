@@ -86,7 +86,7 @@ public class SimulationController {
         }
     }
 
-    public List<String> getMyPropertiesList() {
+    public ArrayList<String> getMyPropertiesList() {
         return myPropertiesList;
     }
 

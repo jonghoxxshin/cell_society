@@ -244,6 +244,13 @@ public class Cell{
         return neighbors;
     }
 
+
+    // set neighbors
+    public void setNeighbors(int[][] newNeighbors) {
+        neighbors = newNeighbors;
+    }
+
+
     //get chronons
     public int getCurrentChronons() {
         return currentChronons;

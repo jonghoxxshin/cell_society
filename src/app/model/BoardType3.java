@@ -28,6 +28,7 @@ public class BoardType3 extends Board{
                 Cell tempCell = cells[i][j];
                 int[][] neighbors = cells[i][j].getNeighbors();
                 if (tempCell.findNeighborsInState(getOppositeState(tempCell.getMyState()), neighbors, this).size() > maxNumDislike) {
+                    System.out.println(tempCell.getMyState() + "," + tempCell.getMyX() + "," + tempCell.getMyY());
                     dissatisfiedCells.push(tempCell);
                 } else {
                     satisfiedCells.add(tempCell);

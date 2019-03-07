@@ -143,7 +143,7 @@ public class RulesParser {
     }
 
     //Add rules that appply to each state to a state object if possibleStates
-    private  List<State> makeRules(){
+    private List<State> makeRules(){
         possibleStates = new ArrayList<State>();
         for (Integer state : stateArray) {
 
@@ -163,7 +163,7 @@ public class RulesParser {
 
 
     // return possibleStates, ArrayList of app.model.State objects
-    public List<State> getPossibleStates(){
+    public ArrayList<State> getPossibleStates(){
         return possibleStates;
     }
 
