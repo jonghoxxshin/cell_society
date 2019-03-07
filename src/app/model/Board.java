@@ -3,7 +3,7 @@ package app.model;
 import java.util.*;
 
 
-public class Board {
+public abstract class Board {
 
     Cell[][] cells;
     private int myWidth;
@@ -39,24 +39,7 @@ public class Board {
 
 
     //Update board's expectedCells based on current cell configuration
-    public Cell[][] updateBoard(Rules rules) {
-        if (rules.getMyRulesParser().getType() == 4) {
-            return updateBoardHelper4(rules);
-        } else if (rules.getMyRulesParser().getType() == 3) {
-            return updateBoardHelper3(rules);
-        } else if (rules.getMyRulesParser().getType() == 2) {
-            return updateBoardHelper2(rules);
-        }
-        Cell[][] tempCells = new Cell[myHeight][myWidth];
-        for (int i = 0; i < myHeight; i++) {
-            for (int j = 0; j < myWidth; j++) {
-                tempCells[i][j] = new Cell(cells[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
-            }
-        }
-        cells = tempCells;
-        //print2DBoard(cells);
-        return tempCells;
-    }
+    public abstract Cell[][] updateBoard(Rules rules);
 
 
     private int getRandomIntFromBound(int bound) {

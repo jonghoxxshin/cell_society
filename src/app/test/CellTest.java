@@ -3,6 +3,7 @@ package app.test;
 
 import app.model.Board;
 import app.model.Cell;
+import app.model.GenericBoard;
 import app.model.Rules;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ class CellTest {
     @BeforeEach
     void setUp(){
         myProperties = ResourceBundle.getBundle("test");
-        testBoard = new Board(myProperties);
+        testBoard = new GenericBoard(myProperties);
         testRules = new Rules(myProperties.getString("type_of_game"));
 
         this.testCell = new Cell(0,0,0,5,5, 1, -1 ,-1);

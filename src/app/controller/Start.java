@@ -24,9 +24,7 @@ public class Start extends Application {
 
         String game = myProperties.getString("type_of_game");
 
-        Board b = new Board(myProperties);
 
-        //BoardView bv = new BoardView(b.getMyWidth(),b.getMyHeight(),b.getCells(), myProperties);
         SimulationController simulationController = new SimulationController(APP_WIDTH,APP_HEIGHT, game, myProperties);
 
         stage.setTitle(TITLE);
