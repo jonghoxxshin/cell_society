@@ -137,7 +137,7 @@ public class Board {
     }
 
     private double growProbability = 0.5;
-    private double catchProbability = 0.01;
+    private double catchProbability = 0.005;
 
     private Cell[][] updateBoardHelper2(Rules rules) {
         Random generator = new Random();
