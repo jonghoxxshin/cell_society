@@ -3,11 +3,12 @@ package app.model;
 import java.util.*;
 
 public class SegregationBoard extends Board{
-    private double threshold = 0.3;
+    private double threshold;
 
 
     public SegregationBoard(ResourceBundle myProperties){
         super(myProperties);
+        threshold = Double.parseDouble(myProperties.getString("probability"));
     }
 
     @Override

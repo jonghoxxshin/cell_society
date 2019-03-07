@@ -19,7 +19,6 @@ public class PredatorPreyBoard extends Board{
         Cell[][] tempCells = new Cell[super.getMyHeight()][super.getMyWidth()];
         int[][] updateBoard = new int[super.getMyHeight()][super.getMyWidth()];
         initializeUpdateBoard(updateBoard);
-        print2DArray(updateBoard);
         for (int state : orderToReplace) {
             for (int i = 0; i < super.getMyHeight(); i++) {
                 for (int j = 0; j < super.getMyWidth(); j++) {

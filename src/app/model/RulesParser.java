@@ -72,7 +72,7 @@ public class RulesParser {
 
     public RulesParser(ResourceBundle properties){
         this(properties.getString("type_of_game"));
-        this.probability = Integer.parseInt(properties.getString("probability"));
+        this.probability = Double.parseDouble(properties.getString("probability"));
     }
 
 
