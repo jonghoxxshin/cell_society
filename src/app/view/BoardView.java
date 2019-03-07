@@ -1,14 +1,21 @@
 package app.view;
 
+import app.model.GridShapeType;
+import app.controller.SimulationController;
 import app.model.GridShape;
+import app.model.Simulation;
+import javafx.event.Event;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import app.model.Cell;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import java.util.ArrayList;
 import javafx.scene.shape.Shape;
-
 import java.util.ResourceBundle;
 
 
@@ -24,41 +31,44 @@ public class BoardView {
     private Color myColor0;
     private Color myColor1;
     private Color myColor2;
-
+    private boolean useImage;
     private Group myRoot;
     private Shape[][] myColorBoard;
     private Cell[][] myBoard;
+    private GridShapeType myGridShape;
 
-    private GridShape myGridShape;
-
+    private ArrayList<Image> myImageArray;
+    private ImageView[][] myImageViewBoard;
     private Scene myScene;
     private ResourceBundle myProperties;
+    private SimulationController mySimulationController;
 
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties){
-        this(width, height, board, properties, Color.WHITE, Color.BLACK, Color.BLUE);
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc){
+        this(width, height, board, properties, sc, Color.WHITE, Color.BLACK, Color.BLUE);
     }
 
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, Color c0, Color c1, Color c2){
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, Color c0, Color c1, Color c2){
         myProperties = properties;
         myBoardWidth = width;
         myBoardHeight = height;
         myBoard = board;
-        myGridShape = myBoard[0][0].getMyGridShape();
+
+        mySimulationController = sc;
+        myImageArray = new ArrayList<>();
+        myGridShape = myBoard[0][0].getMyGridShapeType();
         myColor0 = c0;
         myColor1 = c1;
         myColor2 = c2;
+        useImage = false;
         cellHeight = BOARD_HEIGHT/height;
         cellWidth = BOARD_WIDTH/width;
+        myImageViewBoard = new ImageView[myBoardWidth][myBoardHeight];
         myColorBoard = new Shape[myBoardWidth][myBoardHeight];
         myRoot = new Group();
 
-//        System.out.println("In constructor, width for arg is " + width);
-//        System.out.println("In constructor, height for arg is " + height);
-
-        if(myGridShape==GridShape.RECTANGLE) {
-            myRoot = createColorBoardRect(width, height);
+        if(myGridShape == GridShapeType.RECTANGLE){
+            myRoot = createColorBoardRect(myBoardWidth, myBoardHeight);
         }
-
         else{
             myRoot = createColorBoardPolygon(myBoardWidth, myBoardHeight);
         }
@@ -69,7 +79,13 @@ public class BoardView {
         myColor1 = c1;
         myColor2 = c2;
         updateBoard();
+    }
 
+    public void setMyImageArray(ArrayList<Image> input){
+        useImage = true;
+        this.myImageArray = input;
+        updateBoard();
+        mySimulationController.replaceBoardView();
     }
 
     public Group getMyRoot(){return myRoot;}
@@ -77,10 +93,11 @@ public class BoardView {
     private void updateBoard(){
         myRoot.getChildren().clear();
 
-        if(myGridShape==GridShape.RECTANGLE) {
+        if(useImage){
+            myRoot = createImageBoard(myBoardWidth, myBoardHeight);
+        }else if(myGridShape==GridShapeType.RECTANGLE) {
             myRoot = createColorBoardRect(myBoardWidth, myBoardHeight);
         }
-
         else{
             myRoot = createColorBoardPolygon(myBoardWidth, myBoardHeight);
         }
@@ -91,44 +108,64 @@ public class BoardView {
             shape.setFill(myColor0);
         }else if(c.getMyState()==1){
             shape.setFill(myColor1);
-
         }else if(c.getMyState()==2){
             shape.setFill(myColor2);
         }
     }
 
+    private void assignImage(Cell c, ImageView ig){
+        int state = c.getMyState();
+        if(state==0){
+            ig.setImage( myImageArray.get(0));
+        }else if(state==1){
+            ig.setImage( myImageArray.get(1));
+        }else if(state==2){
+            ig.setImage( myImageArray.get(2));
+        }
+        ig.setFitWidth(cellWidth);
+        ig.setFitHeight(cellHeight);
+    }
+
+    private Group createImageBoard(int width_num, int height_num){
+        var result = new Group();
+        for(int i = 0; i< width_num; i++){
+            for(int j=0; j<height_num;j++){
+                Cell c = myBoard[j][i];
+                ImageView imageView = new ImageView();
+                assignImage(c, imageView);
+                myImageViewBoard[i][j] = imageView;
+                int[] loc = getLocationRect(i,j,width_num,height_num);
+                imageView.setX(loc[0]);
+                imageView.setY(loc[1]);
+                result.getChildren().add(imageView);
+            }
+        }
+        System.out.println("made it here");
+        return result;
+    }
 
 
     private Group createColorBoardPolygon(int width_num, int height_num){
         var result = new Group();
 
-//        System.out.println("height_num is " + height_num);
-//        System.out.println("width_num is " + width_num);
-
-
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){
 
                 Cell c = myBoard[j][i];
-                //System.out.println("this is cell state" + c.getMyState());
-
                 Polygon myPoly = new Polygon();
-
                 // add polygon points
-
                 assignColor(c, myPoly);
-
                 myColorBoard[i][j] = myPoly;
 
-                if(myGridShape==GridShape.HEXAGON) {
+                if(myGridShape==GridShapeType.HEXAGON) {
                     myPoly.getPoints().addAll(getHexPoints(j, i));
                 }
 
-                else if(myGridShape==GridShape.RHOMBUS){
+                else if(myGridShape==GridShapeType.RHOMBUS){
                     myPoly.getPoints().addAll(getRhombusPoints(j, i));
-
                 }
 
+                myPoly.setOnMouseClicked(e->cellClicked(c));
                 myPoly.setStroke(Color.BLACK);
                 myPoly.setStrokeWidth(1);
 
@@ -195,9 +232,7 @@ public class BoardView {
 
             points[10] = (3 * cellWidth / 4) * columnNumber;
             points[11] = (rowNumber*cellHeight) + (cellHeight / 2);
-
         }
-
         else{
             // offset of cell height / 4
             points[0] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
@@ -218,30 +253,31 @@ public class BoardView {
             points[10] = (3 * cellWidth / 4) * columnNumber;
             points[11] = (rowNumber*cellHeight) + (cellHeight / 2) + (cellHeight/2);
 
-
         }
-
         return points;
     }
 
-
     private Group createColorBoardRect(int width_num, int height_num){
+        System.out.println("create Color Board rect is invoked");
         var result = new Group();
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){
                 Rectangle r = new Rectangle(cellWidth,cellHeight);
+
                 Cell c = myBoard[j][i];
                 assignColor(c, r);
                 myColorBoard[i][j] = r;
                 int[] loc = getLocationRect(i,j,width_num,height_num);
+                r.setOnMouseClicked(e->cellClicked(c));
                 r.setX(loc[0]);
                 r.setY(loc[1]);
+                r.setStroke(Color.BLACK);
+                r.setStrokeWidth(1);
                 result.getChildren().add(r);
             }
         }
         return result;
     }
-
 
     private int[] getLocationRect(int i, int j, int width_num, int height_num){
         int[] result = new int[2];
@@ -251,8 +287,12 @@ public class BoardView {
         result[1] = yval;
         return result;
     }
-
-    public Shape[][] getMycolorBoard(){ return myColorBoard; }
-
+    private void cellClicked(Cell cell){
+        int currState = cell.getMyState();
+        int nextState = currState+1;
+        cell.setMyState(nextState%3);
+        updateBoard();
+        mySimulationController.replaceBoardView();
+    }
 
 }

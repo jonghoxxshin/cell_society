@@ -13,6 +13,7 @@ import app.view.SimulationView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
@@ -43,6 +44,9 @@ public class SimulationController {
     private Color color1;
     private Color color2;
 
+    private ArrayList<Image> myImageList;
+    private boolean useImage;
+
 
     //properties list, need to be initialized by reading in all the properties we have
 
@@ -55,10 +59,12 @@ public class SimulationController {
     public SimulationController(int height, int width, String game, ResourceBundle myProperties) {//Will change to instantiating simulation and simulationView inside controller, not as input
         this.myProperties = myProperties;
         myBoard = new Board(myProperties);
-        myRules = new Rules(game);
-        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties);
+        myRules = new Rules(myProperties);
+        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
         mySimulationModel = new Simulation(myBoard, myRules);
         mySimulationView = new SimulationView(myBoardView);
+        useImage = false;
+        myImageList = new ArrayList<>();
         initMyPropList();
         myControlView = new ControlView(this);
         myRightView = new RightView(this, myBoardView);
@@ -105,9 +111,9 @@ public class SimulationController {
         this.pauseSimulation();
         myProperties = ResourceBundle.getBundle(t1);
         myBoard = new Board (myProperties);
-        myRules = new Rules (myProperties.getString("type_of_game"));
+        myRules = new Rules (myProperties);
         mySimulationModel = new Simulation(myBoard,myRules);
-        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties);
+        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
         myMainView.setMyBoardView(myBoardView);
         startSimulation = true;
         setTimeline();
@@ -125,61 +131,69 @@ public class SimulationController {
                 mySimulationModel.nextStep();
                 //mySimulationModel.printMyCells();
             }
-            if(color0 != null) myMainView.setMyBoardView(
-                    new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, color0, color1, color2));
-            else myMainView.setMyBoardView(
-                    new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties));
+            replaceBoardView();
         }
     }
 
+    public void replaceBoardView(){
+        if(useImage){
 
-        public String createProperties(String propertiesFileName, String name, String type, String des, String csv){
-            PropertiesFileWriter temp = new PropertiesFileWriter(propertiesFileName, name,type, des, csv);
-            myPropertiesList.add(temp.getMyPropFile());
-            return temp.getMyPropFile();
         }
-
-        public Simulation getMySimulationModel () {
-            return mySimulationModel;
-        }
-
-        private void setTimeline () {
-            if (myAnimation != null) myAnimation.stop();
-            myAnimation = new Timeline();
-            myAnimation.setCycleCount(Timeline.INDEFINITE);
-            myAnimation.getKeyFrames().add(this.makeKeyFrame());
-            myAnimation.play();
-        }
+        if(color0 != null) myMainView.setMyBoardView(
+                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, color0, color1, color2));
+        else myMainView.setMyBoardView(
+                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this));
+    }
 
 
-        private void setUpScene(){
-            this.myRoot = new BorderPane();
-            myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView);
-            startSimulation = myMainView.getMyStartBoolean();
-            myScene = myMainView.getScene();
-        }
+    public String createProperties(String propertiesFileName, String name, String type, String des, String csv){
+        PropertiesFileWriter temp = new PropertiesFileWriter(propertiesFileName, name,type, des, csv);
+        myPropertiesList.add(temp.getMyPropFile());
+        return temp.getMyPropFile();
+    }
 
-        public void pauseSimulation () {
-            myAnimation.pause();
-        }
+    public Simulation getMySimulationModel () {
+        return mySimulationModel;
+    }
 
-        public void restartSimulation(){
-            myAnimation.play();
-        }
+    private void setTimeline () {
+        if (myAnimation != null) myAnimation.stop();
+        myAnimation = new Timeline();
+        myAnimation.setCycleCount(Timeline.INDEFINITE);
+        myAnimation.getKeyFrames().add(this.makeKeyFrame());
+        myAnimation.play();
+    }
 
 
-        public void changeColor(Color c0, Color c1, Color c2){
-            color0 = c0;
-            color1 = c1;
-            color2 = c2;
-        }
+    private void setUpScene(){
+        this.myRoot = new BorderPane();
+        myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView);
+        startSimulation = myMainView.getMyStartBoolean();
+        myScene = myMainView.getScene();
+    }
 
-        public void setNewBoard(){
-            myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,color0,color1,color2);
-            mySimulationView = new SimulationView(myBoardView);
-            myRightView  = new RightView(this, myBoardView);
-            myMainView.setMyBoardView(myBoardView);
-        }
+    public void pauseSimulation () {
+        myAnimation.pause();
+    }
+
+    public void restartSimulation(){
+        myAnimation.play();
+    }
+
+
+    public void changeColor(Color c0, Color c1, Color c2){
+        color0 = c0;
+        color1 = c1;
+        color2 = c2;
+    }
+
+    public void setNewBoard(){
+        System.out.println("set new board is called ");
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,this,color0,color1,color2);
+        mySimulationView = new SimulationView(myBoardView);
+        myRightView  = new RightView(this, myBoardView);
+        myMainView.setMyBoardView(myBoardView);
+    }
 
 
 }

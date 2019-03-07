@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 public class RulesParser {
     private static final String LIFE_RULES = "GameOfLifeRules.txt";
@@ -33,8 +34,10 @@ public class RulesParser {
 
 
 
+
     //Read text file, update possibleStates, gameName, stateArray, and rulesArray from file
     public RulesParser(String game) {
+        this.probability = 0.3;
         rulesArray = new ArrayList<int[]>();
         stateArray = new ArrayList<Integer>();
         System.out.println(game);
@@ -65,6 +68,11 @@ public class RulesParser {
         }
         //printRulesArray();
         makeRules();
+    }
+
+    public RulesParser(ResourceBundle properties){
+        this(properties.getString("type_of_game"));
+        this.probability = Integer.parseInt(properties.getString("probability"));
     }
 
 

@@ -13,24 +13,33 @@ public class Board {
     private final int[] orderToReplace = {2, 1, 0};
     private double threshold = 0.3;
     private CSVParser myParser;
+    private int errorStatus;
+    private GridShapeType myGridShapeType;
 
 
     //app.model.Board Constructor
 
     public Board(ResourceBundle myProperties) {
         myGame = myProperties.getString("type_of_game");
-        myParser = new CSVParser(myProperties.getString("name_of_csv"));
+        myGridShapeType = new GridShape().getShape(myProperties.getString("shape"));
+        myParser = new CSVParser(myProperties);
+
+        if(myParser.getErrorStatus() == 1){
+            // do something
+        }
+
         neighborType = myParser.getNeighborType();
         cells = myParser.getCells();
+        System.out.println("first value in board is " + cells[0][0].toString());
+
         myHeight = myParser.getMyHeight();
         myWidth = myParser.getMyWidth();
     }
 
+
+
     //Update board's expectedCells based on current cell configuration
     public Cell[][] updateBoard(Rules rules) {
-        if(myParser.getErrorStatus() == 1){
-            return cells;
-        }
         if (rules.getMyRulesParser().getType() == 4) {
             return updateBoardHelper4(rules);
         } else if (rules.getMyRulesParser().getType() == 3) {
@@ -39,13 +48,14 @@ public class Board {
         Cell[][] tempCells = new Cell[myHeight][myWidth];
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                tempCells[i][j] = new Cell(cells[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType, -1, -1);
+                tempCells[i][j] = new Cell(cells[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
             }
         }
         cells = tempCells;
         print2DBoard(cells);
         return tempCells;
     }
+
 
     private int getRandomIntFromBound(int bound) {
         Random newRand = new Random();
@@ -73,8 +83,9 @@ public class Board {
                     if (updateBoard[i][j] == -1) {
                         if (cells[i][j].getMyState() == state) {
                             Cell oldCell = cells[i][j];
-                            Cell newCell = new Cell(oldCell.getNextState(rules, this), j, i, myHeight, myWidth, neighborType, oldCell.getCurrentChronons(), oldCell.getEnergyLevel());
-                            //check if time for reproduction here
+                            Cell newCell = new Cell(oldCell.getNextState(rules, this), j, i, myHeight, myWidth, neighborType, oldCell.getCurrentChronons(), oldCell.getEnergyLevel(), myGridShapeType);
+                            //check if time for reproduction
+
 
                             //update temp cells
                             tempCells[i][j] = newCell;
@@ -195,7 +206,7 @@ public class Board {
     }
 
     //SOURCE: https://www.vogella.com/tutorials/JavaAlgorithmsShuffle/article.html
-    public static void shuffleList(List<Cell> a) {
+    public void shuffleList(List<Cell> a) {
         int n = a.size();
         Random random = new Random();
         random.nextInt();
@@ -206,7 +217,7 @@ public class Board {
     }
 
     //SOURCE: https://www.vogella.com/tutorials/JavaAlgorithmsShuffle/article.html
-    private static void swap(List<Cell> a, int i, int change) {
+    private void swap(List<Cell> a, int i, int change) {
         Cell helper = a.get(i);
         a.set(i, a.get(change));
         a.set(change, helper);
@@ -248,7 +259,6 @@ public class Board {
         return myHeight;
     }
 
-
     public Map<Integer, Double> getCurrentStateData () {
         Map<Integer, Double> dataDict = new HashMap<Integer, Double>();
         for (int state : orderToReplace) {
@@ -265,4 +275,8 @@ public class Board {
         return dataDict;
     }
 
+
+    public int getErrorStatus() {
+        return errorStatus;
+    }
 }
