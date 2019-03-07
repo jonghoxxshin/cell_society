@@ -24,14 +24,14 @@ class CellTest {
         testRules = new Rules(myProperties.getString("type_of_game"));
 
         this.testCell = new RectangleCell(0,0,0,5,5, 1, -1 ,-1);
-        int[] neighbor10 = {1,0};
+        int[] neighbor10 = {0,1};
         int[] neighbor11 = {1,1};
-        int[] neighbor01 = {0,1};
+        int[] neighbor01 = {1,0};
 
-        int[] neighbor04 = {0,4};
-        int[] neighbor14 = {1,4};
-        int[] neighbor40 = {4,0};
-        int[] neighbor41 = {4,1};
+        int[] neighbor04 = {4,0};
+        int[] neighbor14 = {4,1};
+        int[] neighbor40 = {0,4};
+        int[] neighbor41 = {1,4};
         int[] neighbor44 = {4,4};
 
         expectedNeighbors = new int[8][2];
