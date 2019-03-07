@@ -130,4 +130,31 @@ public class CSVParserTest {
 
     }
 
+    @Test
+    void generateCellsWithCounts(){
+        CSVParser countsTester = new CSVParser("generateCellsWithCountsTest.csv");
+
+        double[] countsArray = {20.0,5.0};
+
+        assertArrayEquals(countsArray, countsTester.getMyCellGetter().getMyCounts());
+
+        Cell[][] cells = countsTester.getCells();
+        int zeroCounter = 0;
+        int oneCounter = 0;
+
+        for(int i=0; i<cells.length; i++){
+            for(int j=0; j<cells[0].length; j++){
+                if(cells[i][j].getMyState() == 1){
+                    oneCounter++;
+                }
+                else{
+                    zeroCounter++;
+                }
+            }
+        }
+
+        assertEquals(20, zeroCounter);
+        assertEquals(5, oneCounter);
+    }
+
 }

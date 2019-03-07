@@ -110,7 +110,7 @@ public class CellGetter {
                 // potentially O(infinity)... should we change this? Instead, once it gets to zero, just remove
                 // that index from consideration?
 
-                while(copyOfCounts[randState] !=0 ){
+                while(copyOfCounts[randState] == 0){
                     randState = new Random().nextInt(maxState+1);
                 }
 
@@ -280,5 +280,9 @@ public class CellGetter {
 
     public double[] getMyProbs() {
         return myProbs;
+    }
+
+    public double[] getMyCounts() {
+        return myCounts;
     }
 }
