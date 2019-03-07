@@ -4,11 +4,13 @@ import java.util.Random;
 import java.util.ResourceBundle;
 
 public class FireBoard extends Board {
-    private double growProbability = 0.5;
-    private double catchProbability = 0.005;
+    private double growProbability;
+    private double catchProbability;
 
     public FireBoard(ResourceBundle myProperties) {
         super(myProperties);
+        growProbability = Double.parseDouble(myProperties.getString("grow_probability"));
+        catchProbability = Double.parseDouble(myProperties.getString("catch_probability"));
     }
 
     @Override
