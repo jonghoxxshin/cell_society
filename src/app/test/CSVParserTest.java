@@ -119,4 +119,42 @@ public class CSVParserTest {
         assertEquals("Invalid state in grid for given game", invalidStateTester.getErrorType());
     }
 
+    @Test
+    void generateCellsWithProbability(){
+        CSVParser probabilityTester = new CSVParser("generateCellsWithProbabilityTest.csv");
+        double[] probsArray = {0.4,0.6};
+
+        assertArrayEquals(probsArray, probabilityTester.getMyCellGetter().getMyProbs());
+        assertEquals(5, probabilityTester.getCells().length);
+        assertEquals(5, probabilityTester.getCells()[0].length);
+
+    }
+
+    @Test
+    void generateCellsWithCounts(){
+        CSVParser countsTester = new CSVParser("generateCellsWithCountsTest.csv");
+
+        double[] countsArray = {20.0,5.0};
+
+        assertArrayEquals(countsArray, countsTester.getMyCellGetter().getMyCounts());
+
+        Cell[][] cells = countsTester.getCells();
+        int zeroCounter = 0;
+        int oneCounter = 0;
+
+        for(int i=0; i<cells.length; i++){
+            for(int j=0; j<cells[0].length; j++){
+                if(cells[i][j].getMyState() == 1){
+                    oneCounter++;
+                }
+                else{
+                    zeroCounter++;
+                }
+            }
+        }
+
+        assertEquals(20, zeroCounter);
+        assertEquals(5, oneCounter);
+    }
+
 }
