@@ -19,6 +19,7 @@ public class CSVParser {
     private String errorType;
     private int maxState;
     private GridShapeType myGridShapeType;
+    private CellGetter myCellGetter;
 
     public CSVParser(ResourceBundle myProperties){
         this.errorStatus = 0;
@@ -78,7 +79,7 @@ public class CSVParser {
         }
     }
 
-    private ArrayList<String[]> generateStateList(String filename) throws IOException{
+    private Cell[][] generateCells(String filename) throws IOException{
         Scanner csvScanner = new Scanner(CSVParser.class.getClassLoader().getResourceAsStream(filename));
 
         this.gameType = csvScanner.next();
@@ -98,7 +99,6 @@ public class CSVParser {
         }
 
         try {
-
             String[] dimensions = csvScanner.next().split(",");
 
             if(dimensions.length != 2){
@@ -109,6 +109,8 @@ public class CSVParser {
 
             this.myWidth = Integer.parseInt(dimensions[1]);
             this.myHeight = Integer.parseInt(dimensions[0]);
+
+            System.out.println("Height from parser is " + this.myHeight);
         }
 
         // catching any kind of throwable because there could be an error in case Integer.parseInt doesn't work
@@ -118,67 +120,20 @@ public class CSVParser {
             throw new IOException(this.errorType);
         }
 
-        ArrayList<String[]> stateList = new ArrayList<>();
+        String csvType = csvScanner.next();
 
-        while(csvScanner.hasNext()) {
-            String[] currentRow = csvScanner.next().split(",");
-            stateList.add(currentRow);
-        }
-        return stateList;
-    }
+        myCellGetter = new CellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType);
 
-    private Cell[][] generateCells(String filename) throws IOException{
-        ArrayList<String[]> stateList = new ArrayList<>();
-        try {
-            stateList = generateStateList(filename);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        } catch(Throwable ee){
-            ee.printStackTrace();
-            return null;
-        }
-
-        Cell[][] cellsGenerated = new Cell[myHeight][myWidth];
-
-        if(stateList.size() != myHeight){
-            errorStatus = 1;
-            errorType = "Grid incorrectly formatted - height";
-            System.out.println("Height of table is " + stateList.size());
-            System.out.println("myHeight is " + myHeight);
+        if(myCellGetter.getErrorStatus() == 1){
+            System.out.println("CellGetter caught error");
+            this.errorStatus = 1;
+            this.errorType = myCellGetter.getErrorType();
             throw new IOException(this.errorType);
         }
 
-        for(int i=0; i<stateList.size(); i++){
-            String[] currentRow = stateList.get(i);
-
-            if(currentRow.length!=myWidth){
-                errorStatus = 1;
-                errorType = "Grid incorrectly formatted - width";
-                System.out.println("Current row length is " + currentRow.length);
-                System.out.println("myWidth is " + myWidth);
-                throw new IOException(this.errorType);
-            }
-
-            for(int j=0; j<myWidth; j++){
-                int currentState = Integer.parseInt(currentRow[j]);
-
-                if(currentState > maxState || currentState < 0){
-
-                    errorStatus = 1;
-                    errorType = "Invalid state in grid for given game";
-                    throw new IOException(this.errorType);
-                }
-                if (gameType.toLowerCase().equals("predatorprey")) {
-                    cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, 0, 20, myGridShapeType);
-                } else {
-                    cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
-                }
-            }
-
-        }
-        return cellsGenerated;
+        return myCellGetter.getMyCells();
     }
+
 
     // TODO: Just finished invalid state. Need to finish checking for missing values, look over checklist one more time
     // TODO: to see if I have everything. Then, make tests on bad CSV's, work on shapes.
@@ -222,5 +177,9 @@ public class CSVParser {
 
     public String getErrorType() {
         return errorType;
+    }
+
+    public CellGetter getMyCellGetter() {
+        return myCellGetter;
     }
 }
