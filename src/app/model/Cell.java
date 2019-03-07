@@ -3,15 +3,7 @@ package app.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cell{
-    private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, {0, -1}, {0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
-    private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
-    private static final int[][] NEIGHBORS_HEX = {{0, -1}, {-1, -1}, {-1, 0}, {0, 1}, {1, 0}, {1, -1}};
-
-    // NEED TO FINISH RHOMBUS NEIGHBORS
-    private static final int[][] NEIGHBORS_RHOM_TYPE1 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}, {-2, 0}, {2,0}, {0, -1}, {0, 1}};
-    private static final int[][] NEIGHBORS_RHOM_TYPE2 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}};
-
+public abstract class Cell{
     private int type;
     private int myX;
     private int myY;
@@ -38,55 +30,17 @@ public class Cell{
         type = neighborType;
         currentChronons = chronons;
         currentEnergyLevel = energy;
-
-        if(type == 1) {
-            neighbors = findNeighbors(NEIGHBORS_TYPE1);
-
-        } else if(type == 2){
-            neighbors = findNeighbors(NEIGHBORS_TYPE2);
-        }
-
     }
 
-    public Cell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, GridShapeType shape){
-        this(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
-        myGridShapeType = shape;
-
-        if(myGridShapeType == GridShapeType.RECTANGLE) {
-            if(type == 1) {
-                neighbors = findNeighbors(NEIGHBORS_TYPE1);
-
-            } else if(type == 2){
-                neighbors = findNeighbors(NEIGHBORS_TYPE2);
-            }
-
-        } else if(myGridShapeType == GridShapeType.RHOMBUS){
-            if(type == 1) {
-                neighbors = findNeighbors(NEIGHBORS_RHOM_TYPE1);
-
-            } else if(type == 2){
-                neighbors = findNeighbors(NEIGHBORS_RHOM_TYPE2);
-            }
-
-        } else if(myGridShapeType == GridShapeType.HEXAGON){
-            neighbors = findNeighborsHex();
-
+    public Cell createNewCellFromSubClass (int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy){
+        if (this instanceof RhombusCell) {
+            return new RhombusCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        } else if (this instanceof HexCell) {
+            return new HexCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        } else {
+            return new RectangleCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
         }
-
     }
-
-
-    private int[][] findNeighborsHex(){
-        int[][] tempNeighbors = new int[6][2];
-
-        for(int i=0; i<tempNeighbors.length; i++){
-            tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_HEX[i]);
-        }
-
-        return tempNeighbors;
-
-    }
-
 
     //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
     public int[][] findNeighbors(int[][] neighborsType) {
@@ -288,6 +242,14 @@ public class Cell{
 
     public GridShapeType getMyGridShapeType() {
         return myGridShapeType;
+    }
+
+    public void  setMyGridShapeType(GridShapeType gridShape) {
+        myGridShapeType = gridShape;
+    }
+
+    public int getType() {
+        return type;
     }
 
     @Override

@@ -66,9 +66,9 @@ public class CellGetter {
     // Get rid of duplicate code of making cell of certain index
     private Cell makeCellAtIndex(int state, int row, int column){
         if (gameName.toLowerCase().equals("predatorprey")) {
-            return new Cell(state, column, row, myHeight, myWidth, neighborType, 0, 20, myGridShapeType);
+            return new RhombusCell(state, column, row, myHeight, myWidth, neighborType, 0, 20);
         } else {
-            return new Cell(state, column, row, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
+            return new RhombusCell(state, column, row, myHeight, myWidth, neighborType, -1, -1);
         }
     }
 
@@ -251,9 +251,9 @@ public class CellGetter {
                     throw new IOException(this.errorType);
                 }
                 if (gameName.toLowerCase().equals("predatorprey")) {
-                    cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, 0, 20, myGridShapeType);
+                    cellsGenerated[i][j] = new RhombusCell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, 0, 20);
                 } else {
-                    cellsGenerated[i][j] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
+                    cellsGenerated[i][j] = new RhombusCell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, -1, -1);
                 }
             }
 
