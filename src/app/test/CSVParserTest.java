@@ -119,4 +119,15 @@ public class CSVParserTest {
         assertEquals("Invalid state in grid for given game", invalidStateTester.getErrorType());
     }
 
+    @Test
+    void generateCellsWithProbability(){
+        CSVParser probabilityTester = new CSVParser("generateCellsWithProbabilityTest.csv");
+        double[] probsArray = {0.4,0.6};
+
+        assertArrayEquals(probsArray, probabilityTester.getMyCellGetter().getMyProbs());
+        assertEquals(5, probabilityTester.getCells().length);
+        assertEquals(5, probabilityTester.getCells()[0].length);
+
+    }
+
 }
