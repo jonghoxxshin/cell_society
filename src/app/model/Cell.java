@@ -1,17 +1,9 @@
 package app.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
-
-public class Cell{
-    private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, {0, -1}, {0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
-    private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
-    private static final int[][] NEIGHBORS_HEX = {{0, -1}, {-1, -1}, {-1, 0}, {0, 1}, {1, 0}, {1, -1}};
-
-    // NEED TO FINISH RHOMBUS NEIGHBORS
-    private static final int[][] NEIGHBORS_RHOM_TYPE1 = {{-1, 0}, {1,0}, {-1, -1}, {1, -1}, {-2, 0}, {2,0}, {0, -1}, {0, 1}};
-    private static final int[][] NEIGHBORS_RHOM_TYPE2 = {{-1, 0}, {1,0}, {-1, -1}, {1, -1}};
-
+public abstract class Cell{
     private int type;
     private int myX;
     private int myY;
@@ -23,7 +15,8 @@ public class Cell{
     private int currentChronons;
     private int maxChronons = 10;
     private int currentEnergyLevel;
-    private GridShape myGridShape;
+    private int edgeType = 0; //0 = torodial, 1 = finite, 2 = not left
+    private GridShapeType myGridShapeType;
 
 
     //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
@@ -33,48 +26,14 @@ public class Cell{
         myY = y;
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
-        myGridShape = GridShape.RHOMBUS;
+        myGridShapeType = GridShapeType.RECTANGLE;
         type = neighborType;
         currentChronons = chronons;
         currentEnergyLevel = energy;
-
-        if(myGridShape==GridShape.RECTANGLE) {
-            if(type == 1) {
-                neighbors = findNeighbors(NEIGHBORS_TYPE1);
-
-            } else if(type == 2){
-                neighbors = findNeighbors(NEIGHBORS_TYPE2);
-            }
-
-        } else if(myGridShape == GridShape.RHOMBUS){
-            if(type == 1) {
-                neighbors = findNeighbors(NEIGHBORS_RHOM_TYPE1);
-
-            } else if(type == 2){
-                neighbors = findNeighbors(NEIGHBORS_RHOM_TYPE2);
-            }
-
-        } else if(myGridShape == GridShape.HEXAGON){
-            neighbors = findNeighborsHex();
-
-        }
     }
-
-
-    private int[][] findNeighborsHex(){
-        int[][] tempNeighbors = new int[6][2];
-
-        for(int i=0; i<tempNeighbors.length; i++){
-            tempNeighbors[i] = getNeighbor(myX, myY, NEIGHBORS_HEX[i]);
-        }
-
-        return tempNeighbors;
-
-    }
-
 
     //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
-    private int[][] findNeighbors(int[][] neighborsType) {
+    public int[][] findNeighbors(int[][] neighborsType) {
         // code to get expectedNeighbors based on current cell's coordinates
         int[][] tempNeighbors = getTempNeighborsForType();
         for (int i = 0; i < tempNeighbors.length; i++) {
@@ -84,9 +43,8 @@ public class Cell{
     }
 
     //get neighbor coordinates from offset with respect to toroidal edges
-
     // modified this to handle when x is out of bounds by more than one
-    private int[] getNeighbor(int x, int y, int[] offSet) {
+    public int[] getNeighbor(int x, int y, int[] offSet) {
         int tempX;
         int tempY;
 
@@ -102,6 +60,30 @@ public class Cell{
             tempY = 0;
         } else if (y + offSet[1] < 0) {
             tempY = boardHeight - 1;
+        } else {
+            tempY = y + offSet[1];
+        }
+
+        int[] toBeReturned = {tempY, tempX};
+        return toBeReturned;
+    }
+
+    private int[] getNeighborFinite(int x, int y, int[] offSet) {
+        int tempX;
+        int tempY;
+
+        if (x + offSet[0] >= boardWidth) {
+            tempX = -1;
+        } else if (x + offSet[0] < 0) {
+            tempX = -1;
+        } else {
+            tempX = x + offSet[0];
+        }
+
+        if (y + offSet[1] >= boardHeight) {
+            tempY = -1;
+        } else if (y + offSet[1] < 0) {
+            tempY = -1;
         } else {
             tempY = y + offSet[1];
         }
@@ -132,8 +114,8 @@ public class Cell{
     }
 
     //get coordinates of neighbors in desired state
-    public ArrayList<Cell> findNeighborsInState(int state, int[][] neighborsList, Board board) {
-        ArrayList<Cell> neighborsInState = new ArrayList<Cell>();
+    public List<Cell> findNeighborsInState(int state, int[][] neighborsList, Board board) {
+        List<Cell> neighborsInState = new ArrayList<Cell>();
         for (int[] neighbor : neighborsList) {
             Cell tempCell = board.getCells()[neighbor[0]][neighbor[1]];
             if (tempCell.getMyState() == state) {
@@ -167,7 +149,7 @@ public class Cell{
         if (currentRules.getMyRulesParser().getType() == 4) {
             currentChronons++;
         }
-        return 0;
+        return this.getMyState();
     }
 
     //set cell state
@@ -205,6 +187,13 @@ public class Cell{
         return neighbors;
     }
 
+
+    // set neighbors
+    public void setNeighbors(int[][] newNeighbors) {
+        neighbors = newNeighbors;
+    }
+
+
     //get chronons
     public int getCurrentChronons() {
         return currentChronons;
@@ -241,8 +230,16 @@ public class Cell{
         currentEnergyLevel= x;
     }
 
-    public GridShape getMyGridShape() {
-        return myGridShape;
+    public GridShapeType getMyGridShapeType() {
+        return myGridShapeType;
+    }
+
+    public void  setMyGridShapeType(GridShapeType gridShape) {
+        myGridShapeType = gridShape;
+    }
+
+    public int getType() {
+        return type;
     }
 
     @Override
@@ -261,6 +258,6 @@ public class Cell{
     @Override
     //convert cell data to easily readable string
     public String toString() {
-        return "app.model.Cell with state " + this.myState + " and x is " + this.myX + " and y is " + this.myY;
+        return "app.model.Cell with state " + this.myState + " and x is " + this.myX + " and y is " + this.myY + " with shape " + new GridShape().getNameFromShape(myGridShapeType);
     }
 }

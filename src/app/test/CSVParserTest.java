@@ -3,6 +3,7 @@ package app.test;
 
 import app.model.CSVParser;
 import app.model.Cell;
+import app.model.RectangleCell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -39,10 +40,10 @@ public class CSVParserTest {
         for(int i=0; i<5; i++){
             for(int j=0; j<5; j++){
                 if(i==j){
-                    expectedCells[j][i] = new Cell(1, i, j, 5, 5, 1,-1,-1);
+                    expectedCells[j][i] = new RectangleCell(1, i, j, 5, 5, 1,-1,-1);
                 }
                 else{
-                    expectedCells[j][i] = new Cell(0, i, j, 5, 5, 1,-1,-1);
+                    expectedCells[j][i] = new RectangleCell(0, i, j, 5, 5, 1,-1,-1);
                 }
             }
         }
@@ -117,6 +118,44 @@ public class CSVParserTest {
         CSVParser invalidStateTester = new CSVParser("invalidStateTest.csv");
         assertEquals(1, invalidStateTester.getErrorStatus());
         assertEquals("Invalid state in grid for given game", invalidStateTester.getErrorType());
+    }
+
+    @Test
+    void generateCellsWithProbability(){
+        CSVParser probabilityTester = new CSVParser("generateCellsWithProbabilityTest.csv");
+        double[] probsArray = {0.4,0.6};
+
+        assertArrayEquals(probsArray, probabilityTester.getMyCellGetter().getMyProbs());
+        assertEquals(5, probabilityTester.getCells().length);
+        assertEquals(5, probabilityTester.getCells()[0].length);
+
+    }
+
+    @Test
+    void generateCellsWithCounts(){
+        CSVParser countsTester = new CSVParser("generateCellsWithCountsTest.csv");
+
+        double[] countsArray = {20.0,5.0};
+
+        assertArrayEquals(countsArray, countsTester.getMyCellGetter().getMyCounts());
+
+        Cell[][] cells = countsTester.getCells();
+        int zeroCounter = 0;
+        int oneCounter = 0;
+
+        for(int i=0; i<cells.length; i++){
+            for(int j=0; j<cells[0].length; j++){
+                if(cells[i][j].getMyState() == 1){
+                    oneCounter++;
+                }
+                else{
+                    zeroCounter++;
+                }
+            }
+        }
+
+        assertEquals(20, zeroCounter);
+        assertEquals(5, oneCounter);
     }
 
 }

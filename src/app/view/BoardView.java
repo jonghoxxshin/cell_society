@@ -1,5 +1,6 @@
 package app.view;
 
+import app.model.GridShapeType;
 import app.controller.SimulationController;
 import app.model.GridShape;
 import java.util.Observable;
@@ -37,9 +38,10 @@ public class BoardView implements IBoardObserver{
     private Group myRoot;
     private Shape[][] myColorBoard;
     private Cell[][] myBoard;
+    private GridShapeType myGridShape;
+
     private ArrayList<Image> myImageArray;
     private ImageView[][] myImageViewBoard;
-    private GridShape myGridShape;
     private Scene myScene;
     private ResourceBundle myProperties;
     private SimulationController mySimulationController;
@@ -53,9 +55,10 @@ public class BoardView implements IBoardObserver{
         myBoardWidth = width;
         myBoardHeight = height;
         myBoard = board;
+
         mySimulationController = sc;
         myImageArray = new ArrayList<>();
-        myGridShape = myBoard[0][0].getMyGridShape();
+        myGridShape = myBoard[0][0].getMyGridShapeType();
         myColor0 = c0;
         myColor1 = c1;
         myColor2 = c2;
@@ -66,7 +69,8 @@ public class BoardView implements IBoardObserver{
         myImageViewBoard = new ImageView[myBoardWidth][myBoardHeight];
         myColorBoard = new Shape[myBoardWidth][myBoardHeight];
         myRoot = new Group();
-        if(myGridShape==GridShape.RECTANGLE) {
+
+        if(myGridShape == GridShapeType.RECTANGLE){
             myRoot = createColorBoardRect(myBoardWidth, myBoardHeight);
         }
         else{
@@ -98,9 +102,10 @@ public class BoardView implements IBoardObserver{
 
     private void updateBoard(){
         myRoot.getChildren().clear();
+
         if(useImage){
             myRoot = createImageBoard(myBoardWidth, myBoardHeight);
-        }else if(myGridShape==GridShape.RECTANGLE) {
+        }else if(myGridShape==GridShapeType.RECTANGLE) {
             myRoot = createColorBoardRect(myBoardWidth, myBoardHeight);
         }
         else{
@@ -161,12 +166,15 @@ public class BoardView implements IBoardObserver{
                 // add polygon points
                 assignColor(c, myPoly);
                 myColorBoard[i][j] = myPoly;
-                if(myGridShape==GridShape.HEXAGON) {
+
+                if(myGridShape==GridShapeType.HEXAGON) {
                     myPoly.getPoints().addAll(getHexPoints(j, i));
                 }
-                else if(myGridShape==GridShape.RHOMBUS){
+
+                else if(myGridShape==GridShapeType.RHOMBUS){
                     myPoly.getPoints().addAll(getRhombusPoints(j, i));
                 }
+
                 myPoly.setOnMouseClicked(e->cellClicked(c));
                 setStroke(myPoly, myStrokeColor,STROKE_WIDTH);
                 result.getChildren().add(myPoly);

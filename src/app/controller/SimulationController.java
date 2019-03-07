@@ -18,13 +18,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SimulationController {
 
     private Simulation mySimulationModel;
-
-    private final String[] gameNames = {"gameOfLife", "percolation", "rockPaperScissors", "segregation", "predatorPrey"};
+    private final String[] gameNames = {"gameOfLife", "percolation", "rockPaperScissors", "fire", "segregation", "predatorPrey"};
+    private final int PREDATORPREY_BOARD = 2;
+    private final int SEGREGATION_BOARD = 3;
+    private final int FIRE_BOARD = 4;
     private Scene myScene;
     private Timeline myAnimation;
     private Board myBoard;
@@ -39,6 +42,7 @@ public class SimulationController {
     private int appWidth;
     private boolean startSimulation;
     private ResourceBundle myProperties;
+    private int boardType;
 
     private Color color0;
     private Color color1;
@@ -58,8 +62,17 @@ public class SimulationController {
 
     public SimulationController(int height, int width, String game, ResourceBundle myProperties) {//Will change to instantiating simulation and simulationView inside controller, not as input
         this.myProperties = myProperties;
-        myBoard = new Board(myProperties);
-        myRules = new Rules(game);
+        boardType = Integer.parseInt(myProperties.getString("board_type"));
+        if (boardType == PREDATORPREY_BOARD) {
+            myBoard = new PredatorPreyBoard(myProperties);
+        } else if (boardType == SEGREGATION_BOARD) {
+            myBoard = new SegregationBoard(myProperties);
+        } else if (boardType == FIRE_BOARD) {
+            myBoard = new FireBoard(myProperties);
+        } else {
+            myBoard = new GenericBoard(myProperties);
+        }
+        myRules = new Rules(myProperties);
         myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
         mySimulationModel = new Simulation(myBoard, myRules);
         myBottomView = new BottomView(this, myBoardView, myProperties);
@@ -109,9 +122,19 @@ public class SimulationController {
 
     public void setConfig(String t1){
         this.pauseSimulation();
+        System.out.println(t1);
         myProperties = ResourceBundle.getBundle(t1);
-        myBoard = new Board (myProperties);
-        myRules = new Rules (myProperties.getString("type_of_game"));
+        boardType = Integer.parseInt(myProperties.getString("board_type"));
+        if (boardType == 2) {
+            myBoard = new PredatorPreyBoard(myProperties);
+        } else if (boardType == 3) {
+            myBoard = new SegregationBoard(myProperties);
+        } else if (boardType == 4) {
+            myBoard = new FireBoard(myProperties);
+        } else {
+            myBoard = new GenericBoard(myProperties);
+        }
+        myRules = new Rules (myProperties);
         mySimulationModel = new Simulation(myBoard,myRules);
         myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
         myMainView.setMyBoardView(myBoardView);

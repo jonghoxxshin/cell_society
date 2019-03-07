@@ -1,9 +1,7 @@
 package app.test;
 
 
-import app.model.Board;
-import app.model.Cell;
-import app.model.Rules;
+import app.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,10 +20,10 @@ class CellTest {
     @BeforeEach
     void setUp(){
         myProperties = ResourceBundle.getBundle("test");
-        testBoard = new Board(myProperties);
+        testBoard = new GenericBoard(myProperties);
         testRules = new Rules(myProperties.getString("type_of_game"));
 
-        this.testCell = new Cell(0,0,0,5,5, 1, -1 ,-1);
+        this.testCell = new RectangleCell(0,0,0,5,5, 1, -1 ,-1);
         int[] neighbor10 = {1,0};
         int[] neighbor11 = {1,1};
         int[] neighbor01 = {0,1};
@@ -93,8 +91,8 @@ class CellTest {
 
     @Test
     void checkEquality() {
-        Cell cell1 = new Cell(1,1,2,5,5, 1, -1, -1);
-        Cell cell2 = new Cell(1,1,2,5,5, 1, -1, -1);
+        Cell cell1 = new RectangleCell(1,1,2,5,5, 1, -1, -1);
+        Cell cell2 = new RectangleCell(1,1,2,5,5, 1, -1, -1);
         assertTrue(cell1.equals(cell2));
 
     }

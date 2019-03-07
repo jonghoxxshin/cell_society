@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class RulesParser {
     private static final String LIFE_RULES = "GameOfLifeRules.txt";
@@ -14,6 +16,12 @@ public class RulesParser {
     private static final String SEGREGATION_RULES = "SegregationRules.txt";
     private static final String PREDATORPREY_RULES = "PredatorPreyRules.txt";
     private static final String FIRE_RULES = "FireRules.txt";
+    private static final String LIFE = "gameoflife";
+    private static final String PERCOLATE = "percolation";
+    private static final String RPS = "rockpaperscissors";
+    private static final String SEGREGATION = "segregation";
+    private static final String PREDATORPREY = "predatorprey";
+    private static final String FIRE = "fire";
     private ArrayList<State> possibleStates;
     private String gameName;
     private int type;
@@ -22,12 +30,14 @@ public class RulesParser {
     private static int numberOfNeighbors;
 
     //NEED TO REPLACE EVENTUALLY
-    private static final double probability = 0.3;
+    private double probability = 0.3;
+
 
 
 
     //Read text file, update possibleStates, gameName, stateArray, and rulesArray from file
     public RulesParser(String game) {
+        this.probability = 0.3;
         rulesArray = new ArrayList<int[]>();
         stateArray = new ArrayList<Integer>();
         InputStream in = this.getClass().getClassLoader().getResourceAsStream(getFileName(game));
@@ -59,19 +69,24 @@ public class RulesParser {
         makeRules();
     }
 
+    public RulesParser(ResourceBundle properties){
+        this(properties.getString("type_of_game"));
+        this.probability = Integer.parseInt(properties.getString("probability"));
+    }
+
 
     private String getFileName(String game){
-        if (game.toLowerCase().equals("gameoflife")){
+        if (game.toLowerCase().equals(LIFE)){
             return LIFE_RULES;
-        } else if (game.toLowerCase().equals("percolation")) {
+        } else if (game.toLowerCase().equals(PERCOLATE)) {
             return PERCOLATE_RULES;
-        } else if (game.toLowerCase().equals("rockpaperscissors")) {
+        } else if (game.toLowerCase().equals(RPS)) {
             return RPS_RULES;
-        } else if (game.toLowerCase().equals("segregation")) {
+        } else if (game.toLowerCase().equals(SEGREGATION)) {
             return SEGREGATION_RULES;
-        } else if (game.toLowerCase().equals("predatorprey")) {
+        } else if (game.toLowerCase().equals(PREDATORPREY)) {
             return PREDATORPREY_RULES;
-        } else if (game.toLowerCase().equals("fire")) {
+        } else if (game.toLowerCase().equals(FIRE)) {
             return FIRE_RULES;
         }
         return null;
@@ -127,7 +142,7 @@ public class RulesParser {
     }
 
     //Add rules that appply to each state to a state object if possibleStates
-    private  ArrayList<State> makeRules(){
+    private List<State> makeRules(){
         possibleStates = new ArrayList<State>();
         for (Integer state : stateArray) {
 
@@ -155,11 +170,11 @@ public class RulesParser {
         return gameName;
     }
 
-    public ArrayList<Integer> getStateArray() {
+    public List<Integer> getStateArray() {
         return stateArray;
     }
 
-    public ArrayList<int[]> getRulesArray() {
+    public List<int[]> getRulesArray() {
         return rulesArray;
     }
 
