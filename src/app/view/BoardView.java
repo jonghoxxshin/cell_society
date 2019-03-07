@@ -2,25 +2,25 @@ package app.view;
 
 import app.controller.SimulationController;
 import app.model.GridShape;
-import app.model.Simulation;
-import javafx.event.Event;
+import java.util.Observable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import app.model.Cell;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import javafx.scene.shape.Shape;
+
+import java.util.Observer;
 import java.util.ResourceBundle;
 
 
-public class BoardView {
-    public static final double BOARD_WIDTH = 600;
-    public static final double BOARD_HEIGHT = 400;
+public class BoardView implements IBoardObserver{
+    public static final double BOARD_WIDTH = 800;
+    public static final double BOARD_HEIGHT = 500;
     public static final int STROKE_WIDTH = 1;
 
     protected int myBoardWidth;
@@ -293,6 +293,7 @@ public class BoardView {
         result[1] = yval;
         return result;
     }
+
     private void cellClicked(Cell cell){
         int currState = cell.getMyState();
         int nextState = currState+1;
@@ -301,6 +302,8 @@ public class BoardView {
         mySimulationController.replaceBoardView();
     }
 
+    @Override
+    public void update(Object o) {
 
-
+    }
 }

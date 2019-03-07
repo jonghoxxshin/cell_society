@@ -30,7 +30,6 @@ public class RulesParser {
     public RulesParser(String game) {
         rulesArray = new ArrayList<int[]>();
         stateArray = new ArrayList<Integer>();
-        System.out.println(game);
         InputStream in = this.getClass().getClassLoader().getResourceAsStream(getFileName(game));
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String currentLine = null;

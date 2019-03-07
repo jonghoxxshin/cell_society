@@ -29,12 +29,12 @@ public class BottomView {
         setButton();
 
     }
+
     private void setButton(){
         myStrokeButton = new Button("Use stroke");
         myStrokeButton.setOnAction(e->changeStroke());
         myRoot.getChildren().add(myStrokeButton);
     }
-
 
     private void changeStroke(){
         myBoardView.changeStroke();

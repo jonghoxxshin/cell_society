@@ -2,7 +2,6 @@ package app.view;
 
 import app.controller.SimulationController;
 import app.model.State;
-import javafx.animation.Animation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -13,10 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
-
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 

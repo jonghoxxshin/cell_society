@@ -8,7 +8,7 @@ import app.model.*;
 import app.view.BoardView;
 import app.view.ControlView;
 import app.view.MainView;
-import app.view.SimulationView;
+
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class SimulationController {
 
     private Simulation mySimulationModel;
-    private SimulationView mySimulationView;
+
     private final String[] gameNames = {"gameOfLife", "percolation", "rockPaperScissors", "segregation", "predatorPrey"};
     private Scene myScene;
     private Timeline myAnimation;
@@ -62,7 +62,6 @@ public class SimulationController {
         myRules = new Rules(game);
         myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
         mySimulationModel = new Simulation(myBoard, myRules);
-        mySimulationView = new SimulationView(myBoardView);
         myBottomView = new BottomView(this, myBoardView, myProperties);
         useImage = false;
         myImageList = new ArrayList<>();
@@ -191,7 +190,7 @@ public class SimulationController {
     public void setNewBoard(){
         System.out.println("set new board is called ");
         myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,this,color0,color1,color2);
-        mySimulationView = new SimulationView(myBoardView);
+
         myRightView  = new RightView(this, myBoardView);
         myMainView.setMyBoardView(myBoardView);
     }

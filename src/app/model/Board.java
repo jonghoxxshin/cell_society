@@ -1,11 +1,13 @@
 package app.model;
 
 import app.model.Cell;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 
 import java.util.*;
 
 
-public class Board {
+public class Board implements Observable {
 
     Cell[][] cells;
     private int myWidth;
@@ -46,7 +48,7 @@ public class Board {
             }
         }
         cells = tempCells;
-        print2DBoard(cells);
+        //print2DBoard(cells);
         return tempCells;
     }
 
@@ -66,11 +68,11 @@ public class Board {
     }
 
     private Cell[][] updateBoardHelper4(Rules rules) {
-        print2DBoard(cells);
+        //print2DBoard(cells);
         Cell[][] tempCells = new Cell[myHeight][myWidth];
         int[][] updateBoard = new int[myHeight][myWidth];
         initializeUpdateBoard(updateBoard);
-        print2DArray(updateBoard);
+        //print2DArray(updateBoard);
         for (int state : orderToReplace) {
             for (int i = 0; i < myHeight; i++) {
                 for (int j = 0; j < myWidth; j++) {
@@ -234,7 +236,6 @@ public class Board {
         }
     }
 
-
     public Cell getCellAtCoordinates(int x, int y) {
         return cells[y][x];
     }
@@ -253,4 +254,13 @@ public class Board {
     }
 
 
+    @Override
+    public void addListener(InvalidationListener invalidationListener) {
+
+    }
+
+    @Override
+    public void removeListener(InvalidationListener invalidationListener) {
+
+    }
 }
