@@ -26,12 +26,12 @@ public class FireBoard extends Board {
                     tempCells[i][j] = tempCell;
                 } else if (number > catchProbability && currState == 1) {
                     if (tempCell.findNeighborsInState(2, tempCell.getNeighbors(),this).size() > 0) {
-                        tempCells[i][j] = new RhombusCell(nextState, j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), -1, -1);
+                        tempCells[i][j] = createNewCellFromSubClass(tempCell, nextState, j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), -1, -1);
                     } else {
                         tempCells[i][j] = tempCell;
                     }
                 }else {
-                    tempCells[i][j] = new RhombusCell(nextState, j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), -1, -1);
+                    tempCells[i][j] = createNewCellFromSubClass(tempCell, nextState, j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), -1, -1);
                 }
             }
         }

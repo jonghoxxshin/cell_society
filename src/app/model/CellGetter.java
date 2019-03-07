@@ -66,9 +66,9 @@ public class CellGetter {
     // Get rid of duplicate code of making cell of certain index
     private Cell makeCellAtIndex(int state, int row, int column){
         if (gameName.toLowerCase().equals("predatorprey")) {
-            return new RhombusCell(state, column, row, myHeight, myWidth, neighborType, 0, 20);
+            return createNewCellFromProperty(myGridShapeType, state, column, row, myHeight, myWidth, neighborType, 0, 20);
         } else {
-            return new RhombusCell(state, column, row, myHeight, myWidth, neighborType, -1, -1);
+            return createNewCellFromProperty(myGridShapeType, state, column, row, myHeight, myWidth, neighborType, -1, -1);
         }
     }
 
@@ -251,9 +251,9 @@ public class CellGetter {
                     throw new IOException(this.errorType);
                 }
                 if (gameName.toLowerCase().equals("predatorprey")) {
-                    cellsGenerated[i][j] = new RhombusCell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, 0, 20);
+                    cellsGenerated[i][j] = createNewCellFromProperty(myGridShapeType, Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, 0, 20);
                 } else {
-                    cellsGenerated[i][j] = new RhombusCell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, -1, -1);
+                    cellsGenerated[i][j] = createNewCellFromProperty(myGridShapeType, Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType, -1, -1);
                 }
             }
 
@@ -261,6 +261,15 @@ public class CellGetter {
         return cellsGenerated;
     }
 
+    public Cell createNewCellFromProperty (GridShapeType gridShapeType, int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy){
+        if (gridShapeType == GridShapeType.RHOMBUS) {
+            return new RhombusCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        } else if (gridShapeType == GridShapeType.HEXAGON) {
+            return new HexCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        } else {
+            return new RectangleCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        }
+    }
     //==================================
     // GETTERS
     //==================================

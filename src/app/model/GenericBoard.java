@@ -13,7 +13,8 @@ public class GenericBoard extends Board{
                 Cell[][] tempCells = new Cell[super.getMyHeight()][super.getMyWidth()];
                 for (int i = 0; i < super.getMyHeight(); i++) {
                         for (int j = 0; j < super.getMyWidth(); j++) {
-                                tempCells[i][j] = new RhombusCell(super.getCells()[i][j].getNextState(rules, this), j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), -1, -1);
+                                Cell oldCell = super.getCells()[i][j];
+                                tempCells[i][j] = createNewCellFromSubClass(oldCell, super.getCells()[i][j].getNextState(rules, this), j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), -1, -1);
                         }
                 }
                 super.setCells(tempCells);

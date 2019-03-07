@@ -32,16 +32,6 @@ public abstract class Cell{
         currentEnergyLevel = energy;
     }
 
-    public Cell createNewCellFromSubClass (int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy){
-        if (this instanceof RhombusCell) {
-            return new RhombusCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
-        } else if (this instanceof HexCell) {
-            return new HexCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
-        } else {
-            return new RectangleCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
-        }
-    }
-
     //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
     public int[][] findNeighbors(int[][] neighborsType) {
         // code to get expectedNeighbors based on current cell's coordinates

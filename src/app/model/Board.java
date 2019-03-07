@@ -95,6 +95,15 @@ public abstract class Board {
         return dataDict;
     }
 
+    public Cell createNewCellFromSubClass (Cell cell, int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy){
+        if (cell instanceof RhombusCell) {
+            return new RhombusCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        } else if (cell instanceof HexCell) {
+            return new HexCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        } else {
+            return new RectangleCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        }
+    }
 
     public int getErrorStatus() {
         return errorStatus;
