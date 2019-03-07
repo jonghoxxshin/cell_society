@@ -6,6 +6,7 @@ import app.model.Cell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -135,6 +136,8 @@ public class CSVParserTest {
         CSVParser countsTester = new CSVParser("generateCellsWithCountsTest.csv");
 
         double[] countsArray = {20.0,5.0};
+
+        System.out.println("counts in test read in as " + Arrays.toString(countsTester.getMyCellGetter().getMyCounts()));
 
         assertArrayEquals(countsArray, countsTester.getMyCellGetter().getMyCounts());
 
