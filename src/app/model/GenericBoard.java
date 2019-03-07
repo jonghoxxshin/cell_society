@@ -18,10 +18,10 @@ public class GenericBoard extends Board{
                 Cell[][] tempCells = new Cell[myHeight][myWidth];
                 for (int i = 0; i < myHeight; i++) {
                         for (int j = 0; j < myWidth; j++) {
-                                tempCells[i][j] = new Cell(cells[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
+                                tempCells[i][j] = new Cell(super.getCells()[i][j].getNextState(rules, this), j, i, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
                         }
                 }
-                cells = tempCells;
+                super.setCells(tempCells);
                 return tempCells;
         }
     }

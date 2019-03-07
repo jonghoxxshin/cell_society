@@ -31,8 +31,8 @@ public class PredatorPreyBoard extends Board{
             for (int i = 0; i < myHeight; i++) {
                 for (int j = 0; j < myWidth; j++) {
                     if (updateBoard[i][j] == -1) {
-                        if (cells[i][j].getMyState() == state) {
-                            Cell oldCell = cells[i][j];
+                        if (super.getCells()[i][j].getMyState() == state) {
+                            Cell oldCell = super.getCells()[i][j];
                             Cell newCell = new Cell(oldCell.getNextState(rules, this), j, i, myHeight, myWidth, neighborType, oldCell.getCurrentChronons(), oldCell.getEnergyLevel(), myGridShapeType);
                             //check if time for reproduction
 
@@ -72,7 +72,7 @@ public class PredatorPreyBoard extends Board{
                 }
             }
         }
-        cells = tempCells;
+        super.setCells(tempCells);
         return tempCells;
     }
 

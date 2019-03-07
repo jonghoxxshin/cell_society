@@ -25,8 +25,8 @@ public class SegregationBoard extends Board{
         Stack<Cell> dissatisfiedCells = new Stack<Cell>();
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                Cell tempCell = cells[i][j];
-                int[][] neighbors = cells[i][j].getNeighbors();
+                Cell tempCell = super.getCells()[i][j];
+                int[][] neighbors = super.getCells()[i][j].getNeighbors();
                 if (tempCell.findNeighborsInState(getOppositeState(tempCell.getMyState()), neighbors, this).size() > maxNumDislike) {
                     System.out.println(tempCell.getMyState() + "," + tempCell.getMyX() + "," + tempCell.getMyY());
                     dissatisfiedCells.push(tempCell);
@@ -54,8 +54,8 @@ public class SegregationBoard extends Board{
                 }
             }
         }
-        cells = tempCells;
-        return cells;
+        super.setCells(tempCells);
+        return tempCells;
     }
 
     private int getNumNeighborsToSatisfyThreshold() {

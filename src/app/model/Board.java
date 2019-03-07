@@ -67,6 +67,10 @@ public abstract class Board {
         return cells;
     }
 
+    public void setCells(Cell[][] newCells) {
+        cells = newCells;
+    }
+
     public int getMyWidth() {
         return myWidth;
     }

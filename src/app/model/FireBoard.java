@@ -28,7 +28,7 @@ public class FireBoard extends Board {
         Cell[][] tempCells = new Cell[myHeight][myWidth];
         for (int i = 0; i < myHeight; i++) {
             for (int j = 0; j < myWidth; j++) {
-                Cell tempCell = cells[i][j];
+                Cell tempCell = super.getCells()[i][j];
                 number = generator.nextDouble();
                 int currState = tempCell.getMyState();
                 int nextState = tempCell.getNextState(rules, this);
@@ -45,7 +45,7 @@ public class FireBoard extends Board {
                 }
             }
         }
-        cells = tempCells;
+        super.setCells(tempCells);
         return tempCells;
     }
 }
