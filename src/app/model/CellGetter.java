@@ -50,9 +50,9 @@ public abstract class CellGetter {
     // Get rid of duplicate code of making cell of certain index
     public Cell makeCellAtIndex(int state, int row, int column){
         if (gameName.toLowerCase().equals("predatorprey")) {
-            return new Cell(state, column, row, myHeight, myWidth, neighborType, 0, 20, myGridShapeType);
+            return createNewCellFromProperty(myGridShapeType, state, column, row, myHeight, myWidth, neighborType, 0, 20);
         } else {
-            return new Cell(state, column, row, myHeight, myWidth, neighborType, -1, -1, myGridShapeType);
+            return createNewCellFromProperty(myGridShapeType, state, column, row, myHeight, myWidth, neighborType, -1, -1);
         }
     }
 
@@ -107,6 +107,7 @@ public abstract class CellGetter {
         return myGridShapeType;
     }
 
+
     public int getMaxState() {
         return maxState;
     }
@@ -118,6 +119,20 @@ public abstract class CellGetter {
     public String getGameName() {
         return gameName;
     }
+
+    public Cell createNewCellFromProperty (GridShapeType gridShapeType, int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy){
+        if (gridShapeType == GridShapeType.RHOMBUS) {
+            return new RhombusCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        } else if (gridShapeType == GridShapeType.HEXAGON) {
+            return new HexCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        } else {
+            return new RectangleCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+        }
+    }
+
+    //==================================
+    // GETTERS
+    //==================================
 
     public String getMyType() {
         return myType;

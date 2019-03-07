@@ -3,6 +3,7 @@ package app.test;
 
 import app.model.CSVParser;
 import app.model.Cell;
+import app.model.RectangleCell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,10 +41,10 @@ public class CSVParserTest {
         for(int i=0; i<5; i++){
             for(int j=0; j<5; j++){
                 if(i==j){
-                    expectedCells[j][i] = new Cell(1, i, j, 5, 5, 1,-1,-1);
+                    expectedCells[j][i] = new RectangleCell(1, i, j, 5, 5, 1,-1,-1);
                 }
                 else{
-                    expectedCells[j][i] = new Cell(0, i, j, 5, 5, 1,-1,-1);
+                    expectedCells[j][i] = new RectangleCell(0, i, j, 5, 5, 1,-1,-1);
                 }
             }
         }

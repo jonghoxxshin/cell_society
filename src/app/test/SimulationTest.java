@@ -1,9 +1,6 @@
 package app.test;
 
-import app.model.Board;
-import app.model.Cell;
-import app.model.Rules;
-import app.model.Simulation;
+import app.model.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ResourceBundle;
@@ -15,7 +12,7 @@ class SimulationTest {
     @Test
     void nextStepForConfigThatStaysTheSame() {
         ResourceBundle testProperties = ResourceBundle.getBundle("test");
-        Board testBoard = new Board(testProperties);
+        Board testBoard = new GenericBoard(testProperties);
         Rules testRules = new Rules(testProperties.getString("type_of_game"));
         Boolean testBool = true;
         Simulation testSim  = new Simulation(testBoard, testRules);
@@ -34,11 +31,11 @@ class SimulationTest {
     @Test
     void nextStepForKnownConfig() {
         ResourceBundle testProperties = ResourceBundle.getBundle("test2");
-        Board testBoard = new Board(testProperties);
+        Board testBoard = new GenericBoard(testProperties);
         Rules testRules = new Rules(testProperties.getString("type_of_game"));
         Simulation testSim  = new Simulation(testBoard, testRules);
         ResourceBundle test2Properties = ResourceBundle.getBundle("test2");
-        Board test2Board = new Board(testProperties);
+        Board test2Board = new GenericBoard(testProperties);
         Rules test2Rules = new Rules(testProperties.getString("type_of_game"));
         Simulation test2Sim  = new Simulation(test2Board, test2Rules);
         Boolean testBool = true;

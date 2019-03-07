@@ -3,16 +3,8 @@ package app.model;
 import java.util.*;
 
 public class SegregationBoard extends Board{
-    Cell[][] cells;
-    private int myWidth;
-    private int myHeight;
-    private String myGame;
-    private int neighborType;
-    private final int[] orderToReplace = {2, 1, 0};
     private double threshold = 0.3;
-    private CSVParser myParser;
-    private int errorStatus;
-    private GridShapeType myGridShapeType;
+
 
     public SegregationBoard(ResourceBundle myProperties){
         super(myProperties);
@@ -23,28 +15,27 @@ public class SegregationBoard extends Board{
         int maxNumDislike = getNumNeighborsToSatisfyThreshold();
         ArrayList<Cell> satisfiedCells = new ArrayList<Cell>();
         Stack<Cell> dissatisfiedCells = new Stack<Cell>();
-        for (int i = 0; i < myHeight; i++) {
-            for (int j = 0; j < myWidth; j++) {
-                Cell tempCell = cells[i][j];
-                int[][] neighbors = cells[i][j].getNeighbors();
+        for (int i = 0; i < super.getMyHeight(); i++) {
+            for (int j = 0; j < super.getMyWidth(); j++) {
+                Cell tempCell = super.getCells()[i][j];
+                int[][] neighbors = super.getCells()[i][j].getNeighbors();
                 if (tempCell.findNeighborsInState(getOppositeState(tempCell.getMyState()), neighbors, this).size() > maxNumDislike) {
-                    System.out.println(tempCell.getMyState() + "," + tempCell.getMyX() + "," + tempCell.getMyY());
                     dissatisfiedCells.push(tempCell);
                 } else {
                     satisfiedCells.add(tempCell);
                 }
             }
         }
-        Cell[][] tempCells = new Cell[myHeight][myWidth];
-        int[][] updateBoard = new int[myHeight][myWidth];
+        Cell[][] tempCells = new Cell[super.getMyHeight()][super.getMyWidth()];
+        int[][] updateBoard = new int[super.getMyHeight()][super.getMyWidth()];
         initializeUpdateBoard(updateBoard);
         for (Cell satisfied : satisfiedCells) {
             tempCells[satisfied.getMyY()][satisfied.getMyX()] = satisfied;
             updateBoard[satisfied.getMyY()][satisfied.getMyX()] = 1;
         }
         shuffleStack(dissatisfiedCells);
-        for (int i = 0; i < myHeight; i++) {
-            for (int j = 0; j < myWidth; j++) {
+        for (int i = 0; i < super.getMyHeight(); i++) {
+            for (int j = 0; j < super.getMyWidth(); j++) {
                 if (updateBoard[i][j] == -1) {
                     updateBoard[i][j] = 1;
                     Cell newCell = dissatisfiedCells.pop();
@@ -54,15 +45,15 @@ public class SegregationBoard extends Board{
                 }
             }
         }
-        cells = tempCells;
-        return cells;
+        super.setCells(tempCells);
+        return tempCells;
     }
 
     private int getNumNeighborsToSatisfyThreshold() {
         double maxNumOfDislikeNeighbors = 0;
-        if (neighborType == 1) {
+        if (super.getNeighborType() == 1) {
             maxNumOfDislikeNeighbors = threshold * 8;
-        } else if (neighborType == 2) {
+        } else if (super.getNeighborType() == 2) {
             maxNumOfDislikeNeighbors = threshold * 4;
         }
 
@@ -109,8 +100,8 @@ public class SegregationBoard extends Board{
     }
 
     private int[][] initializeUpdateBoard(int[][] temp) {
-        for (int i = 0; i < myHeight; i++) {
-            for (int j = 0; j < myWidth; j++) {
+        for (int i = 0; i < super.getMyHeight(); i++) {
+            for (int j = 0; j < super.getMyWidth(); j++) {
                 temp[i][j] = -1;
             }
         }

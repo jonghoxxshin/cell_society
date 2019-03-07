@@ -6,15 +6,8 @@ import java.util.ResourceBundle;
 
 public class PredatorPreyBoard extends Board{
     Cell[][] cells;
-    private int myWidth;
-    private int myHeight;
-    private String myGame;
-    private int neighborType;
     private final int[] orderToReplace = {2, 1, 0};
-    private double threshold = 0.3;
-    private CSVParser myParser;
-    private int errorStatus;
-    private GridShapeType myGridShapeType;
+
 
     public PredatorPreyBoard(ResourceBundle myProperties){
         super(myProperties);
@@ -23,17 +16,17 @@ public class PredatorPreyBoard extends Board{
     @Override
     public Cell[][] updateBoard(Rules rules) {
         print2DBoard(cells);
-        Cell[][] tempCells = new Cell[myHeight][myWidth];
-        int[][] updateBoard = new int[myHeight][myWidth];
+        Cell[][] tempCells = new Cell[super.getMyHeight()][super.getMyWidth()];
+        int[][] updateBoard = new int[super.getMyHeight()][super.getMyWidth()];
         initializeUpdateBoard(updateBoard);
         print2DArray(updateBoard);
         for (int state : orderToReplace) {
-            for (int i = 0; i < myHeight; i++) {
-                for (int j = 0; j < myWidth; j++) {
+            for (int i = 0; i < super.getMyHeight(); i++) {
+                for (int j = 0; j < super.getMyWidth(); j++) {
                     if (updateBoard[i][j] == -1) {
-                        if (cells[i][j].getMyState() == state) {
-                            Cell oldCell = cells[i][j];
-                            Cell newCell = new Cell(oldCell.getNextState(rules, this), j, i, myHeight, myWidth, neighborType, oldCell.getCurrentChronons(), oldCell.getEnergyLevel(), myGridShapeType);
+                        if (super.getCells()[i][j].getMyState() == state) {
+                            Cell oldCell = super.getCells()[i][j];
+                            Cell newCell = createNewCellFromSubClass(oldCell, oldCell.getNextState(rules, this), j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), oldCell.getCurrentChronons(), oldCell.getEnergyLevel());
                             //check if time for reproduction
 
 
@@ -72,7 +65,7 @@ public class PredatorPreyBoard extends Board{
                 }
             }
         }
-        cells = tempCells;
+        super.setCells(tempCells);
         return tempCells;
     }
 
@@ -95,8 +88,8 @@ public class PredatorPreyBoard extends Board{
     }
 
     private int[][] initializeUpdateBoard(int[][] temp) {
-        for (int i = 0; i < myHeight; i++) {
-            for (int j = 0; j < myWidth; j++) {
+        for (int i = 0; i < super.getMyHeight(); i++) {
+            for (int j = 0; j < super.getMyWidth(); j++) {
                 temp[i][j] = -1;
             }
         }
