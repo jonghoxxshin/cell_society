@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-public class BoardType4 extends Board{
+public class PredatorPreyBoard extends Board{
     Cell[][] cells;
     private int myWidth;
     private int myHeight;
@@ -16,7 +16,7 @@ public class BoardType4 extends Board{
     private int errorStatus;
     private GridShapeType myGridShapeType;
 
-    public BoardType4(ResourceBundle myProperties){
+    public PredatorPreyBoard(ResourceBundle myProperties){
         super(myProperties);
     }
 

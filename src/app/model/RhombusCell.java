@@ -1,8 +1,8 @@
 package app.model;
 
-public class CellRect extends Cell{
-    private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, {0, -1}, {0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
-    private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+public class RhombusCell extends Cell {
+    private static final int[][] NEIGHBORS_TYPE1 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}, {-2, 0}, {2,0}, {0, -1}, {0, 1}};
+    private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}};
     private int type;
     private int myX;
     private int myY;
@@ -18,9 +18,9 @@ public class CellRect extends Cell{
     private GridShapeType myGridShapeType;
 
 
-    public CellRect (int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy) {
+    public RhombusCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy) {
         super(state,x,y,boardHeight,boardWidth,neighborType,chronons,energy);
-        myGridShapeType = GridShapeType.RECTANGLE;
+        myGridShapeType = GridShapeType.RHOMBUS;
         if (type == 1) {
             neighbors = findNeighbors(NEIGHBORS_TYPE1);
         } else if (type == 2) {

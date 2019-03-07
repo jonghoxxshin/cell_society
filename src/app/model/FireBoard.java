@@ -3,7 +3,7 @@ package app.model;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-public class BoardType2 extends Board {
+public class FireBoard extends Board {
     Cell[][] cells;
     private int myWidth;
     private int myHeight;
@@ -17,7 +17,7 @@ public class BoardType2 extends Board {
     private double growProbability = 0.5;
     private double catchProbability = 0.005;
 
-    public BoardType2(ResourceBundle myProperties) {
+    public FireBoard(ResourceBundle myProperties) {
         super(myProperties);
     }
 

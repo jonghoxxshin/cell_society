@@ -2,7 +2,7 @@ package app.model;
 
 import java.util.*;
 
-public class BoardType3 extends Board{
+public class SegregationBoard extends Board{
     Cell[][] cells;
     private int myWidth;
     private int myHeight;
@@ -14,7 +14,7 @@ public class BoardType3 extends Board{
     private int errorStatus;
     private GridShapeType myGridShapeType;
 
-    public BoardType3(ResourceBundle myProperties){
+    public SegregationBoard(ResourceBundle myProperties){
         super(myProperties);
     }
 
