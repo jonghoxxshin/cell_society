@@ -74,7 +74,7 @@ public class SimulationController {
             myBoard = new GenericBoard(myProperties);
         }
         myRules = new Rules(myProperties);
-        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this, false);
+        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this, false, false);
         mySimulationModel = new Simulation(myBoard, myRules);
         useImage = false;
         myImageList = new ArrayList<>();
@@ -122,7 +122,7 @@ public class SimulationController {
 
     public void setConfig(String t1){
         this.pauseSimulation();
-        System.out.println(t1);
+
         myProperties = ResourceBundle.getBundle(t1);
         boardType = Integer.parseInt(myProperties.getString("board_type"));
         if (boardType == 2) {
@@ -136,7 +136,7 @@ public class SimulationController {
         }
         myRules = new Rules (myProperties);
         mySimulationModel = new Simulation(myBoard,myRules);
-        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this, false);
+        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this, false, useImage);
         myMainView.setMyBoardView(myBoardView);
         startSimulation = true;
         setTimeline();
@@ -149,7 +149,6 @@ public class SimulationController {
         System.out.println(myFramesPerSecond);
         if (startSimulation) {
             if (mySimulationModel != null) {
-                System.out.println("came in here after loading");
                 mySimulationModel.setStart();
                 mySimulationModel.nextStep();
                 //mySimulationModel.printMyCells();
@@ -159,16 +158,19 @@ public class SimulationController {
     }
 
     public void replaceBoardView(){
+        System.out.println("useImage boolean value is" + useImage);
         if(useImage){
+            myMainView.setMyBoardView(
+                    new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),mySimulationModel.getMyCells(),myProperties,this, useGrid, true, myImageList));
         }
         if(color0 != null) myMainView.setMyBoardView(
-                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, false, color0, color1, color2));
+                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid, useImage, color0, color1, color2));
         else if(useGrid){
             myMainView.setMyBoardView(
-                    new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid));
+                    new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid, useImage));
         }
         else myMainView.setMyBoardView(
-                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid));
+                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid, useImage));
     }
 
 
@@ -214,8 +216,8 @@ public class SimulationController {
     }
 
     public void setNewBoard(){
-        System.out.println("set new board is called ");
-        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,this, useGrid, color0,color1,color2);
+
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,this, useImage, useGrid, color0,color1,color2);
         myRightView  = new RightView(this, myBoardView);
         myMainView.setMyBoardView(myBoardView);
     }
@@ -227,6 +229,16 @@ public class SimulationController {
         myBoardView.changeGridStatus();
         //replaceBoardView();
         myMainView.setMyBoardView(myBoardView);
+
+    }
+
+    public void setImage(ArrayList imageList){
+        useImage = true;
+        myImageList = imageList;
+        myBoardView.setMyImageArray(myImageList);
+        myMainView.setMyBoardView(myBoardView);
+
+
 
     }
 

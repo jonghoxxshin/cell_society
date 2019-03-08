@@ -46,17 +46,23 @@ public class BoardView implements IBoardObserver{
     private ResourceBundle myProperties;
     private SimulationController mySimulationController;
 
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid){
-        this(width, height, board, properties, sc, grid, Color.WHITE, Color.BLACK, Color.BLUE);
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, ArrayList<Image> list ){
+        this(width, height, board, properties, sc, grid, true, Color.WHITE, Color.BLACK, Color.BLUE);
+        myImageArray = list;
+    }
+
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, boolean image){
+        this(width, height, board, properties, sc, grid, image, Color.WHITE, Color.BLACK, Color.BLUE);
     }
 
 
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, Color c0, Color c1, Color c2){
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, boolean image, Color c0, Color c1, Color c2){
         myProperties = properties;
         myBoardWidth = width;
         myBoardHeight = height;
         myBoard = board;
         useStroke = grid;
+        useImage = image;
         mySimulationController = sc;
         myImageArray = new ArrayList<>();
         myGridShape = myBoard[0][0].getMyGridShapeType();
@@ -90,7 +96,6 @@ public class BoardView implements IBoardObserver{
         useImage = true;
         this.myImageArray = input;
         updateBoard();
-        mySimulationController.replaceBoardView();
     }
     public void changeGridStatus(){
         if(useStroke){
@@ -138,6 +143,7 @@ public class BoardView implements IBoardObserver{
     }
 
     private Group createImageBoard(int width_num, int height_num){
+        System.out.println("image Board invoked");
         var result = new Group();
         for(int i = 0; i< width_num; i++){
             for(int j=0; j<height_num;j++){
@@ -266,7 +272,7 @@ public class BoardView implements IBoardObserver{
     }
 
     private Group createColorBoardRect(int width_num, int height_num){
-        System.out.println("create Color Board rect is invoked");
+        System.out.println("Rect Board invoked");
         var result = new Group();
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){
@@ -287,9 +293,7 @@ public class BoardView implements IBoardObserver{
     }
 
     private void setStroke(Shape shape, Color color, int stroke_width){
-        System.out.println("value of use stroke " + useStroke);
         if(useStroke){
-            System.out.println("came in side the loop");
             shape.setStroke(color);
             shape.setStrokeWidth(stroke_width);
         }

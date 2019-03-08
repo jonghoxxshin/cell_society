@@ -115,8 +115,11 @@ public class RightView {
                 myImages.add(new Image(this.getClass().getClassLoader().getResourceAsStream(file.getName())));
             }
         }
-        myBoardView.setMyImageArray(myImages);
-        mySimulationController.setNewBoard();
+        mySimulationController.setImage(myImages);
+
+
+        //myBoardView.setMyImageArray(myImages);
+        //mySimulationController.setNewBoard();
     }
 
 }
