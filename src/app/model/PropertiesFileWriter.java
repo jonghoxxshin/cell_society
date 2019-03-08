@@ -20,7 +20,7 @@ public class PropertiesFileWriter {
     public PropertiesFileWriter(String propertiesFileName, String name, String gameType, String description, String csvNumber, String gridShape, String edgePol, String neighborPol){
         this.myPropFileName = propertiesFileName + ".properties";
         this.myPropFile = propertiesFileName;
-        this.myName = name;
+        this.myName = name.replaceAll("\\s","");
         this.myGameType = gameType;
         this.myDescription = description;
         this.fullCSVName = gameType + "Config" + csvNumber + ".csv";
@@ -61,8 +61,11 @@ public class PropertiesFileWriter {
             String fullGameString = "type_of_game=" + myGameType;
             String fullDescString = "description=" + myDescription;
             String csvString = "name_of_csv=" + fullCSVName;
+            String shapeString = "shape=" + gridShape;
+            String edgePolicyString = "edge_policy=" + edgePol;
+            String neighborTypeString = "neighbor_type=" + neighborPol;
 
-            String[] toBeWritten = {fullNameString, fullGameString, fullDescString, csvString};
+            String[] toBeWritten = {fullNameString, fullGameString, fullDescString, csvString, shapeString, edgePolicyString, neighborTypeString};
 
             for(String value:toBeWritten){
                 output.write(value + "\n");

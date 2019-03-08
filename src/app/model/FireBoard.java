@@ -10,7 +10,7 @@ public class FireBoard extends Board {
     public FireBoard(ResourceBundle myProperties) {
         super(myProperties);
         growProbability = Double.parseDouble(myProperties.getString("grow_probability"));
-        catchProbability = Double.parseDouble(myProperties.getString("catch_probability"));
+        catchProbability = Double.parseDouble(myProperties.getString("probability"));
     }
 
     @Override

@@ -65,10 +65,10 @@ public class NewConfigView {
     private void setScene(){
         myRoot = new VBox();
         setComponent();
+        setGames();
         setShapes();
         setEdgePolicies();
         setNeighborPolicies();
-        setGames();
         setDropDown();
         setBottom();
         myRoot.setAlignment(Pos.CENTER);
@@ -82,7 +82,7 @@ public class NewConfigView {
             gameList.add(game);
         }
         myGameOptions = FXCollections.observableArrayList(gameList);
-        myGames = new ComboBox(myShapeOptions);
+        myGames = new ComboBox(myGameOptions);
         myGames.setPromptText("Choose a game");
         myRoot.getChildren().add(myGames);
     }
@@ -183,7 +183,7 @@ public class NewConfigView {
     }
 
     private void submit(SimulationController sc){//check console to see if it worked!
-        String temp = sc.createProperties(nameProperties.getCharacters().toString(), nameField.getCharacters().toString(),typeField.getCharacters().toString(), des.getCharacters().toString(), myDropDown.getValue().toString(),
+        String temp = sc.createProperties(nameProperties.getCharacters().toString(), nameField.getCharacters().toString(), myGames.getValue().toString(), des.getCharacters().toString(), myDropDown.getValue().toString(),
                 myShapes.getValue().toString(), myEdgePolicies.getValue().toString(), myNeighborPolicies.getValue().toString());
         sc.setConfig(temp);
         myStage.close();
