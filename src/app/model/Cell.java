@@ -166,9 +166,10 @@ public abstract class Cell{
                     int actual = findNumberOfNeighborsInState(rule[1], neighbors, board);
                     if (currentRules.getMyRulesParser().getType() == 4) {
                         if (currentChronons == maxChronons){
-                            currentChronons = -1;
+                            currentChronons = 0;
                             return rule[4];
                         } else {
+                            currentChronons ++;
                             return rule[3];
                         }
                     } else {

@@ -15,7 +15,7 @@ public class PredatorPreyBoard extends Board{
 
     @Override
     public Cell[][] updateBoard(Rules rules) {
-        print2DBoard(cells);
+//        print2DBoard(cells);
         Cell[][] tempCells = new Cell[super.getMyHeight()][super.getMyWidth()];
         int[][] updateBoard = new int[super.getMyHeight()][super.getMyWidth()];
         initializeUpdateBoard(updateBoard);
