@@ -175,8 +175,8 @@ public class SimulationController {
     }
 
 
-    public String createProperties(String propertiesFileName, String name, String type, String des, String csv){
-        PropertiesFileWriter temp = new PropertiesFileWriter(propertiesFileName, name,type, des, csv);
+    public String createProperties(String propertiesFileName, String name, String type, String des, String csv, String gridShape, String edgePolicy, String neighborPolicy){
+        PropertiesFileWriter temp = new PropertiesFileWriter(propertiesFileName, name,type, des, csv, gridShape, edgePolicy, neighborPolicy);
         myPropertiesList.add(temp.getMyPropFile());
         return temp.getMyPropFile();
     }
