@@ -26,11 +26,13 @@ public class NewConfigView {
     private final String[] CSVList = {"1", "2", "3"};
     private final String[] ShapeList = {"Rectangle", "Hexagon", "Rhombus"};
     private final String[] EdgePolicyList = {"Torodial", "Finite", "Flipped"};
+    private final String[] NeighborTypeList = {"Complete", "Cardinal", "Left-Only"};
     private final String[] GameList = {"Game of Life", "Percolation", "Predator and Prey", "Rock Paper Scissors", "Segregation"};
     private ObservableList<String> myCSVOptions;
     private ObservableList<String> myShapeOptions;
     private ObservableList<String> myGameOptions;
     private ObservableList<String> myEdgeOptions;
+    private ObservableList<String> myNeighborOptions;
     private Button mySubmitButton;
     private Scene myScene;
     private VBox myRoot;
@@ -39,6 +41,7 @@ public class NewConfigView {
     private ComboBox myShapes;
     private ComboBox myGames;
     private ComboBox myEdgePolicies;
+    private ComboBox myNeighborPolicies;
     private SimulationController mySimulationController;
 
 
@@ -64,6 +67,7 @@ public class NewConfigView {
         setComponent();
         setShapes();
         setEdgePolicies();
+        setNeighborPolicies();
         setGames();
         setDropDown();
         setBottom();
@@ -105,6 +109,16 @@ public class NewConfigView {
         myRoot.getChildren().add(myEdgePolicies);
     }
 
+    private void setNeighborPolicies() {
+        ArrayList<String> neighborPolicyList = new ArrayList<>();
+        for(String neighborType : NeighborTypeList){
+            neighborPolicyList.add(neighborType);
+        }
+        myNeighborOptions = FXCollections.observableArrayList(neighborPolicyList);
+        myNeighborPolicies = new ComboBox(myNeighborOptions);
+        myNeighborPolicies.setPromptText("Choose a neighbor policy");
+        myRoot.getChildren().add(myNeighborPolicies);
+    }
 
     //this part need to be refactored, soon enough
     private void setNameComponent(String fieldLabel){
