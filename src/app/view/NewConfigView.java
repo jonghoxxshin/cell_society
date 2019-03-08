@@ -82,7 +82,7 @@ public class NewConfigView {
             gameList.add(game);
         }
         myGameOptions = FXCollections.observableArrayList(gameList);
-        myGames = new ComboBox(myShapeOptions);
+        myGames = new ComboBox(myGameOptions);
         myGames.setPromptText("Choose a game");
         myRoot.getChildren().add(myGames);
     }
