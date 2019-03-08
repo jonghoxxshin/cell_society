@@ -1,9 +1,15 @@
 package app.model;
 
+import app.view.IBoardObserver;
+import javafx.beans.InvalidationListener;
+import java.util.Observable;
+
 import java.util.*;
 
 
-public abstract class Board {
+
+public abstract class Board implements IBoardObservable {
+
 
     Cell[][] cells;
     private int myWidth;
@@ -16,6 +22,8 @@ public abstract class Board {
     private int errorStatus;
     private GridShapeType myGridShapeType;
 
+    protected ArrayList<IBoardObserver> myObservers;
+
 
     //app.model.Board Constructor
 
@@ -23,11 +31,10 @@ public abstract class Board {
         myGame = myProperties.getString("type_of_game");
         myGridShapeType = new GridShape().getShape(myProperties.getString("shape"));
         myParser = new CSVParser(myProperties);
-
+        myObservers = new ArrayList<>();
         if(myParser.getErrorStatus() == 1){
-            // do something
-        }
 
+        }
         neighborType = myParser.getNeighborType();
         cells = myParser.getCells();
         System.out.println("first value in board is " + cells[0][0].toString());
@@ -56,7 +63,6 @@ public abstract class Board {
             System.out.println();
         }
     }
-
 
     public Cell getCellAtCoordinates(int x, int y) {
         return cells[y][x];
@@ -105,6 +111,7 @@ public abstract class Board {
         }
     }
 
+
     public int getErrorStatus() {
         return errorStatus;
     }
@@ -116,4 +123,28 @@ public abstract class Board {
     public GridShapeType getMyGridShapeType() {
         return myGridShapeType;
     }
+
+    //methods for IBoardObservable interface
+    @Override
+    public void registerObserver(IBoardObserver o){
+        myObservers.add(o);
+    }
+
+    @Override
+    public void removeObserver(IBoardObserver o){
+        int i = myObservers.indexOf(o);
+        if (i >= 0) {
+            myObservers.remove(i);
+        }
+    }
+
+    @Override
+    public void notifyObservers(){
+        for(int i = 0; i<myObservers.size(); i++){
+            IBoardObserver observer = (IBoardObserver) myObservers.get(i);
+            observer.update(new Object());
+        }
+    }
+
+
 }

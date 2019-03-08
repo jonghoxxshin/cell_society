@@ -1,12 +1,10 @@
 package app.controller;
 
-import app.model.Rules;
-import app.model.Simulation;
-import app.view.SimulationView;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import app.model.Board;
-import app.view.BoardView;
+
 
 import java.util.ResourceBundle;
 

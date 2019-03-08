@@ -33,7 +33,6 @@ public class MainView {
         this.myRoot = root;
 
         myRoot.setTop(this.makeTop());
-        myRoot.setBottom(this.makeBottom());
         myRoot.setCenter(this.makeCenter());
         myRoot.setRight(this.makeRight());
         myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
@@ -56,12 +55,6 @@ public class MainView {
 
     private Node makeTop(){
         return myControlView.getMyRoot();
-    }
-
-    private Node makeBottom(){
-        myLabel = new Label("hi");
-        myLabel.setText("hello");
-        return myLabel;
     }
 
     private Node makeRight(){

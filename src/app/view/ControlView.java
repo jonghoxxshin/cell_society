@@ -25,6 +25,7 @@ public class ControlView {
     private Button pauseButton;
     private Button newConfigButton;
     private Button startButton;
+    private Button gridOutline;
     private ResourceBundle myProperties;
     private Label mySliderLabel;
     private ArrayList<String> myPropertiesList;
@@ -81,6 +82,7 @@ public class ControlView {
         mySliderLabel = new Label(myProperties.getString("slider_label"));
         mySliderLabel.setLabelFor(mySlider);
         myRoot.getChildren().add(mySlider);
+        createGridOutlineButton();
     }
 
     private void pause(){
@@ -125,7 +127,15 @@ public class ControlView {
 
     }
 
-
+    private void createGridOutlineButton(){
+        gridOutline = makeButton(myProperties.getString("grid_on"), e-> gridChange(gridOutline));
+        myRoot.getChildren().add(gridOutline);
+    }
+    private void gridChange(Button grid) {
+        if(grid.getText() == myProperties.getString("grid_on")) grid.setText(myProperties.getString("grid_off"));
+        else grid.setText(myProperties.getString("grid_on"));
+        mySimulationController.changeGrid();
+    }
 
 
 
