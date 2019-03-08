@@ -24,10 +24,10 @@ public class FireBoard extends Board {
                 number = generator.nextDouble();
                 int currState = tempCell.getMyState();
                 int nextState = tempCell.getNextState(rules, this);
-                if (number > growProbability && currState == 0) {
+                if (number < growProbability && currState == 0) {
                     tempCells[i][j] = tempCell;
-                } else if (number > catchProbability && currState == 1) {
-                    if (tempCell.findNeighborsInState(2, tempCell.getNeighbors(),this).size() > 0) {
+                } else if ( currState == 1) {
+                    if (tempCell.findNeighborsInState(2, tempCell.getNeighbors(),this).size() > 0 && number < catchProbability) {
                         tempCells[i][j] = createNewCellFromSubClass(tempCell, nextState, j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), -1, -1, super.getEdgeType());
                     } else {
                         tempCells[i][j] = tempCell;
