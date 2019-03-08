@@ -148,9 +148,11 @@ public abstract class Cell{
     public List<Cell> findNeighborsInState(int state, int[][] neighborsList, Board board) {
         List<Cell> neighborsInState = new ArrayList<Cell>();
         for (int[] neighbor : neighborsList) {
-            Cell tempCell = board.getCells()[neighbor[0]][neighbor[1]];
-            if (tempCell.getMyState() == state) {
-                neighborsInState.add(tempCell);
+            if (neighbor[0] != -1 && neighbor[1] != -1) {
+                Cell tempCell = board.getCells()[neighbor[0]][neighbor[1]];
+                if (tempCell.getMyState() == state) {
+                    neighborsInState.add(tempCell);
+                }
             }
         }
         return neighborsInState;
