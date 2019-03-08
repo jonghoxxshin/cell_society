@@ -128,10 +128,12 @@ public class ControlView {
     }
 
     private void createGridOutlineButton(){
-        gridOutline = makeButton(myProperties.getString("grid_off"), e-> gridChange());
+        gridOutline = makeButton(myProperties.getString("grid_on"), e-> gridChange(gridOutline));
         myRoot.getChildren().add(gridOutline);
     }
-    private void gridChange() {
+    private void gridChange(Button grid) {
+        if(grid.getText() == myProperties.getString("grid_on")) grid.setText(myProperties.getString("grid_off"));
+        else grid.setText(myProperties.getString("grid_on"));
         mySimulationController.changeGrid();
     }
 
