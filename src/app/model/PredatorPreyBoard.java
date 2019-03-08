@@ -25,16 +25,14 @@ public class PredatorPreyBoard extends Board{
                     if (updateBoard[i][j] == -1) {
                         if (super.getCells()[i][j].getMyState() == state) {
                             Cell oldCell = super.getCells()[i][j];
-                            Cell newCell = createNewCellFromSubClass(oldCell, oldCell.getNextState(rules, this), j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), oldCell.getCurrentChronons(), oldCell.getEnergyLevel(), super.getEdgeType());
-                            //check if time for reproduction
-
+                            Cell newCell = createNewCellFromSubClass(oldCell, oldCell.getNextState(rules, this), j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), 0, 20, super.getEdgeType());
 
                             //update temp cells
                             tempCells[i][j] = newCell;
                             updateBoard[i][j] = newCell.getMyState();
                             int[][] neighborCoordinates = oldCell.getNeighbors();
                             //check if need to place a shark or fish after movement
-                            if (newCell.getMyState() == 0 && oldCell.getMyState() != 0) {
+                            if (newCell.getMyState() == 0 && oldCell.getMyState() != 0 || oldCell.getAndSetReproductionFlag()) {
                                 List<Cell> neighborCells = oldCell.findNeighborsInState(1, neighborCoordinates, this);
                                 //check if there are any fish neighbors if shark
                                 if (neighborCells.size() > 0 && oldCell.getMyState() == 2) {

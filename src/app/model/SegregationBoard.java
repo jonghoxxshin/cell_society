@@ -14,12 +14,13 @@ public class SegregationBoard extends Board{
     @Override
     public Cell[][] updateBoard(Rules rules) {
         int maxNumDislike = getNumNeighborsToSatisfyThreshold();
+        System.out.println(maxNumDislike);
         ArrayList<Cell> satisfiedCells = new ArrayList<Cell>();
         Stack<Cell> dissatisfiedCells = new Stack<Cell>();
         for (int i = 0; i < super.getMyHeight(); i++) {
             for (int j = 0; j < super.getMyWidth(); j++) {
                 Cell tempCell = super.getCells()[i][j];
-                int[][] neighbors = super.getCells()[i][j].getNeighbors();
+                int[][] neighbors = tempCell.getNeighbors();
                 if (tempCell.findNeighborsInState(getOppositeState(tempCell.getMyState()), neighbors, this).size() > maxNumDislike) {
                     dissatisfiedCells.push(tempCell);
                 } else {
@@ -42,6 +43,7 @@ public class SegregationBoard extends Board{
                     Cell newCell = dissatisfiedCells.pop();
                     newCell.setMyX(j);
                     newCell.setMyY(i);
+                    newCell.setNeighbors(super.getCells()[i][j].getNeighbors());
                     tempCells[i][j] = newCell;
                 }
             }

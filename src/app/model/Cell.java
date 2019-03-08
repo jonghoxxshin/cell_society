@@ -17,6 +17,7 @@ public abstract class Cell{
     private int currentEnergyLevel;
     private int edgeType = 0; //0 = torodial, 1 = finite, 2 = torodial-flipped
     private GridShapeType myGridShapeType;
+    private boolean reproductionFlag = false;
 
 
     //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
@@ -177,6 +178,7 @@ public abstract class Cell{
                     if (currentRules.getMyRulesParser().getType() == 4) {
                         if (currentChronons == maxChronons){
                             currentChronons = 0;
+                            reproductionFlag = true;
                             return rule[4];
                         } else {
                             currentChronons ++;
@@ -284,6 +286,12 @@ public abstract class Cell{
 
     public int getType() {
         return type;
+    }
+
+    public boolean getAndSetReproductionFlag() {
+        boolean tempFlag = reproductionFlag;
+        reproductionFlag = ! reproductionFlag;
+        return tempFlag;
     }
 
     @Override
