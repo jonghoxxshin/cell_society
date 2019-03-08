@@ -1,6 +1,7 @@
 package app.view;
 
 import app.controller.SimulationController;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -23,12 +24,18 @@ public class NewConfigView {
     //this part will be replaced by observable model
     //temporary place holder
     private String[] CSVList = {"1", "2", "3"};
+    private String[] ShapeList = {"Rectangle", "Hexagon", "Rhombus"};
+    private String[] GameList = {"Game of Life", "Percolation", "Predator and Prey", "Rock Paper Scissors", "Segregation"};
     private ObservableList<String> myCSVOptions;
+    private ObservableList<String> myShapeOptions;
+    private ObservableList<String> myGameOptions;
     private Button mySubmitButton;
     private Scene myScene;
     private VBox myRoot;
     private Stage myStage;
     private ComboBox myDropDown;
+    private ComboBox myShapes;
+    private ComboBox myGames;
     private SimulationController mySimulationController;
 
 
@@ -52,11 +59,35 @@ public class NewConfigView {
     private void setScene(){
         myRoot = new VBox();
         setComponent();
+        setShapes();
+        setGames();
         setDropDown();
         setBottom();
         myRoot.setAlignment(Pos.CENTER);
         myScene = new Scene(myRoot,PAGE_WIDTH, PAGE_HEIGHT);
         myScene.getStylesheets().add(getClass().getResource("/simulationStyle.css").toExternalForm());
+    }
+
+    private void setGames(){
+        ArrayList<String> gameList = new ArrayList<>();
+        for(String game : GameList){
+            gameList.add(game);
+        }
+        myGameOptions = FXCollections.observableArrayList(gameList);
+        myGames = new ComboBox(myShapeOptions);
+        myGames.setPromptText("Choose a game");
+        myRoot.getChildren().add(myGames);
+    }
+
+    private void setShapes(){
+        ArrayList<String> shapeList = new ArrayList<>();
+        for(String shape : ShapeList){
+            shapeList.add(shape);
+        }
+        myShapeOptions = FXCollections.observableArrayList(shapeList);
+        myShapes = new ComboBox(myShapeOptions);
+        myShapes.setPromptText("Choose gird shape");
+        myRoot.getChildren().add(myShapes);
     }
 
     //this part need to be refactored, soon enough

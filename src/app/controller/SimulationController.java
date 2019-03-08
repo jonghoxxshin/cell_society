@@ -160,8 +160,9 @@ public class SimulationController {
     public void replaceBoardView(){
         System.out.println("useImage boolean value is" + useImage);
         if(useImage){
+            System.out.println("came in here");
             myMainView.setMyBoardView(
-                    new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),mySimulationModel.getMyCells(),myProperties,this, useGrid, true, myImageList));
+                    new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),mySimulationModel.getMyCells(),myProperties,this, useGrid, useImage, myImageList));
         }
         if(color0 != null) myMainView.setMyBoardView(
                 new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid, useImage, color0, color1, color2));
@@ -235,9 +236,9 @@ public class SimulationController {
     public void setImage(ArrayList imageList){
         useImage = true;
         myImageList = imageList;
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties, this, false, useImage, myImageList);
         myBoardView.setMyImageArray(myImageList);
         myMainView.setMyBoardView(myBoardView);
-
 
 
     }

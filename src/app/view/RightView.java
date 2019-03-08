@@ -116,10 +116,8 @@ public class RightView {
             }
         }
         mySimulationController.setImage(myImages);
-
-
-        //myBoardView.setMyImageArray(myImages);
         //mySimulationController.setNewBoard();
+
     }
 
 }

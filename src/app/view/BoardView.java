@@ -46,8 +46,8 @@ public class BoardView implements IBoardObserver{
     private ResourceBundle myProperties;
     private SimulationController mySimulationController;
 
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, ArrayList<Image> list ){
-        this(width, height, board, properties, sc, grid, true, Color.WHITE, Color.BLACK, Color.BLUE);
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, ArrayList<Image> list){
+        this(width, height, board, properties, sc, grid, image, Color.WHITE, Color.BLACK, Color.BLUE);
         myImageArray = list;
     }
 
