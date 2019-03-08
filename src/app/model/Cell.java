@@ -15,7 +15,7 @@ public abstract class Cell{
     private int currentChronons;
     private int maxChronons = 10;
     private int currentEnergyLevel;
-    private int edgeType = 0; //0 = torodial, 1 = finite, 2 = not left
+    private int edgeType = 0; //0 = torodial, 1 = finite, 2 = torodial-flipped
     private GridShapeType myGridShapeType;
 
 
@@ -84,6 +84,30 @@ public abstract class Cell{
             tempY = -1;
         } else if (y + offSet[1] < 0) {
             tempY = -1;
+        } else {
+            tempY = y + offSet[1];
+        }
+
+        int[] toBeReturned = {tempY, tempX};
+        return toBeReturned;
+    }
+
+    public int[] getNeighborFlipped(int x, int y, int[] offSet) {
+        int tempX;
+        int tempY;
+
+        if (x + offSet[0] >= boardWidth) {
+            tempX = boardWidth - (x + offSet[0] - boardWidth);
+        } else if (x + offSet[0] < 0) {
+            tempX = (0 - (x + offSet[0]));
+        } else {
+            tempX = x + offSet[0];
+        }
+
+        if (y + offSet[1] >= boardHeight) {
+            tempY = boardHeight - (y + offSet[1] - boardHeight);
+        } else if (y + offSet[1] < 0) {
+            tempY = (0 - (y + offSet[1]));
         } else {
             tempY = y + offSet[1];
         }
