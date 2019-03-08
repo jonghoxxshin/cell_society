@@ -4,8 +4,8 @@ public class HexCell extends Cell {
     private static final int[][] NEIGHBORS_HEX = {{0, -1}, {-1, -1}, {-1, 0}, {0, 1}, {1, 0}, {1, -1}};
     private static final int[][] NEIGHBORS_HEX_TYPE3 = {{0,1}, {0,-1}, {1,-1}, {1,0}};
 
-    public HexCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy) {
-        super(state,x,y,boardHeight,boardWidth,neighborType,chronons,energy);
+    public HexCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType) {
+        super(state,x,y,boardHeight,boardWidth,neighborType,chronons,energy, edgeType);
         super.setMyGridShapeType(GridShapeType.HEXAGON);
 
         if(super.getType() == 3){

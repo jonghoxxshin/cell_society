@@ -21,6 +21,7 @@ public abstract class Board implements IBoardObservable {
     private CSVParser myParser;
     private int errorStatus;
     private GridShapeType myGridShapeType;
+    private String edgePolicy;
 
     protected ArrayList<IBoardObserver> myObservers;
 
@@ -30,6 +31,7 @@ public abstract class Board implements IBoardObservable {
     public Board(ResourceBundle myProperties) {
         myGame = myProperties.getString("type_of_game");
         myGridShapeType = new GridShape().getShape(myProperties.getString("shape"));
+        edgePolicy = myProperties.getString("edge_policy");
         myParser = new CSVParser(myProperties);
         myObservers = new ArrayList<>();
         if(myParser.getErrorStatus() == 1){
@@ -101,13 +103,13 @@ public abstract class Board implements IBoardObservable {
         return dataDict;
     }
 
-    public Cell createNewCellFromSubClass (Cell cell, int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy){
+    public Cell createNewCellFromSubClass (Cell cell, int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType){
         if (cell instanceof RhombusCell) {
-            return new RhombusCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+            return new RhombusCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy, edgeType);
         } else if (cell instanceof HexCell) {
-            return new HexCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+            return new HexCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy, edgeType);
         } else {
-            return new RectangleCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+            return new RectangleCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy, edgeType);
         }
     }
 
@@ -118,6 +120,15 @@ public abstract class Board implements IBoardObservable {
 
     public int getNeighborType() {
         return neighborType;
+    }
+
+    public int getEdgeType() {
+        if (edgePolicy.equals("torodial")) {
+            return 0;
+        } else if (edgePolicy.equals("finite")) {
+            return 1;
+        }
+        return 2;
     }
 
     public GridShapeType getMyGridShapeType() {

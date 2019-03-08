@@ -24,8 +24,10 @@ public abstract class CellGetter {
     private double[] myProbs;
     private double[] myCounts;
 
+    private int edgePolicy;
 
-    public CellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape){
+
+    public CellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape, int edgePolicy){
         this.csvName = filename;
         this.myType = type;
         this.gameName = gameName;
@@ -35,6 +37,7 @@ public abstract class CellGetter {
         this.maxState = maxState;
         this.neighborType = neighborType;
         this.myGridShapeType = shape;
+        this.edgePolicy = edgePolicy;
 
         try {
             this.myCells = getCells();
@@ -50,9 +53,9 @@ public abstract class CellGetter {
     // Get rid of duplicate code of making cell of certain index
     public Cell makeCellAtIndex(int state, int row, int column){
         if (gameName.toLowerCase().equals("predatorprey")) {
-            return createNewCellFromProperty(myGridShapeType, state, column, row, myHeight, myWidth, neighborType, 0, 20);
+            return createNewCellFromProperty(myGridShapeType, state, column, row, myHeight, myWidth, neighborType, 0, 20, edgePolicy);
         } else {
-            return createNewCellFromProperty(myGridShapeType, state, column, row, myHeight, myWidth, neighborType, -1, -1);
+            return createNewCellFromProperty(myGridShapeType, state, column, row, myHeight, myWidth, neighborType, -1, -1, edgePolicy);
         }
     }
 
@@ -120,13 +123,13 @@ public abstract class CellGetter {
         return gameName;
     }
 
-    public Cell createNewCellFromProperty (GridShapeType gridShapeType, int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy){
+    public Cell createNewCellFromProperty (GridShapeType gridShapeType, int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType){
         if (gridShapeType == GridShapeType.RHOMBUS) {
-            return new RhombusCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+            return new RhombusCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy, edgeType);
         } else if (gridShapeType == GridShapeType.HEXAGON) {
-            return new HexCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+            return new HexCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy, edgeType);
         } else {
-            return new RectangleCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy);
+            return new RectangleCell(state, x, y, boardHeight, boardWidth, neighborType, chronons, energy, edgeType);
         }
     }
 

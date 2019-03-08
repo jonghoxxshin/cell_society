@@ -23,7 +23,7 @@ class CellTest {
         testBoard = new GenericBoard(myProperties);
         testRules = new Rules(myProperties.getString("type_of_game"));
 
-        this.testCell = new RectangleCell(0,0,0,5,5, 1, -1 ,-1);
+        this.testCell = new RectangleCell(0,0,0,5,5, 1, -1 ,-1, 0);
         int[] neighbor10 = {0,1};
         int[] neighbor11 = {1,1};
         int[] neighbor01 = {1,0};
@@ -91,8 +91,8 @@ class CellTest {
 
     @Test
     void checkEquality() {
-        Cell cell1 = new RectangleCell(1,1,2,5,5, 1, -1, -1);
-        Cell cell2 = new RectangleCell(1,1,2,5,5, 1, -1, -1);
+        Cell cell1 = new RectangleCell(1,1,2,5,5, 1, -1, -1, 0);
+        Cell cell2 = new RectangleCell(1,1,2,5,5, 1, -1, -1, 0);
         assertTrue(cell1.equals(cell2));
 
     }

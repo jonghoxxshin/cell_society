@@ -25,7 +25,7 @@ public class PredatorPreyBoard extends Board{
                     if (updateBoard[i][j] == -1) {
                         if (super.getCells()[i][j].getMyState() == state) {
                             Cell oldCell = super.getCells()[i][j];
-                            Cell newCell = createNewCellFromSubClass(oldCell, oldCell.getNextState(rules, this), j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), oldCell.getCurrentChronons(), oldCell.getEnergyLevel());
+                            Cell newCell = createNewCellFromSubClass(oldCell, oldCell.getNextState(rules, this), j, i, super.getMyHeight(), super.getMyWidth(), super.getNeighborType(), oldCell.getCurrentChronons(), oldCell.getEnergyLevel(), super.getEdgeType());
                             //check if time for reproduction
 
 

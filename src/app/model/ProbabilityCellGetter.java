@@ -5,8 +5,8 @@ import java.util.Random;
 
 public class ProbabilityCellGetter extends CellGetter{
 
-    public ProbabilityCellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape){
-        super(filename, type, gameName, height, width, maxState, neighborType, shape);
+    public ProbabilityCellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape, int edgeType){
+        super(filename, type, gameName, height, width, maxState, neighborType, shape, edgeType);
     }
 
 

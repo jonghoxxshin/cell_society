@@ -41,10 +41,10 @@ public class CSVParserTest {
         for(int i=0; i<5; i++){
             for(int j=0; j<5; j++){
                 if(i==j){
-                    expectedCells[j][i] = new RectangleCell(1, i, j, 5, 5, 1,-1,-1);
+                    expectedCells[j][i] = new RectangleCell(1, i, j, 5, 5, 1,-1,-1, 0);
                 }
                 else{
-                    expectedCells[j][i] = new RectangleCell(0, i, j, 5, 5, 1,-1,-1);
+                    expectedCells[j][i] = new RectangleCell(0, i, j, 5, 5, 1,-1,-1, 0);
                 }
             }
         }

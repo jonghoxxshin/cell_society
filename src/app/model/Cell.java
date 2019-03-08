@@ -20,7 +20,7 @@ public abstract class Cell{
 
 
     //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
-    public Cell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy) {
+    public Cell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType) {
         myState = state;
         myX = x;
         myY = y;
@@ -30,6 +30,7 @@ public abstract class Cell{
         type = neighborType;
         currentChronons = chronons;
         currentEnergyLevel = energy;
+        this.edgeType = edgeType;
     }
 
     //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
@@ -37,9 +38,18 @@ public abstract class Cell{
         // code to get expectedNeighbors based on current cell's coordinates
         int[][] tempNeighbors = getTempNeighborsForType();
         for (int i = 0; i < tempNeighbors.length; i++) {
-            tempNeighbors[i] = getNeighborFinite(myX, myY, neighborsType[i]);
+            tempNeighbors[i] = chooseAppropriateNeighbors(neighborsType, i);
         }
         return tempNeighbors;
+    }
+
+    private int[] chooseAppropriateNeighbors(int[][] neighborsType, int i) {
+        if (edgeType == 0) {
+            return getNeighbor(myX, myY, neighborsType[i]);
+        } else if (edgeType == 1) {
+            return getNeighborFinite(myX, myY, neighborsType[i]);
+        }
+        return getNeighborFlipped(myX, myY, neighborsType[i]);
     }
 
     //get neighbor coordinates from offset with respect to toroidal edges

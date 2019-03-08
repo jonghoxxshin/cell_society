@@ -7,8 +7,8 @@ import java.util.Random;
 
 public class CountsCellGetter extends CellGetter{
 
-    public CountsCellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape){
-        super(filename, type, gameName, height, width, maxState, neighborType, shape);
+    public CountsCellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape, int edgeType){
+        super(filename, type, gameName, height, width, maxState, neighborType, shape, edgeType);
     }
 
     public Cell[][] getCells() throws IOException {

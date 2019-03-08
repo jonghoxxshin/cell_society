@@ -27,11 +27,14 @@ public class CSVParser {
     private int maxState;
     private GridShapeType myGridShapeType;
     private CellGetter myCellGetter;
+    private int edgeType;
 
     public CSVParser(ResourceBundle myProperties){
         this.errorStatus = 0;
 
         String csvGame = myProperties.getString("name_of_csv");
+        String edgePolicy = myProperties.getString("edge_policy");
+        getEdgeType(edgePolicy);
 
         System.out.println("Grid shape read in was " + myProperties.getString("shape"));
 
@@ -129,13 +132,13 @@ public class CSVParser {
 
         String csvType = csvScanner.next();
         if(csvType.startsWith("counts=")){
-            myCellGetter = new CountsCellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType);
+            myCellGetter = new CountsCellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType, edgeType);
         }
         else if(csvType.startsWith("probability=")){
-            myCellGetter = new ProbabilityCellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType);
+            myCellGetter = new ProbabilityCellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType, edgeType);
         }
         else{
-            myCellGetter = new GridCellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType);
+            myCellGetter = new GridCellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType, edgeType);
         }
 
         if(myCellGetter.getErrorStatus() == 1){
@@ -163,7 +166,15 @@ public class CSVParser {
 //        return cellsGenerated;
 //    }
 
-
+    private void getEdgeType(String edgePolicy) {
+        if (edgePolicy.toLowerCase().equals("torodial")) {
+            edgeType = 0;
+        } else if (edgePolicy.toLowerCase().equals("finite")) {
+            edgeType = 1;
+        } else if (edgePolicy.toLowerCase().equals("flipped")) {
+            edgeType = 2;
+        }
+    }
 
     public String getGameType() {
         return gameType;

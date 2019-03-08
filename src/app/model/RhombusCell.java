@@ -7,8 +7,8 @@ public class RhombusCell extends Cell {
 
 
 
-    public RhombusCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy) {
-        super(state,x,y,boardHeight,boardWidth,neighborType,chronons,energy);
+    public RhombusCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType) {
+        super(state,x,y,boardHeight,boardWidth,neighborType,chronons,energy,edgeType);
         super.setMyGridShapeType(GridShapeType.RHOMBUS);
         if (super.getType() == 1) {
             super.setNeighbors(findNeighbors(NEIGHBORS_TYPE1));
