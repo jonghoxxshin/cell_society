@@ -23,12 +23,14 @@ public class NewConfigView {
 
     //this part will be replaced by observable model
     //temporary place holder
-    private String[] CSVList = {"1", "2", "3"};
-    private String[] ShapeList = {"Rectangle", "Hexagon", "Rhombus"};
-    private String[] GameList = {"Game of Life", "Percolation", "Predator and Prey", "Rock Paper Scissors", "Segregation"};
+    private final String[] CSVList = {"1", "2", "3"};
+    private final String[] ShapeList = {"Rectangle", "Hexagon", "Rhombus"};
+    private final String[] EdgePolicyList = {"Torodial", "Finite", "Flipped"};
+    private final String[] GameList = {"Game of Life", "Percolation", "Predator and Prey", "Rock Paper Scissors", "Segregation"};
     private ObservableList<String> myCSVOptions;
     private ObservableList<String> myShapeOptions;
     private ObservableList<String> myGameOptions;
+    private ObservableList<String> myEdgeOptions;
     private Button mySubmitButton;
     private Scene myScene;
     private VBox myRoot;
@@ -36,6 +38,7 @@ public class NewConfigView {
     private ComboBox myDropDown;
     private ComboBox myShapes;
     private ComboBox myGames;
+    private ComboBox myEdgePolicies;
     private SimulationController mySimulationController;
 
 
@@ -60,6 +63,7 @@ public class NewConfigView {
         myRoot = new VBox();
         setComponent();
         setShapes();
+        setEdgePolicies();
         setGames();
         setDropDown();
         setBottom();
@@ -86,9 +90,21 @@ public class NewConfigView {
         }
         myShapeOptions = FXCollections.observableArrayList(shapeList);
         myShapes = new ComboBox(myShapeOptions);
-        myShapes.setPromptText("Choose gird shape");
+        myShapes.setPromptText("Choose a grid shape");
         myRoot.getChildren().add(myShapes);
     }
+
+    private void setEdgePolicies() {
+        ArrayList<String> edgePolicyList = new ArrayList<>();
+        for(String edgePolicy : EdgePolicyList){
+            edgePolicyList.add(edgePolicy);
+        }
+        myEdgeOptions = FXCollections.observableArrayList(edgePolicyList);
+        myEdgePolicies = new ComboBox(myEdgeOptions);
+        myEdgePolicies.setPromptText("Choose an edge policy");
+        myRoot.getChildren().add(myEdgePolicies);
+    }
+
 
     //this part need to be refactored, soon enough
     private void setNameComponent(String fieldLabel){
