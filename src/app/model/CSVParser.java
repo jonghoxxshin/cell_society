@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
@@ -127,8 +128,15 @@ public class CSVParser {
         }
 
         String csvType = csvScanner.next();
-
-        myCellGetter = new CellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType);
+        if(csvType.startsWith("counts=")){
+            myCellGetter = new CountsCellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType);
+        }
+        else if(csvType.startsWith("probability=")){
+            myCellGetter = new ProbabilityCellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType);
+        }
+        else{
+            myCellGetter = new GridCellGetter(filename, csvType, gameType, myHeight, myWidth, maxState, neighborType, myGridShapeType);
+        }
 
         if(myCellGetter.getErrorStatus() == 1){
             System.out.println("CellGetter caught error");

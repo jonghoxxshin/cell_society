@@ -15,7 +15,7 @@ public abstract class Cell{
     private int currentChronons;
     private int maxChronons = 10;
     private int currentEnergyLevel;
-    private int edgeType = 0; //0 = torodial, 1 = finite, 2 = not left
+    private int edgeType = 0; //0 = torodial, 1 = finite, 2 = torodial-flipped
     private GridShapeType myGridShapeType;
 
 
@@ -37,7 +37,7 @@ public abstract class Cell{
         // code to get expectedNeighbors based on current cell's coordinates
         int[][] tempNeighbors = getTempNeighborsForType();
         for (int i = 0; i < tempNeighbors.length; i++) {
-            tempNeighbors[i] = getNeighbor(myX, myY, neighborsType[i]);
+            tempNeighbors[i] = getNeighborFinite(myX, myY, neighborsType[i]);
         }
         return tempNeighbors;
     }
@@ -92,11 +92,40 @@ public abstract class Cell{
         return toBeReturned;
     }
 
+    public int[] getNeighborFlipped(int x, int y, int[] offSet) {
+        int tempX;
+        int tempY;
+
+        if (x + offSet[0] >= boardWidth) {
+            tempX = boardWidth - (x + offSet[0] - boardWidth + 1);
+        } else if (x + offSet[0] < 0) {
+            tempX = (0 - (x + offSet[0]));
+        } else {
+            tempX = x + offSet[0];
+        }
+
+        if (y + offSet[1] >= boardHeight) {
+            tempY = boardHeight - (y + offSet[1] - boardHeight + 1);
+        } else if (y + offSet[1] < 0) {
+            tempY = (0 - (y + offSet[1]));
+        } else {
+            tempY = y + offSet[1];
+        }
+
+        int[] toBeReturned = {tempY, tempX};
+        return toBeReturned;
+    }
+
     private int[][] getTempNeighborsForType() {
         if (type == 2) {
             int[][] tempNeighbors = new int[4][2];
             return tempNeighbors;
         }
+        else if(type == 3){
+            int[][] tempNeighbors = new int[5][2];
+            return tempNeighbors;
+        }
+
         int[][] returnNeighbors = new int[8][2];
         return returnNeighbors;
     }
@@ -106,8 +135,10 @@ public abstract class Cell{
     private int findNumberOfNeighborsInState(int state, int[][] neighborsList, Board board) {
         int count = 0;
         for (int[] neighbor : neighborsList) {
-            if (board.getCells()[neighbor[0]][neighbor[1]].getMyState() == state) {
-                count++;
+            if (neighbor[0] != -1 && neighbor[1] != -1) {
+                if (board.getCells()[neighbor[0]][neighbor[1]].getMyState() == state) {
+                    count++;
+                }
             }
         }
         return count;
