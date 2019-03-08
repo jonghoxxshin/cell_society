@@ -65,10 +65,10 @@ public class NewConfigView {
     private void setScene(){
         myRoot = new VBox();
         setComponent();
+        setGames();
         setShapes();
         setEdgePolicies();
         setNeighborPolicies();
-        setGames();
         setDropDown();
         setBottom();
         myRoot.setAlignment(Pos.CENTER);
