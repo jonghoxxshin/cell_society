@@ -36,7 +36,7 @@ public class SimulationController {
     private BoardView myBoardView;
     private ControlView myControlView;
     private RightView myRightView;
-    private BottomView myBottomView;
+
     private int myFramesPerSecond;
     private int appHeight;
     private int appWidth;
@@ -50,6 +50,7 @@ public class SimulationController {
 
     private ArrayList<Image> myImageList;
     private boolean useImage;
+    private boolean useGrid;
 
 
     //properties list, need to be initialized by reading in all the properties we have
@@ -73,9 +74,8 @@ public class SimulationController {
             myBoard = new GenericBoard(myProperties);
         }
         myRules = new Rules(myProperties);
-        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
+        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this, false);
         mySimulationModel = new Simulation(myBoard, myRules);
-        myBottomView = new BottomView(this, myBoardView, myProperties);
         useImage = false;
         myImageList = new ArrayList<>();
         initMyPropList();
@@ -136,7 +136,7 @@ public class SimulationController {
         }
         myRules = new Rules (myProperties);
         mySimulationModel = new Simulation(myBoard,myRules);
-        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this);
+        myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this, false);
         myMainView.setMyBoardView(myBoardView);
         startSimulation = true;
         setTimeline();
@@ -160,12 +160,15 @@ public class SimulationController {
 
     public void replaceBoardView(){
         if(useImage){
-
         }
         if(color0 != null) myMainView.setMyBoardView(
-                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, color0, color1, color2));
+                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, false, color0, color1, color2));
+        else if(useGrid){
+            myMainView.setMyBoardView(
+                    new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid));
+        }
         else myMainView.setMyBoardView(
-                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this));
+                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid));
     }
 
 
@@ -190,7 +193,7 @@ public class SimulationController {
 
     private void setUpScene(){
         this.myRoot = new BorderPane();
-        myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView, myBottomView);
+        myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView);
         startSimulation = myMainView.getMyStartBoolean();
         myScene = myMainView.getScene();
     }
@@ -212,10 +215,19 @@ public class SimulationController {
 
     public void setNewBoard(){
         System.out.println("set new board is called ");
-        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,this,color0,color1,color2);
-
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,this, useGrid, color0,color1,color2);
         myRightView  = new RightView(this, myBoardView);
         myMainView.setMyBoardView(myBoardView);
+    }
+
+    public void changeGrid(){
+        if(useGrid){
+            useGrid = false;
+        }else useGrid = true;
+        myBoardView.changeGridStatus();
+        //replaceBoardView();
+        myMainView.setMyBoardView(myBoardView);
+
     }
 
 

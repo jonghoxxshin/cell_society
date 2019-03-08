@@ -17,25 +17,22 @@ public class MainView {
     private BorderPane myRoot;
     private ControlView myControlView;
     private RightView myRightView;
-    private BottomView myBottomView;
     private Scene myScene;
     private Label myLabel;
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
     private boolean myStartBoolean;
 
-    public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv, BottomView btv) {
+    public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv) {
         myProperties = ResourceBundle.getBundle("english");
         mySimulationController = sc;
         myStartBoolean = false;
         myBoardView = bv;
         myRightView = rv;
-        myBottomView = btv;
         myControlView = cv;
         this.myRoot = root;
 
         myRoot.setTop(this.makeTop());
-        myRoot.setBottom(this.makeBottom());
         myRoot.setCenter(this.makeCenter());
         myRoot.setRight(this.makeRight());
         myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
@@ -59,8 +56,6 @@ public class MainView {
     private Node makeTop(){
         return myControlView.getMyRoot();
     }
-
-    private Node makeBottom(){ return myBottomView.getMyRoot(); }
 
     private Node makeRight(){
         return myRightView.getMyRoot();

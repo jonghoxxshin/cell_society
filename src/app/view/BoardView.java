@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 
 public class BoardView implements IBoardObserver{
-    public static final double BOARD_WIDTH = 800;
+    public static final double BOARD_WIDTH = 700;
     public static final double BOARD_HEIGHT = 500;
     public static final int STROKE_WIDTH = 1;
 
@@ -46,16 +46,17 @@ public class BoardView implements IBoardObserver{
     private ResourceBundle myProperties;
     private SimulationController mySimulationController;
 
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc){
-        this(width, height, board, properties, sc, Color.WHITE, Color.BLACK, Color.BLUE);
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid){
+        this(width, height, board, properties, sc, grid, Color.WHITE, Color.BLACK, Color.BLUE);
     }
 
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, Color c0, Color c1, Color c2){
+
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, Color c0, Color c1, Color c2){
         myProperties = properties;
         myBoardWidth = width;
         myBoardHeight = height;
         myBoard = board;
-
+        useStroke = grid;
         mySimulationController = sc;
         myImageArray = new ArrayList<>();
         myGridShape = myBoard[0][0].getMyGridShapeType();
@@ -91,11 +92,11 @@ public class BoardView implements IBoardObserver{
         updateBoard();
         mySimulationController.replaceBoardView();
     }
-
-    public void changeStroke(){
+    public void changeGridStatus(){
         if(useStroke){
             useStroke = false;
         }else useStroke = true;
+        updateBoard();
     }
 
     public Group getMyRoot(){return myRoot;}
@@ -150,7 +151,6 @@ public class BoardView implements IBoardObserver{
                 result.getChildren().add(imageView);
             }
         }
-        System.out.println("made it here");
         return result;
     }
 
@@ -287,7 +287,9 @@ public class BoardView implements IBoardObserver{
     }
 
     private void setStroke(Shape shape, Color color, int stroke_width){
+        System.out.println("value of use stroke " + useStroke);
         if(useStroke){
+            System.out.println("came in side the loop");
             shape.setStroke(color);
             shape.setStrokeWidth(stroke_width);
         }
