@@ -43,7 +43,7 @@ public class State {
     /**
      * Get Rules For State
      *
-     * @return list of rules that apply to that state 
+     * @return list of rules that apply to that state
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
     public List<int[]> getRulesForState() {

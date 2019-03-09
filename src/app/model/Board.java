@@ -1,15 +1,12 @@
 package app.model;
 
 import app.view.IBoardObserver;
-import javafx.beans.InvalidationListener;
-import java.util.Observable;
-
 import java.util.*;
 
 
 /**
  * Abstract Board Class
- *
+ * Packages: app.view.IBoardObserver; java.util.*;
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
 public abstract class Board implements IBoardObservable {
