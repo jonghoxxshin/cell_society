@@ -1,12 +1,24 @@
 package app.view;
+/**
+ * GraphView class
+ * Packages:
+ * import app.controller.SimulationController;
+ * import javafx.scene.Group;
+ * import javafx.scene.chart.LineChart;
+ * import javafx.scene.chart.NumberAxis;
+ * import javafx.scene.chart.XYChart;
+ * import java.util.*;
+ * @authors : Jongho Shin, Kyle Harvey, Jaiveer Katariya
+ */
 
 import app.controller.SimulationController;
 import javafx.scene.Group;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-
 import java.util.*;
+
+
 
 public class GraphView{
     final NumberAxis xAxis = new NumberAxis();
@@ -19,8 +31,13 @@ public class GraphView{
     private XYChart.Series<Integer, Double> mySeries0;
     private XYChart.Series<Integer, Double> mySeries1;
     private XYChart.Series<Integer, Double> mySeries2;
-    public GraphView(SimulationController sc, ResourceBundle prop){
 
+    /**
+     * Constructor for the Graph View
+     * @param sc Simulation Controller
+     * @param prop Properties File
+     */
+    public GraphView(SimulationController sc, ResourceBundle prop){
         indexCount = 0;
         mySimulationController = sc;
         myProperties = prop;
@@ -49,6 +66,10 @@ public class GraphView{
 
     }
 
+    /**
+     * Method that adds a data to the graph, called by the Simulation Controller
+     * @param input
+     */
     public void addToData(Map<Integer, Double> input){
 
         ArrayList<Double> tempList = new ArrayList<>();
@@ -71,6 +92,10 @@ public class GraphView{
         }
     }
 
+    /**
+     * Getter method. Returns the value of the roo of the view
+     * @return Group myRoot
+     */
     public Group getMyRoot(){
         return myRoot;
     }
