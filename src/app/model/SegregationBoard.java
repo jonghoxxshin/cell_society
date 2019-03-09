@@ -137,13 +137,5 @@ public class SegregationBoard extends Board{
         return temp;
     }
 
-    private void print2DArray(int[][] myArray) {
-        for (int[] row : myArray) {
-            for (int val : row) {
-                System.out.print(val + ",");
-            }
-            System.out.println();
-        }
-    }
 
 }

@@ -40,7 +40,7 @@ import javafx.scene.shape.Shape;
 import java.util.ResourceBundle;
 
 
-public class BoardView implements IBoardObserver{
+public class BoardView {
     public static final double BOARD_WIDTH = 700;
     public static final double BOARD_HEIGHT = 500;
     public static final int STROKE_WIDTH = 1;
@@ -203,6 +203,7 @@ public class BoardView implements IBoardObserver{
 
     private void updateBoard(){
         myRoot.getChildren().clear();
+        mySimulationController.getStateData();
 
         if(useImage){
             myRoot = createImageBoard(myBoardWidth, myBoardHeight);
@@ -411,8 +412,4 @@ public class BoardView implements IBoardObserver{
         mySimulationController.replaceBoardView();
     }
 
-    @Override
-    public void update(Object o) {
-
-    }
 }

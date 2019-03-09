@@ -57,8 +57,8 @@ public class RightView {
     private ColorPicker myColorPicker1;
     private ColorPicker myColorPicker2;
     private BoardView myBoardView;
+    private GraphView myGraphView;
     private ArrayList<Image> myImages;
-
 
 
     /**
@@ -68,9 +68,11 @@ public class RightView {
      * @param sc SimulationController object to generate corresponding RightView object for
      * @param bv the BoardView object that this RightView object will generate GUI components to allow user to modify
      */
-    public RightView(SimulationController sc, BoardView bv) {
+    public RightView(SimulationController sc, BoardView bv, GraphView gv) {
+
         mySimulationController = sc;
         myBoardView = bv;
+        myGraphView = gv;
         myImages = new ArrayList<>();
         myPossibleStates = mySimulationController.getMySimulationModel().getMyRules().getPossibleStates();
         myProperties = ResourceBundle.getBundle("english");
@@ -89,6 +91,7 @@ public class RightView {
         setHBox2();
         setSubmitButton();
         setLoadImageButton();
+        setGraph();
     }
 
     private void setSubmitButton() {
@@ -157,6 +160,11 @@ public class RightView {
         }
         mySimulationController.setImage(myImages);
         //mySimulationController.setNewBoard();
+
+    }
+    private void setGraph(){
+        Node temp = myGraphView.getMyRoot();
+        myRoot.getChildren().add(temp);
 
     }
 
