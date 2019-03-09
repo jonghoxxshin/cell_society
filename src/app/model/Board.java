@@ -1,14 +1,10 @@
 package app.model;
 
-import app.view.IBoardObserver;
-import javafx.beans.InvalidationListener;
-import java.util.Observable;
-
 import java.util.*;
 
 
 
-public abstract class Board implements IBoardObservable {
+public abstract class Board {
 
 
     Cell[][] cells;
@@ -23,7 +19,6 @@ public abstract class Board implements IBoardObservable {
     private GridShapeType myGridShapeType;
     private String edgePolicy;
 
-    protected ArrayList<IBoardObserver> myObservers;
 
 
     //app.model.Board Constructor
@@ -33,7 +28,6 @@ public abstract class Board implements IBoardObservable {
         myGridShapeType = new GridShape().getShape(myProperties.getString("shape"));
         edgePolicy = myProperties.getString("edge_policy");
         myParser = new CSVParser(myProperties);
-        myObservers = new ArrayList<>();
         if(myParser.getErrorStatus() == 1){
 
         }
@@ -135,27 +129,7 @@ public abstract class Board implements IBoardObservable {
         return myGridShapeType;
     }
 
-    //methods for IBoardObservable interface
-    @Override
-    public void registerObserver(IBoardObserver o){
-        myObservers.add(o);
-    }
 
-    @Override
-    public void removeObserver(IBoardObserver o){
-        int i = myObservers.indexOf(o);
-        if (i >= 0) {
-            myObservers.remove(i);
-        }
-    }
-
-    @Override
-    public void notifyObservers(){
-        for(int i = 0; i<myObservers.size(); i++){
-            IBoardObserver observer = (IBoardObserver) myObservers.get(i);
-            observer.update(new Object());
-        }
-    }
 
 
 }

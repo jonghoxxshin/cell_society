@@ -17,9 +17,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+
+import java.util.*;
 
 public class SimulationController {
 
@@ -36,6 +35,7 @@ public class SimulationController {
     private BoardView myBoardView;
     private ControlView myControlView;
     private RightView myRightView;
+    private GraphView myGraphView;
 
     private int myFramesPerSecond;
     private int appHeight;
@@ -72,7 +72,9 @@ public class SimulationController {
         myImageList = new ArrayList<>();
         initMyPropList();
         myControlView = new ControlView(this);
-        myRightView = new RightView(this, myBoardView);
+        myGraphView = new GraphView(this, myProperties);
+        myRightView = new RightView(this, myBoardView,myGraphView);
+        getStateData();
         appHeight = height;
         appWidth = width;
         myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
@@ -160,9 +162,11 @@ public class SimulationController {
             if (mySimulationModel != null) {
                 mySimulationModel.setStart();
                 mySimulationModel.nextStep();
+
                 //mySimulationModel.printMyCells();
             }
             replaceBoardView();
+            
         }
     }
 
@@ -205,7 +209,7 @@ public class SimulationController {
 
     private void setUpScene(){
         this.myRoot = new BorderPane();
-        myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView);
+        myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView, myGraphView);
         startSimulation = myMainView.getMyStartBoolean();
         myScene = myMainView.getScene();
     }
@@ -228,7 +232,7 @@ public class SimulationController {
     public void setNewBoard(){
 
         myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,this, useImage, useGrid, color0,color1,color2);
-        myRightView  = new RightView(this, myBoardView);
+        myRightView  = new RightView(this, myBoardView, new GraphView(this, myProperties));
         myMainView.setMyBoardView(myBoardView);
     }
 
@@ -249,7 +253,13 @@ public class SimulationController {
         myBoardView.setMyImageArray(myImageList);
         myMainView.setMyBoardView(myBoardView);
 
+    }
 
+    public Map<Integer, Double> getStateData(){
+        Map<Integer, Double> tempMap = new HashMap<>();
+        tempMap = myBoard.getCurrentStateData();
+        myGraphView.addToData(tempMap);
+        return tempMap;
     }
 
 

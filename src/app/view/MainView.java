@@ -17,19 +17,21 @@ public class MainView {
     private BorderPane myRoot;
     private ControlView myControlView;
     private RightView myRightView;
+    private GraphView myGraphView;
     private Scene myScene;
     private Label myLabel;
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
     private boolean myStartBoolean;
 
-    public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv) {
+    public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv, GraphView gv) {
         myProperties = ResourceBundle.getBundle("english");
         mySimulationController = sc;
         myStartBoolean = false;
         myBoardView = bv;
         myRightView = rv;
         myControlView = cv;
+        myGraphView = gv;
         this.myRoot = root;
 
         myRoot.setTop(this.makeTop());

@@ -19,7 +19,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 
 
-public class BoardView implements IBoardObserver{
+public class BoardView {
     public static final double BOARD_WIDTH = 700;
     public static final double BOARD_HEIGHT = 500;
     public static final int STROKE_WIDTH = 1;
@@ -316,8 +316,4 @@ public class BoardView implements IBoardObserver{
         mySimulationController.replaceBoardView();
     }
 
-    @Override
-    public void update(Object o) {
-
-    }
 }
