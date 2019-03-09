@@ -1,13 +1,13 @@
 
 ##
 <<<<<<< HEAD
-How does a app.model.Cell know what rules to apply for its simulation?
+How does a app.model.cell.Cell know what rules to apply for its simulation?
 
     The cell will be an abstract class with a method that can be called to determine which rule to apply dependent on the neighbors.
 ##
-How does a app.model.Cell know about its neighbors? How can it update itself without affecting its neighbors update?
+How does a app.model.cell.Cell know about its neighbors? How can it update itself without affecting its neighbors update?
 
-    app.model.Cell is able to access the neighbors through assigned instance varibales when instantiated.
+    app.model.cell.Cell is able to access the neighbors through assigned instance varibales when instantiated.
 =======
 How does a app.Cell know what rules to apply for its simulation?
 

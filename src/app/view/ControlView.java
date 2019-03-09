@@ -167,7 +167,7 @@ public class ControlView {
     private void loadConfig(String t1) {
         this.pause();
         mySimulationController.setConfig(t1);
-        //mySimulationController.restartSimulationWithNewConfig(t1);
+
 
     }
 

@@ -1,19 +1,20 @@
-package app.model;
+package app.model.cell;
 
-import java.lang.annotation.Documented;
+import app.model.GridShapeType;
+import app.model.cell.Cell;
 
 /**
- * Cell subclass for Rectangle Cells
+ * Cell subclass for Rhombus Cells
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
-public class RectangleCell extends Cell{
-    private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, {0, -1}, {0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
-    private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
-    private static final int[][] NEIGHBORS_TYPE3 = {{0,1}, {0,-1}, {1, 1}, {1,0}, {1,-1}};
+public class RhombusCell extends Cell {
+    private static final int[][] NEIGHBORS_TYPE1 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}, {-2, 0}, {2,0}, {0, -1}, {0, 1}};
+    private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}};
+    private static final int[][] NEIGHBORS_TYPE3 = {{0,-1}, {0,1}, {1,-1}, {1, 0}, {2, 0}};
 
 
     /**
-     * Rectangle Cell Constructor
+     * Rhombus Cell Constructor
      * <p>
      *     same as super but set gridshapetype to rectangle
      * </p>
@@ -28,9 +29,9 @@ public class RectangleCell extends Cell{
      * @param edgeType
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
-    public RectangleCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType) {
+    public RhombusCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType) {
         super(state,x,y,boardHeight,boardWidth,neighborType,chronons,energy,edgeType);
-        super.setMyGridShapeType(GridShapeType.RECTANGLE);
+        super.setMyGridShapeType(GridShapeType.RHOMBUS);
         if (super.getType() == 1) {
             super.setNeighbors(findNeighbors(NEIGHBORS_TYPE1));
         } else if (super.getType() == 2) {
@@ -38,8 +39,5 @@ public class RectangleCell extends Cell{
         } else if (super.getType() == 3) {
             super.setNeighbors(findNeighbors(NEIGHBORS_TYPE3));
         }
-
-
     }
-
 }

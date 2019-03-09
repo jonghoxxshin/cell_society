@@ -1,10 +1,11 @@
-package app.model;
+package app.model.rules;
 
+import app.model.GridShape;
+import app.model.GridShapeType;
+import app.model.cell.*;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 

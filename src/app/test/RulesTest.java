@@ -5,7 +5,7 @@ package app.test;
  * RulesTest Class
  * This class tests of Rules.java is implemented correctly
  * Packages:
- *import app.model.Rules;
+ *import app.model.rules.Rules;
  * import app.model.State;
  * import org.junit.jupiter.api.Test;
  * import java.util.ArrayList;
@@ -14,7 +14,7 @@ package app.test;
  */
 
 
-import app.model.Rules;
+import app.model.rules.Rules;
 import app.model.State;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;

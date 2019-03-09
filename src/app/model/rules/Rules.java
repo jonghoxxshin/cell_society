@@ -1,7 +1,8 @@
-package app.model;
+package app.model.rules;
+
+import app.model.State;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -41,7 +42,7 @@ public class Rules {
 
 
 
-    //Get app.model.Rules For a Game
+    //Get app.model.rules.Rules For a Game
 
     /**
      * Get Possible State for Rule Set

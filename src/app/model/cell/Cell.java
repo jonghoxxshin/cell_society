@@ -1,4 +1,10 @@
-package app.model;
+package app.model.cell;
+
+import app.model.GridShape;
+import app.model.GridShapeType;
+import app.model.rules.Rules;
+import app.model.State;
+import app.model.board.Board;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -270,7 +276,7 @@ public abstract class Cell{
         return neighborsInState;
     }
 
-    //for current cell, get next state based on a given app.model.Rules object
+    //for current cell, get next state based on a given app.model.rules.Rules object
 
     /**
      * Get Next State
@@ -528,6 +534,6 @@ public abstract class Cell{
     @Override
     //convert cell data to easily readable string
     public String toString() {
-        return "app.model.Cell with state " + this.myState + " and x is " + this.myX + " and y is " + this.myY + " with shape " + new GridShape().getNameFromShape(myGridShapeType);
+        return "app.model.cell.Cell with state " + this.myState + " and x is " + this.myX + " and y is " + this.myY + " with shape " + new GridShape().getNameFromShape(myGridShapeType);
     }
 }

@@ -1,4 +1,8 @@
-package app.model;
+package app.model.cell;
+
+import app.model.GridShapeType;
+import app.model.cell.Cell;
+import app.model.cell.CellGetter;
 
 import java.io.IOException;
 import java.util.Random;
@@ -7,7 +11,7 @@ import java.util.Random;
  * Probability Cell Getter Class for config based on given probabilities
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
-public class ProbabilityCellGetter extends CellGetter{
+public class ProbabilityCellGetter extends CellGetter {
 
     /**
      * Probability Cell Getter Constructor

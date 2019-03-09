@@ -3,18 +3,18 @@ package app.test;
  * BoardTest Class
  * This class tests the non-visual functionalities of the Board.java
  * Packages:
- * import app.model.Board;
- * import app.model.Cell;
- * import app.model.GenericBoard;
- * import app.model.Rules;
+ * import app.model.board.Board;
+ * import app.model.cell.Cell;
+ * import app.model.board.GenericBoard;
+ * import app.model.rules.Rules;
  * import org.junit.jupiter.api.Test;
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
 
-import app.model.Board;
-import app.model.Cell;
-import app.model.GenericBoard;
-import app.model.Rules;
+import app.model.board.Board;
+import app.model.cell.Cell;
+import app.model.board.GenericBoard;
+import app.model.rules.Rules;
 import org.junit.jupiter.api.Test;
 
 import java.util.ResourceBundle;
@@ -43,9 +43,6 @@ class BoardTest {
                 //System.out.print(currentBoard[j][i].getMyState());
                 // System.out.print(newBoard[j][i].getMyState());
                 if (currentBoard[j][i].getMyState() != newBoard[j][i].getMyState()) {
-                    System.out.println("Current board state is " + currentBoard[j][i].getMyState());
-                    System.out.println("New board state is " + newBoard[j][i].getMyState());
-
                     testBool = false;
                 }
             }

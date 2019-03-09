@@ -1,4 +1,7 @@
-package app.model;
+package app.model.board;
+
+import app.model.cell.Cell;
+import app.model.rules.Rules;
 
 import java.util.*;
 
@@ -6,7 +9,7 @@ import java.util.*;
  * Board subclass to implement segregation simulation
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
-public class SegregationBoard extends Board{
+public class SegregationBoard extends Board {
     private double threshold;
 
     /**

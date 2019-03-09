@@ -1,17 +1,20 @@
-package app.model;
+package app.model.cell;
+
+import app.model.GridShapeType;
+import app.model.cell.Cell;
 
 /**
- * Cell subclass for Rhombus Cells
+ * Cell subclass for Rectangle Cells
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
-public class RhombusCell extends Cell {
-    private static final int[][] NEIGHBORS_TYPE1 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}, {-2, 0}, {2,0}, {0, -1}, {0, 1}};
-    private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}};
-    private static final int[][] NEIGHBORS_TYPE3 = {{0,-1}, {0,1}, {1,-1}, {1, 0}, {2, 0}};
+public class RectangleCell extends Cell {
+    private static final int[][] NEIGHBORS_TYPE1 = {{-1, -1}, {-1, 0}, {-1, +1}, {0, -1}, {0, +1}, {+1, -1}, {+1, 0}, {+1, +1}};
+    private static final int[][] NEIGHBORS_TYPE2 = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
+    private static final int[][] NEIGHBORS_TYPE3 = {{0,1}, {0,-1}, {1, 1}, {1,0}, {1,-1}};
 
 
     /**
-     * Rhombus Cell Constructor
+     * Rectangle Cell Constructor
      * <p>
      *     same as super but set gridshapetype to rectangle
      * </p>
@@ -26,9 +29,9 @@ public class RhombusCell extends Cell {
      * @param edgeType
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
-    public RhombusCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType) {
+    public RectangleCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType) {
         super(state,x,y,boardHeight,boardWidth,neighborType,chronons,energy,edgeType);
-        super.setMyGridShapeType(GridShapeType.RHOMBUS);
+        super.setMyGridShapeType(GridShapeType.RECTANGLE);
         if (super.getType() == 1) {
             super.setNeighbors(findNeighbors(NEIGHBORS_TYPE1));
         } else if (super.getType() == 2) {
@@ -36,5 +39,8 @@ public class RhombusCell extends Cell {
         } else if (super.getType() == 3) {
             super.setNeighbors(findNeighbors(NEIGHBORS_TYPE3));
         }
+
+
     }
+
 }

@@ -1,5 +1,13 @@
-package app.model;
+package app.model.board;
 
+
+import app.model.*;
+import app.model.cell.Cell;
+import app.model.cell.HexCell;
+import app.model.cell.RectangleCell;
+import app.model.cell.RhombusCell;
+import app.model.rules.CSVParser;
+import app.model.rules.Rules;
 
 import java.util.*;
 
@@ -17,15 +25,13 @@ public abstract class Board {
     private String myGame;
     private int neighborType;
     private final int[] orderToReplace = {2, 1, 0};
-    private double threshold = 0.3;
     private CSVParser myParser;
-    private int errorStatus;
     private GridShapeType myGridShapeType;
     private String edgePolicy;
 
 
 
-    //app.model.Board Constructor
+    //app.model.board.Board Constructor
 
     /**
      * Board Constructor
@@ -48,7 +54,6 @@ public abstract class Board {
         }
         neighborType = myParser.getNeighborType();
         cells = myParser.getCells();
-        System.out.println("first value in board is " + cells[0][0].toString());
 
         myHeight = myParser.getMyHeight();
         myWidth = myParser.getMyWidth();

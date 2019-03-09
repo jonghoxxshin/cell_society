@@ -1,4 +1,7 @@
-package app.model;
+package app.model.board;
+
+import app.model.cell.Cell;
+import app.model.rules.Rules;
 
 import java.util.Random;
 import java.util.ResourceBundle;

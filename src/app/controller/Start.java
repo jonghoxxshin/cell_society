@@ -3,17 +3,12 @@ package app.controller;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import app.model.Board;
-
-
 import java.util.ResourceBundle;
 
 public class Start extends Application {
     public static final String TITLE = "CELL SIMULATION";
     public static final int APP_WIDTH = 1000;
-    public static final int APP_HEIGHT = 800;
-
-    public static int configNumber = 1;
+    public static final int APP_HEIGHT = 900;
     ResourceBundle myProperties;
 
     @Override

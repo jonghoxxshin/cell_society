@@ -4,10 +4,10 @@ package app.test;
  * HexCellTest Class
  * This class tests if HexCell.java is implemented correctly
  * Packages:
- * import app.model.Board;
- * import app.model.GenericBoard;
- * import app.model.HexCell;
- * import app.model.Rules;
+ * import app.model.board.Board;
+ * import app.model.board.GenericBoard;
+ * import app.model.cell.HexCell;
+ * import app.model.rules.Rules;
  * import org.junit.jupiter.api.Test;
  *
  * import java.util.ResourceBundle;
@@ -17,10 +17,10 @@ package app.test;
  */
 
 
-import app.model.Board;
-import app.model.GenericBoard;
-import app.model.HexCell;
-import app.model.Rules;
+import app.model.board.Board;
+import app.model.board.GenericBoard;
+import app.model.cell.HexCell;
+import app.model.rules.Rules;
 import org.junit.jupiter.api.Test;
 
 import java.util.ResourceBundle;

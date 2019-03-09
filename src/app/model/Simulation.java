@@ -1,5 +1,9 @@
 package app.model;
 
+import app.model.board.Board;
+import app.model.cell.Cell;
+import app.model.rules.Rules;
+
 /**
  * Simulation Class: contains all important objects in a simulation
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
@@ -30,7 +34,7 @@ public class Simulation {
      */
     public void nextStep(){
         if(start) {
-            System.out.println(myBoard.getCurrentStateData());
+
             myCells = myBoard.updateBoard(myRules);
         }
     }

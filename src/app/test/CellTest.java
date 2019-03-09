@@ -12,7 +12,11 @@ package app.test;
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
 
-import app.model.*;
+import app.model.board.Board;
+import app.model.board.GenericBoard;
+import app.model.cell.Cell;
+import app.model.cell.RectangleCell;
+import app.model.rules.Rules;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;

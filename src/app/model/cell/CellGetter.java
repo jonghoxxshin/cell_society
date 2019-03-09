@@ -1,9 +1,8 @@
-package app.model;
+package app.model.cell;
 
-import app.model.Cell;
+import app.model.GridShapeType;
 
 import java.io.IOException;
-import java.util.*;
 
 /**
  * Abstract Cell Getter Class

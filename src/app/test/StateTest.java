@@ -5,7 +5,7 @@ package app.test;
  * StateTest Class
  * This class tests if State.java is implemented correctly
  * Packages:
- * import app.model.Rules;
+ * import app.model.rules.Rules;
  * import app.model.State;
  * import org.junit.jupiter.api.Test;
  * import java.util.ArrayList;
@@ -13,7 +13,7 @@ package app.test;
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
 
-import app.model.Rules;
+import app.model.rules.Rules;
 import app.model.State;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;

@@ -13,9 +13,9 @@ package app.test;
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
 
-import app.model.CSVParser;
-import app.model.Cell;
-import app.model.RectangleCell;
+import app.model.rules.CSVParser;
+import app.model.cell.Cell;
+import app.model.cell.RectangleCell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Arrays;

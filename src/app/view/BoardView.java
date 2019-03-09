@@ -12,7 +12,7 @@ javafx.scene.Scene;
 javafx.scene.image.Image;
 javafx.scene.image.ImageView;
 javafx.scene.paint.Color;
-app.model.Cell;
+app.model.cell.Cell;
 javafx.scene.shape.Polygon;
 javafx.scene.shape.Rectangle;
 java.util.ArrayList;
@@ -32,13 +32,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import app.model.Cell;
+import app.model.cell.Cell;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import javafx.scene.shape.Shape;
 
-import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -240,7 +239,6 @@ public class BoardView {
     }
 
     private Group createImageBoard(int width_num, int height_num){
-        System.out.println("image Board invoked");
         var result = new Group();
         for(int i = 0; i< width_num; i++){
             for(int j=0; j<height_num;j++){
@@ -369,7 +367,7 @@ public class BoardView {
     }
 
     private Group createColorBoardRect(int width_num, int height_num){
-        System.out.println("Rect Board invoked");
+
         var result = new Group();
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){
