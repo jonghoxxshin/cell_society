@@ -11,12 +11,29 @@ public class Rules {
     private ResourceBundle myProperties;
 
     //Sets up rules by updating possibleStates ArrayList
+
+    /**
+     * Rules Constructor
+     * <p>
+     *     to be used to apply rules in cell, uses property file as arg
+     * </p>
+     * @param properties
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public Rules(ResourceBundle properties) {
         myProperties = properties;
         myRulesParser = new RulesParser(myProperties);
         this.possibleStates = myRulesParser.getPossibleStates();
     }
 
+    /**
+     * Rules Constructor
+     * <p>
+     *      to be used to apply rules in cell, uses game Name as arg
+     * </p>
+     * @param game
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public Rules(String game) {
         myRulesParser = new RulesParser(game);
         this.possibleStates = myRulesParser.getPossibleStates();
@@ -25,6 +42,13 @@ public class Rules {
 
 
     //Get app.model.Rules For a Game
+
+    /**
+     * Get Possible State for Rule Set
+     *
+     * @return set of possible states
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public ArrayList<State> getPossibleStates(){
 
         return possibleStates;

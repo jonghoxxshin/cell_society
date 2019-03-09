@@ -3,13 +3,38 @@ package app.model;
 import java.io.IOException;
 import java.util.Random;
 
+/**
+ * Probability Cell Getter Class for config based on given probabilities
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class ProbabilityCellGetter extends CellGetter{
 
+    /**
+     * Probability Cell Getter Constructor
+     *
+     * @param filename
+     * @param type
+     * @param gameName
+     * @param height
+     * @param width
+     * @param maxState
+     * @param neighborType
+     * @param shape
+     * @param edgeType
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public ProbabilityCellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape, int edgeType){
         super(filename, type, gameName, height, width, maxState, neighborType, shape, edgeType);
     }
 
-
+    /**
+     * Get Cells
+     *
+     * @return 2d cells array
+     * @throws IOException
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     *
+     */
     public Cell[][] getCells() throws IOException {
         String[] probStrings = super.getMyType().split("=")[1].split(",");
         super.setMyProbs(stringsToDouble(probStrings));

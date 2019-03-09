@@ -5,8 +5,26 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+/**
+ * Grid Sell Getter Class, implements cells based on predefined grid
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class GridCellGetter extends CellGetter {
 
+    /**
+     * Grid Cell Getter Constructor
+     *
+     * @param filename
+     * @param type
+     * @param gameName
+     * @param height
+     * @param width
+     * @param maxState
+     * @param neighborType
+     * @param shape
+     * @param edgeType
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public GridCellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape, int edgeType){
         super(filename, type, gameName, height, width, maxState, neighborType, shape, edgeType);
     }
@@ -29,6 +47,13 @@ public class GridCellGetter extends CellGetter {
         return stateList;
     }
 
+    /**
+     * Get Cells
+     *
+     * @return Cells
+     * @throws IOException
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public Cell[][] getCells() throws IOException {
         ArrayList<String[]> stateList = generateStateList();
 

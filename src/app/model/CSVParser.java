@@ -8,6 +8,10 @@ import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+/**
+ * CSV Parser Class, used to read CSV configs
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class CSVParser {
     private static final String LIFE = "gameoflife";
     private static final String PERCOLATE = "percolation";
@@ -30,6 +34,16 @@ public class CSVParser {
     private int edgeType;
     private boolean usingCSV;
 
+    /**
+     * CSV Parser Constructor
+     * <p>
+     *     Get several instance variables from poroperties file, then try
+     *     to generate cells
+     * </p>
+     *
+     * @param myProperties
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public CSVParser(ResourceBundle myProperties){
         this.usingCSV = false;
 
@@ -51,7 +65,12 @@ public class CSVParser {
         }
     }
 
-
+    /**
+     * CSV Parser Constuctor from Filename
+     *
+     * @param filename
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public CSVParser(String filename){
         this.usingCSV = true;
         // file name constructor lets us keep tests the same
@@ -67,6 +86,7 @@ public class CSVParser {
         }
     }
 
+    //given game type from properties file determine neighbor type for simulation
     private void determineNeighborType(){
         if (gameType.toLowerCase().equals(LIFE)) {
             if(usingCSV) {
@@ -171,21 +191,6 @@ public class CSVParser {
         return myCellGetter.getMyCells();
     }
 
-
-    // TODO: Just finished invalid state. Need to finish checking for missing values, look over checklist one more time
-    // TODO: to see if I have everything. Then, make tests on bad CSV's, work on shapes.
-
-//
-//        for(int i=0; i<myHeight; i++){
-//            String[] currentRow = csvScanner.next().split(",");
-//
-//            for(int j=0; j<myWidth; j++){
-//                cellsGenerated[j][i] = new Cell(Integer.parseInt(currentRow[j]), j, i, myHeight, myWidth, neighborType);
-//            }
-//        }
-//        return cellsGenerated;
-//    }
-
     private void getEdgeType(String edgePolicy) {
         if (edgePolicy.toLowerCase().equals("torodial")) {
             edgeType = 0;
@@ -196,34 +201,78 @@ public class CSVParser {
         }
     }
 
+    /**
+     * Get Game Type
+     * @return gameType String
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public String getGameType() {
         return gameType;
     }
 
+    /**
+     * Get Config Height
+     * @return height
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getMyHeight() {
         return myHeight;
     }
 
+    /**
+     * Get Config Width
+     * @return width
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getMyWidth() {
         return myWidth;
     }
 
+    /**
+     * Get Cells of config
+     *
+     * @return cells
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public Cell[][] getCells() {
         return cells;
     }
 
+    /**
+     * Get neighbor type of config
+     *
+     * @return neighbor type
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getNeighborType() {
         return neighborType;
     }
 
+    /**
+     * Get Error Status
+     *
+     * @return error status
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getErrorStatus() {
         return errorStatus;
     }
 
+    /**
+     * Get Error Type
+     *
+     * @return errortype
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public String getErrorType() {
         return errorType;
     }
 
+    /**
+     *
+     * @return
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public CellGetter getMyCellGetter() {
         return myCellGetter;
     }

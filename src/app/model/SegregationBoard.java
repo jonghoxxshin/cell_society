@@ -2,15 +2,41 @@ package app.model;
 
 import java.util.*;
 
+/**
+ * Board subclass to implement segregation simulation
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class SegregationBoard extends Board{
     private double threshold;
 
-
+    /**
+     * Segregation Board Constructor
+     * <p>
+     *     same as super constructor but set threshold
+     *     to probability from resource file too
+     * </p>
+     * @param myProperties
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public SegregationBoard(ResourceBundle myProperties){
         super(myProperties);
         threshold = Double.parseDouble(myProperties.getString("probability"));
     }
 
+    /**
+     * Update Board For Segregation
+     * <p>
+     *     After calculating the maximum number of dislike neighbors allowed for a cell to be satisfied
+     *     parse through the current board. For each cell determine if it is satisfied or dissatisfied.
+     *     If satisfied, add to arraylist of satisfied cells, if not add to stack of dissatisfied cells.
+     *     Once all cells have been moved to one of these collections, add all satisfied cells to temp board
+     *     in the same location as before, then randomly place each of dissatisfied cells in the remaining board.
+     *     Randomness is simulated by shuffling the contents of the dissatisfied stack.
+     * </p>
+     * @param rules
+     * @return newly updated board
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     @Override
     public Cell[][] updateBoard(Rules rules) {
         int maxNumDislike = getNumNeighborsToSatisfyThreshold();
@@ -85,7 +111,7 @@ public class SegregationBoard extends Board{
     }
 
     //SOURCE: https://www.vogella.com/tutorials/JavaAlgorithmsShuffle/article.html
-    public void shuffleList(List<Cell> a) {
+    private void shuffleList(List<Cell> a) {
         int n = a.size();
         Random random = new Random();
         random.nextInt();

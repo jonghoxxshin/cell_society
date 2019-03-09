@@ -4,15 +4,38 @@ import java.util.List;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+/**
+ * Board Subclass for Predator Prey Simulation
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class PredatorPreyBoard extends Board{
     Cell[][] cells;
     private final int[] orderToReplace = {2, 1, 0};
 
-
+    /**
+     * Board Constructor, same as super
+     * @param myProperties
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public PredatorPreyBoard(ResourceBundle myProperties){
         super(myProperties);
     }
 
+    /**
+     * Update Board for Predator Prey
+     * <p>
+     *     Cells are replaced in order of state so that all sharks are updated first,
+     *     then fish, then empty spaces. With the previous updates impacting the next
+     *     ones, energy level is incremented when fish are eaten and sharks die when
+     *     energy level reaches zero. For Sharks and Fish, first the new cell is generated,
+     *     then depending on the new cell that is generated, the animal will either
+     *     move, reproduce or stay still if unable to move
+     * </p>
+     *
+     * @param rules
+     * @return cells
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     @Override
     public Cell[][] updateBoard(Rules rules) {
 //        print2DBoard(cells);

@@ -3,6 +3,11 @@ package app.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Abstract Cell Class
+ *
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public abstract class Cell{
     private int type;
     private int myX;
@@ -20,7 +25,20 @@ public abstract class Cell{
     private boolean reproductionFlag = false;
 
 
-    //app.model.Cell constructor - should we be getting board height and width info to the cell some other way than as parameters?
+    /**
+     * Cell Constuctor
+     *
+     * @param state
+     * @param x
+     * @param y
+     * @param boardHeight
+     * @param boardWidth
+     * @param neighborType
+     * @param chronons
+     * @param energy
+     * @param edgeType
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public Cell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType) {
         myState = state;
         myX = x;
@@ -35,6 +53,20 @@ public abstract class Cell{
     }
 
     //get ArrayList of (x,y) coordinates for valid neighbor expectedCells
+
+    /**
+     * Find Neighbors
+     * <p>
+     *     Given an array of the offsets appropriate for the current cell's
+     *     neighbor type, return an int[][] of the corresponding neighbor
+     *     coordinates
+     * </p>
+     *
+     *
+     * @param neighborsType
+     * @return int[][]
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int[][] findNeighbors(int[][] neighborsType) {
         // code to get expectedNeighbors based on current cell's coordinates
         int[][] tempNeighbors = getTempNeighborsForType();
@@ -44,6 +76,7 @@ public abstract class Cell{
         return tempNeighbors;
     }
 
+    //Use edge type to determine the appropriate neighbors
     private int[] chooseAppropriateNeighbors(int[][] neighborsType, int i) {
         if (edgeType == 0) {
             return getNeighbor(myX, myY, neighborsType[i]);
@@ -53,8 +86,18 @@ public abstract class Cell{
         return getNeighborFlipped(myX, myY, neighborsType[i]);
     }
 
-    //get neighbor coordinates from offset with respect to toroidal edges
-    // modified this to handle when x is out of bounds by more than one
+
+    /**
+     * Get Neighbors Torodial
+     *
+     * get neighbor coordinates from offset with respect to toroidal edges
+     *
+     * @param x
+     * @param y
+     * @param offSet
+     * @return int[]
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int[] getNeighbor(int x, int y, int[] offSet) {
         int tempX;
         int tempY;
@@ -79,6 +122,17 @@ public abstract class Cell{
         return toBeReturned;
     }
 
+    /**
+     * Get Neighbors Finite
+     *
+     * get neighbor coordinates from offset with respect to finite edges
+     *
+     * @param x
+     * @param y
+     * @param offSet
+     * @return int[]
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     private int[] getNeighborFinite(int x, int y, int[] offSet) {
         int tempX;
         int tempY;
@@ -103,6 +157,17 @@ public abstract class Cell{
         return toBeReturned;
     }
 
+    /**
+     * Get Neighbors Flippe
+     *
+     * get neighbor coordinates from offset with respect to flipped edges
+     *
+     * @param x
+     * @param y
+     * @param offSet
+     * @return int[]
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int[] getNeighborFlipped(int x, int y, int[] offSet) {
         int tempX;
         int tempY;
@@ -127,6 +192,15 @@ public abstract class Cell{
         return toBeReturned;
     }
 
+    /**
+     * Get Temp Neighbors For Type
+     *
+     * get neighbor coordinates from offset with respect to toroidal edges
+     *
+     * @param
+     * @return int[][]
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     private int[][] getTempNeighborsForType() {
         if (type == 2) {
             int[][] tempNeighbors = new int[4][2];
@@ -142,7 +216,22 @@ public abstract class Cell{
     }
 
 
+
     //find number of expectedNeighbors in a given state
+
+    /**
+     * Find Number of Neighbors In State
+     * <p>
+     *     for the current cell given a state, a neighbor offset list, and a
+     *     board fins the number of neighbors of that cell in the given state
+     * </p>
+     *
+     * @param state
+     * @param neighborsList
+     * @param board
+     * @return int
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     private int findNumberOfNeighborsInState(int state, int[][] neighborsList, Board board) {
         int count = 0;
         for (int[] neighbor : neighborsList) {
@@ -155,7 +244,19 @@ public abstract class Cell{
         return count;
     }
 
-    //get coordinates of neighbors in desired state
+    /**
+     * Find Neighbors In State
+     * <p>
+     *     for the current cell given a state, a neighbor offset list, and a
+     *     board fins neighbors of that cell in the given state
+     * </p>
+     *
+     * @param state
+     * @param neighborsList
+     * @param board
+     * @return List(Cell)
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public List<Cell> findNeighborsInState(int state, int[][] neighborsList, Board board) {
         List<Cell> neighborsInState = new ArrayList<Cell>();
         for (int[] neighbor : neighborsList) {
@@ -170,6 +271,19 @@ public abstract class Cell{
     }
 
     //for current cell, get next state based on a given app.model.Rules object
+
+    /**
+     * Get Next State
+     * <p>
+     *     For the current cell, find the next state given the current rules and \
+     *     the current board
+     * </p>
+     *
+     * @param currentRules
+     * @param board
+     * @return int
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getNextState(Rules currentRules, Board board) {
         for (State state : currentRules.getPossibleStates()) {
             if (myState == state.getMyState()) {
@@ -198,96 +312,201 @@ public abstract class Cell{
         return this.getMyState();
     }
 
-    //set cell state
+    /**
+     * Set Cell State
+     *
+     * @param state
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void setMyState(int state) {
         myState = state;
     }
 
-    //get state
+    /**
+     * Get Cell State
+     *
+     * @return int
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getMyState() {
         return myState;
     }
 
-    //get myX
+
+    /**
+     *Get X of Current Cell
+     *
+     * @return int
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getMyX() {
         return myX;
     }
 
-    //get myY
+    /**
+     *Get Y of Current Cell
+     *
+     * @return int
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getMyY() {
         return myY;
     }
 
-    //set myX
+    /**
+     * Set X of Current Cell
+     *
+     * @param x
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void setMyX(int x) {
         myX = x;
     }
 
-    //set myY
+    /**
+     * Set Y of Current Cell
+     *
+     * @param y
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void setMyY(int y) {
         myY = y;
     }
 
-    // get neighbors
+    /**
+     * Get Neighbors of Current Cell
+     *
+     * @return int[][]
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int[][] getNeighbors() {
         return neighbors;
     }
 
 
-    // set neighbors
+    /**
+     * Set Neighbors of Current Cell
+     * @param newNeighbors
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void setNeighbors(int[][] newNeighbors) {
         neighbors = newNeighbors;
     }
 
 
     //get chronons
+
+    /**
+     * Get Current Chronons of Cell
+     *
+     * @return int
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getCurrentChronons() {
         return currentChronons;
     }
 
-    //set chronons
+    /**
+     * Set chronons of current cell
+     *
+     * @param x
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void setCurrentChronons(int x) {
         currentChronons = x;
     }
 
-    //reset chronons
+    /**
+     * Reset Current Chronons to 0
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void resetCurrentChronons() {
         currentChronons = 0;
     }
 
-    //increment chronons
+    /**
+     * Increment Current Chronons by 1
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void increaseCurrentChronons() {
         currentChronons++;
     }
 
+    /**
+     * Get Max Chronons
+     *
+     * @return int
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getMaxChronons() {
         return maxChronons;
     }
 
+    /**
+     * Get Energy Level of Cell
+     *
+     * @return int
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getEnergyLevel() {
         return currentEnergyLevel;
     }
 
+    /**
+     * Decrement energy level of cell by 1
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void decrementEnergyLevel(){
         currentEnergyLevel--;
     }
 
+    /**
+     * Set Energy Level of Current Cell
+     * @param x
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void setCurrentEnergyLevel(int x){
         currentEnergyLevel= x;
     }
 
+    /**
+     * Get Grid Shape Type of Current Cell
+     * @return GridShapeType
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public GridShapeType getMyGridShapeType() {
         return myGridShapeType;
     }
 
+    /**
+     * Set Grid Shape Type
+     *
+     * @param gridShape
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void  setMyGridShapeType(GridShapeType gridShape) {
         myGridShapeType = gridShape;
     }
 
+    /**
+     * Get Type of Cell
+     *
+     * @return int
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getType() {
         return type;
     }
 
+    /**
+     * Get and Set Reproduction Flag
+     * <p>
+     *     once reproduction should occur reproduction flag gets set to true
+     *     after that this method sets the flag back to false and returns true
+     * </p>
+     * @return boolean
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public boolean getAndSetReproductionFlag() {
         boolean tempFlag = reproductionFlag;
         reproductionFlag = ! reproductionFlag;
@@ -295,7 +514,6 @@ public abstract class Cell{
     }
 
     @Override
-    //compare two cells for equality
     public boolean equals(Object obj) {
         if (obj instanceof Cell) {
             Cell tempCell = (Cell) obj;
