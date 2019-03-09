@@ -37,6 +37,8 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import javafx.scene.shape.Shape;
+
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -85,7 +87,7 @@ public class BoardView {
 
 
     public BoardView(int width, int height, Cell[][] board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, ArrayList<Image> list){
-        this(width, height, board, properties, sc, grid, image, Color.WHITE, Color.BLACK, Color.BLUE);
+        this(width, height, board, properties, sc, grid, list, Color.WHITE, Color.BLACK, Color.BLUE);
         myImageArray = list;
     }
 
@@ -104,7 +106,7 @@ public class BoardView {
      * @param image boolean to indicate whether or not user wants to use images for their states
      */
     public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, boolean image){
-        this(width, height, board, properties, sc, grid, image, Color.WHITE, Color.BLACK, Color.BLUE);
+        this(width, height, board, properties, sc, grid, null, Color.WHITE, Color.BLACK, Color.BLUE);
     }
 
 
@@ -120,20 +122,18 @@ public class BoardView {
      * @param properties properties file/ResourcesBundle for active simulation
      * @param sc SimulationController for active simulation
      * @param grid boolean to indicate whether or not user wants outlines for their grid
-     * @param image boolean to indicate whether or not user wants to use images for their states
      * @param c0 color for state 0
      * @param c1 color for state 1
      * @param c2 color for state 2
      */
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, boolean image, Color c0, Color c1, Color c2){
+    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, ArrayList<Image> images, Color c0, Color c1, Color c2){
         myProperties = properties;
         myBoardWidth = width;
         myBoardHeight = height;
         myBoard = board;
         useStroke = grid;
-        useImage = image;
         mySimulationController = sc;
-        myImageArray = new ArrayList<>();
+        myImageArray = images;
         myGridShape = myBoard[0][0].getMyGridShapeType();
         myColor0 = c0;
         myColor1 = c1;
@@ -146,10 +146,11 @@ public class BoardView {
         myColorBoard = new Shape[myBoardWidth][myBoardHeight];
         myRoot = new Group();
 
-        if(myGridShape == GridShapeType.RECTANGLE){
+        if(myImageArray!=null) {
+            myRoot = createImageBoard(myBoardWidth, myBoardHeight);
+        } else if (myGridShape == GridShapeType.RECTANGLE) {
             myRoot = createColorBoardRect(myBoardWidth, myBoardHeight);
-        }
-        else{
+        } else {
             myRoot = createColorBoardPolygon(myBoardWidth, myBoardHeight);
         }
     }

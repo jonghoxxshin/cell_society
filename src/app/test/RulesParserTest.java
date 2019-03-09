@@ -1,12 +1,23 @@
 package app.test;
 
 
+/**
+ * RulesParserTest Class
+ * This class checks if RulesParser is implemented correctly
+ * Packages:
+ * import app.model.RulesParser;
+ * import app.model.State;
+ * import org.junit.jupiter.api.Test;
+ * import java.util.ArrayList;
+ * import static org.junit.jupiter.api.Assertions.*;
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
+
+
 import app.model.RulesParser;
 import app.model.State;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class RulesParserTest {

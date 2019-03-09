@@ -1,12 +1,23 @@
 package app.test;
 
 
+/**
+ * RulesTest Class
+ * This class tests of Rules.java is implemented correctly
+ * Packages:
+ *import app.model.Rules;
+ * import app.model.State;
+ * import org.junit.jupiter.api.Test;
+ * import java.util.ArrayList;
+ * import static org.junit.jupiter.api.Assertions.*;
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
+
+
 import app.model.Rules;
 import app.model.State;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class RulesTest {
