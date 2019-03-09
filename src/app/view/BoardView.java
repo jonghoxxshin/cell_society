@@ -1,9 +1,32 @@
 package app.view;
 
+/*
+Authors: Jaiveer Katariya, Jongho Shin, Kyle Harvey
+
+This class is used to generate the view of the board/main simulation based on the array of cells fed into it from the
+Board class. It assumes that the user possesses the following dependencies/packages:
+app.model.GridShapeType;
+app.controller.SimulationController;
+javafx.scene.Group;
+javafx.scene.Scene;
+javafx.scene.image.Image;
+javafx.scene.image.ImageView;
+javafx.scene.paint.Color;
+app.model.Cell;
+javafx.scene.shape.Polygon;
+javafx.scene.shape.Rectangle;
+java.util.ArrayList;
+javafx.scene.shape.Shape;
+java.util.ResourceBundle;
+
+This class is used in the SimluationController and the MainView classes, and to use it, one would simply need to declare
+it with the parameters specified by the constructor.
+
+*/
+
+
 import app.model.GridShapeType;
 import app.controller.SimulationController;
-import app.model.GridShape;
-import java.util.Observable;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -14,8 +37,6 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import javafx.scene.shape.Shape;
-
-import java.util.Observer;
 import java.util.ResourceBundle;
 
 
@@ -46,16 +67,64 @@ public class BoardView {
     private ResourceBundle myProperties;
     private SimulationController mySimulationController;
 
+
+    /**
+     * Constructor to generate a new BoardView with a specified width, height, 2D array of cells, ResourceBundle,
+     * SimulationController, and booleans to specify whether images or outlines are to be used, along with a list of
+     * images to render
+     *
+     * @param width width of board
+     * @param height height of board
+     * @param board 2d array of cells to make BoardView from
+     * @param properties properties file/ResourcesBundle for active simulation
+     * @param sc SimulationController for active simulation
+     * @param grid boolean to indicate whether or not user wants outlines for their grid
+     * @param image boolean to indicate whether or not user wants to use images for their states
+     * @param list list of image files to use for states
+     */
+
+
     public BoardView(int width, int height, Cell[][] board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, ArrayList<Image> list){
         this(width, height, board, properties, sc, grid, image, Color.WHITE, Color.BLACK, Color.BLUE);
         myImageArray = list;
     }
 
+
+
+    /**
+     * Constructor to generate a new BoardView with a specified width, height, 2D array of cells, ResourceBundle,
+     * SimulationController, and booleans to specify whether images or outlines are to be used
+     *
+     * @param width width of board
+     * @param height height of board
+     * @param board 2d array of cells to make BoardView from
+     * @param properties properties file/ResourcesBundle for active simulation
+     * @param sc SimulationController for active simulation
+     * @param grid boolean to indicate whether or not user wants outlines for their grid
+     * @param image boolean to indicate whether or not user wants to use images for their states
+     */
     public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, boolean image){
         this(width, height, board, properties, sc, grid, image, Color.WHITE, Color.BLACK, Color.BLUE);
     }
 
 
+
+    /**
+     * Constructor to generate a new BoardView with a specified width, height, 2D array of cells, ResourceBundle,
+     * SimulationController, and booleans to specify whether images or outlines are to be used, along with specified
+     * colors for the maximum possible number of states (3)
+     *
+     * @param width width of board
+     * @param height height of board
+     * @param board 2d array of cells to make BoardView from
+     * @param properties properties file/ResourcesBundle for active simulation
+     * @param sc SimulationController for active simulation
+     * @param grid boolean to indicate whether or not user wants outlines for their grid
+     * @param image boolean to indicate whether or not user wants to use images for their states
+     * @param c0 color for state 0
+     * @param c1 color for state 1
+     * @param c2 color for state 2
+     */
     public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, boolean image, Color c0, Color c1, Color c2){
         myProperties = properties;
         myBoardWidth = width;
@@ -85,6 +154,14 @@ public class BoardView {
         }
     }
 
+
+    /**
+     * Method to set the colors of states in the board
+     *
+     * @param c0 color for state 0
+     * @param c1 color for state 1
+     * @param c2 color for state 2
+     */
     public void setColors(Color c0, Color c1, Color c2){
         myColor0 = c0;
         myColor1 = c1;
@@ -92,11 +169,22 @@ public class BoardView {
         updateBoard();
     }
 
+    /**
+     * Method to set images for the board
+     *
+     * @param input ArrayList to use for images to be used in simulation
+     */
     public void setMyImageArray(ArrayList<Image> input){
         useImage = true;
         this.myImageArray = input;
         updateBoard();
     }
+
+
+    /**
+     * Method to set whether or not outlines are used
+     *
+     */
     public void changeGridStatus(){
         if(useStroke){
             useStroke = false;
@@ -104,6 +192,13 @@ public class BoardView {
         updateBoard();
     }
 
+
+    /**
+     * Method to return root of scene of MainView
+
+     *
+     * @return Group object that serves as root of scene MainView
+     */
     public Group getMyRoot(){return myRoot;}
 
     private void updateBoard(){

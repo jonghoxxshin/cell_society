@@ -1,7 +1,30 @@
 package app.view;
 
+/*
+Authors: Jaiveer Katariya, Jongho Shin, Kyle Harvey
+
+This class is used to generate the view that appears when users wish to generate a new properties file and corresponding
+simulation. It assumes that the user possesses the following dependencies/packages:
+app.model.GridShapeType;
+app.controller.SimulationController;
+javafx.collections.FXCollections;
+javafx.collections.ObservableList;
+javafx.geometry.Pos;
+javafx.scene.Scene;
+javafx.scene.control.ComboBox;
+javafx.scene.control.TextField;
+javafx.scene.layout.HBox;
+javafx.scene.layout.VBox;
+javafx.scene.text.Text;
+javafx.stage.Stage;
+javafx.scene.control.Button;
+
+This class is used by the ControlView object to generate this new view once the "New Configuration" button has been pressed
+by the user. To use it, one would simply need to declare it with the parameters specified by the constructor.
+
+ */
+
 import app.controller.SimulationController;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -51,7 +74,11 @@ public class NewConfigView {
     private TextField des;
 
 
-
+    /**
+     * Constructor to generate new NewConfigView from active SimulationController
+     *
+     * @param sc SimulationController object that is used by app to control the simulation
+     */
     public NewConfigView(SimulationController sc){
         mySimulationController = sc;
         myStage = new Stage();

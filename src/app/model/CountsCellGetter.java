@@ -5,12 +5,35 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Counts Cell Getter Subclass
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class CountsCellGetter extends CellGetter{
 
+    /**
+     * CountsCellGetterConstructor
+     * @param filename
+     * @param type
+     * @param gameName
+     * @param height
+     * @param width
+     * @param maxState
+     * @param neighborType
+     * @param shape
+     * @param edgeType
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public CountsCellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape, int edgeType){
         super(filename, type, gameName, height, width, maxState, neighborType, shape, edgeType);
     }
 
+    /**
+     * Get Cells for rules cells on counts
+     * @return cells
+     * @throws IOException
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public Cell[][] getCells() throws IOException {
         String[] countsStrings = super.getMyType().split("=")[1].split(",");
 

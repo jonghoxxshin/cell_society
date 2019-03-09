@@ -3,16 +3,41 @@ package app.model;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+/**
+ * Board for Fire simulation
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class FireBoard extends Board {
     private double growProbability;
     private double catchProbability;
 
+    /**
+     * Fire Board Constructor
+     * <p>
+     *     Get catch and grow probabilities from properties file
+     * </p>
+     *
+     * @param myProperties
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public FireBoard(ResourceBundle myProperties) {
         super(myProperties);
         growProbability = Double.parseDouble(myProperties.getString("grow_probability"));
         catchProbability = Double.parseDouble(myProperties.getString("probability"));
     }
 
+    /**
+     * Update Board
+     * <p>
+     *     Following the rules from the rules parser update each cell on the board
+     *     to simulate the spread of fire. Grow probability is used to simulate tree
+     *     growth and catch probability to simulate fire spread if a neighboring cel
+     *     is on fire
+     * </p>
+     * @param rules
+     * @return cells
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     @Override
     public Cell[][] updateBoard(Rules rules) {
         Random generator = new Random();

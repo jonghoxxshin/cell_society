@@ -1,9 +1,29 @@
 package app.model;
 
+/**
+ * Hex Cell Class subclass of Cell
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class HexCell extends Cell {
     private static final int[][] NEIGHBORS_HEX = {{0, -1}, {-1, -1}, {-1, 0}, {0, 1}, {1, 0}, {1, -1}};
     private static final int[][] NEIGHBORS_HEX_TYPE3 = {{0,1}, {0,-1}, {1,-1}, {1,0}};
 
+    /**
+     * Hex Cell Constructor
+     * <p>
+     *     same constructor as super, but set shape to hexagon
+     *     and get neighbor type corresponding to hexagon
+     * </p>
+     * @param state
+     * @param x
+     * @param y
+     * @param boardHeight
+     * @param boardWidth
+     * @param neighborType
+     * @param chronons
+     * @param energy
+     * @param edgeType
+     */
     public HexCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType) {
         super(state,x,y,boardHeight,boardWidth,neighborType,chronons,energy, edgeType);
         super.setMyGridShapeType(GridShapeType.HEXAGON);
@@ -16,7 +36,13 @@ public class HexCell extends Cell {
         }
     }
 
-
+    /**
+     * Find Neighbors
+     *
+     * @param NEIGHBORS_HEX
+     * @return array of neighbor coordinates
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     @Override
     public int[][] findNeighbors(int[][] NEIGHBORS_HEX){
         int[][] tempNeighbors = getTempNeighborsForType();
@@ -29,6 +55,12 @@ public class HexCell extends Cell {
 
     }
 
+    /**
+     * Get Empty Array for Neighbor Coordinates
+     *
+     * @return empty array for neighbor coordinates
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int[][] getTempNeighborsForType(){
         if(super.getType() == 3){
             return new int[4][2];

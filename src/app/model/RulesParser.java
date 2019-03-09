@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Class to parse rules from rules.txt files
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class RulesParser {
     private static final String LIFE_RULES = "GameOfLifeRules.txt";
     private static final String PERCOLATE_RULES = "PercolationRules.txt";
@@ -32,10 +36,16 @@ public class RulesParser {
     //NEED TO REPLACE EVENTUALLY
     private double probability = 0.3;
 
-
-
-
-    //Read text file, update possibleStates, gameName, stateArray, and rulesArray from file
+    /**
+     * Rules Parser Constructor
+     * <p>
+     *     Read text file, update possibleStates, gameName, stateArray, and rulesArray from file
+     *     uses string name as argument
+     * </p>
+     * @param game
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
+    //
     public RulesParser(String game) {
         this.probability = 0.3;
         rulesArray = new ArrayList<int[]>();
@@ -69,6 +79,12 @@ public class RulesParser {
         makeRules();
     }
 
+    /**
+     * Rules Parser Constructor
+     *
+     * @param properties
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public RulesParser(ResourceBundle properties){
         this(properties.getString("type_of_game"));
         this.probability = Double.parseDouble(properties.getString("probability"));
@@ -151,7 +167,10 @@ public class RulesParser {
         return possibleStates;
     }
 
-    //print RulesArray
+    /**
+     * Print Rules Array
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public void printRulesArray() {
         System.out.println("Set of Rules: " + gameName);
 
@@ -162,22 +181,53 @@ public class RulesParser {
 
 
     // return possibleStates, ArrayList of app.model.State objects
+
+    /**
+     * Get Possible States From Rules File
+     *
+     * @return set od possible states
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public ArrayList<State> getPossibleStates(){
         return possibleStates;
     }
 
+    /**
+     * Get Game name
+     *
+     * @return game name
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public String getGameName() {
         return gameName;
     }
 
+    /**
+     * Get State Array
+     *
+     * @return array of states
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public List<Integer> getStateArray() {
         return stateArray;
     }
 
+    /**
+     * Get Rules Array
+     *
+     * @return array of Rules
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public List<int[]> getRulesArray() {
         return rulesArray;
     }
 
+    /**
+     * Get Rules type
+     *
+     * @return rules type
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getType(){
         return type;
     }

@@ -2,12 +2,34 @@ package app.model;
 
 import java.util.ResourceBundle;
 
+/**
+ * Generic Board Class
+ * Used for Game of Life, Percolation, and Rock Paper Scissors
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class GenericBoard extends Board{
 
+        /**
+         * Generic board constructor
+         *
+         * @param myProperties
+         * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+         */
         public GenericBoard(ResourceBundle myProperties){
             super(myProperties);
         }
 
+        /**
+         * Update Board
+         * <p>
+         *     Apply rules to each cell updating each cell in a temp board
+         *     and then updating the current boards cell boar to be the temp board
+         * </p>
+         *
+         * @param rules
+         * @return cells
+         * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+         */
         @Override
         public Cell[][] updateBoard(Rules rules) {
                 Cell[][] tempCells = new Cell[super.getMyHeight()][super.getMyWidth()];
