@@ -1,8 +1,9 @@
-package app.model;
+package app.model.cell;
+
+import app.model.GridShapeType;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 /**

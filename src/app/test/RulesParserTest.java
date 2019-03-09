@@ -5,7 +5,7 @@ package app.test;
  * RulesParserTest Class
  * This class checks if RulesParser is implemented correctly
  * Packages:
- * import app.model.RulesParser;
+ * import app.model.rules.RulesParser;
  * import app.model.State;
  * import org.junit.jupiter.api.Test;
  * import java.util.ArrayList;
@@ -14,7 +14,7 @@ package app.test;
  */
 
 
-import app.model.RulesParser;
+import app.model.rules.RulesParser;
 import app.model.State;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;

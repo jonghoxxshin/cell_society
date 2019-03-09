@@ -1,4 +1,7 @@
-package app.model;
+package app.model.board;
+
+import app.model.cell.Cell;
+import app.model.rules.Rules;
 
 import java.util.ResourceBundle;
 
@@ -7,7 +10,7 @@ import java.util.ResourceBundle;
  * Used for Game of Life, Percolation, and Rock Paper Scissors
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
-public class GenericBoard extends Board{
+public class GenericBoard extends Board {
 
         /**
          * Generic board constructor

@@ -1,5 +1,7 @@
-package app.model;
+package app.model.rules;
 
+
+import app.model.State;
 
 import java.io.BufferedReader;
 import java.io.IOException;

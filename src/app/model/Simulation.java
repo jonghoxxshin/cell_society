@@ -1,5 +1,9 @@
 package app.model;
 
+import app.model.board.Board;
+import app.model.cell.Cell;
+import app.model.rules.Rules;
+
 /**
  * Simulation Class: contains all important objects in a simulation
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin

@@ -12,6 +12,10 @@ package app.test;
  */
 
 import app.model.*;
+import app.model.board.Board;
+import app.model.board.GenericBoard;
+import app.model.cell.Cell;
+import app.model.rules.Rules;
 import org.junit.jupiter.api.Test;
 import java.util.ResourceBundle;
 import static org.junit.jupiter.api.Assertions.*;

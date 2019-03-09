@@ -12,7 +12,7 @@ javafx.scene.Scene;
 javafx.scene.image.Image;
 javafx.scene.image.ImageView;
 javafx.scene.paint.Color;
-app.model.Cell;
+app.model.cell.Cell;
 javafx.scene.shape.Polygon;
 javafx.scene.shape.Rectangle;
 java.util.ArrayList;
@@ -32,13 +32,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
-import app.model.Cell;
+import app.model.cell.Cell;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import javafx.scene.shape.Shape;
 
-import java.util.List;
 import java.util.ResourceBundle;
 
 

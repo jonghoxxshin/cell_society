@@ -1,4 +1,7 @@
-package app.model;
+package app.model.cell;
+
+import app.model.GridShapeType;
+import app.model.cell.Cell;
 
 /**
  * Hex Cell Class subclass of Cell

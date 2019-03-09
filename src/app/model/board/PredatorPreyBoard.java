@@ -1,4 +1,7 @@
-package app.model;
+package app.model.board;
+
+import app.model.cell.Cell;
+import app.model.rules.Rules;
 
 import java.util.List;
 import java.util.Random;
@@ -8,7 +11,7 @@ import java.util.ResourceBundle;
  * Board Subclass for Predator Prey Simulation
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
-public class PredatorPreyBoard extends Board{
+public class PredatorPreyBoard extends Board {
     Cell[][] cells;
     private final int[] orderToReplace = {2, 1, 0};
 

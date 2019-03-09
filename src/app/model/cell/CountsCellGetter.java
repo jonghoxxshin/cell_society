@@ -1,7 +1,10 @@
-package app.model;
+package app.model.cell;
+
+import app.model.GridShapeType;
+import app.model.cell.Cell;
+import app.model.cell.CellGetter;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -9,7 +12,7 @@ import java.util.Random;
  * Counts Cell Getter Subclass
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
-public class CountsCellGetter extends CellGetter{
+public class CountsCellGetter extends CellGetter {
 
     /**
      * CountsCellGetterConstructor

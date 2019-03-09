@@ -1,5 +1,13 @@
-package app.model;
+package app.model.board;
 
+
+import app.model.*;
+import app.model.cell.Cell;
+import app.model.cell.HexCell;
+import app.model.cell.RectangleCell;
+import app.model.cell.RhombusCell;
+import app.model.rules.CSVParser;
+import app.model.rules.Rules;
 
 import java.util.*;
 
@@ -23,7 +31,7 @@ public abstract class Board {
 
 
 
-    //app.model.Board Constructor
+    //app.model.board.Board Constructor
 
     /**
      * Board Constructor
