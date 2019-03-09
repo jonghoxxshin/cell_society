@@ -17,9 +17,7 @@ public abstract class Board {
     private String myGame;
     private int neighborType;
     private final int[] orderToReplace = {2, 1, 0};
-    private double threshold = 0.3;
     private CSVParser myParser;
-    private int errorStatus;
     private GridShapeType myGridShapeType;
     private String edgePolicy;
 
@@ -48,7 +46,6 @@ public abstract class Board {
         }
         neighborType = myParser.getNeighborType();
         cells = myParser.getCells();
-        System.out.println("first value in board is " + cells[0][0].toString());
 
         myHeight = myParser.getMyHeight();
         myWidth = myParser.getMyWidth();

@@ -43,9 +43,6 @@ class BoardTest {
                 //System.out.print(currentBoard[j][i].getMyState());
                 // System.out.print(newBoard[j][i].getMyState());
                 if (currentBoard[j][i].getMyState() != newBoard[j][i].getMyState()) {
-                    System.out.println("Current board state is " + currentBoard[j][i].getMyState());
-                    System.out.println("New board state is " + newBoard[j][i].getMyState());
-
                     testBool = false;
                 }
             }

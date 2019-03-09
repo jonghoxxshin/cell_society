@@ -1,8 +1,6 @@
 package app.view;
 
 import app.controller.SimulationController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
@@ -17,17 +15,11 @@ public class GraphView{
     private Group myRoot;
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
-    private ObservableList<XYChart.Series<Integer,Double>> myLineChartData;
-    private int indexCount;
+     private int indexCount;
     private XYChart.Series<Integer, Double> mySeries0;
     private XYChart.Series<Integer, Double> mySeries1;
     private XYChart.Series<Integer, Double> mySeries2;
     public GraphView(SimulationController sc, ResourceBundle prop){
-        System.out.println("graph initialized");
-        ObservableList<XYChart.Series<Integer, Double>> myLineChartData =
-                FXCollections.observableArrayList();
-
-
 
         indexCount = 0;
         mySimulationController = sc;
@@ -68,7 +60,6 @@ public class GraphView{
     }
 
     private void updateSeries(int index,ArrayList<Double> list){
-        System.out.println("the index value is " + index);
         for(int i =0; i<list.size();i++){
             if(i==0){
                 mySeries0.getData().add(new XYChart.Data<>(index, list.get(i)));

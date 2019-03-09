@@ -240,7 +240,6 @@ public class BoardView {
     }
 
     private Group createImageBoard(int width_num, int height_num){
-        System.out.println("image Board invoked");
         var result = new Group();
         for(int i = 0; i< width_num; i++){
             for(int j=0; j<height_num;j++){
@@ -369,7 +368,7 @@ public class BoardView {
     }
 
     private Group createColorBoardRect(int width_num, int height_num){
-        System.out.println("Rect Board invoked");
+
         var result = new Group();
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){

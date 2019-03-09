@@ -181,7 +181,7 @@ public class SimulationController {
 
     public void next() {//need to update model and view for each step
         startSimulation = myControlView.getMyStartBoolean();
-        System.out.println(myFramesPerSecond);
+
         if (startSimulation) {
             getStateData();
             if (mySimulationModel != null) {
@@ -196,9 +196,7 @@ public class SimulationController {
     }
 
     public void replaceBoardView(){
-        System.out.println("useImage boolean value is" + useImage);
         if(useImage){
-            System.out.println("came in here");
             myMainView.setMyBoardView(
                     new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),mySimulationModel.getMyCells(),myProperties,this, useGrid, useImage, myImageList));
         }

@@ -167,20 +167,6 @@ public class RulesParser {
         return possibleStates;
     }
 
-    /**
-     * Print Rules Array
-     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
-     */
-    public void printRulesArray() {
-        System.out.println("Set of Rules: " + gameName);
-
-        for (int[] rule : rulesArray) {
-            System.out.println("Initial: " + rule[0] + " Desired Neighbor: " + rule[1] + " Required Amount: " + rule[2] + " Final: " + rule[3] + " Alt: " + rule[4]) ;
-        }
-    }
-
-
-    // return possibleStates, ArrayList of app.model.State objects
 
     /**
      * Get Possible States From Rules File
@@ -190,36 +176,6 @@ public class RulesParser {
      */
     public ArrayList<State> getPossibleStates(){
         return possibleStates;
-    }
-
-    /**
-     * Get Game name
-     *
-     * @return game name
-     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
-     */
-    public String getGameName() {
-        return gameName;
-    }
-
-    /**
-     * Get State Array
-     *
-     * @return array of states
-     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
-     */
-    public List<Integer> getStateArray() {
-        return stateArray;
-    }
-
-    /**
-     * Get Rules Array
-     *
-     * @return array of Rules
-     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
-     */
-    public List<int[]> getRulesArray() {
-        return rulesArray;
     }
 
     /**
