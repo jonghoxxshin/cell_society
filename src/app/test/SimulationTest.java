@@ -1,10 +1,19 @@
 package app.test;
 
+/**
+ * SimulationTest Class
+ * This class tests if Simulation.java is implemented correctly
+ * Packages:
+ * import app.model.*;
+ * import org.junit.jupiter.api.Test;
+ * import java.util.ResourceBundle;
+ * import static org.junit.jupiter.api.Assertions.*;
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
+
 import app.model.*;
 import org.junit.jupiter.api.Test;
-
 import java.util.ResourceBundle;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class SimulationTest {

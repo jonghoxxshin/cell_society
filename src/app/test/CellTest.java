@@ -1,13 +1,22 @@
 package app.test;
-
+/**
+ * CellTest Class
+ * This class tests if the Cell.java is constructed correctly
+ * Packages:
+ * import app.model.*;
+ * import org.junit.jupiter.api.BeforeEach;
+ * import org.junit.jupiter.api.Test;
+ * import java.util.Arrays;
+ * import java.util.ResourceBundle;
+ * import static org.junit.jupiter.api.Assertions.*;
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 
 import app.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.ResourceBundle;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class CellTest {
