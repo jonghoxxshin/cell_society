@@ -108,6 +108,7 @@ public class BoardView {
 
     private void updateBoard(){
         myRoot.getChildren().clear();
+        mySimulationController.getStateData();
 
         if(useImage){
             myRoot = createImageBoard(myBoardWidth, myBoardHeight);

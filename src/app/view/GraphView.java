@@ -1,16 +1,12 @@
 package app.view;
 
 import app.controller.SimulationController;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Series;
-import javafx.scene.layout.VBox;
 
 import java.util.*;
 
@@ -22,7 +18,7 @@ public class GraphView{
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
     private ObservableList<XYChart.Series<Integer,Double>> myLineChartData;
-    private ArrayList<Map<Integer,Double>> myData;
+    private int indexCount;
     private XYChart.Series<Integer, Double> mySeries0;
     private XYChart.Series<Integer, Double> mySeries1;
     private XYChart.Series<Integer, Double> mySeries2;
@@ -33,7 +29,7 @@ public class GraphView{
 
 
 
-        myData = new ArrayList<>();
+        indexCount = 0;
         mySimulationController = sc;
         myProperties = prop;
         xAxis.setAnimated(true);
@@ -43,23 +39,15 @@ public class GraphView{
         myXYchart = new LineChart(xAxis, yAxis);
         mySeries0 = new XYChart.Series<Integer, Double>();
         mySeries0.setName("State 0");
-//        mySeries0.getData().add(new XYChart.Data(1,0.02));
-//        mySeries0.getData().add(new XYChart.Data<>(2, 0.21));
-//        mySeries0.getData().add(new XYChart.Data<>(3, 0.45));
         myXYchart.getData().add(mySeries0);
 
         mySeries1 = new XYChart.Series<Integer, Double>();
         mySeries1.setName("State 1");
-//        mySeries1.getData().add(new XYChart.Data(1,0.92));
-//        mySeries1.getData().add(new XYChart.Data<>(2, 0.34));
-//        mySeries1.getData().add(new XYChart.Data<>(3, 0.66));
-        myXYchart.getData().add(mySeries1);
 
+        myXYchart.getData().add(mySeries1);
         mySeries2 = new XYChart.Series<Integer, Double>();
         mySeries2.setName("State 2");
-//        mySeries2.getData().add(new XYChart.Data(1,0.09));
-//        mySeries2.getData().add(new XYChart.Data<>(2, 0.13));
-//        mySeries2.getData().add(new XYChart.Data<>(3, 0.37));
+
         myXYchart.getData().add(mySeries2);
 
         myXYchart.setMaxSize(300, 300);
@@ -70,18 +58,17 @@ public class GraphView{
     }
 
     public void addToData(Map<Integer, Double> input){
-        //comes in a form of <State, percentile>
-        //change this to <Number of Simulation, percentile>
-        myData.add(input);
-        int index = myData.indexOf(input);
+
         ArrayList<Double> tempList = new ArrayList<>();
         for(int i : input.keySet()){
             tempList.add(input.get(i));
         }
-        updateSeries(index, tempList);
+        updateSeries(indexCount, tempList);
+        indexCount++;
     }
 
     private void updateSeries(int index,ArrayList<Double> list){
+        System.out.println("the index value is " + index);
         for(int i =0; i<list.size();i++){
             if(i==0){
                 mySeries0.getData().add(new XYChart.Data<>(index, list.get(i)));

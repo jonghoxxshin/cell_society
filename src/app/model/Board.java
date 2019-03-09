@@ -42,23 +42,6 @@ public abstract class Board {
     //Update board's expectedCells based on current cell configuration
     public abstract Cell[][] updateBoard(Rules rules);
 
-    private void print2DArray(int[][] myArray) {
-        for (int[] row : myArray) {
-            for (int val : row) {
-                System.out.print(val + ",");
-            }
-            System.out.println();
-        }
-    }
-
-    private void print2DBoard(Cell[][] myArray) {
-        for (Cell[] row : myArray) {
-            for (Cell val : row) {
-                System.out.print("(" + val.getMyX() + "," + val.getMyY() + ")");
-            }
-            System.out.println();
-        }
-    }
 
     public Cell getCellAtCoordinates(int x, int y) {
         return cells[y][x];
@@ -107,11 +90,6 @@ public abstract class Board {
         }
     }
 
-
-    public int getErrorStatus() {
-        return errorStatus;
-    }
-
     public int getNeighborType() {
         return neighborType;
     }
@@ -124,11 +102,6 @@ public abstract class Board {
         }
         return 2;
     }
-
-    public GridShapeType getMyGridShapeType() {
-        return myGridShapeType;
-    }
-
 
 
 

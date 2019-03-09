@@ -159,6 +159,7 @@ public class SimulationController {
         startSimulation = myControlView.getMyStartBoolean();
         System.out.println(myFramesPerSecond);
         if (startSimulation) {
+            getStateData();
             if (mySimulationModel != null) {
                 mySimulationModel.setStart();
                 mySimulationModel.nextStep();
@@ -166,7 +167,7 @@ public class SimulationController {
                 //mySimulationModel.printMyCells();
             }
             replaceBoardView();
-            
+
         }
     }
 

@@ -124,7 +124,6 @@ public class RightView {
     }
     private void setGraph(){
         Node temp = myGraphView.getMyRoot();
-        System.out.println("graph view is called");
         myRoot.getChildren().add(temp);
 
     }
