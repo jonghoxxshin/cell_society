@@ -58,7 +58,11 @@ public class ControlView {
 
     private boolean myStartBoolean;
 
-    // Constructor to generate new Control view based on a SimulationController object
+    /**
+     * Constructor to generate new Control view based on a SimulationController object
+     *
+     * @param sc SimulationController object to associate with this ControlView object
+     */
     public ControlView (SimulationController sc){
         myProperties = ResourceBundle.getBundle("english");
         myStartBoolean = false;
@@ -69,12 +73,23 @@ public class ControlView {
 
     }
 
-    // Function to return root of the Control View
+    /**
+     * Function to return root of the Control View
+     *
+     * @return root/HBox base of ControlView that contains visual components to control the flow/animation of the
+     * simulation
+     *
+     */
+
     public HBox getMyRoot(){
         return myRoot;
     }
 
-    // Function to return boolean as to whether or not start has been pressed
+    /**
+     * Function to return boolean as to whether or not start has been pressed
+     *
+     * @return myStartBoolean, which indicates whether or not animation is running
+     */
     public boolean getMyStartBoolean(){
         return myStartBoolean;
     }

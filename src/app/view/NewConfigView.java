@@ -74,7 +74,11 @@ public class NewConfigView {
     private TextField des;
 
 
-    // Constructor to generate new NewConfigView from active SimulationController
+    /**
+     * Constructor to generate new NewConfigView from active SimulationController
+     *
+     * @param sc SimulationController object that is used by app to control the simulation
+     */
     public NewConfigView(SimulationController sc){
         mySimulationController = sc;
         myStage = new Stage();

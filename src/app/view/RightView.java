@@ -59,8 +59,15 @@ public class RightView {
     private BoardView myBoardView;
     private ArrayList<Image> myImages;
 
-    // Constructor to generate new RightView object based on the current/active SimulationController and a a specified
-    // BoardView object
+
+
+    /**
+     * Constructor to generate new RightView object based on the current/active SimulationController and a a specified
+     * BoardView object
+     *
+     * @param sc SimulationController object to generate corresponding RightView object for
+     * @param bv the BoardView object that this RightView object will generate GUI components to allow user to modify
+     */
     public RightView(SimulationController sc, BoardView bv) {
         mySimulationController = sc;
         myBoardView = bv;
