@@ -28,8 +28,12 @@ public class CSVParser {
     private GridShapeType myGridShapeType;
     private CellGetter myCellGetter;
     private int edgeType;
+    private boolean usingCSV;
 
     public CSVParser(ResourceBundle myProperties){
+        this.usingCSV = false;
+
+        this.neighborType = Integer.parseInt(myProperties.getString("neighbor_type"));
         this.errorStatus = 0;
 
         String csvGame = myProperties.getString("name_of_csv");
@@ -49,6 +53,7 @@ public class CSVParser {
 
 
     public CSVParser(String filename){
+        this.usingCSV = true;
         // file name constructor lets us keep tests the same
         this.errorStatus = 0;
 
@@ -64,22 +69,34 @@ public class CSVParser {
 
     private void determineNeighborType(){
         if (gameType.toLowerCase().equals(LIFE)) {
-            neighborType = 1;
+            if(usingCSV) {
+                neighborType = 1;
+            }
             maxState = 1;
         } else if (gameType.toLowerCase().equals(PERCOLATE)) {
-            neighborType = 1;
+            if(usingCSV) {
+                neighborType = 1;
+            }
             maxState = 2;
         } else if (gameType.toLowerCase().equals(RPS)) {
-            neighborType = 1;
+            if(usingCSV) {
+                neighborType = 1;
+            }
             maxState = 2;
         } else if (gameType.toLowerCase().equals(SEG)){
-            neighborType = 1;
+            if(usingCSV) {
+                neighborType = 1;
+            }
             maxState = 2;
         }  else if (gameType.toLowerCase().equals(FIRE)){
-            neighborType = 2;
+            if(usingCSV) {
+                neighborType = 2;
+            }
             maxState = 2;
         }  else if (gameType.toLowerCase().equals(PRED)) {
-            neighborType = 2;
+            if(usingCSV) {
+                neighborType = 2;
+            }
             maxState = 2;
         }
 
@@ -102,7 +119,10 @@ public class CSVParser {
             // refreshes, we don't execute partially and have an error - instead, just don't refresh at all
         }
 
+
+        // if using csv and not properties file, determine neighbors type from name of game
         determineNeighborType();
+
 
         if(errorStatus==1){
             throw new IOException(this.errorType);
