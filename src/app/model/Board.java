@@ -1,17 +1,16 @@
 package app.model;
 
-import app.view.IBoardObserver;
-import java.util.*;
 
+import java.util.*;
 
 /**
  * Abstract Board Class
  * Packages: app.view.IBoardObserver; java.util.*;
  * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
  */
-public abstract class Board implements IBoardObservable {
 
 
+public abstract class Board {
     Cell[][] cells;
     private int myWidth;
     private int myHeight;
@@ -24,7 +23,6 @@ public abstract class Board implements IBoardObservable {
     private GridShapeType myGridShapeType;
     private String edgePolicy;
 
-    protected ArrayList<IBoardObserver> myObservers;
 
 
     //app.model.Board Constructor
@@ -45,7 +43,6 @@ public abstract class Board implements IBoardObservable {
         myGridShapeType = new GridShape().getShape(myProperties.getString("shape"));
         edgePolicy = myProperties.getString("edge_policy");
         myParser = new CSVParser(myProperties);
-        myObservers = new ArrayList<>();
         if(myParser.getErrorStatus() == 1){
 
         }
@@ -71,25 +68,6 @@ public abstract class Board implements IBoardObservable {
      */
     public abstract Cell[][] updateBoard(Rules rules);
 
-    //Print 2D int array, used mainly for debugging
-    private void print2DArray(int[][] myArray) {
-        for (int[] row : myArray) {
-            for (int val : row) {
-                System.out.print(val + ",");
-            }
-            System.out.println();
-        }
-    }
-
-    //Print 2D cell array, used mainly for debugging
-    private void print2DBoard(Cell[][] myArray) {
-        for (Cell[] row : myArray) {
-            for (Cell val : row) {
-                System.out.print("(" + val.getMyX() + "," + val.getMyY() + ")");
-            }
-            System.out.println();
-        }
-    }
 
     /**
      * Get Cell at Coordinates
@@ -208,28 +186,7 @@ public abstract class Board implements IBoardObservable {
         }
     }
 
-    /**
-     * Get Error Status
-     * <p>
-     *     if error was triggered, errorStatus flag is set to true
-     * </p>
-     * @return int
-     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
-     */
-    public int getErrorStatus() {
-        return errorStatus;
-    }
 
-    /**
-     * Get NeighborType
-     *<p>
-     *     Get neighbor type as retrieved from CSVParser object
-     *</p>
-     *
-     *
-     * @return int
-     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
-     */
     public int getNeighborType() {
         return neighborType;
     }
@@ -241,37 +198,6 @@ public abstract class Board implements IBoardObservable {
             return 1;
         }
         return 2;
-    }
-
-    /**
-     * Get GridShapeType
-     *
-     * @return GridShapeType
-     */
-    public GridShapeType getMyGridShapeType() {
-        return myGridShapeType;
-    }
-
-    //methods for IBoardObservable interface
-    @Override
-    public void registerObserver(IBoardObserver o){
-        myObservers.add(o);
-    }
-
-    @Override
-    public void removeObserver(IBoardObserver o){
-        int i = myObservers.indexOf(o);
-        if (i >= 0) {
-            myObservers.remove(i);
-        }
-    }
-
-    @Override
-    public void notifyObservers(){
-        for(int i = 0; i<myObservers.size(); i++){
-            IBoardObserver observer = (IBoardObserver) myObservers.get(i);
-            observer.update(new Object());
-        }
     }
 
 

@@ -36,12 +36,12 @@ public class MainView {
     private BorderPane myRoot;
     private ControlView myControlView;
     private RightView myRightView;
+    private GraphView myGraphView;
     private Scene myScene;
     private Label myLabel;
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
     private boolean myStartBoolean;
-
 
 
     /**
@@ -53,14 +53,16 @@ public class MainView {
      * @param sc the active SimulationController object associated with Mainview
      * @param cv ControlView to be used in MainView
      * @param rv RightView to be used in MainView
+     * @param gv GraphView to be used in MainView
      */
-    public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv) {
+    public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv, GraphView gv) {
         myProperties = ResourceBundle.getBundle("english");
         mySimulationController = sc;
         myStartBoolean = false;
         myBoardView = bv;
         myRightView = rv;
         myControlView = cv;
+        myGraphView = gv;
         this.myRoot = root;
 
         myRoot.setTop(this.makeTop());
@@ -111,8 +113,7 @@ public class MainView {
         result = myBoardView.getMyRoot();
         return result;
     }
-
-
+    
 
     /**
      * Method to set new BoardView object as MainView's board, which, for visual purposes, regenerates the board
@@ -123,15 +124,6 @@ public class MainView {
     public void  setMyBoardView(BoardView bv){
         myBoardView = bv;
         myRoot.setCenter(bv.getMyRoot());
-    }
-
-    /**
-     * Method to return BoardView object being used as BorderPane object's central object
-     *
-     * @return BoardView object being used as BorderPane object's central object
-     */
-    public BoardView getMyBoardView(){
-        return myBoardView;
     }
 
 }
