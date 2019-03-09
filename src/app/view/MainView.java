@@ -113,7 +113,7 @@ public class MainView {
         result = myBoardView.getMyRoot();
         return result;
     }
-    
+
 
     /**
      * Method to set new BoardView object as MainView's board, which, for visual purposes, regenerates the board

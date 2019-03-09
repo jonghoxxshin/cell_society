@@ -1,5 +1,29 @@
 package app.controller;
 
+
+
+/**
+ * SimulationController class
+ * Packages: app.model.Board;
+ *  app.model.Rules;
+ *  app.model.Simulation;
+ *  app.view.*;
+ *  app.model.*;
+ *  app.view.BoardView;
+ *  app.view.ControlView;
+ *  app.view.MainView;
+ *  javafx.animation.KeyFrame;
+ *  javafx.animation.Timeline;
+ *  javafx.scene.Scene;
+ *  javafx.scene.image.Image;
+ *  javafx.scene.paint.Color;
+ *  javafx.scene.layout.BorderPane;
+ *  javafx.util.Duration;
+ *  java.util.*;
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
+
+
 import app.model.Board;
 import app.model.Rules;
 import app.model.Simulation;
@@ -178,8 +202,8 @@ public class SimulationController {
             myMainView.setMyBoardView(
                     new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),mySimulationModel.getMyCells(),myProperties,this, useGrid, useImage, myImageList));
         }
-        if(color0 != null) myMainView.setMyBoardView(
-                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid, useImage, color0, color1, color2));
+        else if(color0 != null) myMainView.setMyBoardView(
+                new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid, null, color0, color1, color2));
         else if(useGrid){
             myMainView.setMyBoardView(
                     new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), mySimulationModel.getMyCells(), myProperties, this, useGrid, useImage));
@@ -231,8 +255,7 @@ public class SimulationController {
     }
 
     public void setNewBoard(){
-
-        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,this, useImage, useGrid, color0,color1,color2);
+        myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties,this, useGrid, null, color0,color1,color2);
         myRightView  = new RightView(this, myBoardView, new GraphView(this, myProperties));
         myMainView.setMyBoardView(myBoardView);
     }
@@ -247,7 +270,7 @@ public class SimulationController {
 
     }
 
-    public void setImage(ArrayList imageList){
+    public void setImage(ArrayList<Image> imageList){
         useImage = true;
         myImageList = imageList;
         myBoardView = new BoardView(myBoard.getMyWidth(),myBoard.getMyHeight(),myBoard.getCells(),myProperties, this, false, useImage, myImageList);

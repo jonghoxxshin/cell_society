@@ -1,5 +1,22 @@
 package app.test;
 
+/**
+ * HexCellTest Class
+ * This class tests if HexCell.java is implemented correctly
+ * Packages:
+ * import app.model.Board;
+ * import app.model.GenericBoard;
+ * import app.model.HexCell;
+ * import app.model.Rules;
+ * import org.junit.jupiter.api.Test;
+ *
+ * import java.util.ResourceBundle;
+ *
+ * import static org.junit.jupiter.api.Assertions.*;
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
+
+
 import app.model.Board;
 import app.model.GenericBoard;
 import app.model.HexCell;
