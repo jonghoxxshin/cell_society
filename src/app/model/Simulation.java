@@ -15,6 +15,7 @@ public class Simulation {
 
     public void nextStep(){
         if(start) {
+            System.out.println(myBoard.getCurrentStateData());
             myCells = myBoard.updateBoard(myRules);
         }
     }
