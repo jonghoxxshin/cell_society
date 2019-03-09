@@ -63,16 +63,8 @@ public class SimulationController {
 
     public SimulationController(int height, int width, String game, ResourceBundle myProperties) {//Will change to instantiating simulation and simulationView inside controller, not as input
         this.myProperties = myProperties;
-        boardType = Integer.parseInt(myProperties.getString("board_type"));
-        if (boardType == PREDATORPREY_BOARD) {
-            myBoard = new PredatorPreyBoard(myProperties);
-        } else if (boardType == SEGREGATION_BOARD) {
-            myBoard = new SegregationBoard(myProperties);
-        } else if (boardType == FIRE_BOARD) {
-            myBoard = new FireBoard(myProperties);
-        } else {
-            myBoard = new GenericBoard(myProperties);
-        }
+        boardType = getBoardType();
+        getBoard();
         myRules = new Rules(myProperties);
         myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this, false, false);
         mySimulationModel = new Simulation(myBoard, myRules);
@@ -120,20 +112,37 @@ public class SimulationController {
         setTimeline();
     }
 
-    public void setConfig(String t1){
-        this.pauseSimulation();
-
-        myProperties = ResourceBundle.getBundle(t1);
-        boardType = Integer.parseInt(myProperties.getString("board_type"));
-        if (boardType == 2) {
+    private void getBoard(){
+        if (boardType == PREDATORPREY_BOARD) {
             myBoard = new PredatorPreyBoard(myProperties);
-        } else if (boardType == 3) {
+        } else if (boardType == SEGREGATION_BOARD) {
             myBoard = new SegregationBoard(myProperties);
-        } else if (boardType == 4) {
+        } else if (boardType == FIRE_BOARD) {
             myBoard = new FireBoard(myProperties);
         } else {
             myBoard = new GenericBoard(myProperties);
         }
+    }
+
+    private int getBoardType(){
+        String myGame = myProperties.getString("type_of_game");
+        if (myGame.toLowerCase().equals("predatorprey")){
+            return PREDATORPREY_BOARD;
+        } else if (myGame.toLowerCase().equals("fire")){
+            return FIRE_BOARD;
+        } else if (myGame.toLowerCase().equals("segregation")){
+            return SEGREGATION_BOARD;
+        } else {
+            return -1;
+        }
+    }
+
+    public void setConfig(String t1){
+        this.pauseSimulation();
+
+        myProperties = ResourceBundle.getBundle(t1);
+        boardType = getBoardType();
+        getBoard();
         myRules = new Rules (myProperties);
         mySimulationModel = new Simulation(myBoard,myRules);
         myBoardView = new BoardView(myBoard.getMyWidth(), myBoard.getMyHeight(), myBoard.getCells(), myProperties, this, false, useImage);
