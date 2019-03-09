@@ -1,5 +1,35 @@
 package app.view;
 
+/*
+Authors: Jaiveer Katariya, Jongho Shin, Kyle Harvey
+
+This class is used to generate the visual components that allow the user to configure their simulation with the colors
+or images they wish to use to represent specific states. It assumes tha the FileChooser configured with JavaFX for Mac
+will also work for Windows Computers; this is not something that we were able to test. The class's implementation also
+assumes that the user possesses the following
+dependencies/packages:
+app.controller.SimulationController;
+app.model.State;
+javafx.geometry.Pos;
+javafx.scene.Node;
+javafx.scene.control.Button;
+javafx.scene.control.ColorPicker;
+javafx.scene.control.Label;
+javafx.scene.image.Image;
+javafx.scene.layout.HBox;
+javafx.scene.layout.VBox;
+javafx.scene.paint.Color;
+javafx.stage.FileChooser;
+java.io.File;
+java.util.ArrayList;
+java.util.ResourceBundle;
+
+
+This class is used in the SimluationController and the MainView classes, and to use it, one would simply need to declare
+it with the parameters specified by the constructor.
+
+ */
+
 import app.controller.SimulationController;
 import app.model.State;
 import javafx.geometry.Pos;
@@ -29,6 +59,8 @@ public class RightView {
     private BoardView myBoardView;
     private ArrayList<Image> myImages;
 
+    // Constructor to generate new RightView object based on the current/active SimulationController and a a specified
+    // BoardView object
     public RightView(SimulationController sc, BoardView bv) {
         mySimulationController = sc;
         myBoardView = bv;
@@ -39,6 +71,7 @@ public class RightView {
         setView();
     }
 
+    // Method to return the RightView's root containing GUI components to modify the simulation's state
     public Node getMyRoot() {
         return myRoot;
     }

@@ -1,5 +1,31 @@
 package app.view;
 
+/*
+Authors: Jaiveer Katariya, Jongho Shin, Kyle Harvey
+
+
+
+
+This class is used to generate the view that contains the different components by which the user would control the
+simulation. It assumes that the user possesses the following dependencies/packages:
+app.controller.SimulationController;
+javafx.beans.value.ChangeListener;
+javafx.beans.value.ObservableValue;
+javafx.collections.FXCollections;
+javafx.collections.ObservableList;
+javafx.event.ActionEvent;
+javafx.event.EventHandler;
+javafx.scene.control.*;
+javafx.scene.control.Button;
+javafx.scene.layout.HBox;
+java.util.ArrayList;
+java.util.ResourceBundle;
+
+This class is used in the SimluationController and the MainView classes, and to use it, one would simply need to declare
+it with the parameters specified by the constructor.
+
+ */
+
 import app.controller.SimulationController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -32,7 +58,7 @@ public class ControlView {
 
     private boolean myStartBoolean;
 
-
+    // Constructor to generate new Control view based on a SimulationController object
     public ControlView (SimulationController sc){
         myProperties = ResourceBundle.getBundle("english");
         myStartBoolean = false;
@@ -43,14 +69,17 @@ public class ControlView {
 
     }
 
+    // Function to return root of the Control View
     public HBox getMyRoot(){
         return myRoot;
     }
 
+    // Function to return boolean as to whether or not start has been pressed
     public boolean getMyStartBoolean(){
         return myStartBoolean;
     }
 
+    // Function to set value of start boolean
     public void setMyStartBoolean(Boolean b){
         myStartBoolean = b;
     }
