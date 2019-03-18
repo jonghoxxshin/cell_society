@@ -38,6 +38,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 public class NewConfigView {
     public static final int PAGE_WIDTH = 400;
@@ -66,6 +67,7 @@ public class NewConfigView {
     private ComboBox myEdgePolicies;
     private ComboBox myNeighborPolicies;
     private SimulationController mySimulationController;
+    private ResourceBundle myProperties;
 
 
     private TextField nameField;
@@ -80,6 +82,7 @@ public class NewConfigView {
      * @param sc SimulationController object that is used by app to control the simulation
      */
     public NewConfigView(SimulationController sc){
+        myProperties = ResourceBundle.getBundle("spanish");
         mySimulationController = sc;
         myStage = new Stage();
         setScene();
@@ -110,7 +113,7 @@ public class NewConfigView {
         }
         myGameOptions = FXCollections.observableArrayList(gameList);
         myGames = new ComboBox(myGameOptions);
-        myGames.setPromptText("Choose a game");
+        myGames.setPromptText(myProperties.getString("choose_a_game_prompt"));
         myRoot.getChildren().add(myGames);
     }
 
@@ -121,7 +124,7 @@ public class NewConfigView {
         }
         myShapeOptions = FXCollections.observableArrayList(shapeList);
         myShapes = new ComboBox(myShapeOptions);
-        myShapes.setPromptText("Choose a grid shape");
+        myShapes.setPromptText(myProperties.getString("choose_a_grid_shape_prompt"));
         myRoot.getChildren().add(myShapes);
     }
 
@@ -132,7 +135,7 @@ public class NewConfigView {
         }
         myEdgeOptions = FXCollections.observableArrayList(edgePolicyList);
         myEdgePolicies = new ComboBox(myEdgeOptions);
-        myEdgePolicies.setPromptText("Choose an edge policy");
+        myEdgePolicies.setPromptText(myProperties.getString("choose_an_edge_policy_prompt"));
         myRoot.getChildren().add(myEdgePolicies);
     }
 
@@ -143,7 +146,7 @@ public class NewConfigView {
         }
         myNeighborOptions = FXCollections.observableArrayList(neighborPolicyList);
         myNeighborPolicies = new ComboBox(myNeighborOptions);
-        myNeighborPolicies.setPromptText("Choose a neighbor policy");
+        myNeighborPolicies.setPromptText(myProperties.getString("choose_a_neighbor_policy_prompt"));
         myRoot.getChildren().add(myNeighborPolicies);
     }
 
@@ -196,13 +199,13 @@ public class NewConfigView {
         }
         myCSVOptions = FXCollections.observableArrayList(configList);
         myDropDown = new ComboBox(myCSVOptions);
-        myDropDown.setPromptText("Choose CSV configuration");
+        myDropDown.setPromptText(myProperties.getString("choose_a_csv_config_prompt"));
         myRoot.getChildren().add(myDropDown);
     }
 
     private void setBottom(){
         HBox temp = new HBox();
-        mySubmitButton = new Button("submit");
+        mySubmitButton = new Button(myProperties.getString("submit"));
         mySubmitButton.setOnAction(e -> this.submit(mySimulationController));
         temp.getChildren().add(mySubmitButton);
         temp.setAlignment(Pos.CENTER);
@@ -217,10 +220,10 @@ public class NewConfigView {
     }
 
     private void setComponent(){
-        setNameComponent("Creator's name");
-        setPropNameComponent("Name of the property file");
-        setTypeComponent("Simulation name");
-        setDesComponent("Description");
+        setNameComponent(myProperties.getString("creator_name_prompt"));
+        setPropNameComponent(myProperties.getString("prop_filename_prompt"));
+        setTypeComponent(myProperties.getString("simulation_name_prompt"));
+        setDesComponent(myProperties.getString("description_prompt"));
     }
 
 
