@@ -522,7 +522,7 @@ public abstract class Cell{
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Cell) {
+        if (obj.getClass().equals(this.getClass())){
             Cell tempCell = (Cell) obj;
 
             if (tempCell.myState == this.myState && tempCell.myX == this.myX && tempCell.myY == this.myY) {
@@ -530,6 +530,11 @@ public abstract class Cell{
             }
         }
         return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
 
     @Override
