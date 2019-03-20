@@ -306,4 +306,12 @@ public class MainView {
     public void  setMyBoardView(BoardView bv)
     EXTERNAL
 }
+
+ How can you reduce the number of methods needed to do a task or make them easier to find and understand?
+ 
+ 
+ 
+ What can you take as a parameter or return that helps other programmers write their own well designed code?
+ How can you simplify the expectations for each method so they are easier use (and thus harder to misuse)?
+ What can you take as a parameter or return that makes fewer assumptions about the implementation or this specific example?
  
