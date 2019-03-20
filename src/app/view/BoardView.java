@@ -27,6 +27,7 @@ it with the parameters specified by the constructor.
 
 import app.model.GridShapeType;
 import app.controller.SimulationController;
+import app.model.board.Board;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -59,7 +60,7 @@ public class BoardView {
 
     private Group myRoot;
     private Shape[][] myColorBoard;
-    private Cell[][] myBoard;
+    private Board myBoard;
     private GridShapeType myGridShape;
 
     private ArrayList<Image> myImageArray;
@@ -74,9 +75,7 @@ public class BoardView {
      * SimulationController, and booleans to specify whether images or outlines are to be used, along with a list of
      * images to render
      *
-     * @param width width of board
-     * @param height height of board
-     * @param board 2d array of cells to make BoardView from
+     * @param board Board.java object to make BoardView from
      * @param properties properties file/ResourcesBundle for active simulation
      * @param sc SimulationController for active simulation
      * @param grid boolean to indicate whether or not user wants outlines for their grid
@@ -85,8 +84,8 @@ public class BoardView {
      */
 
 
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, ArrayList<Image> list){
-        this(width, height, board, properties, sc, grid, list, Color.WHITE, Color.BLACK, Color.BLUE);
+    public BoardView( Board board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, ArrayList<Image> list){
+        this( board, properties, sc, grid, list, Color.WHITE, Color.BLACK, Color.BLUE);
         myImageArray = list;
     }
 
@@ -96,16 +95,14 @@ public class BoardView {
      * Constructor to generate a new BoardView with a specified width, height, 2D array of cells, ResourceBundle,
      * SimulationController, and booleans to specify whether images or outlines are to be used
      *
-     * @param width width of board
-     * @param height height of board
-     * @param board 2d array of cells to make BoardView from
+     * @param board Board.java object to make BoardView from
      * @param properties properties file/ResourcesBundle for active simulation
      * @param sc SimulationController for active simulation
      * @param grid boolean to indicate whether or not user wants outlines for their grid
      * @param image boolean to indicate whether or not user wants to use images for their states
      */
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, boolean image){
-        this(width, height, board, properties, sc, grid, null, Color.WHITE, Color.BLACK, Color.BLUE);
+    public BoardView(Board board, ResourceBundle properties, SimulationController sc, boolean grid, boolean image){
+        this(board, properties, sc, grid, null, Color.WHITE, Color.BLACK, Color.BLUE);
     }
 
 
@@ -115,9 +112,7 @@ public class BoardView {
      * SimulationController, and booleans to specify whether images or outlines are to be used, along with specified
      * colors for the maximum possible number of states (3)
      *
-     * @param width width of board
-     * @param height height of board
-     * @param board 2d array of cells to make BoardView from
+     * @param board Board.java object to make BoardView from
      * @param properties properties file/ResourcesBundle for active simulation
      * @param sc SimulationController for active simulation
      * @param grid boolean to indicate whether or not user wants outlines for their grid
@@ -125,22 +120,22 @@ public class BoardView {
      * @param c1 color for state 1
      * @param c2 color for state 2
      */
-    public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, ArrayList<Image> images, Color c0, Color c1, Color c2){
+    public BoardView( Board board, ResourceBundle properties, SimulationController sc, boolean grid, ArrayList<Image> images, Color c0, Color c1, Color c2){
         myProperties = properties;
-        myBoardWidth = width;
-        myBoardHeight = height;
+        myBoardWidth = board.getMyWidth();
+        myBoardHeight = board.getMyHeight();
         myBoard = board;
         useStroke = grid;
         mySimulationController = sc;
         myImageArray = images;
-        myGridShape = myBoard[0][0].getMyGridShapeType();
+        myGridShape = myBoard.getCellAtCoordinates(0,0).getMyGridShapeType();
         myColor0 = c0;
         myColor1 = c1;
         myColor2 = c2;
         myStrokeColor = Color.BLACK;
         useImage = false;
-        cellHeight = BOARD_HEIGHT/height;
-        cellWidth = BOARD_WIDTH/width;
+        cellHeight = BOARD_HEIGHT/myBoardHeight;
+        cellWidth = BOARD_WIDTH/myBoardWidth;
         myImageViewBoard = new ImageView[myBoardWidth][myBoardHeight];
         myColorBoard = new Shape[myBoardWidth][myBoardHeight];
         myRoot = new Group();
@@ -242,7 +237,7 @@ public class BoardView {
         var result = new Group();
         for(int i = 0; i< width_num; i++){
             for(int j=0; j<height_num;j++){
-                Cell c = myBoard[j][i];
+                Cell c = myBoard.getCellAtCoordinates(i,j);
                 ImageView imageView = new ImageView();
                 assignImage(c, imageView);
                 myImageViewBoard[i][j] = imageView;
@@ -262,7 +257,7 @@ public class BoardView {
         for(int i =0; i<width_num;i++){
             for(int j=0; j<height_num;j++){
 
-                Cell c = myBoard[j][i];
+                Cell c = myBoard.getCellAtCoordinates(i,j);
                 Polygon myPoly = new Polygon();
                 // add polygon points
                 assignColor(c, myPoly);
@@ -373,7 +368,7 @@ public class BoardView {
             for(int j=0; j<height_num;j++){
                 Rectangle r = new Rectangle(cellWidth,cellHeight);
 
-                Cell c = myBoard[j][i];
+                Cell c = myBoard.getCellAtCoordinates(i, j);
                 assignColor(c, r);
                 myColorBoard[i][j] = r;
                 int[] loc = getLocationRect(i,j,width_num,height_num);
