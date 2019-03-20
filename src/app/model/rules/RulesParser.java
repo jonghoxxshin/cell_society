@@ -94,9 +94,7 @@ public class RulesParser {
 
 
     private String getFileName(String game){
-        if (game.toLowerCase().equals(LIFE)){
-            return LIFE_RULES;
-        } else if (game.toLowerCase().equals(PERCOLATE)) {
+         if (game.toLowerCase().equals(PERCOLATE)) {
             return PERCOLATE_RULES;
         } else if (game.toLowerCase().equals(RPS)) {
             return RPS_RULES;
@@ -107,7 +105,7 @@ public class RulesParser {
         } else if (game.toLowerCase().equals(FIRE)) {
             return FIRE_RULES;
         }
-        return null;
+        return LIFE_RULES;
     }
 
     //Parse line with rule from file
