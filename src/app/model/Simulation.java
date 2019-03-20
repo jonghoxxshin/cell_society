@@ -64,9 +64,7 @@ public class Simulation {
      * @return cells
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
-    public Cell[][] getMyCells(){
-        return myCells;
-    }
+    public Board getMyBoard(){ return myBoard;}
 
 
 }

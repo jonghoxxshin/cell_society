@@ -29,9 +29,9 @@ class SimulationTest {
         Rules testRules = new Rules(testProperties.getString("type_of_game"));
         Boolean testBool = true;
         Simulation testSim  = new Simulation(testBoard, testRules);
-        Cell[][] before = testSim.getMyCells();
+        Cell[][] before = testSim.getMyBoard().getCells();
         testSim.nextStep();
-        Cell[][] after = testSim.getMyCells();
+        Cell[][] after = testSim.getMyBoard().getCells();
         for (int i = 0; i < before.length; i++) {
             for (int j = 0; j < before[i].length; j++) {
                 if (!before[j][i].equals(after[j][i])) {
@@ -52,9 +52,9 @@ class SimulationTest {
         Rules test2Rules = new Rules(testProperties.getString("type_of_game"));
         Simulation test2Sim  = new Simulation(test2Board, test2Rules);
         Boolean testBool = true;
-        Cell[][] expected = test2Sim.getMyCells();
+        Cell[][] expected = test2Sim.getMyBoard().getCells();
         testSim.nextStep();
-        Cell[][] after = testSim.getMyCells();
+        Cell[][] after = testSim.getMyBoard().getCells();
         for (int i = 0; i < after.length; i++) {
             for (int j = 0; j < after[i].length; j++) {
                 if (!after[j][i].equals(expected[j][i])) {
