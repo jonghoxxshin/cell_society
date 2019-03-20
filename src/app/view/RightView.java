@@ -31,7 +31,6 @@ it with the parameters specified by the constructor.
  */
 
 import app.controller.SimulationController;
-import app.model.State;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -52,7 +51,6 @@ public class RightView {
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
     private Button mySubmitButton;
-    private Button myLoadImageButton;
     private ColorPicker myColorPicker0;
     private ColorPicker myColorPicker1;
     private ColorPicker myColorPicker2;
@@ -142,10 +140,10 @@ public class RightView {
     }
 
     private void setLoadImageButton() {
-        myLoadImageButton = new Button();
-        myLoadImageButton.setText(myProperties.getString("load_image_button"));
-        myLoadImageButton.setOnAction(e -> this.loadImage());
-        myRoot.getChildren().add(myLoadImageButton);
+        Button tempLoadImageButton = new Button();
+        tempLoadImageButton.setText(myProperties.getString("load_image_button"));
+        tempLoadImageButton.setOnAction(e -> this.loadImage());
+        myRoot.getChildren().add(tempLoadImageButton);
     }
 
 

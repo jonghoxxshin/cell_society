@@ -72,7 +72,7 @@ public class SimulationController {
     private boolean useImage;
     private boolean useGrid;
     private List<String> myPropertiesList;
-    private BorderPane myRoot;
+
 
     /**
      * Constructor for Simulation Controller, creates instances for the view and model components of the Application and facilitates communication between the two
@@ -332,8 +332,8 @@ public class SimulationController {
     }
 
     private void setUpScene(){
-        this.myRoot = new BorderPane();
-        myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView, myGraphView);
+        BorderPane tempRoot = new BorderPane();
+        myMainView = new MainView(myBoardView, tempRoot,this, myControlView, myRightView, myGraphView);
         startSimulation = myMainView.getMyStartBoolean();
         myScene = myMainView.getScene();
     }
