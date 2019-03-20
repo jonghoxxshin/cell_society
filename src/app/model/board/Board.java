@@ -19,7 +19,7 @@ import java.util.*;
 
 
 public abstract class Board {
-    Cell[][] cells;
+    private Cell[][] cells;
     private int myWidth;
     private int myHeight;
     private String myGame;
