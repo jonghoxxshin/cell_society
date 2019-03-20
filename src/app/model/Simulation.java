@@ -42,16 +42,6 @@ public class Simulation {
     }
 
     /**
-     * Get Simulation Rules
-     *
-     * @return rules
-     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
-     */
-    public Rules getMyRules(){
-        return myRules;
-    }
-
-    /**
      * Start Simulation
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */

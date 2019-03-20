@@ -42,13 +42,13 @@ public class CountsCellGetter extends CellGetter {
 
         super.setMyCounts(stringsToDouble(countsStrings));
 
-        double totalPossible = super.getMyHeight() * super.getMyWidth();
-
         if(super.getMyCounts().length != super.getMaxState() + 1){
             super.setErrorStatus(1);
             super.setErrorType("Counts incorrectly formatted - different number of counts than states!");
             throw new IOException(super.getErrorType());
         }
+
+        double totalPossible = super.getMyHeight() * super.getMyWidth();
 
         if(sumOfDoubles(super.getMyCounts()) != totalPossible){
             super.setErrorStatus(1);

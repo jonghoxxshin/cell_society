@@ -142,7 +142,7 @@ public abstract class Board {
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
     public Map<Integer, Double> getCurrentStateData () {
-        Map<Integer, Double> dataDict = new HashMap<Integer, Double>();
+        Map<Integer, Double> dataDict = new HashMap<>();
         for (int state : orderToReplace) {
             double count = 0;
             for (int i = 0; i < myHeight; i++) {
