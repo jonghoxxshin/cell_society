@@ -1,11 +1,26 @@
 package app.test;
 
 
-import app.model.Rules;
-import app.model.State;
-import org.junit.jupiter.api.Test;
+/**
+ * RulesTest Class
+ * This class tests of Rules.java is implemented correctly
+ * Packages:
+ *import app.model.rules.Rules;
+ * import app.model.State;
+ * import org.junit.jupiter.api.Test;
+ * import java.util.ArrayList;
+ * import static org.junit.jupiter.api.Assertions.*;
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 
+
+import app.model.rules.Rules;
+import app.model.State;
+import app.model.rules.RulesParser;
+import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,7 +34,7 @@ class RulesTest {
     void getPossibleStatesLife() {
         Rules myRules = new Rules(LIFE);
         Boolean myTestBool = true;
-        ArrayList<State> stateArray = myRules.getPossibleStates();
+        List<State> stateArray = myRules.getPossibleStates();
         int expected = 2;
         int actual = stateArray.size();
         assertEquals(expected, actual);
@@ -38,7 +53,7 @@ class RulesTest {
     void getPossibleStatesPercolate() {
         Rules myRules = new Rules(PERCOLATE);
         Boolean myTestBool = true;
-        ArrayList<State> stateArray = myRules.getPossibleStates();
+        List<State> stateArray = myRules.getPossibleStates();
         int expected = 3;
         int actual = stateArray.size();
         assertEquals(expected, actual);
@@ -51,5 +66,14 @@ class RulesTest {
             }
         }
         assertTrue(myTestBool);
+    }
+
+    @Test
+    void testConstructor(){
+        ResourceBundle testProperties = ResourceBundle.getBundle("test");
+
+        Rules testRules = new Rules(testProperties);
+
+        assertEquals(testProperties, testRules.getMyProperties());
     }
 }

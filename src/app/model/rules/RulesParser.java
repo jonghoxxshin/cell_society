@@ -1,13 +1,20 @@
-package app.model;
+package app.model.rules;
 
+
+import app.model.State;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Class to parse rules from rules.txt files
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 public class RulesParser {
     private static final String LIFE_RULES = "GameOfLifeRules.txt";
     private static final String PERCOLATE_RULES = "PercolationRules.txt";
@@ -15,24 +22,36 @@ public class RulesParser {
     private static final String SEGREGATION_RULES = "SegregationRules.txt";
     private static final String PREDATORPREY_RULES = "PredatorPreyRules.txt";
     private static final String FIRE_RULES = "FireRules.txt";
-    private ArrayList<State> possibleStates;
+    private static final String LIFE = "gameoflife";
+    private static final String PERCOLATE = "percolation";
+    private static final String RPS = "rockpaperscissors";
+    private static final String SEGREGATION = "segregation";
+    private static final String PREDATORPREY = "predatorprey";
+    private static final String FIRE = "fire";
+    private List<State> possibleStates;
     private String gameName;
     private int type;
-    private ArrayList<Integer> stateArray;
-    private ArrayList<int[]> rulesArray;
-    private static int numberOfNeighbors;
+    private List<Integer> stateArray;
+    private List<int[]> rulesArray;
+    private int numberOfNeighbors;
 
     //NEED TO REPLACE EVENTUALLY
-    private double probability;
+    private double probability = 0.3;
 
-
-
-    //Read text file, update possibleStates, gameName, stateArray, and rulesArray from file
+    /**
+     * Rules Parser Constructor
+     * <p>
+     *     Read text file, update possibleStates, gameName, stateArray, and rulesArray from file
+     *     uses string name as argument
+     * </p>
+     * @param game
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
+    //
     public RulesParser(String game) {
         this.probability = 0.3;
-        rulesArray = new ArrayList<int[]>();
-        stateArray = new ArrayList<Integer>();
-        System.out.println(game);
+        rulesArray = new ArrayList<>();
+        stateArray = new ArrayList<>();
         InputStream in = this.getClass().getClassLoader().getResourceAsStream(getFileName(game));
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String currentLine = null;
@@ -62,27 +81,31 @@ public class RulesParser {
         makeRules();
     }
 
+    /**
+     * Rules Parser Constructor
+     *
+     * @param properties
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public RulesParser(ResourceBundle properties){
         this(properties.getString("type_of_game"));
-        this.probability = Integer.parseInt(properties.getString("probability"));
+        this.probability = Double.parseDouble(properties.getString("probability"));
     }
 
 
     private String getFileName(String game){
-        if (game.toLowerCase().equals("gameoflife")){
-            return LIFE_RULES;
-        } else if (game.toLowerCase().equals("percolation")) {
+         if (game.toLowerCase().equals(PERCOLATE)) {
             return PERCOLATE_RULES;
-        } else if (game.toLowerCase().equals("rockpaperscissors")) {
+        } else if (game.toLowerCase().equals(RPS)) {
             return RPS_RULES;
-        } else if (game.toLowerCase().equals("segregation")) {
+        } else if (game.toLowerCase().equals(SEGREGATION)) {
             return SEGREGATION_RULES;
-        } else if (game.toLowerCase().equals("predatorprey")) {
+        } else if (game.toLowerCase().equals(PREDATORPREY)) {
             return PREDATORPREY_RULES;
-        } else if (game.toLowerCase().equals("fire")) {
+        } else if (game.toLowerCase().equals(FIRE)) {
             return FIRE_RULES;
         }
-        return null;
+        return LIFE_RULES;
     }
 
     //Parse line with rule from file
@@ -135,8 +158,8 @@ public class RulesParser {
     }
 
     //Add rules that appply to each state to a state object if possibleStates
-    private  ArrayList<State> makeRules(){
-        possibleStates = new ArrayList<State>();
+    private List<State> makeRules(){
+        possibleStates = new ArrayList<>();
         for (Integer state : stateArray) {
 
             possibleStates.add(new State(state, rulesArray));
@@ -144,33 +167,23 @@ public class RulesParser {
         return possibleStates;
     }
 
-    //print RulesArray
-    public void printRulesArray() {
-        System.out.println("Set of Rules: " + gameName);
 
-        for (int[] rule : rulesArray) {
-            System.out.println("Initial: " + rule[0] + " Desired Neighbor: " + rule[1] + " Required Amount: " + rule[2] + " Final: " + rule[3] + " Alt: " + rule[4]) ;
-        }
-    }
-
-
-    // return possibleStates, ArrayList of app.model.State objects
-    public ArrayList<State> getPossibleStates(){
+    /**
+     * Get Possible States From Rules File
+     *
+     * @return set od possible states
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
+    public List<State> getPossibleStates(){
         return possibleStates;
     }
 
-    public String getGameName() {
-        return gameName;
-    }
-
-    public ArrayList<Integer> getStateArray() {
-        return stateArray;
-    }
-
-    public ArrayList<int[]> getRulesArray() {
-        return rulesArray;
-    }
-
+    /**
+     * Get Rules type
+     *
+     * @return rules type
+     * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+     */
     public int getType(){
         return type;
     }

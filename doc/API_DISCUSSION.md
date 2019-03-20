@@ -297,49 +297,69 @@ public class PropertiesFileWriter {
 package app.view;
 public class GraphView{
       public GraphView(SimulationController sc, ResourceBundle prop)
+      INTERNAL
     public void addToData(Map<Integer, Double> input)
+    EXTERNAL
     public Group getMyRoot()
+    INTERNAL
+    
 }
 
 package app.view;
 simulation. It assumes that the user possesses the following dependencies/packages:
 public class ControlView {
       public ControlView (SimulationController sc)
+      INTERNAL
     public HBox getMyRoot()
+    INTERNAL
     public boolean getMyStartBoolean()
+    INTERNAL
     public void setMyStartBoolean(Boolean b)
+    INTERNAL
 }
 
 package app.view;
 simulation. It assumes that the user possesses the following dependencies/packages:
 public class NewConfigView {
       public NewConfigView(SimulationController sc)
+      INTERNAL
 }
 
 package app.view;
 dependencies/packages:
 public class RightView {
       public RightView(SimulationController sc, BoardView bv, GraphView gv)
+      INTERNAL
     public Node getMyRoot()
+    INTERNAL
 }
 
 package app.view;
 Board class. It assumes that the user possesses the following dependencies/packages:
 public class BoardView {
       public BoardView(int width, int height, Cell[][] board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, ArrayList<Image> list)
+      INTERNAL
     public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, boolean image)
+    INTERNAL
     public BoardView(int width, int height, Cell[][] board, ResourceBundle properties, SimulationController sc, boolean grid, ArrayList<Image> images, Color c0, Color c1, Color c2)
+    INTERNAL
     public void setColors(Color c0, Color c1, Color c2)
+    INTERNAL
     public void setMyImageArray(ArrayList<Image> input)
+    INTERNAL
     public void changeGridStatus()
+    EXTERNAL
     public Group getMyRoot()return myRoot;}
+    INTERNAL
 }
 
 package app.view;
 the speed of the simulation. It assumes that the user possesses the following dependencies/packages:
 public class SpeedSlider {
       public SpeedSlider(SimulationController sc)
+      EXTERNAL
     public Slider getMySlider()return mySlider;}
+    EXTERNAL
 }
 
 package app.view;
@@ -347,8 +367,13 @@ This class is used to generate the main view of the entire simulation using the 
 It assumes that the user possesses the following dependencies/packages:
 public class MainView {
       public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv, GraphView gv)
+      INTERNAL
     public void modifyMainView(BorderPane root, BoardView bv, SimulationController sc, ControlView cv)
+    EXTERNAL
     public Scene getScene()
+    INTERNAL
     public boolean getMyStartBoolean()return myStartBoolean;}
+    INTERNAL
     public void  setMyBoardView(BoardView bv)
+    EXTERNAL
 }

@@ -1,5 +1,31 @@
 package app.view;
 
+/*
+Authors: Jaiveer Katariya, Jongho Shin, Kyle Harvey
+
+
+
+
+This class is used to generate the view that contains the different components by which the user would control the
+simulation. It assumes that the user possesses the following dependencies/packages:
+app.controller.SimulationController;
+javafx.beans.value.ChangeListener;
+javafx.beans.value.ObservableValue;
+javafx.collections.FXCollections;
+javafx.collections.ObservableList;
+javafx.event.ActionEvent;
+javafx.event.EventHandler;
+javafx.scene.control.*;
+javafx.scene.control.Button;
+javafx.scene.layout.HBox;
+java.util.ArrayList;
+java.util.ResourceBundle;
+
+This class is used in the SimluationController and the MainView classes, and to use it, one would simply need to declare
+it with the parameters specified by the constructor.
+
+ */
+
 import app.controller.SimulationController;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,6 +37,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControlView {
@@ -25,13 +52,18 @@ public class ControlView {
     private Button pauseButton;
     private Button newConfigButton;
     private Button startButton;
+    private Button gridOutline;
     private ResourceBundle myProperties;
     private Label mySliderLabel;
-    private ArrayList<String> myPropertiesList;
+    private List<String> myPropertiesList;
 
     private boolean myStartBoolean;
 
-
+    /**
+     * Constructor to generate new Control view based on a SimulationController object
+     *
+     * @param sc SimulationController object to associate with this ControlView object
+     */
     public ControlView (SimulationController sc){
         myProperties = ResourceBundle.getBundle("english");
         myStartBoolean = false;
@@ -42,16 +74,25 @@ public class ControlView {
 
     }
 
+    /**
+     * Function to return root of the Control View
+     *
+     * @return root/HBox base of ControlView that contains visual components to control the flow/animation of the
+     * simulation
+     *
+     */
+
     public HBox getMyRoot(){
         return myRoot;
     }
 
+    /**
+     * Function to return boolean as to whether or not start has been pressed
+     *
+     * @return myStartBoolean, which indicates whether or not animation is running
+     */
     public boolean getMyStartBoolean(){
         return myStartBoolean;
-    }
-
-    public void setMyStartBoolean(Boolean b){
-        myStartBoolean = b;
     }
 
     private Button makeButton(String name, EventHandler<ActionEvent> handler){
@@ -81,11 +122,11 @@ public class ControlView {
         mySliderLabel = new Label(myProperties.getString("slider_label"));
         mySliderLabel.setLabelFor(mySlider);
         myRoot.getChildren().add(mySlider);
+        createGridOutlineButton();
     }
 
     private void pause(){
         mySimulationController.pauseSimulation();
-        //myStartBoolean = false;
     }
 
     private void oneStep(){
@@ -108,7 +149,7 @@ public class ControlView {
     private void makeDropDown() {
         myConfigOptions = FXCollections.observableArrayList(myPropertiesList);
         myDropDown = new ComboBox(myConfigOptions);
-        myDropDown.setPromptText("Load Configuration");
+        myDropDown.setPromptText(myProperties.getString("load_configuration_button"));
         myDropDown.valueProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
@@ -121,11 +162,19 @@ public class ControlView {
     private void loadConfig(String t1) {
         this.pause();
         mySimulationController.setConfig(t1);
-        //mySimulationController.restartSimulationWithNewConfig(t1);
+
 
     }
 
-
+    private void createGridOutlineButton(){
+        gridOutline = makeButton(myProperties.getString("grid_on"), e-> gridChange(gridOutline));
+        myRoot.getChildren().add(gridOutline);
+    }
+    private void gridChange(Button grid) {
+        if(grid.getText() == myProperties.getString("grid_on")) grid.setText(myProperties.getString("grid_off"));
+        else grid.setText(myProperties.getString("grid_on"));
+        mySimulationController.changeGrid();
+    }
 
 
 

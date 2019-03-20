@@ -1,15 +1,28 @@
 package app.test;
+/**
+ * CellTest Class
+ * This class tests if the Cell.java is constructed correctly
+ * Packages:
+ * import app.model.*;
+ * import org.junit.jupiter.api.BeforeEach;
+ * import org.junit.jupiter.api.Test;
+ * import java.util.Arrays;
+ * import java.util.ResourceBundle;
+ * import static org.junit.jupiter.api.Assertions.*;
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 
-
-import app.model.Board;
-import app.model.Cell;
-import app.model.Rules;
+import app.model.board.Board;
+import app.model.board.GenericBoard;
+import app.model.cell.Cell;
+import app.model.cell.RectangleCell;
+import app.model.rules.Rules;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class CellTest {
@@ -22,18 +35,18 @@ class CellTest {
     @BeforeEach
     void setUp(){
         myProperties = ResourceBundle.getBundle("test");
-        testBoard = new Board(myProperties);
+        testBoard = new GenericBoard(myProperties);
         testRules = new Rules(myProperties.getString("type_of_game"));
 
-        this.testCell = new Cell(0,0,0,5,5, 1, -1 ,-1);
-        int[] neighbor10 = {1,0};
+        this.testCell = new RectangleCell(0,0,0,5,5, 1, -1 ,-1, 0);
+        int[] neighbor10 = {0,1};
         int[] neighbor11 = {1,1};
-        int[] neighbor01 = {0,1};
+        int[] neighbor01 = {1,0};
 
-        int[] neighbor04 = {0,4};
-        int[] neighbor14 = {1,4};
-        int[] neighbor40 = {4,0};
-        int[] neighbor41 = {4,1};
+        int[] neighbor04 = {4,0};
+        int[] neighbor14 = {4,1};
+        int[] neighbor40 = {0,4};
+        int[] neighbor41 = {1,4};
         int[] neighbor44 = {4,4};
 
         expectedNeighbors = new int[8][2];
@@ -92,9 +105,63 @@ class CellTest {
     }
 
     @Test
+    void getNeighborFiniteCornerTest(){
+        Cell tempCell = new RectangleCell(0,0,0,5,5, 1, -1 ,-1, 1);
+
+        int[] expectedNeighbor1 = {-1, -1};
+        int[] expectedNeighbor2 = {0, -1};
+        int[] expectedNeighbor3 = {1, -1};
+        int[] expectedNeighbor4 = {-1, 0};
+        int[] expectedNeighbor5 = {1, 0};
+        int[] expectedNeighbor6 = {-1, 1};
+        int[] expectedNeighbor7 = {0, 1};
+        int[] expectedNeighbor8 = {1, 1};
+
+        int[][] expectedNeighbors = {expectedNeighbor1, expectedNeighbor2, expectedNeighbor3, expectedNeighbor4, expectedNeighbor5, expectedNeighbor6, expectedNeighbor7, expectedNeighbor8};
+
+
+        assertArrayEquals(expectedNeighbors, tempCell.getNeighbors());
+    }
+
+
+    @Test
+    void getNeighborFlippedTest(){
+        Cell tempCell = new RectangleCell(0,0,0,5,5, 1, -1 ,-1, 2);
+
+        int[] expectedNeighbor1 = {1, 1};
+        int[] expectedNeighbor2 = {0, 1};
+        int[] expectedNeighbor3 = {1, 1};
+        int[] expectedNeighbor4 = {1, 0};
+        int[] expectedNeighbor5 = {1, 0};
+        int[] expectedNeighbor6 = {1, 1};
+        int[] expectedNeighbor7 = {0, 1};
+        int[] expectedNeighbor8 = {1, 1};
+
+        int[][] expectedNeighbors = {expectedNeighbor1, expectedNeighbor2, expectedNeighbor3, expectedNeighbor4, expectedNeighbor5, expectedNeighbor6, expectedNeighbor7, expectedNeighbor8};
+        assertArrayEquals(expectedNeighbors, tempCell.getNeighbors());
+
+    }
+
+
+    @Test
+    void getLeftOnlyNeighborTest(){
+        Cell tempCell = new RectangleCell(0,0,0,5,5, 3, -1 ,-1, 0);
+
+        int[] expectedNeighbors1 = {1,0};
+        int[] expectedNeighbors2 = {4,0};
+        int[] expectedNeighbors3 = {1,1};
+        int[] expectedNeighbors4 = {0,1};
+        int[] expectedNeighbors5 = {4,1};
+
+        int[][] expectedNeighbors = {expectedNeighbors1, expectedNeighbors2, expectedNeighbors3, expectedNeighbors4, expectedNeighbors5};
+
+        assertArrayEquals(expectedNeighbors, tempCell.getNeighbors());
+    }
+
+    @Test
     void checkEquality() {
-        Cell cell1 = new Cell(1,1,2,5,5, 1, -1, -1);
-        Cell cell2 = new Cell(1,1,2,5,5, 1, -1, -1);
+        Cell cell1 = new RectangleCell(1,1,2,5,5, 1, -1, -1, 0);
+        Cell cell2 = new RectangleCell(1,1,2,5,5, 1, -1, -1, 0);
         assertTrue(cell1.equals(cell2));
 
     }

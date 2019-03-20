@@ -1,13 +1,25 @@
 package app.test;
 
+/**
+ * CSVParserTest Class
+ * This class checks if CSVParser.java is implemented correctly
+ * Packages:
+ * import app.model.*;
+ * import org.junit.jupiter.api.BeforeEach;
+ * import org.junit.jupiter.api.Test;
+ * import java.util.Arrays;
+ * import java.util.ResourceBundle;
+ * import static org.junit.jupiter.api.Assertions.*;
+ * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
+ */
 
-import app.model.CSVParser;
-import app.model.Cell;
+import app.model.rules.CSVParser;
+import app.model.cell.Cell;
+import app.model.cell.RectangleCell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.util.Arrays;
 import java.util.ResourceBundle;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CSVParserTest {
@@ -39,10 +51,10 @@ public class CSVParserTest {
         for(int i=0; i<5; i++){
             for(int j=0; j<5; j++){
                 if(i==j){
-                    expectedCells[j][i] = new Cell(1, i, j, 5, 5, 1,-1,-1);
+                    expectedCells[j][i] = new RectangleCell(1, i, j, 5, 5, 1,-1,-1, 0);
                 }
                 else{
-                    expectedCells[j][i] = new Cell(0, i, j, 5, 5, 1,-1,-1);
+                    expectedCells[j][i] = new RectangleCell(0, i, j, 5, 5, 1,-1,-1, 0);
                 }
             }
         }
@@ -129,5 +141,69 @@ public class CSVParserTest {
         assertEquals(5, probabilityTester.getCells()[0].length);
 
     }
+
+    @Test
+    void generateCellsWithProbabilityWhereTotalTooHigh(){
+        CSVParser probabilityTesterHigh = new CSVParser("generateCellsWithProbabilityTestHigh.csv");
+
+        assertEquals(1, probabilityTesterHigh.getErrorStatus());
+        assertEquals("Probabilities incorrectly formatted - don't add up to 1", probabilityTesterHigh.getErrorType());
+
+    }
+
+    @Test
+    void generateCellsWithProbabilityTooManyStates(){
+        CSVParser probabilityTesterState = new CSVParser("generateCellsWithProbabilityTestState.csv");
+
+        assertEquals(1, probabilityTesterState.getErrorStatus());
+        assertEquals("Probabilities incorrectly formatted - different number of probabilities than states!", probabilityTesterState.getErrorType());
+    }
+
+    @Test
+    void generateCellsWithCounts(){
+        CSVParser countsTester = new CSVParser("generateCellsWithCountsTest.csv");
+
+        double[] countsArray = {20.0,5.0};
+
+        System.out.println("counts in test read in as " + Arrays.toString(countsTester.getMyCellGetter().getMyCounts()));
+
+        assertArrayEquals(countsArray, countsTester.getMyCellGetter().getMyCounts());
+
+        Cell[][] cells = countsTester.getCells();
+        int zeroCounter = 0;
+        int oneCounter = 0;
+
+        for(int i=0; i<cells.length; i++){
+            for(int j=0; j<cells[0].length; j++){
+                if(cells[i][j].getMyState() == 1){
+                    oneCounter++;
+                }
+                else{
+                    zeroCounter++;
+                }
+            }
+        }
+
+        assertEquals(20, zeroCounter);
+        assertEquals(5, oneCounter);
+    }
+
+    @Test
+    void generateCellsWithCountsWhereTotalTooHigh(){
+        CSVParser countsTesterHigh = new CSVParser("generateCellsWithCountsTestHigh.csv");
+
+        assertEquals(1, countsTesterHigh.getErrorStatus());
+        assertEquals("Counts incorrectly formatted - don't add up to total number possible", countsTesterHigh.getErrorType());
+    }
+
+    @Test
+    void generateCellsWithCountsWhereTooFewStates(){
+        CSVParser countsTesterState = new CSVParser("generateCellsWithCountsTestState.csv");
+
+        assertEquals(1, countsTesterState.getErrorStatus());
+        assertEquals("Counts incorrectly formatted - different number of counts than states!", countsTesterState.getErrorType());
+
+    }
+
 
 }
