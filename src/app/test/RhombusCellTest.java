@@ -13,11 +13,20 @@ import java.util.ResourceBundle;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RhombusCellTest {
-    private static final int[][] NEIGHBORS_TYPE1 = {{-1, 0}, {1,0}, {-1, 1}, {1, 1}, {-2, 0}, {2,0}, {0, -1}, {0, 1}};
     RhombusCell rhombusCell;
     ResourceBundle myProperties;
     Board testBoard;
     Rules testRules;
+
+    private int[][] getNeighborsFromPropFile(ResourceBundle myProperties){
+        testBoard = new GenericBoard(myProperties);
+        testRules = new Rules(myProperties.getString("type_of_game"));
+
+        rhombusCell = (RhombusCell) testBoard.getCells()[1][2];
+        int[][]myNeighbors = rhombusCell.getNeighbors();
+
+        return myNeighbors;
+    }
 
 
     @Test
@@ -34,21 +43,40 @@ class RhombusCellTest {
         int[][] expectedNeighbors = {expectedNeighbors1, expectedNeighbors2, expectedNeighbors3, expectedNeighbors4, expectedNeighbors5, expectedNeighbors6, expectedNeighbors7, expectedNeighbors8};
 
         myProperties = ResourceBundle.getBundle("test4");
-        testBoard = new GenericBoard(myProperties);
-        testRules = new Rules(myProperties.getString("type_of_game"));
+        int[][] myNeighbors = getNeighborsFromPropFile(myProperties);
 
-        rhombusCell = (RhombusCell) testBoard.getCells()[1][2];
-        int[][]myNeighbors = rhombusCell.findNeighbors(NEIGHBORS_TYPE1);
+        assertArrayEquals(expectedNeighbors, myNeighbors);
+    }
 
-        boolean testBool = true;
-        for (int i = 0; i < expectedNeighbors.length; i++) {
-            if (expectedNeighbors[i][0] != myNeighbors[i][0] || expectedNeighbors[i][1] != myNeighbors[i][1]) {
-                System.out.println("Expected neighbor: " + Arrays.toString(expectedNeighbors[i]));
-                System.out.println("Actual neighbor: " + Arrays.toString(myNeighbors[i]));
+    @Test
+    void findNeighborsType2() {
+        int[] expectedNeighbors1 = {1, 1};
+        int[] expectedNeighbors2 = {1, 3};
+        int[] expectedNeighbors3 = {2, 1};
+        int[] expectedNeighbors4 = {2, 3};
 
-                testBool = false;
-            }
-        }
-        assertTrue(testBool);
+        int[][] expectedNeighbors = {expectedNeighbors1, expectedNeighbors2, expectedNeighbors3, expectedNeighbors4};
+
+        myProperties = ResourceBundle.getBundle("test5");
+        int[][] myNeighbors = getNeighborsFromPropFile(myProperties);
+
+        assertArrayEquals(expectedNeighbors, myNeighbors);
+    }
+
+    @Test
+    void findNeighborsType3(){
+        int[] expectedNeighbors1 = {0,2};
+        int[] expectedNeighbors2 = {2,2};
+        int[] expectedNeighbors3 = {0,3};
+        int[] expectedNeighbors4 = {1,3};
+        int[] expectedNeighbors5 = {1,4};
+
+        int[][] expectedNeighbors = {expectedNeighbors1, expectedNeighbors2, expectedNeighbors3, expectedNeighbors4, expectedNeighbors5};
+
+        myProperties = ResourceBundle.getBundle("test6");
+        int[][] myNeighbors = getNeighborsFromPropFile(myProperties);
+
+        assertArrayEquals(expectedNeighbors, myNeighbors);
+
     }
 }

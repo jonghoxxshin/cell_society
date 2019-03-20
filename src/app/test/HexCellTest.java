@@ -28,7 +28,6 @@ import java.util.ResourceBundle;
 import static org.junit.jupiter.api.Assertions.*;
 
 class HexCellTest {
-    private static final int[][] NEIGHBORS_HEX = {{0, -1}, {-1, -1}, {-1, 0}, {0, 1}, {1, 0}, {1, -1}};
     HexCell hexCell;
     ResourceBundle myProperties;
     Board testBoard;
@@ -48,7 +47,8 @@ class HexCellTest {
         testBoard = new GenericBoard(myProperties);
         testRules = new Rules(myProperties.getString("type_of_game"));
         hexCell = (HexCell) testBoard.getCells()[2][2];
-        int[][]myNeighbors = hexCell.findNeighbors(NEIGHBORS_HEX);
+
+        int[][]myNeighbors = hexCell.getNeighbors();
         boolean testBool = true;
         for (int i = 0; i < expectedNeighbors.length; i++) {
             if (expectedNeighbors[i][0] != myNeighbors[i][0] || expectedNeighbors[i][1] != myNeighbors[i][1]) {
