@@ -17,7 +17,7 @@ import app.model.board.GenericBoard;
 import app.model.rules.Rules;
 import org.junit.jupiter.api.Test;
 
-import java.util.Enumeration;
+
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
