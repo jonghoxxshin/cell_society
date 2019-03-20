@@ -28,11 +28,11 @@ public class RulesParser {
     private static final String SEGREGATION = "segregation";
     private static final String PREDATORPREY = "predatorprey";
     private static final String FIRE = "fire";
-    private ArrayList<State> possibleStates;
+    private List<State> possibleStates;
     private String gameName;
     private int type;
-    private ArrayList<Integer> stateArray;
-    private ArrayList<int[]> rulesArray;
+    private List<Integer> stateArray;
+    private List<int[]> rulesArray;
     private int numberOfNeighbors;
 
     //NEED TO REPLACE EVENTUALLY
@@ -50,8 +50,8 @@ public class RulesParser {
     //
     public RulesParser(String game) {
         this.probability = 0.3;
-        rulesArray = new ArrayList<int[]>();
-        stateArray = new ArrayList<Integer>();
+        rulesArray = new ArrayList<>();
+        stateArray = new ArrayList<>();
         InputStream in = this.getClass().getClassLoader().getResourceAsStream(getFileName(game));
         BufferedReader br = new BufferedReader(new InputStreamReader(in));
         String currentLine = null;
@@ -159,7 +159,7 @@ public class RulesParser {
 
     //Add rules that appply to each state to a state object if possibleStates
     private List<State> makeRules(){
-        possibleStates = new ArrayList<State>();
+        possibleStates = new ArrayList<>();
         for (Integer state : stateArray) {
 
             possibleStates.add(new State(state, rulesArray));
@@ -174,7 +174,7 @@ public class RulesParser {
      * @return set od possible states
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
-    public ArrayList<State> getPossibleStates(){
+    public List<State> getPossibleStates(){
         return possibleStates;
     }
 

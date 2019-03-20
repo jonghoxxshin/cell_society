@@ -38,12 +38,13 @@ import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class NewConfigView {
-    public static final int PAGE_WIDTH = 400;
-    public static final int PAGE_HEIGHT = 500;
-    public static final String TITLE = "New Configuration";
+    private static final int PAGE_WIDTH = 400;
+    private static final int PAGE_HEIGHT = 500;
+    private static final String TITLE = "New Configuration";
 
     //this part will be replaced by observable model
     //temporary place holder
@@ -107,7 +108,7 @@ public class NewConfigView {
     }
 
     private void setGames(){
-        ArrayList<String> gameList = new ArrayList<>();
+        List<String> gameList = new ArrayList<>();
         for(String game : GameList){
             gameList.add(game);
         }
@@ -118,7 +119,7 @@ public class NewConfigView {
     }
 
     private void setShapes(){
-        ArrayList<String> shapeList = new ArrayList<>();
+        List<String> shapeList = new ArrayList<>();
         for(String shape : ShapeList){
             shapeList.add(shape);
         }
@@ -129,7 +130,7 @@ public class NewConfigView {
     }
 
     private void setEdgePolicies() {
-        ArrayList<String> edgePolicyList = new ArrayList<>();
+        List<String> edgePolicyList = new ArrayList<>();
         for(String edgePolicy : EdgePolicyList){
             edgePolicyList.add(edgePolicy);
         }
@@ -140,7 +141,7 @@ public class NewConfigView {
     }
 
     private void setNeighborPolicies() {
-        ArrayList<String> neighborPolicyList = new ArrayList<>();
+        List<String> neighborPolicyList = new ArrayList<>();
         for(String neighborType : NeighborTypeList){
             neighborPolicyList.add(neighborType);
         }
@@ -193,7 +194,7 @@ public class NewConfigView {
 
 
     private void setDropDown(){
-        ArrayList<String> configList = new ArrayList<>();
+        List<String> configList = new ArrayList<>();
         for(String csv : CSVList){
             configList.add(csv);
         }

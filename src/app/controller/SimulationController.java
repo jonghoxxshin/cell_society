@@ -68,20 +68,18 @@ public class SimulationController {
     private Color color0;
     private Color color1;
     private Color color2;
-    private ArrayList<Image> myImageList;
+    private List<Image> myImageList;
     private boolean useImage;
     private boolean useGrid;
-    private ArrayList<String> myPropertiesList;
+    private List<String> myPropertiesList;
     private BorderPane myRoot;
 
     /**
      * Constructor for Simulation Controller, creates instances for the view and model components of the Application and facilitates communication between the two
-     * @param height height of the Application
-     * @param width Width of the Application
-     * @param game Name of the game
+     *
      * @param myProperties Properties file
      */
-    public SimulationController(int height, int width, String game, ResourceBundle myProperties) {//Will change to instantiating simulation and simulationView inside controller, not as input
+    public SimulationController( ResourceBundle myProperties) {//Will change to instantiating simulation and simulationView inside controller, not as input
         this.myProperties = myProperties;
         boardType = getBoardType();
         getBoard();
@@ -194,10 +192,10 @@ public class SimulationController {
     }
 
     /**
-     * Get ArrayList<String> of Properties
-     * @return ArrayList<String> myPropertiesList
+     * Get List<String> of Properties
+     * @return List<String> myPropertiesList
      */
-    public ArrayList<String> getMyPropertiesList() {
+    public List<String> getMyPropertiesList() {
         return myPropertiesList;
     }
 
@@ -267,7 +265,7 @@ public class SimulationController {
      * Changes the board to a board with images
      * @param imageList
      */
-    public void setImage(ArrayList<Image> imageList){
+    public void setImage(List<Image> imageList){
         useImage = true;
         myImageList = imageList;
         myBoardView = new BoardView(myBoard, myProperties, this, false, useImage, myImageList);
@@ -288,7 +286,7 @@ public class SimulationController {
     }
 
     private void initMyPropList() {
-        myPropertiesList = new ArrayList<String>();
+        myPropertiesList = new ArrayList<>();
         for (String game: gameNames){
             myPropertiesList.add(game + 1);
             myPropertiesList.add(game + 2);

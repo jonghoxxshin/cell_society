@@ -20,7 +20,7 @@ public class State {
      * @param rulesList
      */
     public State(int state, List<int[]> rulesList){
-        rulesForState = new ArrayList<int[]>();
+        rulesForState = new ArrayList<>();
         myState = state;
         for (int[] rule : rulesList) {
             if (rule[0] == state) {

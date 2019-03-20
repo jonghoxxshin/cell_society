@@ -3,11 +3,12 @@ package app.model.rules;
 import app.model.State;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
 public class Rules {
-    private ArrayList<State> possibleStates;
+    private List<State> possibleStates;
     private RulesParser myRulesParser;
     private ResourceBundle myProperties;
 
@@ -50,7 +51,7 @@ public class Rules {
      * @return set of possible states
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
-    public ArrayList<State> getPossibleStates(){
+    public List<State> getPossibleStates(){
 
         return possibleStates;
     }
