@@ -17,8 +17,8 @@ import app.controller.SimulationController;
 import javafx.scene.control.Slider;
 
 public class SpeedSlider {
-    public static final int MIN_FRAMES = 1;
-    public static final int MAX_FRAMES = 10;
+    private static final int MIN_FRAMES = 1;
+    private static final int MAX_FRAMES = 10;
     private Slider mySlider;
     private SimulationController mySimulationController;
 

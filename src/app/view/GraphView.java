@@ -72,7 +72,7 @@ public class GraphView{
      */
     public void addToData(Map<Integer, Double> input){
 
-        ArrayList<Double> tempList = new ArrayList<>();
+        List<Double> tempList = new ArrayList<>();
         for(int i : input.keySet()){
             tempList.add(input.get(i));
         }
@@ -80,7 +80,7 @@ public class GraphView{
         indexCount++;
     }
 
-    private void updateSeries(int index,ArrayList<Double> list){
+    private void updateSeries(int index, List<Double> list){
         for(int i =0; i<list.size();i++){
             if(i==0){
                 mySeries0.getData().add(new XYChart.Data<>(index, list.get(i)));

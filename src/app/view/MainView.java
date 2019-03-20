@@ -29,8 +29,8 @@ import java.util.ResourceBundle;
 
 
 public class MainView {
-    public static final int VIEW_WIDTH = 1000;
-    public static final int VIEW_HEIGHT = 600;
+    private static final int VIEW_WIDTH = 1000;
+    private static final int VIEW_HEIGHT = 600;
 
     private BoardView myBoardView;
     private BorderPane myRoot;

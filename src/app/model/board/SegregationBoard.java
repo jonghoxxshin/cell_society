@@ -44,8 +44,8 @@ public class SegregationBoard extends Board {
     public Cell[][] updateBoard(Rules rules) {
         int maxNumDislike = getNumNeighborsToSatisfyThreshold();
         System.out.println(maxNumDislike);
-        ArrayList<Cell> satisfiedCells = new ArrayList<Cell>();
-        Stack<Cell> dissatisfiedCells = new Stack<Cell>();
+        List<Cell> satisfiedCells = new ArrayList<>();
+        Stack<Cell> dissatisfiedCells = new Stack<>();
         for (int i = 0; i < super.getMyHeight(); i++) {
             for (int j = 0; j < super.getMyWidth(); j++) {
                 Cell tempCell = super.getCells()[i][j];
@@ -102,7 +102,7 @@ public class SegregationBoard extends Board {
     }
 
     private Stack<Cell> shuffleStack(Stack<Cell> pq) {
-        ArrayList<Cell> tempList = new ArrayList<Cell>();
+        List<Cell> tempList = new ArrayList<>();
         while (!pq.isEmpty()) {
             tempList.add(pq.pop());
         }
