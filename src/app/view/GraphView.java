@@ -46,15 +46,15 @@ public class GraphView{
         yAxis.setAnimated(true);
         yAxis.setLabel("State %");
         myXYchart = new LineChart(xAxis, yAxis);
-        mySeries0 = new XYChart.Series<Integer, Double>();
+        mySeries0 = new XYChart.Series<>();
         mySeries0.setName("State 0");
         myXYchart.getData().add(mySeries0);
 
-        mySeries1 = new XYChart.Series<Integer, Double>();
+        mySeries1 = new XYChart.Series<>();
         mySeries1.setName("State 1");
 
         myXYchart.getData().add(mySeries1);
-        mySeries2 = new XYChart.Series<Integer, Double>();
+        mySeries2 = new XYChart.Series<>();
         mySeries2.setName("State 2");
 
         myXYchart.getData().add(mySeries2);
