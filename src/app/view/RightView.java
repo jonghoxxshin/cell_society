@@ -51,7 +51,6 @@ public class RightView {
     private VBox myRoot;
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
-    private List<State> myPossibleStates;
     private Button mySubmitButton;
     private Button myLoadImageButton;
     private ColorPicker myColorPicker0;
@@ -75,7 +74,7 @@ public class RightView {
         myBoardView = bv;
         myGraphView = gv;
         myImages = new ArrayList<>();
-        myPossibleStates = mySimulationController.getMySimulationModel().getMyRules().getPossibleStates();
+
         myProperties = ResourceBundle.getBundle("english");
         myRoot = new VBox();
         setView();
@@ -160,9 +159,9 @@ public class RightView {
             }
         }
         mySimulationController.setImage(myImages);
-        //mySimulationController.setNewBoard();
 
     }
+
     private void setGraph(){
         Node temp = myGraphView.getMyRoot();
         myRoot.getChildren().add(temp);

@@ -33,7 +33,7 @@ public class GridCellGetter extends CellGetter {
 
 
     private List<String[]> generateStateList(){
-        System.out.println("csvName is " + getCsvName());
+
         Scanner csvScanner = new Scanner(GridCellGetter.class.getClassLoader().getResourceAsStream(getCsvName()));
         csvScanner.next();
         csvScanner.next();
@@ -59,7 +59,7 @@ public class GridCellGetter extends CellGetter {
     public Cell[][] getCells() throws IOException {
         List<String[]> stateList = generateStateList();
 
-        Cell[][] cellsGenerated = new Cell[getMyHeight()][getMyWidth()];
+
 
         if(stateList.size() != getMyHeight()){
             super.setErrorStatus(1);
@@ -68,6 +68,8 @@ public class GridCellGetter extends CellGetter {
             System.out.println("myHeight is " + getMyHeight());
             throw new IOException(super.getErrorType());
         }
+
+        Cell[][] cellsGenerated = new Cell[getMyHeight()][getMyWidth()];
 
         for(int i=0; i<stateList.size(); i++){
             String[] currentRow = stateList.get(i);

@@ -12,7 +12,7 @@ public class Start extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         myProperties = ResourceBundle.getBundle("example");
-        
+
         SimulationController simulationController = new SimulationController( myProperties);
 
         stage.setTitle(TITLE);
