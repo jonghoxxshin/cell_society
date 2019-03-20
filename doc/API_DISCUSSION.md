@@ -52,53 +52,76 @@ public class Main {
 package app.model;
 public class GridShape {
       public GridShapeType getShape(String name)
+      EXTERNAL
     public String getNameFromShape(GridShapeType shape)
+    EXTERNAL
 }
 
 package app.model;
 public class Simulation {
       public Simulation(Board board, Rules rule)
+      INTERNAL
     public void nextStep()
+    EXTERNAL
     public Rules getMyRules()
+    EXTERNAL
     public void setStart()
-    public Cell[][] getMyCells()
+    INTERNAL
+    
 }
 
 package app.model.board;
 public class PredatorPreyBoard extends Board {
       public PredatorPreyBoard(ResourceBundle myProperties)
+      INTERNAL
     public Cell[][] updateBoard(Rules rules)
+    INTERNAL
 }
 
 package app.model.board;
 public class GenericBoard extends Board {
           public GenericBoard(ResourceBundle myProperties)
+          INTERNAL
         public Cell[][] updateBoard(Rules rules)
+        INTERNAL
 }
 
 package app.model.board;
 public class SegregationBoard extends Board {
       public SegregationBoard(ResourceBundle myProperties)
+      INTERNAL
     public Cell[][] updateBoard(Rules rules)
+    INTERNAL
 }
 
 package app.model.board;
 public class FireBoard extends Board {
       public FireBoard(ResourceBundle myProperties)
+      INTERNAL
     public Cell[][] updateBoard(Rules rules)
+    INTERNAL
 }
 
 package app.model.board;
 public abstract class Board {
       public Board(ResourceBundle myProperties)
+      INTERNAL
     public abstract Cell[][] updateBoard(Rules rules);
+    EXTERNAL
     public Cell getCellAtCoordinates(int x, int y)
+    EXTERNAL
     public Cell[][] getCells()
+    INTERNAL
     public void setCells(Cell[][] newCells)
+    INTERNAL
     public int getMyWidth()
+    EXTERNAL
     public int getMyHeight()
+    EXTERNAL
     public Map<Integer, Double> getCurrentStateData ()
+    EXTERNAL
     public Cell createNewCellFromSubClass (Cell cell, int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType)
+    INTERNAL
     public int getNeighborType()
     public int getEdgeType()
 }
@@ -106,63 +129,97 @@ public abstract class Board {
 package app.model.cell;
 public abstract class CellGetter {
       public CellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape, int edgePolicy)
+      INTERNAL
     public Cell makeCellAtIndex(int state, int row, int column)
+    INTERNAL
     public double[] stringsToDouble(String[] numbers)
+    INTERNAL
     public double sumOfDoubles(double[] doubles)
+    INTERNAL
     public abstract Cell[][] getCells() throws IOException;
+    INTERNAL
     public String getCsvName()
+    EXTERNAL
     public int getMyHeight()
+    EXTERNAL
     public int getMyWidth()
+    EXTERNAL
     public GridShapeType getMyGridShapeType()
+    EXTERNAL
     public int getMaxState()
+    INTERNAL
     public int getNeighborType()
+    EXTERNAL
     public String getGameName()
+    EXTERNAL
     public Cell createNewCellFromProperty (GridShapeType gridShapeType, int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType)
+    INTERNAL
     public String getMyType()
+    EXTERNAL
     public int getErrorStatus()
+    EXTERNAL
     public String getErrorType()
+    EXTERNAL
     public Cell[][] getMyCells()
+    INTERNAL
     public double[] getMyProbs()
+    EXTERNAL
     public void setMyProbs(double[] args)
+    EXTERNAL
     public double[] getMyCounts()
+    EXTERNAL
     public void setMyCounts(double[] myCounts)
+    EXTERNAL
     public void setErrorStatus(int arg)
+    INTERNAL
     public void setErrorType(String errorType)
+    INTERNAL
 }
 
 package app.model.cell;
 public class HexCell extends Cell {
       public HexCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType)
+      INTERNAL
     public int[][] findNeighbors(int[][] NEIGHBORS_HEX)
+    INTERNAL
     public int[][] getTempNeighborsForType()
+    INTERNAL
 }
 
 package app.model.cell;
-public class ProbabilityCellGetter extends CellGetter {
+public class ProbabilityCellGetter extends CellGetter {  
       public ProbabilityCellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape, int edgeType)
+      INTERNAL
     public Cell[][] getCells() throws IOException
+    INTERNAL
 }
 
 package app.model.cell;
 public class RhombusCell extends Cell {
       public RhombusCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType)
+      INTERNAL
 }
 
 package app.model.cell;
 public class RectangleCell extends Cell {
       public RectangleCell(int state, int x, int y, int boardHeight, int boardWidth, int neighborType, int chronons, int energy, int edgeType)
+      INTERNAL
 }
 
 package app.model.cell;
 public class GridCellGetter extends CellGetter {
       public GridCellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape, int edgeType)
+      INTERNAL
     public Cell[][] getCells() throws IOException
+    INTERNAL
 }
 
 package app.model.cell;
 public class CountsCellGetter extends CellGetter {
       public CountsCellGetter(String filename, String type, String gameName, int height, int width, int maxState, int neighborType, GridShapeType shape, int edgeType)
+      INTERNAL
     public Cell[][] getCells() throws IOException
+    INTERNAL
 }
 
 package app.model.cell;
@@ -377,6 +434,24 @@ public class MainView {
     public void  setMyBoardView(BoardView bv)
     EXTERNAL
 }
+
+How can you reduce the number of methods needed to do a task or make them easier to find and understand?
+    - We can make the methods needed to do a task easier to find and understand by using appropriate encapsulation and packaging,
+    along with using intuitive method names. Also we can reduce the number of methods needed by having wide set of private methods that
+    is flexible in terms of bringing change and extending the features.
+What can you take as a parameter or return that helps other programmers write their own well designed code?
+    -One of the things we can do is have it take in the most generic type of object that is higher in inheritance hierarchy
+    so that other programmer can choose different ways (subclasses) to choose to implement the details when they want to change
+    the code or build other components based off on it.
+
+ How can you reduce the number of methods needed to do a task or make them easier to find and understand?
+ What can you take as a parameter or return that helps other programmers write their own well designed code?
+ How can you simplify the expectations for each method so they are easier use (and thus harder to misuse)?
+    - Minimize the number of tasks completed in a method so that, each method completes on task, thus
+      the purpose of the method will be more clear.
+ What can you take as a parameter or return that makes fewer assumptions about the implementation or this specific example?
+    - Use the least specific object types possible as arguments so that the user does not have to worry about specific
+      subclasses that an argument must take. 
 
 
 
