@@ -113,7 +113,7 @@ public class PropertiesFileWriter {
     }
 
     private String neighborStringToNumber(String neighborType){
-        if(neighborType.toLowerCase().equals("left-only")){
+        if(neighborType.toLowerCase().equals("all but left")){
             return "3";
         }
 

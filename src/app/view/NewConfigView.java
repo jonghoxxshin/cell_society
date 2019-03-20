@@ -50,7 +50,7 @@ public class NewConfigView {
     private final String[] CSVList = {"1", "2", "3"};
     private final String[] ShapeList = {"Rectangle", "Hexagon", "Rhombus"};
     private final String[] EdgePolicyList = {"Torodial", "Finite", "Flipped"};
-    private final String[] NeighborTypeList = {"Complete", "Cardinal", "Left-Only"};
+    private final String[] NeighborTypeList = {"Complete", "Cardinal", "All but left"};
     private final String[] GameList = {"Game of Life", "Percolation", "Predator and Prey", "Rock Paper Scissors", "Segregation"};
     private ObservableList<String> myCSVOptions;
     private ObservableList<String> myShapeOptions;
@@ -82,7 +82,7 @@ public class NewConfigView {
      * @param sc SimulationController object that is used by app to control the simulation
      */
     public NewConfigView(SimulationController sc){
-        myProperties = ResourceBundle.getBundle("spanish");
+        myProperties = ResourceBundle.getBundle("english");
         mySimulationController = sc;
         myStage = new Stage();
         setScene();

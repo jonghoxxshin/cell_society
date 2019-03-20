@@ -28,11 +28,22 @@ class GridShapeTest {
 
     @Test
     void getShapeHex() {
+        assertEquals(myShapeConverter.getShape("hexagon"), GridShapeType.HEXAGON);
 
     }
 
     @Test
-    void getNameFromShape() {
+    void getNameFromShapeRhombus() {
+        assertEquals("rhombus", myShapeConverter.getNameFromShape(GridShapeType.RHOMBUS));
+    }
 
+    @Test
+    void getNameFromShapeHex() {
+        assertEquals("hexagon", myShapeConverter.getNameFromShape(GridShapeType.HEXAGON));
+    }
+
+    @Test
+    void getNameFromShapeRectangle() {
+        assertEquals("rectangle", myShapeConverter.getNameFromShape(GridShapeType.RECTANGLE));
     }
 }
