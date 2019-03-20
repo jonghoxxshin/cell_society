@@ -87,32 +87,32 @@ public class CSVParser {
 
     //given game type from properties file determine neighbor type for simulation
     private void determineNeighborType(){
-        if (gameType.toLowerCase().equals(LIFE)) {
+        if (gameType.equalsIgnoreCase(LIFE)) {
             if(usingCSV) {
                 neighborType = 1;
             }
             maxState = 1;
-        } else if (gameType.toLowerCase().equals(PERCOLATE)) {
+        } else if (gameType.equalsIgnoreCase(PERCOLATE)) {
             if(usingCSV) {
                 neighborType = 1;
             }
             maxState = 2;
-        } else if (gameType.toLowerCase().equals(RPS)) {
+        } else if (gameType.equalsIgnoreCase(RPS)) {
             if(usingCSV) {
                 neighborType = 1;
             }
             maxState = 2;
-        } else if (gameType.toLowerCase().equals(SEG)){
+        } else if (gameType.equalsIgnoreCase(SEG)){
             if(usingCSV) {
                 neighborType = 1;
             }
             maxState = 2;
-        }  else if (gameType.toLowerCase().equals(FIRE)){
+        }  else if (gameType.equalsIgnoreCase(FIRE)){
             if(usingCSV) {
                 neighborType = 2;
             }
             maxState = 2;
-        }  else if (gameType.toLowerCase().equals(PRED)) {
+        }  else if (gameType.equalsIgnoreCase(PRED)) {
             if(usingCSV) {
                 neighborType = 2;
             }
