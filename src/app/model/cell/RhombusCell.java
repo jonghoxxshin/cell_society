@@ -1,7 +1,6 @@
 package app.model.cell;
 
 import app.model.GridShapeType;
-import app.model.cell.Cell;
 
 /**
  * Cell subclass for Rhombus Cells

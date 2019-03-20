@@ -1,9 +1,6 @@
 package app.model.cell;
 
 import app.model.GridShapeType;
-import app.model.cell.Cell;
-import app.model.cell.CellGetter;
-
 import java.io.IOException;
 import java.util.Random;
 
