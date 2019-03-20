@@ -380,11 +380,15 @@ public class MainView {
 
 
  How can you reduce the number of methods needed to do a task or make them easier to find and understand?
- 
- 
- 
  What can you take as a parameter or return that helps other programmers write their own well designed code?
  How can you simplify the expectations for each method so they are easier use (and thus harder to misuse)?
+    - Minimize the number of tasks completed in a method so that, each method completes on task, thus
+      the purpose of the method will be more clear.
  What can you take as a parameter or return that makes fewer assumptions about the implementation or this specific example?
+    - Use the least specific object types possible as arguments so that the user does not have to worry about specific
+      subclasses that an argument must take. 
+
+
+
  
 
