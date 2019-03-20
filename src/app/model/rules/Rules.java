@@ -56,4 +56,7 @@ public class Rules {
     }
     public RulesParser getMyRulesParser(){return myRulesParser;}
 
+    public ResourceBundle getMyProperties() {
+        return myProperties;
+    }
 }

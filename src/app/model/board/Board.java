@@ -19,7 +19,7 @@ import java.util.*;
 
 
 public abstract class Board {
-    Cell[][] cells;
+    private Cell[][] cells;
     private int myWidth;
     private int myHeight;
     private String myGame;
@@ -49,9 +49,6 @@ public abstract class Board {
         myGridShapeType = new GridShape().getShape(myProperties.getString("shape"));
         edgePolicy = myProperties.getString("edge_policy");
         myParser = new CSVParser(myProperties);
-        if(myParser.getErrorStatus() == 1){
-
-        }
         neighborType = myParser.getNeighborType();
         cells = myParser.getCells();
 

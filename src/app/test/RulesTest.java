@@ -16,8 +16,11 @@ package app.test;
 
 import app.model.rules.Rules;
 import app.model.State;
+import app.model.rules.RulesParser;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RulesTest {
@@ -62,5 +65,14 @@ class RulesTest {
             }
         }
         assertTrue(myTestBool);
+    }
+
+    @Test
+    void testConstructor(){
+        ResourceBundle testProperties = ResourceBundle.getBundle("test");
+
+        Rules testRules = new Rules(testProperties);
+
+        assertEquals(testProperties, testRules.getMyProperties());
     }
 }

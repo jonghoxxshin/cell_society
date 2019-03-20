@@ -17,6 +17,8 @@ import app.model.board.GenericBoard;
 import app.model.rules.Rules;
 import org.junit.jupiter.api.Test;
 
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,6 +79,20 @@ class BoardTest {
         }
 
         assertTrue(testBool);
+    }
+
+    @Test
+    void testDataGetter(){
+        ResourceBundle myProperties = ResourceBundle.getBundle("test");
+        Board testBoard = new GenericBoard(myProperties);
+
+        HashMap<Integer,Double> testData = (HashMap) testBoard.getCurrentStateData();
+
+        double state0Value = 0.8;
+        double state1Value = 0.2;
+
+        assertEquals((double) state0Value, (double) testData.get(0));
+        assertEquals((double) state1Value, (double) testData.get(1));
     }
 
 }

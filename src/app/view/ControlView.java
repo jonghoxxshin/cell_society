@@ -148,7 +148,7 @@ public class ControlView {
     private void makeDropDown() {
         myConfigOptions = FXCollections.observableArrayList(myPropertiesList);
         myDropDown = new ComboBox(myConfigOptions);
-        myDropDown.setPromptText("Load Configuration");
+        myDropDown.setPromptText(myProperties.getString("load_configuration_button"));
         myDropDown.valueProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {

@@ -19,6 +19,8 @@ import app.model.cell.RectangleCell;
 import app.model.rules.Rules;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import static org.junit.jupiter.api.Assertions.*;
@@ -100,6 +102,60 @@ class CellTest {
         }
 
         assertTrue(myBool);
+    }
+
+    @Test
+    void getNeighborFiniteCornerTest(){
+        Cell tempCell = new RectangleCell(0,0,0,5,5, 1, -1 ,-1, 1);
+
+        int[] expectedNeighbor1 = {-1, -1};
+        int[] expectedNeighbor2 = {0, -1};
+        int[] expectedNeighbor3 = {1, -1};
+        int[] expectedNeighbor4 = {-1, 0};
+        int[] expectedNeighbor5 = {1, 0};
+        int[] expectedNeighbor6 = {-1, 1};
+        int[] expectedNeighbor7 = {0, 1};
+        int[] expectedNeighbor8 = {1, 1};
+
+        int[][] expectedNeighbors = {expectedNeighbor1, expectedNeighbor2, expectedNeighbor3, expectedNeighbor4, expectedNeighbor5, expectedNeighbor6, expectedNeighbor7, expectedNeighbor8};
+
+
+        assertArrayEquals(expectedNeighbors, tempCell.getNeighbors());
+    }
+
+
+    @Test
+    void getNeighborFlippedTest(){
+        Cell tempCell = new RectangleCell(0,0,0,5,5, 1, -1 ,-1, 2);
+
+        int[] expectedNeighbor1 = {1, 1};
+        int[] expectedNeighbor2 = {0, 1};
+        int[] expectedNeighbor3 = {1, 1};
+        int[] expectedNeighbor4 = {1, 0};
+        int[] expectedNeighbor5 = {1, 0};
+        int[] expectedNeighbor6 = {1, 1};
+        int[] expectedNeighbor7 = {0, 1};
+        int[] expectedNeighbor8 = {1, 1};
+
+        int[][] expectedNeighbors = {expectedNeighbor1, expectedNeighbor2, expectedNeighbor3, expectedNeighbor4, expectedNeighbor5, expectedNeighbor6, expectedNeighbor7, expectedNeighbor8};
+        assertArrayEquals(expectedNeighbors, tempCell.getNeighbors());
+
+    }
+
+
+    @Test
+    void getLeftOnlyNeighborTest(){
+        Cell tempCell = new RectangleCell(0,0,0,5,5, 3, -1 ,-1, 0);
+
+        int[] expectedNeighbors1 = {1,0};
+        int[] expectedNeighbors2 = {4,0};
+        int[] expectedNeighbors3 = {1,1};
+        int[] expectedNeighbors4 = {0,1};
+        int[] expectedNeighbors5 = {4,1};
+
+        int[][] expectedNeighbors = {expectedNeighbors1, expectedNeighbors2, expectedNeighbors3, expectedNeighbors4, expectedNeighbors5};
+
+        assertArrayEquals(expectedNeighbors, tempCell.getNeighbors());
     }
 
     @Test
