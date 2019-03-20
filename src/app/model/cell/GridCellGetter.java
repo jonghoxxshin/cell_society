@@ -4,6 +4,7 @@ import app.model.GridShapeType;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -31,7 +32,7 @@ public class GridCellGetter extends CellGetter {
     }
 
 
-    private ArrayList<String[]> generateStateList(){
+    private List<String[]> generateStateList(){
         System.out.println("csvName is " + getCsvName());
         Scanner csvScanner = new Scanner(GridCellGetter.class.getClassLoader().getResourceAsStream(getCsvName()));
         csvScanner.next();
@@ -56,7 +57,7 @@ public class GridCellGetter extends CellGetter {
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
     public Cell[][] getCells() throws IOException {
-        ArrayList<String[]> stateList = generateStateList();
+        ArrayList<String[]> stateList = (ArrayList<String[]>) generateStateList();
 
         Cell[][] cellsGenerated = new Cell[getMyHeight()][getMyWidth()];
 

@@ -20,11 +20,11 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 
 class StateTest {
-    private static Rules lifeRules  = new Rules("GameOfLife");
-    private static ArrayList<State> lifeStates = lifeRules.getPossibleStates();
-    private static Rules percolateRules = new Rules("Percolation");
-    private static ArrayList<State> percolateStates = percolateRules.getPossibleStates();
-    private  Boolean testBool;
+    private static final Rules lifeRules  = new Rules("GameOfLife");
+    private static final ArrayList<State> lifeStates = lifeRules.getPossibleStates();
+    private static final Rules percolateRules = new Rules("Percolation");
+    private static final ArrayList<State> percolateStates = percolateRules.getPossibleStates();
+    private Boolean testBool;
 
 
     @Test
