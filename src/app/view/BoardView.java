@@ -40,12 +40,13 @@ import java.util.ArrayList;
 import javafx.scene.shape.Shape;
 
 import java.util.ResourceBundle;
+import java.util.List;
 
 
 public class BoardView {
-    public static final double BOARD_WIDTH = 700;
-    public static final double BOARD_HEIGHT = 500;
-    public static final int STROKE_WIDTH = 1;
+    private static final double BOARD_WIDTH = 700;
+    private static final double BOARD_HEIGHT = 500;
+    private static final int STROKE_WIDTH = 1;
 
     protected int myBoardWidth;
     protected int myBoardHeight;
@@ -63,7 +64,7 @@ public class BoardView {
     private Board myBoard;
     private GridShapeType myGridShape;
 
-    private ArrayList<Image> myImageArray;
+    private List<Image> myImageArray;
     private ImageView[][] myImageViewBoard;
     private Scene myScene;
     private ResourceBundle myProperties;
@@ -84,7 +85,7 @@ public class BoardView {
      */
 
 
-    public BoardView( Board board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, ArrayList<Image> list){
+    public BoardView( Board board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, List<Image> list){
         this( board, properties, sc, grid, list, Color.WHITE, Color.BLACK, Color.BLUE);
         myImageArray = list;
     }
@@ -120,7 +121,7 @@ public class BoardView {
      * @param c1 color for state 1
      * @param c2 color for state 2
      */
-    public BoardView( Board board, ResourceBundle properties, SimulationController sc, boolean grid, ArrayList<Image> images, Color c0, Color c1, Color c2){
+    public BoardView( Board board, ResourceBundle properties, SimulationController sc, boolean grid, List<Image> images, Color c0, Color c1, Color c2){
         myProperties = properties;
         myBoardWidth = board.getMyWidth();
         myBoardHeight = board.getMyHeight();
@@ -168,7 +169,7 @@ public class BoardView {
      *
      * @param input ArrayList to use for images to be used in simulation
      */
-    public void setMyImageArray(ArrayList<Image> input){
+    public void setMyImageArray(List<Image> input){
         useImage = true;
         this.myImageArray = input;
         updateBoard();

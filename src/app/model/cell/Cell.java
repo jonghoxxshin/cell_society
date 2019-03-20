@@ -264,7 +264,7 @@ public abstract class Cell{
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
     public List<Cell> findNeighborsInState(int state, int[][] neighborsList, Board board) {
-        List<Cell> neighborsInState = new ArrayList<Cell>();
+        List<Cell> neighborsInState = new ArrayList<>();
         for (int[] neighbor : neighborsList) {
             if (neighbor[0] != -1 && neighbor[1] != -1) {
                 Cell tempCell = board.getCells()[neighbor[0]][neighbor[1]];

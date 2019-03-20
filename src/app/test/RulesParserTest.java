@@ -18,6 +18,8 @@ import app.model.rules.RulesParser;
 import app.model.State;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RulesParserTest {
@@ -27,7 +29,7 @@ class RulesParserTest {
     void getPossibleStatesForLife() {
         RulesParser myRulesParser = new RulesParser("GameOfLife");
         Boolean myTestBool = true;
-        ArrayList<Integer> expectedStates = new ArrayList<Integer>();
+        List<Integer> expectedStates = new ArrayList<>();
         expectedStates.add(0);
         expectedStates.add(1);
         for (State state : myRulesParser.getPossibleStates()){
@@ -45,7 +47,7 @@ class RulesParserTest {
     void getPossibleStatesForPercolate() {
         RulesParser myRulesParser = new RulesParser("Percolation");
         Boolean myTestBool = true;
-        ArrayList<Integer> expectedStates = new ArrayList<Integer>();
+        List<Integer> expectedStates = new ArrayList<>();
         expectedStates.add(0);
         expectedStates.add(1);
         expectedStates.add(2);

@@ -17,13 +17,15 @@ import app.model.rules.Rules;
 import app.model.State;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StateTest {
     private static final Rules lifeRules  = new Rules("GameOfLife");
-    private static final ArrayList<State> lifeStates = lifeRules.getPossibleStates();
+    private static final List<State> lifeStates = lifeRules.getPossibleStates();
     private static final Rules percolateRules = new Rules("Percolation");
-    private static final ArrayList<State> percolateStates = percolateRules.getPossibleStates();
+    private static final List<State> percolateStates = percolateRules.getPossibleStates();
     private Boolean testBool;
 
 

@@ -44,13 +44,14 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class RightView {
     private VBox myRoot;
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
-    private ArrayList<State> myPossibleStates;
+    private List<State> myPossibleStates;
     private Button mySubmitButton;
     private Button myLoadImageButton;
     private ColorPicker myColorPicker0;
@@ -58,7 +59,7 @@ public class RightView {
     private ColorPicker myColorPicker2;
     private BoardView myBoardView;
     private GraphView myGraphView;
-    private ArrayList<Image> myImages;
+    private List<Image> myImages;
 
 
     /**

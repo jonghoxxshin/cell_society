@@ -37,6 +37,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControlView {
@@ -54,7 +55,7 @@ public class ControlView {
     private Button gridOutline;
     private ResourceBundle myProperties;
     private Label mySliderLabel;
-    private ArrayList<String> myPropertiesList;
+    private List<String> myPropertiesList;
 
     private boolean myStartBoolean;
 

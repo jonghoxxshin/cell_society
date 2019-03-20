@@ -39,7 +39,7 @@ public class GridCellGetter extends CellGetter {
         csvScanner.next();
         csvScanner.next();
 
-        ArrayList<String[]> stateList = new ArrayList<>();
+        List<String[]> stateList = new ArrayList<>();
 
         while(csvScanner.hasNext()) {
             String nextLine = csvScanner.next();
@@ -57,7 +57,7 @@ public class GridCellGetter extends CellGetter {
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
     public Cell[][] getCells() throws IOException {
-        ArrayList<String[]> stateList = (ArrayList<String[]>) generateStateList();
+        List<String[]> stateList = generateStateList();
 
         Cell[][] cellsGenerated = new Cell[getMyHeight()][getMyWidth()];
 
