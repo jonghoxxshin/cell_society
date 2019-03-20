@@ -22,7 +22,7 @@ public class RulesParser {
     private static final String SEGREGATION_RULES = "SegregationRules.txt";
     private static final String PREDATORPREY_RULES = "PredatorPreyRules.txt";
     private static final String FIRE_RULES = "FireRules.txt";
-    private static final String LIFE = "gameoflife";
+    // private static final String LIFE = "gameoflife";
     private static final String PERCOLATE = "percolation";
     private static final String RPS = "rockpaperscissors";
     private static final String SEGREGATION = "segregation";

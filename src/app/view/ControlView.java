@@ -171,7 +171,7 @@ public class ControlView {
         myRoot.getChildren().add(gridOutline);
     }
     private void gridChange(Button grid) {
-        if(grid.getText() == myProperties.getString("grid_on")) grid.setText(myProperties.getString("grid_off"));
+        if(grid.getText().equals(myProperties.getString("grid_on"))) grid.setText(myProperties.getString("grid_off"));
         else grid.setText(myProperties.getString("grid_on"));
         mySimulationController.changeGrid();
     }
