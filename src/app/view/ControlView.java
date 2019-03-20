@@ -33,30 +33,22 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.HBox;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControlView {
-    private ComboBox myDropDown;
-    private ObservableList<String> myConfigOptions;
 
     private SimulationController mySimulationController;
     private NewConfigView myNewConfigView;
     private HBox myRoot;
-    private Slider mySlider;
-    private Button stepButton;
-    private Button pauseButton;
-    private Button newConfigButton;
-    private Button startButton;
     private Button gridOutline;
     private ResourceBundle myProperties;
-    private Label mySliderLabel;
     private List<String> myPropertiesList;
-
     private boolean myStartBoolean;
 
     /**
@@ -104,24 +96,24 @@ public class ControlView {
     }
 
     private void setButtons(){
-        stepButton = makeButton(myProperties.getString("one_step_button"), e->this.oneStep());
-        myRoot.getChildren().add(stepButton);
-        pauseButton = makeButton(myProperties.getString("pause_button"), e -> this.pause());
-        myRoot.getChildren().add(pauseButton);
-        newConfigButton = makeButton(myProperties.getString("new_configuration_button"), e -> this.newConfig());
-        myRoot.getChildren().add(newConfigButton);
-        startButton = makeButton(myProperties.getString("start_button"), e -> this.start());
-        myRoot.getChildren().add(startButton);
+        Button tempOneStepButton = makeButton(myProperties.getString("one_step_button"), e->this.oneStep());
+        myRoot.getChildren().add(tempOneStepButton);
+        Button tempPauseButton = makeButton(myProperties.getString("pause_button"), e -> this.pause());
+        myRoot.getChildren().add(tempPauseButton);
+        Button tempConfigButton = makeButton(myProperties.getString("new_configuration_button"), e -> this.newConfig());
+        myRoot.getChildren().add(tempConfigButton);
+        Button tempStartButton = makeButton(myProperties.getString("start_button"), e -> this.start());
+        myRoot.getChildren().add(tempStartButton);
     }
 
     private void setView(){
         makeDropDown();
         setButtons();
         SpeedSlider speedSlider = new SpeedSlider(mySimulationController);
-        mySlider = speedSlider.getMySlider();
-        mySliderLabel = new Label(myProperties.getString("slider_label"));
-        mySliderLabel.setLabelFor(mySlider);
-        myRoot.getChildren().add(mySlider);
+        Slider tempSlider = speedSlider.getMySlider();
+        Label tempLabel = new Label(myProperties.getString("slider_label"));
+        tempLabel.setLabelFor(tempSlider);
+        myRoot.getChildren().add(tempSlider);
         createGridOutlineButton();
     }
 
@@ -147,16 +139,17 @@ public class ControlView {
     }
 
     private void makeDropDown() {
-        myConfigOptions = FXCollections.observableArrayList(myPropertiesList);
-        myDropDown = new ComboBox(myConfigOptions);
-        myDropDown.setPromptText(myProperties.getString("load_configuration_button"));
-        myDropDown.valueProperty().addListener(new ChangeListener() {
+        ObservableList<String> tempConfigOptions = FXCollections.observableArrayList(myPropertiesList);
+        ComboBox tempDropDown = new ComboBox(tempConfigOptions);
+
+        tempDropDown.setPromptText(myProperties.getString("load_configuration_button"));
+        tempDropDown.valueProperty().addListener(new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object o, Object t1) {
                 loadConfig((String) t1);
             }
         });
-        myRoot.getChildren().add(myDropDown);
+        myRoot.getChildren().add(tempDropDown);
     }
 
     private void loadConfig(String t1) {
@@ -171,8 +164,13 @@ public class ControlView {
         myRoot.getChildren().add(gridOutline);
     }
     private void gridChange(Button grid) {
-        if(grid.getText() == myProperties.getString("grid_on")) grid.setText(myProperties.getString("grid_off"));
-        else grid.setText(myProperties.getString("grid_on"));
+        if(grid.getText() == myProperties.getString("grid_on")) {
+            grid.setText(myProperties.getString("grid_off"));
+        }
+        else {
+            grid.setText(myProperties.getString("grid_on"));
+        }
+
         mySimulationController.changeGrid();
     }
 

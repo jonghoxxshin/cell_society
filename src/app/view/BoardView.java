@@ -36,7 +36,7 @@ import javafx.scene.paint.Color;
 import app.model.cell.Cell;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
-import java.util.ArrayList;
+
 import javafx.scene.shape.Shape;
 
 import java.util.ResourceBundle;
