@@ -38,7 +38,6 @@ public class MainView {
     private RightView myRightView;
     private GraphView myGraphView;
     private Scene myScene;
-    private Label myLabel;
     private SimulationController mySimulationController;
     private ResourceBundle myProperties;
     private boolean myStartBoolean;

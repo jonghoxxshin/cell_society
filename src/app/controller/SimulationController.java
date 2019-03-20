@@ -90,7 +90,7 @@ public class SimulationController {
         myImageList = new ArrayList<>();
         initMyPropList();
         myControlView = new ControlView(this);
-        myGraphView = new GraphView(this, myProperties);
+        myGraphView = new GraphView(myProperties);
         myRightView = new RightView(this, myBoardView,myGraphView);
         getStateData();
         myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
@@ -246,7 +246,7 @@ public class SimulationController {
      */
     public void setNewBoard(){
         myBoardView = new BoardView(myBoard,myProperties,this, useGrid, null, color0,color1,color2);
-        myRightView  = new RightView(this, myBoardView, new GraphView(this, myProperties));
+        myRightView  = new RightView(this, myBoardView, new GraphView(myProperties));
         myMainView.setMyBoardView(myBoardView);
     }
 

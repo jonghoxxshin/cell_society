@@ -250,10 +250,8 @@ public abstract class Cell{
     private int findNumberOfNeighborsInState(int state, int[][] neighborsList, Board board) {
         int count = 0;
         for (int[] neighbor : neighborsList) {
-            if (neighbor[0] != -1 && neighbor[1] != -1) {
-                if (board.getCells()[neighbor[0]][neighbor[1]].getMyState() == state) {
-                    count++;
-                }
+            if (neighbor[0] != -1 && neighbor[1] != -1 && board.getCells()[neighbor[0]][neighbor[1]].getMyState() == state) {
+                count++;
             }
         }
         return count;
