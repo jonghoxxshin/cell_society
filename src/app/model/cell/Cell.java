@@ -396,7 +396,8 @@ public abstract class Cell{
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
     public void setNeighbors(int[][] newNeighbors) {
-        neighbors = newNeighbors;
+        int[][] tempNeighbors = newNeighbors;
+        neighbors = tempNeighbors;
     }
 
 
