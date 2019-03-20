@@ -435,6 +435,14 @@ public class MainView {
     EXTERNAL
 }
 
+How can you reduce the number of methods needed to do a task or make them easier to find and understand?
+    - We can make the methods needed to do a task easier to find and understand by using appropriate encapsulation and packaging,
+    along with using intuitive method names. Also we can reduce the number of methods needed by having wide set of private methods that
+    is flexible in terms of bringing change and extending the features.
+What can you take as a parameter or return that helps other programmers write their own well designed code?
+    -One of the things we can do is have it take in the most generic type of object that is higher in inheritance hierarchy
+    so that other programmer can choose different ways (subclasses) to choose to implement the details when they want to change
+    the code or build other components based off on it.
 
  How can you reduce the number of methods needed to do a task or make them easier to find and understand?
  What can you take as a parameter or return that helps other programmers write their own well designed code?
