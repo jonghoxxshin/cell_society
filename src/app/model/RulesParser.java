@@ -96,7 +96,7 @@ public class RulesParser {
             try {
                 altEndState = Integer.parseInt(splitByWhiteSpace[2].split(",")[1]);
             } catch (ArrayIndexOutOfBoundsException ex) {
-
+                throw ex;
             }
         } else {
             endState = Integer.parseInt(splitByWhiteSpace[2]);
