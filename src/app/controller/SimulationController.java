@@ -256,9 +256,7 @@ public class SimulationController {
      * Changes the boolean value of useGrid and replaces the board with board with grid/without grid
      */
     public void changeGrid(){
-        if(useGrid){
-            useGrid = false;
-        }else useGrid = true;
+        useGrid = !useGrid;
         myBoardView.changeGridStatus();
         //replaceBoardView();
         myMainView.setMyBoardView(myBoardView);

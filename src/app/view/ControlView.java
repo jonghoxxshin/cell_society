@@ -94,11 +94,6 @@ public class ControlView {
         return myStartBoolean;
     }
 
-    // Function to set value of start boolean
-    public void setMyStartBoolean(Boolean b){
-        myStartBoolean = b;
-    }
-
     private Button makeButton(String name, EventHandler<ActionEvent> handler){
         var result = new Button();
         var text = name;
@@ -131,7 +126,6 @@ public class ControlView {
 
     private void pause(){
         mySimulationController.pauseSimulation();
-        //myStartBoolean = false;
     }
 
     private void oneStep(){
