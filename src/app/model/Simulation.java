@@ -35,7 +35,7 @@ public class Simulation {
     public void nextStep(){
         if(start) {
 
-            // we're gonna wanna change this to for every item in cells, set i,j equal to myBoard.getCellAt() 
+            // we're gonna wanna change this to for every item in cells, set i,j equal to myBoard.getCellAt()
 
             myCells = myBoard.updateBoard(myRules);
         }

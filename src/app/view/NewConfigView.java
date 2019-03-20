@@ -53,8 +53,6 @@ public class NewConfigView {
     private final String[] EdgePolicyList = {"Torodial", "Finite", "Flipped"};
     private final String[] NeighborTypeList = {"Complete", "Cardinal", "All but left"};
     private final String[] GameList = {"Game of Life", "Percolation", "Predator and Prey", "Rock Paper Scissors", "Segregation"};
-    private ObservableList<String> myCSVOptions;
-    private Button mySubmitButton;
     private Scene myScene;
     private VBox myRoot;
     private Stage myStage;

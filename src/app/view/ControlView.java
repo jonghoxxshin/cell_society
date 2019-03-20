@@ -42,21 +42,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControlView {
-    private ComboBox myDropDown;
 
     private SimulationController mySimulationController;
     private NewConfigView myNewConfigView;
     private HBox myRoot;
-    private Slider mySlider;
-    private Button stepButton;
-    private Button pauseButton;
-    private Button newConfigButton;
-    private Button startButton;
     private Button gridOutline;
     private ResourceBundle myProperties;
-    private Label mySliderLabel;
     private List<String> myPropertiesList;
-
     private boolean myStartBoolean;
 
     /**
@@ -178,6 +170,7 @@ public class ControlView {
         else {
             grid.setText(myProperties.getString("grid_on"));
         }
+
         mySimulationController.changeGrid();
     }
 
