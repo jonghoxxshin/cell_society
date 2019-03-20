@@ -3,7 +3,6 @@ package app.model.rules;
 import app.model.GridShape;
 import app.model.GridShapeType;
 import app.model.cell.*;
-import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
@@ -24,7 +23,6 @@ public class CSVParser {
     private int myWidth;
     private String gameType;
     private int neighborType;
-    private Color[] myColors;
     private String myDescription;
     private Cell[][] cells;
     private int errorStatus;

@@ -154,7 +154,6 @@ public class BoardView {
         }
     }
 
-
     /**
      * Method to set the colors of states in the board
      *

@@ -33,7 +33,7 @@ public class RulesParser {
     private int type;
     private ArrayList<Integer> stateArray;
     private ArrayList<int[]> rulesArray;
-    private static int numberOfNeighbors;
+    private int numberOfNeighbors;
 
     //NEED TO REPLACE EVENTUALLY
     private double probability = 0.3;
