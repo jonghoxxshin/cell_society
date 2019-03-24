@@ -13,28 +13,27 @@ Team 11
 ### How to Add New Features: explains, in detail, how to add new features to your project
 There are a wide range of potential features that could be implemented in our project: new cell shapes, new edge policies,
 new neighbor arrangements, new simulation types, and new visual features to name a few.
-#### New Cell Shape:
+* New Cell Shape:
 
-#### New Edge Policy:
-        The implementation of a new edge policy is relatively simple. In the abstract class Cell, currently there are
-        three methods that allow for the implementation of a specific edge policy: getNeighbors() (torodial),
-        getNeighborsFinite(), and getNeighborsFlipped(). To implement a new edge policy, a new method must be written in
-        Cell in the same manner as the existing methods listed above. Once a method has been written, something like
-        getNeighborsNewEdgePolicy(). Then in order to use this edge policy in a simulation, one must add a conditional
-        statement into chooseAppropriateNeighbors(), that checks if the nth policy is selected make a call to
-        getNeighborsNewEdgePolicy(). Lastly, edge policy is directly specified in the properties file for any given,
-        thus to implement this policy you must create a new properties file or modify an existing one so that
-        edge_policy=NewPolicy. The data for edge policy in the properties file is parsed within the abstract Class Board.
-        So, in order to implement this parsing, one must modify the method getEdgeType(), with a conditional that checks
-        if the string matches the name of the new policy, and if so returns an integer n, that represents our nth policy.
+* New Edge Policy:
+The implementation of a new edge policy is relatively simple. In the abstract class Cell, currently there are
+three methods that allow for the implementation of a specific edge policy: getNeighbors() (torodial),
+getNeighborsFinite(), and getNeighborsFlipped(). To implement a new edge policy, a new method must be written in
+Cell in the same manner as the existing methods listed above. Once a method has been written, something like
+getNeighborsNewEdgePolicy(). Then in order to use this edge policy in a simulation, one must add a conditional
+statement into chooseAppropriateNeighbors(), that checks if the nth policy is selected make a call to
+getNeighborsNewEdgePolicy(). Lastly, edge policy is directly specified in the properties file for any given,
+thus to implement this policy you must create a new properties file or modify an existing one so that
+edge_policy=NewPolicy. The data for edge policy in the properties file is parsed within the abstract Class Board.
+So, in order to implement this parsing, one must modify the method getEdgeType(), with a conditional that checks
+if the string matches the name of the new policy, and if so returns an integer n, that represents our nth policy.
 
-#### New Neighbor Arrangement:
+* New Neighbor Arrangement:
 
-#### New Simulation Types:
+* New Simulation Types:
 
-#### New Visual Features:
+* New Visual Features:
 
-    To implement a new edge policy
 
 
 ### Justification of Design: justifies major design choices, including trade-offs (i.e., pros and cons), made in your project
