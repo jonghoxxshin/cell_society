@@ -1,6 +1,5 @@
 
 ##
-<<<<<<< HEAD
 How does a app.model.cell.Cell know what rules to apply for its simulation?
 
     The cell will be an abstract class with a method that can be called to determine which rule to apply dependent on the neighbors.
@@ -8,7 +7,7 @@ How does a app.model.cell.Cell know what rules to apply for its simulation?
 How does a app.model.cell.Cell know about its neighbors? How can it update itself without affecting its neighbors update?
 
     app.model.cell.Cell is able to access the neighbors through assigned instance varibales when instantiated.
-=======
+##
 How does a app.Cell know what rules to apply for its simulation?
 
     The cell will be an abstract class with a method that can be called to determine which rule to apply dependent on the neighbors.
@@ -16,7 +15,6 @@ How does a app.Cell know what rules to apply for its simulation?
 How does a app.Cell know about its neighbors? How can it update itself without affecting its neighbors update?
 
     app.Cell is able to access the neighbors through assigned instance varibales when instantiated.
->>>>>>> 3f1c9c5cb84d8be79e5b3ce0d82449d8e9d9357f
 ##
 What behaviors does the Grid itself have? How can it update all of the Cells it contains?
 
