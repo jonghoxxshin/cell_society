@@ -13,9 +13,9 @@ Team 11
 ### How to Add New Features: explains, in detail, how to add new features to your project
 There are a wide range of potential features that could be implemented in our project: new cell shapes, new edge policies,
 new neighbor arrangements, new simulation types, and new visual features to name a few.
-    #### New Cell Shape:
+#### New Cell Shape:
 
-    #### New Edge Policy:
+#### New Edge Policy:
         The implementation of a new edge policy is relatively simple. In the abstract class Cell, currently there are
         three methods that allow for the implementation of a specific edge policy: getNeighbors() (torodial),
         getNeighborsFinite(), and getNeighborsFlipped(). To implement a new edge policy, a new method must be written in
@@ -28,11 +28,11 @@ new neighbor arrangements, new simulation types, and new visual features to name
         So, in order to implement this parsing, one must modify the method getEdgeType(), with a conditional that checks
         if the string matches the name of the new policy, and if so returns an integer n, that represents our nth policy.
 
-    #### New Neighbor Arrangement:
+#### New Neighbor Arrangement:
 
-    #### New Simulation Types:
+#### New Simulation Types:
 
-    #### New Visual Features:
+#### New Visual Features:
 
     To implement a new edge policy
 
