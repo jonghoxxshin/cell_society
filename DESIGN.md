@@ -33,6 +33,7 @@ if the string matches the name of the new policy, and if so returns an integer n
 
 * New Neighbor Arrangement:
 
+
 * New Simulation Types:
 To implement a new simulation such as the cellular automata, Seeds, you must first identify a few
 characteristics about the new simulation. First you must write a new txt file to specify the rules of the new simulation.
@@ -48,14 +49,36 @@ PredatorPrey is in format 4: (destination_state required_neighbor_state:number_i
 So when adding a new simulation one must first identify which rules format will be sufficient and if none of the current
 formats are sufficient, create a new format, and modify getRulesFromLine() accordingly to parse the rules.
 
-CSV PARSER STUFF
-
-Further, all of the board types are enumerated, and then correspond to a subclass of the abstract class Board. One of two options
-will be appropriate: either one of the existing classes will suffice for the new simulation or a new class must be made,
-that is an extension of the Board class. The subclasses of Board mainly are used to distinguish how the simulation's board
-will be updated. For example since Seeds is very similar to Game of Life, it is likely that one would be able to use the
-same board class that Game of Life uses, GenericBoard. If there is no existing simulation that has update rules that will
-suffice for it, a new subclass must be made.
+In addition to the new rules txt file that must be created, one must also create a new csv config file for the new simulation
+as well as a new properties file for the simulation. The CSV files are all the same format regardless of the type of game:
+    Simulation Name
+    height,width
+    grid
+which is then followed by a comma delineated 2D array, that represent the starting state of each of the cells in the grid.
+The properties files also follow a common format, some of which may or may not be necessary for the new simulation:
+    name_of_creator
+    type_of_game
+    description
+    name_of_csv
+    color0
+    color1
+    color2
+    shape
+    probability
+    edge_policy
+    neighbor_type
+All of the board types are determined based on the type_of_game string, and then correspond to a subclass of the abstract
+class Board. One of two options will be appropriate: either one of the existing classes will suffice for the new simulation
+or a new class must be made, that is an extension of the Board class. The subclasses of Board mainly are used to distinguish
+how the simulation's board will be updated. For example since Seeds is very similar to Game of Life, it is likely that one
+would be able to use the same board class that Game of Life uses, GenericBoard. If there is no existing simulation that has
+update rules that will suffice for it, a new subclass must be made. If a new subclass was created the method getBoardType()
+and getBoard() in SimulationController must be modified to function with the new type of board.
+name_of_creator, type_of_game, description, name_of_csv, color0, color1, color2 are self explanatory and take the according
+strings. edge_policy and neighbor_type can be selected from the existing options based on what is satisfactory for the simulation.
+For example currently if the simulation require torodial or finite edges, one may use edge_policy=torodial, and edge_policy=finite
+respectively. For neighbor type, we have enumerated our options with 1 representing a moore neighborhood, 2 being the von
+Neumann neighborhood and 3 being a modified version of the moore neighborhood.
 
 
 * New Visual Features:
