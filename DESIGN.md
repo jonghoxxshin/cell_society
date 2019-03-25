@@ -10,6 +10,7 @@ CompSci 307: Simulation Project Design (Team 11)
 
 
 
+
 ### How to Add New Features: explains, in detail, how to add new features to your project
 There are a wide range of potential features that could be implemented in our project: new cell shapes, new edge policies,
 new neighbor arrangements, new simulation types, and new visual features to name a few.
@@ -55,8 +56,7 @@ that is an extension of the Board class. The subclasses of Board mainly are used
 will be updated. For example since Seeds is very similar to Game of Life, it is likely that one would be able to use the
 same board class that Game of Life uses, GenericBoard. If there is no existing simulation that has update rules that will
 suffice for it, a new subclass must be made.
-the
-The rules are in the format: a b:c d,e where a is the
+
 
 * New Visual Features:
 
