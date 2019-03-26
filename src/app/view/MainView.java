@@ -20,6 +20,7 @@ by the constructor.
  */
 
 import app.controller.SimulationController;
+import app.model.Simulation;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -36,13 +37,8 @@ public class MainView {
     private BorderPane myRoot;
     private ControlView myControlView;
     private RightView myRightView;
-    private GraphView myGraphView;
     private Scene myScene;
-    private Label myLabel;
-    private SimulationController mySimulationController;
-    private ResourceBundle myProperties;
     private boolean myStartBoolean;
-
 
     /**
      * Constructor to generate a MainView object from a specified BorderPane root, a BoardView object, a
@@ -56,15 +52,11 @@ public class MainView {
      * @param gv GraphView to be used in MainView
      */
     public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv, GraphView gv) {
-        myProperties = ResourceBundle.getBundle("english");
-        mySimulationController = sc;
         myStartBoolean = false;
         myBoardView = bv;
         myRightView = rv;
         myControlView = cv;
-        myGraphView = gv;
         this.myRoot = root;
-
         myRoot.setTop(this.makeTop());
         myRoot.setCenter(this.makeCenter());
         myRoot.setRight(this.makeRight());
@@ -73,8 +65,6 @@ public class MainView {
     }
 
     public void modifyMainView(BorderPane root, BoardView bv, SimulationController sc, ControlView cv) {
-        myProperties = ResourceBundle.getBundle("english");
-        mySimulationController = sc;
         myStartBoolean = false;
         myBoardView = bv;
         myControlView = cv;

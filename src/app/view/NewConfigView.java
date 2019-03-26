@@ -53,12 +53,6 @@ public class NewConfigView {
     private final String[] EdgePolicyList = {"Torodial", "Finite", "Flipped"};
     private final String[] NeighborTypeList = {"Complete", "Cardinal", "All but left"};
     private final String[] GameList = {"Game of Life", "Percolation", "Predator and Prey", "Rock Paper Scissors", "Segregation"};
-    private ObservableList<String> myCSVOptions;
-    private ObservableList<String> myShapeOptions;
-    private ObservableList<String> myGameOptions;
-    private ObservableList<String> myEdgeOptions;
-    private ObservableList<String> myNeighborOptions;
-    private Button mySubmitButton;
     private Scene myScene;
     private VBox myRoot;
     private Stage myStage;
@@ -73,7 +67,6 @@ public class NewConfigView {
 
     private TextField nameField;
     private TextField nameProperties;
-    private TextField typeField;
     private TextField des;
 
 
@@ -112,8 +105,8 @@ public class NewConfigView {
         for(String game : GameList){
             gameList.add(game);
         }
-        myGameOptions = FXCollections.observableArrayList(gameList);
-        myGames = new ComboBox(myGameOptions);
+        ObservableList<String> tempGameOptions = FXCollections.observableArrayList(gameList);
+        myGames = new ComboBox(tempGameOptions);
         myGames.setPromptText(myProperties.getString("choose_a_game_prompt"));
         myRoot.getChildren().add(myGames);
     }
@@ -123,8 +116,8 @@ public class NewConfigView {
         for(String shape : ShapeList){
             shapeList.add(shape);
         }
-        myShapeOptions = FXCollections.observableArrayList(shapeList);
-        myShapes = new ComboBox(myShapeOptions);
+        ObservableList<String> tempShapeOptions = FXCollections.observableArrayList(shapeList);
+        myShapes = new ComboBox(tempShapeOptions);
         myShapes.setPromptText(myProperties.getString("choose_a_grid_shape_prompt"));
         myRoot.getChildren().add(myShapes);
     }
@@ -134,8 +127,8 @@ public class NewConfigView {
         for(String edgePolicy : EdgePolicyList){
             edgePolicyList.add(edgePolicy);
         }
-        myEdgeOptions = FXCollections.observableArrayList(edgePolicyList);
-        myEdgePolicies = new ComboBox(myEdgeOptions);
+        ObservableList<String> tempEdgeOptions = FXCollections.observableArrayList(edgePolicyList);
+        myEdgePolicies = new ComboBox(tempEdgeOptions);
         myEdgePolicies.setPromptText(myProperties.getString("choose_an_edge_policy_prompt"));
         myRoot.getChildren().add(myEdgePolicies);
     }
@@ -145,8 +138,8 @@ public class NewConfigView {
         for(String neighborType : NeighborTypeList){
             neighborPolicyList.add(neighborType);
         }
-        myNeighborOptions = FXCollections.observableArrayList(neighborPolicyList);
-        myNeighborPolicies = new ComboBox(myNeighborOptions);
+        ObservableList<String> tempNeighborOptions = FXCollections.observableArrayList(neighborPolicyList);
+        myNeighborPolicies = new ComboBox(tempNeighborOptions);
         myNeighborPolicies.setPromptText(myProperties.getString("choose_a_neighbor_policy_prompt"));
         myRoot.getChildren().add(myNeighborPolicies);
     }
@@ -165,9 +158,9 @@ public class NewConfigView {
     private void setTypeComponent(String fieldLabel){
         HBox temp = new HBox();
         Text tempText = new Text(fieldLabel);
-        typeField = new TextField();
+        TextField tempField = new TextField();
         temp.getChildren().add(tempText);
-        temp.getChildren().add(typeField);
+        temp.getChildren().add(tempField);
         temp.setAlignment(Pos.CENTER);
         myRoot.getChildren().add(temp);
     }
@@ -198,17 +191,17 @@ public class NewConfigView {
         for(String csv : CSVList){
             configList.add(csv);
         }
-        myCSVOptions = FXCollections.observableArrayList(configList);
-        myDropDown = new ComboBox(myCSVOptions);
+        ObservableList<String> tempCSVOptions = FXCollections.observableArrayList(configList);
+        myDropDown = new ComboBox(tempCSVOptions);
         myDropDown.setPromptText(myProperties.getString("choose_a_csv_config_prompt"));
         myRoot.getChildren().add(myDropDown);
     }
 
     private void setBottom(){
         HBox temp = new HBox();
-        mySubmitButton = new Button(myProperties.getString("submit"));
-        mySubmitButton.setOnAction(e -> this.submit(mySimulationController));
-        temp.getChildren().add(mySubmitButton);
+        Button tempSubmitButton = new Button(myProperties.getString("submit"));
+        tempSubmitButton.setOnAction(e -> this.submit(mySimulationController));
+        temp.getChildren().add(tempSubmitButton);
         temp.setAlignment(Pos.CENTER);
         myRoot.getChildren().add(temp);
     }

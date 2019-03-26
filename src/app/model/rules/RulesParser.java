@@ -22,7 +22,7 @@ public class RulesParser {
     private static final String SEGREGATION_RULES = "SegregationRules.txt";
     private static final String PREDATORPREY_RULES = "PredatorPreyRules.txt";
     private static final String FIRE_RULES = "FireRules.txt";
-    private static final String LIFE = "gameoflife";
+    // private static final String LIFE = "gameoflife";
     private static final String PERCOLATE = "percolation";
     private static final String RPS = "rockpaperscissors";
     private static final String SEGREGATION = "segregation";
@@ -34,9 +34,8 @@ public class RulesParser {
     private List<Integer> stateArray;
     private List<int[]> rulesArray;
     private int numberOfNeighbors;
-
-    //NEED TO REPLACE EVENTUALLY
     private double probability = 0.3;
+    private final double setProb = 0.3;
 
     /**
      * Rules Parser Constructor
@@ -49,7 +48,7 @@ public class RulesParser {
      */
     //
     public RulesParser(String game) {
-        this.probability = 0.3;
+        this.probability = setProb;
         rulesArray = new ArrayList<>();
         stateArray = new ArrayList<>();
         InputStream in = this.getClass().getClassLoader().getResourceAsStream(getFileName(game));
@@ -94,15 +93,15 @@ public class RulesParser {
 
 
     private String getFileName(String game){
-         if (game.toLowerCase().equals(PERCOLATE)) {
+         if (game.equalsIgnoreCase(PERCOLATE)) {
             return PERCOLATE_RULES;
-        } else if (game.toLowerCase().equals(RPS)) {
+        } else if (game.equalsIgnoreCase(RPS)) {
             return RPS_RULES;
-        } else if (game.toLowerCase().equals(SEGREGATION)) {
+        } else if (game.equalsIgnoreCase(SEGREGATION)) {
             return SEGREGATION_RULES;
-        } else if (game.toLowerCase().equals(PREDATORPREY)) {
+        } else if (game.equalsIgnoreCase(PREDATORPREY)) {
             return PREDATORPREY_RULES;
-        } else if (game.toLowerCase().equals(FIRE)) {
+        } else if (game.equalsIgnoreCase(FIRE)) {
             return FIRE_RULES;
         }
         return LIFE_RULES;
@@ -119,7 +118,7 @@ public class RulesParser {
             try {
                 altEndState = Integer.parseInt(splitByWhiteSpace[2].split(",")[1]);
             } catch (ArrayIndexOutOfBoundsException ex) {
-
+                throw ex;
             }
         } else {
             endState = Integer.parseInt(splitByWhiteSpace[2]);

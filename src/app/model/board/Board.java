@@ -26,7 +26,6 @@ public abstract class Board {
     private int neighborType;
     private final int[] orderToReplace = {2, 1, 0};
     private CSVParser myParser;
-    private GridShapeType myGridShapeType;
     private String edgePolicy;
 
 
@@ -46,7 +45,6 @@ public abstract class Board {
      */
     public Board(ResourceBundle myProperties) {
         myGame = myProperties.getString("type_of_game");
-        myGridShapeType = new GridShape().getShape(myProperties.getString("shape"));
         edgePolicy = myProperties.getString("edge_policy");
         myParser = new CSVParser(myProperties);
         neighborType = myParser.getNeighborType();

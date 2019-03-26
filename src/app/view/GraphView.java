@@ -25,7 +25,6 @@ public class GraphView{
     final NumberAxis yAxis = new NumberAxis();
     private XYChart myXYchart;
     private Group myRoot;
-    private SimulationController mySimulationController;
     private ResourceBundle myProperties;
      private int indexCount;
     private XYChart.Series<Integer, Double> mySeries0;
@@ -34,12 +33,10 @@ public class GraphView{
 
     /**
      * Constructor for the Graph View
-     * @param sc Simulation Controller
      * @param prop Properties File
      */
-    public GraphView(SimulationController sc, ResourceBundle prop){
+    public GraphView(ResourceBundle prop){
         indexCount = 0;
-        mySimulationController = sc;
         myProperties = prop;
         xAxis.setAnimated(true);
         xAxis.setLabel("simulation #");

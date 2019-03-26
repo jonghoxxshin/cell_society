@@ -30,6 +30,15 @@ public abstract class Cell{
     private GridShapeType myGridShapeType;
     private boolean reproductionFlag = false;
 
+    private final int NUM_CARDINAL_NEIGHBORS = 4;
+    private final int NUM_ALL_BUT_LEFT_NEIGHBORS = 5;
+    private final int NUM_NORMAL_NEIGHBORS = 8;
+
+    private final int CARDINAL = 2;
+    private final int ALL_BUT_LEFT = 3;
+
+    private final int RULES_TYPE_WITH_CHRONONS = 4;
+
 
     /**
      * Cell Constuctor
@@ -208,16 +217,16 @@ public abstract class Cell{
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
     private int[][] getTempNeighborsForType() {
-        if (type == 2) {
-            int[][] tempNeighbors = new int[4][2];
+        if (type == CARDINAL) {
+            int[][] tempNeighbors = new int[NUM_CARDINAL_NEIGHBORS][2];
             return tempNeighbors;
         }
-        else if(type == 3){
-            int[][] tempNeighbors = new int[5][2];
+        else if(type == ALL_BUT_LEFT){
+            int[][] tempNeighbors = new int[NUM_ALL_BUT_LEFT_NEIGHBORS][2];
             return tempNeighbors;
         }
 
-        int[][] returnNeighbors = new int[8][2];
+        int[][] returnNeighbors = new int[NUM_NORMAL_NEIGHBORS][2];
         return returnNeighbors;
     }
 
@@ -241,10 +250,8 @@ public abstract class Cell{
     private int findNumberOfNeighborsInState(int state, int[][] neighborsList, Board board) {
         int count = 0;
         for (int[] neighbor : neighborsList) {
-            if (neighbor[0] != -1 && neighbor[1] != -1) {
-                if (board.getCells()[neighbor[0]][neighbor[1]].getMyState() == state) {
-                    count++;
-                }
+            if (neighbor[0] != -1 && neighbor[1] != -1 && board.getCells()[neighbor[0]][neighbor[1]].getMyState() == state) {
+                count++;
             }
         }
         return count;
@@ -295,7 +302,7 @@ public abstract class Cell{
             if (myState == state.getMyState()) {
                 for (int[] rule : state.getRulesForState()) {
                     int actual = findNumberOfNeighborsInState(rule[1], neighbors, board);
-                    if (currentRules.getMyRulesParser().getType() == 4) {
+                    if (currentRules.getMyRulesParser().getType() == RULES_TYPE_WITH_CHRONONS) {
                         if (currentChronons == maxChronons){
                             currentChronons = 0;
                             reproductionFlag = true;
@@ -312,7 +319,7 @@ public abstract class Cell{
                 }
             }
         }
-        if (currentRules.getMyRulesParser().getType() == 4) {
+        if (currentRules.getMyRulesParser().getType() == RULES_TYPE_WITH_CHRONONS) {
             currentChronons++;
         }
         return this.getMyState();
@@ -396,8 +403,7 @@ public abstract class Cell{
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
     public void setNeighbors(int[][] newNeighbors) {
-        int[][] tempNeighbors = newNeighbors;
-        neighbors = tempNeighbors;
+        neighbors = newNeighbors;
     }
 
 

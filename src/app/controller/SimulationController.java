@@ -72,7 +72,7 @@ public class SimulationController {
     private boolean useImage;
     private boolean useGrid;
     private List<String> myPropertiesList;
-    private BorderPane myRoot;
+
 
     /**
      * Constructor for Simulation Controller, creates instances for the view and model components of the Application and facilitates communication between the two
@@ -90,7 +90,7 @@ public class SimulationController {
         myImageList = new ArrayList<>();
         initMyPropList();
         myControlView = new ControlView(this);
-        myGraphView = new GraphView(this, myProperties);
+        myGraphView = new GraphView(myProperties);
         myRightView = new RightView(this, myBoardView,myGraphView);
         getStateData();
         myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
@@ -246,7 +246,7 @@ public class SimulationController {
      */
     public void setNewBoard(){
         myBoardView = new BoardView(myBoard,myProperties,this, useGrid, null, color0,color1,color2);
-        myRightView  = new RightView(this, myBoardView, new GraphView(this, myProperties));
+        myRightView  = new RightView(this, myBoardView, new GraphView(myProperties));
         myMainView.setMyBoardView(myBoardView);
     }
 
@@ -332,8 +332,8 @@ public class SimulationController {
     }
 
     private void setUpScene(){
-        this.myRoot = new BorderPane();
-        myMainView = new MainView(myBoardView, myRoot,this, myControlView, myRightView, myGraphView);
+        BorderPane tempRoot = new BorderPane();
+        myMainView = new MainView(myBoardView, tempRoot,this, myControlView, myRightView, myGraphView);
         startSimulation = myMainView.getMyStartBoolean();
         myScene = myMainView.getScene();
     }
