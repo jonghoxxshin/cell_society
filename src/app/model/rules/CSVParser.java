@@ -192,11 +192,11 @@ public class CSVParser {
     }
 
     private void getEdgeType(String edgePolicy) {
-        if (edgePolicy.toLowerCase().equals("torodial")) {
+        if (edgePolicy.equalsIgnoreCase("torodial")) {
             edgeType = 0;
-        } else if (edgePolicy.toLowerCase().equals("finite")) {
+        } else if (edgePolicy.equalsIgnoreCase("finite")) {
             edgeType = 1;
-        } else if (edgePolicy.toLowerCase().equals("flipped")) {
+        } else if (edgePolicy.equalsIgnoreCase("flipped")) {
             edgeType = 2;
         }
     }

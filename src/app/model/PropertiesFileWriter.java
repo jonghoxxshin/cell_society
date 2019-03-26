@@ -113,11 +113,11 @@ public class PropertiesFileWriter {
     }
 
     private String neighborStringToNumber(String neighborType){
-        if(neighborType.toLowerCase().equals("all but left")){
+        if(neighborType.equalsIgnoreCase("all but left")){
             return "3";
         }
 
-        else if(neighborType.toLowerCase().equals("cardinal")){
+        else if(neighborType.equalsIgnoreCase("cardinal")){
             return "2";
         }
 

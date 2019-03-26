@@ -73,7 +73,7 @@ public abstract class CellGetter {
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
     public Cell makeCellAtIndex(int state, int row, int column){
-        if (gameName.toLowerCase().equals("predatorprey")) {
+        if (gameName.equalsIgnoreCase("predatorprey")) {
             return createNewCellFromProperty(myGridShapeType, state, column, row, myHeight, myWidth, neighborType, 0, 20, edgePolicy);
         } else {
             return createNewCellFromProperty(myGridShapeType, state, column, row, myHeight, myWidth, neighborType, -1, -1, edgePolicy);

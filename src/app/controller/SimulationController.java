@@ -312,11 +312,11 @@ public class SimulationController {
 
     private int getBoardType(){
         String myGame = myProperties.getString("type_of_game");
-        if (myGame.toLowerCase().equals("predatorprey")){
+        if (myGame.equalsIgnoreCase("predatorprey")){
             return PREDATORPREY_BOARD;
-        } else if (myGame.toLowerCase().equals("fire")){
+        } else if (myGame.equalsIgnoreCase("fire")){
             return FIRE_BOARD;
-        } else if (myGame.toLowerCase().equals("segregation")){
+        } else if (myGame.equalsIgnoreCase("segregation")){
             return SEGREGATION_BOARD;
         } else {
             return -1;
