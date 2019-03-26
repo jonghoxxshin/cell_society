@@ -320,23 +320,81 @@ mentioned above, another issue I wrestled with was making the design as clean an
 the design was neither of those things. It definitely took me some time to figure out what I wanted the shared methods
 to be, and how I wanted to take advantage of the similarities that existed between two of the shapes but not all three
 and even between all three of the shapes, because that was perhaps the most important step in making the abstract class
-and correctly designing the children.  
+and correctly designing the children. However, I knew that the rhombus and rectangular cells had several features in common,
+including their number of neighbors, so I implemented several methods in the abstract class that I then overwrote in the 
+HexCell class, for which those same processes were different. I chose to implement this feature using this kind of hierarchy
+because, as I said before, it minimized repeated code and made the code significantly more readable and intuitive.  
 
 **Are there any assumptions or dependencies from this code that impact the overall design of the program? If not, how 
 did you hide or remove them?**
-
+The different subclasses depend on the different GridShapeTypes because each type of cell has a GridShapeType associated
+with it, and of course, dependencies exist between the parent class and the subclasses since they share methods and 
+instance variables. This code was written with the assumption that more neighbor types would not be needed than the ones
+we have already specified, but if more needed to be added, that could easily be done; the relative coordinates would
+just need to be recalculated for each shape and an integer would have to be assigned to that new neighbor type to be used
+when the Cell was being created by the CSV parser (this is discussed more in depth in the DESIGN.md document regarding
+the creation of new features). The parent Cell class also depends on the Board and Rules/RulesParser classes because 
+each cell needs those classes to correctly calculate its next state.
 
 ##Alternate Designs
 **Reflect on alternate designs for the project based on your analysis of the current design.**
-
+Overall, I think that our design was effective, especially given its modularity, which, as I've most likely made clear,
+was extremely important to me personally going into this project, in part because I believe modularity was key in allowing us
+to work effectively as a group and understand the project as a whole, but for other reasons as well that I've specified above.
 
 **Describe two design decisions made during the project in detail:**
+One design decision that we made at the very beginning of the project and stuck with has to do with flow of information 
+about cells from file to view. At first, when we sat down to organize the project at an extremely high level, we knew that 
+the first thing we had to do was have a CSV parser that could go through a configuration document and create a grid of 
+cells accordingly. This grid of cells would then belong to a certain Board class that would also be responsible for delegating 
+tasks to each cell, namely, delegating the  process of updating its state. This board would then finally be fed into a view 
+at which point it would appear to the user. We believed that this basic flow of information from the bottom up most clearly 
+reflected the MVC approach while also keeping the many processes that made up this one, larger process, as modular as possible, 
+which could allow the different group members to focus on different portions of the project. This ended up being a good 
+design decision, in my opinion, as we never really had to change this basic flow of information, only the components in 
+between to better allow for more features.
 
+A second design decision that we made early on that we stuck with has to do with how we formatted the rules for our games.
+We knew that we had to have a format that could easily let us generate new games, and we thought that the best way to do
+that was through text files. The important question was, of course, how we could turn a text file of rules into actual
+code. We ended up coming to a solution where the text file would simply contain a cell's current state, the number of neighbor
+states in a current state, and according to that number of neighbor states in that new state, what new state to go to for
+that current cell. Of course, this was relatively easy with the game of life and with percolation, since there wasn't much
+to the game other than just counts of neighbor states. But, as the games became more complex, our rules files did as well,
+and we had to build on top of what we already had. So, we made the conscious design decision to stick with text files since 
+it was an approach that allowed us to easily modify and add to our games, and because we believed it was the most elegant
+solution to our problem, even if it was difficult to wrap our heads around at times. Once we had this RulesParser, we knew
+we had to have a Rules object that could actually hold these counts (and other properties as the games became more complicated),
+which is another component of this design decision that we stuck with.
 
 **What alternate designs were considered?**
-
+Given that we thought that the text files were a requirement, we never really considered other options. At the beginning,
+we thought that we could make different Simulation sub classes for each type of game, where the rules were embedded into
+those different Simulation classes, but not only would this decrease the modularity of the code, we also found it to be
+quite counterintuitive and repetitive to re generate entire new simulations when the only thing that changed was the way
+in which the cells interacted with each other. 
 
 **What are the trade-offs of the design choice (describe the pros and cons of the different designs)?**
-
+The biggest pro of using text files was that it became very easy to implement games similar to the ones we already had,
+since we could just change a few numbers for the requirements of neighbor cells in certain states to generate entirely 
+new games without having to touch anything else. However, a major con was the conceptual difficulty of making text files
+for games as complicated as predator and prey and fire, which resulted in clean but complicated code to parse those text 
+files. However, even if we had used some other method, coding out the rules for those games and others would have still
+been extremely complicated, so this may not be as big of a con as it might seem. Of course, as was mentioned before, the
+biggest pro to making different kinds of Simulation objects for different games would have been the lack of having to 
+create a textual formula for rules. But, one major con would be the lack of modularity, which, and I seem to have stressed
+this perhaps too much, was super important in my opinion. 
 
 **Which would you prefer and why (it does not have to be the one that is currently implemented)?**
+I prefer the approach that we took. Not only do I believe that it's extremely cool that we reduced these pretty complicated
+games to text files, but I think the elegance of having everything to do with generating rules in their own, independent 
+cluster of classes was key to the modularity, since it allowed us to easily delegate tasks to each other without having to
+worry about working on the same classes. If we decided to control everything in individual simulations, I can't help but
+feel as though it would have been more complicated to work on the project at the same time. For instance, it would have been
+difficult for Kyle, who worked on rules, to embed those rules into each simulation while I was also figuring out how to 
+generate grids of different shapes in each simulation... or something of that sort. Moreover, with our current structure,
+I feel as though we were able to maintain a clean, logical flow of information from the config files to the view. With 
+the rules as separate classes that dictated how the cells interacted with each other on a cellular level rather than on 
+a much higher, overarching level (like at the level of the entire simulation), we were able to cleanly move the data we
+got from files out to the simulation without having to constantly worry about how they interacted with each other in every
+possible game.
