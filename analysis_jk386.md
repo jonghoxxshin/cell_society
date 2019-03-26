@@ -41,6 +41,11 @@ to add the new features. Even if this were the case, we could always expand the 
 some of the panels/objects if necessary, but even then, we wouldn't be modifying the hard code of these visual items
 and the model behind them. 
 
+Overall, however, as I said before, the code is definitely more flexible than not, because there are more features, in
+my opinion, that would be easy to add to than not. Just to name a few beyond what has already been talked about, edge 
+policies, neighbor policies, and cell shapes would all also be easy to add to, which contribute to the code's overall
+flexibility. 
+
 **What dependencies between the code are clear (e.g., public methods and parameters) and what are through "back channels" 
 (e.g., static calls, order of method call, requirements for specific subclass types)? Note, you can use IntelliJ to help 
 you find the dependencies within your project.**
@@ -122,20 +127,69 @@ figure out how to repackage the information we were sending to fit the formats w
 ##Flexibility
 
 **Reflect on what makes a design flexible and extensible.**
-
+Simply put, a design is flexible when adding additional features or code requires minimal changes to the code that is 
+already there. For instance, with flexible code, adding a different way of being able to read a CSV to configure an
+initial layout for the simulation should require minimal modifications to the code that was already written to be able
+to read CSVs; instead, the bulk of the work should come from just adding new code to do that. This is best accomplished
+through modularity and using hierarchies, such that the components are separate from one another and there are clearly
+defined patterns by which they should interact. Requiring this pattern minimizes the difficulty in making different
+subclasses within the hierarchy interact with other classes in the program, since they're all transmitting the same type
+information in the same way.
 
 **Describe what you think makes this project's overall design flexible or not (i.e., what new features do you feel it is
 able to support adding easily).**
-
+I think that the aspect of our project that most significantly contributes to its flexibility is its modularity. The
+different components that perform different tasks are well defined and distinct from one another, so modifying any one
+part without breaking the rest of the simulation would be relatively easy. For instance, I think the way we handle the
+construction of new cells is extremely flexible, since our method of reading cells from CSVs can easily be added to,
+along with the way we handle cells of different shapes: adding a triangular cell wouldn't take too much work, and would
+require minimal modification to the classes that were alrready there. The visual aspect of our code is also extremely
+flexible, since the view is composed of variosu methods that independently create all of our components, so adding
+a new panel to display the player's name and the description of their simulation, for instance, would be very easy because
+we'd just need to make that visual element and appropriately place it in the GUI (as was discussed above). One thing that
+I think would be difficult to add would be to generate simulations from a new kind of file, like a text file, instead
+of a properties file. This is because we have deeply rooted throughout our code dependencies on a properties file that
+is fetched by the SimulationController, and pretty much all of our objects have constructors that rely on that properties
+file. If we had to somehow change that, that would require re making all of our constructors to also work with a text file,
+which would require heavy modifications of the code that is already there, in addition to a substantial amount of new code
+to parse through that new code.
 
 **Describe one feature from the assignment specification that was implemented by a team mate in detail:**
-
+One feature that I'll describe that was implemented by a team mate is the graph view which shows what percentage of the
+cells in the simulation are in each state. First, the current board performs the getStateData function, which gets
+the counts of the cells in each state and packages it into a map. This map is then read by the SimulationController
+and fed into the currently active GraphView's addToData function, which then appropriately adds the data to the graph
+and regenerates it with the newly added points. The graph itself is added to the main view (or MainView) in the constructor
+of the MainView that is called by the SimulationController.
 
 **What is interesting about this code? (why did you choose it?)**
-
+I chose to talk about this feature because even though it seemed extremely complicated to implement at first (at least
+it did to me), it ended up being relatively simple. This was for three reasons. Firstly, it ended up being simple because
+our code was modular enough that we knew exactly where to get the data about the board from, since the Board class
+had the well defined purpose of keeping track of the states of cells in the simulation. This made life easy because we
+already had the tools necessary to gather the data; all we had to do was collect it and display it. Secondly, it ended up being a
+simple implementation because of how well we followed the MVC approach. We already had a well-defined pathway by which
+the model interacted with the view: the SimulationController. So, it was easy to figure out where the interaction between
+the Board and the GraphView should take place, since the SimulationController was already handling so many similar kinds
+of interactions. Thirdly, and finally, this aspect of the code was easy to implement because the view was so flexible
+and modular. We already had a bunch of open space on the right side of the app, so Jongho's decision to put the GraphView
+in the RightView, in which the user could also choose the color/images of the Cells, was an intuitive one. Once the GraphView
+was created, it just had to be added to the RightView, which was already in the MainView, so minimal amounts of the code 
+that was already there had to be modified. More specifically, pretty much none of the other visual components needed
+to change as a result of the GraphView, which demonstrates how flexible and modular this part of our code was.
 
 **Describe the design of this feature in detail? (what parts are closed? what implementation details are encapsulated? 
 What assumptions are made? do they limit its flexibility?)**
+I chose to talk about this feature because of how well it fit in with our program's design, so in order to discuss how
+it fit in well, I had to discuss its design, which can be found above. But, to reiterate the central points, the GraphView
+itself is definitely closed, so if we wanted to add new features to the view around the GraphView, it most likely
+wouldn't require any modifications; this is practically a given due to its isolated, modular implementation. The app's
+view itself also features a closed/flexible design, which, again, is why it was relatively simple to add the GraphView;
+we didn't have to change much around it. We did make the assumption that there would only be three states that the Cells
+could occupy, which limits its flexibility since we only check and display the the percentages of three states. If we had
+to increase the number of states, the fix wouldn't be too significant. For instance, we could just dynamically add new 
+XYSeries objects for the other possible states as they came up in the list and then add them to the graph, which could
+allow our graph to handle an unlimited number of states.
 
 
 **How flexible is the design of this feature? (is it clear how to extend the code as designed? What kind of change might 
