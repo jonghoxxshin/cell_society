@@ -49,6 +49,7 @@ public class SimulationController {
 
     private Simulation mySimulationModel;
     private final String[] gameNames = {"gameOfLife", "percolation", "rockPaperScissors", "fire", "segregation", "predatorPrey"};
+    private final String ANALYSIS_KPH18 = "analysis_KPH18";
     private final int PREDATORPREY_BOARD = 2;
     private final int SEGREGATION_BOARD = 3;
     private final int FIRE_BOARD = 4;
@@ -292,6 +293,7 @@ public class SimulationController {
             myPropertiesList.add(game + 2);
             myPropertiesList.add(game + 3);
         }
+        myPropertiesList.add(ANALYSIS_KPH18);
     }
 
     private KeyFrame makeKeyFrame() {
