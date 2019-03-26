@@ -469,6 +469,7 @@ placed into the temporary board and the calculated next state is essentially dis
 Provide links to one or more GIT commits that contributed to implementing this feature, identifying whether the commit represented primarily new development, debugging, testing, refactoring, or something else.
 
 [fixed fire board update] (https://coursework.cs.duke.edu/compsci307_2019spring/simulation_team11/commit/d4cb1d1bce35071570f26b7dfd0f14ee88d7426e):
+
 [made board an abstract class, and split into subclasses] (https://coursework.cs.duke.edu/compsci307_2019spring/simulation_team11/commit/fc87b34bb2713baebf78c8cd9ad7a9b4b675748e):
 
 These two commits represent all the changes made to FireBoard throughout the process.
@@ -493,8 +494,13 @@ I did not think of this until, I started writing this portion of the analysis.
 
 ### Alternate Designs
 
-Reflect on alternate designs for the project based on your analysis of the current design.
-Describe two design decisions made during the project in detail:
-What alternate designs were considered?
-What are the trade-offs of the design choice (describe the pros and cons of the different designs)?
-Which would you prefer and why (it does not have to be the one that is currently implemented)?
+#### Reflect on alternate designs for the project based on your analysis of the current design.
+
+One alternative design that I considered during the project and further in the analysis, was a different set of subclasses
+for the abstract class Cell. In cell, there are methods which are related to chronons for the implementation of the
+Predator Prey simulation, so I think that is would've been logical to make subclasses based on the simulation type, similar
+to how Board is abstracted, rather than based on cell shape. Instead to account for the differences in cell shape, we could've
+created a separate class CellShape, with subclass for rectangle, rhombus, and hexagon. This was we would be able to create
+a subclass of Cell specific to Predator Prey so that all of the chronon related methods can be contained in the class that
+would be contained within the PredatorPreyCell instead of Cell. I think I would have preferred this design as it would have
+made the Cell class more succinct.
