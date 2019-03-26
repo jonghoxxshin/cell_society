@@ -273,7 +273,35 @@ works.
     }
 ```
 This method is in MainView.java, which is called when myRoot.setTop(this.makeTop()); is called.
-What goes inside the top component of the Boarder Pane is an instance of COnt
+What goes inside the top component of the Boarder Pane is an instance of ControlView that has some buttons that controls certain
+aspects of the simulation the program is running that the moment. 
+
+The uppermost layer of ControlView is an HBox object that takes in buttons and a slider object as its children.
+```java
+    public ControlView (SimulationController sc){
+        myProperties = ResourceBundle.getBundle("english");
+        myStartBoolean = false;
+        mySimulationController = sc;
+        myRoot = new HBox();
+        myPropertiesList = sc.getMyPropertiesList();
+        setView();
+
+    }
+    
+    private void setView(){
+        makeDropDown();
+        setButtons();
+        SpeedSlider speedSlider = new SpeedSlider(mySimulationController);
+        Slider tempSlider = speedSlider.getMySlider();
+        Label tempLabel = new Label(myProperties.getString("slider_label"));
+        tempLabel.setLabelFor(tempSlider);
+        myRoot.getChildren().add(tempSlider);
+        createGridOutlineButton();
+    }
+```
+
+If we were to add another visual component to the top part, then in the setView(){} method, we will have to 
+add another helper method that either creates or instantiates another component and add it to the HBox root of the ControlView.
 
 For example, lets say we want to have a display screen that shows the status of each of the cells. This would be taking the data that goes into 
 the line chart and displaying them numerically, like 
@@ -287,10 +315,6 @@ the line chart and displaying them numerically, like
 To do this, we would first create a pane that would be able to hold these information. Then we would get the information that goes into 
 these panes from the model component of the program. The we would add this component to the part that can fit this display area, for example
 the bottom component of the Border Pane.
-
-
-
-
 
 
 ### Justification of Design: justifies major design choices, including trade-offs (i.e., pros and cons), made in your project
