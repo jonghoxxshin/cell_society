@@ -8,10 +8,30 @@ CompSci 307: Simulation Project Design (Team 11)
 
 ### Design Goals: provides the high-level design goals of your project
 
+Three design principles we tried to achieve in implementing this project are open-closed principle, dependency inversion and single-responsibility.
+In general, I think we were able to implement a certain aspects of Open-Closed and single responsibility principles but we feel that we could have done better
+in implementing inversion of dependency.
 
+To be more specific, we have implemented a version of MVC pattern with completely self-contained model part(does not have any javafx codes) and a separate view components.
+These two are instantiated in the Controller class and interact with each other through controller class.
 
+We have created an abstract class of Board.java and Cell.java that can be extended to increase flexibility in implementing 
+different types of cells and games that require different rules and settings. 
+
+We used Enumeration to handle different kinds of GridShapeType.
+
+In creating visualization components, we used composite pattern and the views have nested structure that is easy to add or modify in the process of 
+development.
+
+And in writing most of our methods, we tried to have short methods that have single responsibility and encapsulate related features properly.
+
+However, we have failed to inverse the dependency between the View and the model and have a system where the controller class is a middleman taking care of all the aspect of
+update which has made our controller component larger then it had to be.
+
+We have packaged the three aspects of programs into separate folders for others to look at our packages and understand each classes' roles better.
 
 ### How to Add New Features: explains, in detail, how to add new features to your project
+
 There are a wide range of potential features that could be implemented in our project: new cell shapes, new edge policies,
 new neighbor arrangements, new simulation types, and new visual features to name a few. 
 
