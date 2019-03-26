@@ -52,7 +52,7 @@ public class NewConfigView {
     private final String[] ShapeList = {"Rectangle", "Hexagon", "Rhombus"};
     private final String[] EdgePolicyList = {"Torodial", "Finite", "Flipped"};
     private final String[] NeighborTypeList = {"Complete", "Cardinal", "All but left"};
-    private final String[] GameList = {"Game of Life", "Percolation", "Predator and Prey", "Rock Paper Scissors", "Segregation"};
+    private final String[] GameList = {"Game Of Life", "Percolation", "Predator and Prey", "Rock Paper Scissors", "Segregation"};
     private Scene myScene;
     private VBox myRoot;
     private Stage myStage;

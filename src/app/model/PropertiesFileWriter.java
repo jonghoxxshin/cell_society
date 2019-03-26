@@ -47,10 +47,10 @@ public class PropertiesFileWriter {
     public PropertiesFileWriter(String propertiesFileName, String name, String gameType, String description, String csvNumber, String gridShape, String edgePol, String neighborPol){
         this.myPropFileName = propertiesFileName + ".properties";
         this.myPropFile = propertiesFileName;
-        this.myName = name.replaceAll("\\s","");
+        this.myName = name;
         this.myGameType = gameType;
         this.myDescription = description;
-        this.fullCSVName = gameType + "Config" + csvNumber + ".csv";
+        this.fullCSVName = gameType.replaceAll("\\s+","") + "Config" + csvNumber + ".csv";
         this.gridShape = gridShape.toLowerCase();
         this.edgePol = edgePol;
         this.neighborPol = neighborStringToNumber(neighborPol);
@@ -96,8 +96,25 @@ public class PropertiesFileWriter {
             String shapeString = "shape=" + gridShape;
             String edgePolicyString = "edge_policy=" + edgePol;
             String neighborTypeString = "neighbor_type=" + neighborPol;
+            String probString = "probability=1";
 
-            String[] toBeWritten = {fullNameString, fullGameString, fullDescString, csvString, shapeString, edgePolicyString, neighborTypeString};
+            String boardTypeString = "board_type=";
+
+            if(myGameType.equalsIgnoreCase("fire")){
+                boardTypeString += "4";
+            }
+            else if(myGameType.equalsIgnoreCase("segregation")){
+                boardTypeString+="3";
+            }
+            else if(myGameType.equalsIgnoreCase("predator and prey")){
+                boardTypeString += "2";
+            }
+            else{
+                boardTypeString+="1";
+            }
+
+
+            String[] toBeWritten = {fullNameString, fullGameString, fullDescString, csvString, shapeString, edgePolicyString, neighborTypeString, probString, boardTypeString};
 
             for(String value:toBeWritten){
                 output.write(value + "\n");
