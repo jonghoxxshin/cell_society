@@ -49,7 +49,57 @@ flexibility.
 **What dependencies between the code are clear (e.g., public methods and parameters) and what are through "back channels" 
 (e.g., static calls, order of method call, requirements for specific subclass types)? Note, you can use IntelliJ to help 
 you find the dependencies within your project.**
+I'll begin by discussion of dependencies within the code at the highest level, the view. Beyond standard Java libraries,
+and of course, JavaFX, the view relies on three central elements: the SimulationController, the class responsible for the
+Control aspect of our MVC approach, the Board, which is responsible for holding data about the cells that are then projected
+onto the BoardView, and of course, the Cell class, which holds information about each cell, like its shape/type and state
+so as to assign it the correct color and correctly draw the correct polygon on the BoardView. Within the view package itself,
+the ControlView class, which is responsible for providing the user with visual tools to control the current simulation, 
+launches a NewConfigView when the user wishes to create a new simulation and uses the SpeedSlider class to configure
+the rate at which the simulation steps through when it is played. The RightView class, which is responsible for configuring
+visual options like the colors/images for each state as well as displaying information about the number of cells in each 
+state, does the former through the BoardView class and the second by creating a new GraphView. Finally, the MainView
+class puts all these visual components together, and thus has dependencies on the BoardView, the ControlView, the GraphView,
+and the RightView.
 
+Next, the Control, which is mostly performed by the SimulationController class, relies on the Simulation and PropertiesFileWriter
+classes. It uses Simulation objects to generate new simulations/boards as they are loaded in through properties files,
+and it uses the PropertiesFileWriter class to write new configurations when the user opts to do so through the GUI elements.
+
+The majority of interdependencies between classes in our project is within the model package. At the initial state of
+setting up a configuration is the CSV parser, which creates cells based on the configuration specified by the CSV referenced
+in the properties file used to create the simulation. The CSV parser has dependencies on the GridShape and GridShapeType
+classes so that it can read in and create cells of a variety of shapes, and it also depends on the abstract Cell class since
+it's making new Cell objects according to the configuration outlined in the CSV. The CSVParser also depends on the different
+CellGetter objects, which create an initial layout of Cells according to different specifications, like a complete grid,
+a set of probabilities of states that the cell may fall into, or a fixed count of states that there must be for the states.
+The different CellGetter subclasses are all based on the abstract CellGetter class, so that hierarchy contains a dependency
+in that there is a fixed set of criteria that the subclasses need to contain like, perhaps most significantly, the getCells()
+function.
+
+The Rules class depends on the RulesParser class to be able to parse the text file that specifies the rules for the given
+configuration, and both the Rules class and the RulesParser class depend on the State class, which makes sense given that 
+they are responsible for the process of calculating and assigning a cell's state based on a set of specific criteria.
+
+The abstract cell class depends on the GridShape and GridShapeType objects so that each cell has a possible grid shape 
+associated with it, along with the State class, so that every cell can also keep track of its own state and the properties 
+associated with it. The children of the abstract cell class also have dependencies on the GridShape and GridShapeType objects, 
+which makes sense given that the primary way in which the children differ is in their grid shape. Moreover, the subclasses
+in this hierarchy must all follow the criteria specified in the abstract Cell class, primarily that they should have the appropriate
+functions to get their neighbors of different kinds, which forms a dependency between the parent class and its children, as
+does the fact that the children classes use methods defined in the parent class to correctly fetch its neighbors. The Cell
+class also uses the Board that it is a part of to fetch the states of its neighbors, and uses a Rules and RulesParser object
+to calculate its next state based on the states of its neighbors.
+
+The different board classes all have dependencies upon the Cell class and its subclasses, which makes sense given that
+the different Boards need to be able to hold grids of Cells of every kind of shape and appropriately track information
+about all the Cells they may contain. They also depend on the CSVParser, since the initial layout of cells and their
+states are determined by the CSV that is used for the simulation, and they depend on the Rules class to correctly
+calculate the new states of all its cells. 
+
+Finally, the Simulation class is responsible for putting the components together to be rendered on the view, and to do so,
+it depends on the Board and Cell classes, and it also uses a Rules object for the game being played by which to refresh
+the board when it advances a step and the cells attain their new states.
 
 
 
@@ -194,29 +244,83 @@ allow our graph to handle an unlimited number of states.
 
 **How flexible is the design of this feature? (is it clear how to extend the code as designed? What kind of change might 
 be hard given this design?)**
-
+This feature is quite flexible, apart from the one issue that I pointed out above, that it does not easily allow for a
+change to be made in which we include simulations with more than three possible states. As was said
+above, fixing this wouldn't be too difficult, since we'd just have to modify how the array of states was read in and
+how that data was added to the XYSeries objects in the graph.
 
 ##Your Design
 
 **Reflect on the coding details of your part of the project.**
+I worked mostly on the model of the project, with my biggest contribution to the visuals being the geometric layout
+of points of polygons used to create grids of different shapes (and implementing the feature of using different grid
+shapes as a whole). I think that overall, I did a good job with the design of my parts of the project, as I was able
+to effectively use hierarchies when adding new features to the project, like I did with the different kinds of Cells. 
+Of course, certain classes that I made like the PropertiesFileWriter and the CSVParser didn't need to be part of hierarchies, 
+so I didn't make hierarchies, but at least in the latter, I tried to take advantage of a hierarchy with the different
+kinds of CellGetters.
 
 **Describe an abstraction (either a class or class hierarchy) you created and how it helped (or hurt) the design.**
-
+One hierarchy that I made that I think helped the design was the CellGetter hierarchy. This helped the design because
+it fulfilled the feature of being able to set up initial configurations for cells of many types, namely the explicit
+grid, probabilities for states, and counts for states. Moreover, this hierarchy did so in such a way that we could easily
+introduce new ways to generate an initial configuration, since all we would need to do is make a new kind of CellGetter
+object with the getCells() function, create a CSV that specified to generate cells with that new method, and add it to the
+possible strings that the CSVParser could encounter in the CSV to correctly instantiate that new CellGetter.  
  
 **Discuss any Design Checklist issues within your code (justify why they do not need to be fixed or describe how they 
 could be fixed if you had more time). Note, the checklist tool used in the last lab can be useful in automatically finding 
 many checklist issues.**
-
+Though it wasn't explicitly mentioned in the Design Checklist, but rather in class, our biggest "issue" would be the
+frequent use of a getCells() method in our program. When it could be done, we used a function to instead get the cells
+at a specific index, but at certain points, as a group, we agreed that it made much more sense to transfer the entire
+board between classes rather than reconstruct it cell by cell. Not only did this make the code more readable and intuitive,
+as it was easier to track the flow of information, but perhaps most importantly, bringing the board in all at once allowed
+us to refresh the entire board rather than refresh the simulation cell-by-cell, which would have made for an extremely
+strange visual.
 
 **Describe one feature that you implemented in detail:**
+One feature that I implemented was generating grids of different shapes. The first step that this required was figuring
+out how to actually project the shapes onto the grid, since the geometric layout of a grid of rhombuses and hexagons
+wasn't exactly intuitive. After a bunch of meticulous geometry and spending too much time staring at drawings of how I wanted
+the grid to look, I figured out a mathematical formula for the coordinate values of the points of both polygons relative
+to the size of the entire grid and their position within the grid. One crucial realization throughout this process was
+that with both rectangles and hexagons, I could look at it as a series of vertical columns which every other column
+offset downwards by a portion of the height of the shape of each cell, which helped with the process of converting this
+2d array into a non-rectangular grid. After figuring out how to draw each of the shapes relative to their position on the
+board, I had to figure out how to get the neighbors of each cell,  since unlike with rectangles, it wasn't as simple as
+every combination of 2 of 3 items from +1, -1, and 0. Rather, I had to figure out the relative coordinates of, for instance,
+the rhombus that looked like it was just one to the left of the current cell, which ended up actually being two columns away.
+A similar process had to be done with hexagons, and once I figured that part out, I initially put all these kinds of neighbors
+into the single cell class, and assigned a string to every Cell object that represented its state. If, for instance, its
+shapeString were  "hex", the Cell object would use the hexagonal relative coordinates to fetch its neighbors. But, we
+soon realized that this design was not only inflexible, but cumbersome, difficult to read, and full of repeated code.
+So, instead, I made a hierarchy of different Cell types, rectangular, rhombus, and hexagonal, each with its own unique set
+of neighbors, that all extended a Cell abstract parent class. I then had to re work the drawing of the cell on the grid
+from checking its shapeString to checking its type, and lastly, I had to add to our properties file a value that specified
+what grid shape we wanted in our simulation, and I adjusted the CSVParser to produce the correct type of Cell based on that
+string. 
 
 
 **Provide links to one or more GIT commits that contributed to implementing this feature, identifying whether the commit 
 represented primarily new development, debugging, testing, refactoring, or something else.**
+One commit that I made in the middle of implementing the hexagonal grid was this one:
+https://coursework.cs.duke.edu/compsci307_2019spring/simulation_team11/commit/176a52aa71fb2338a8f745bddff677a0a3b1566c
 
+I particularly enjoyed looking at this commit because it shows how I was still making my way through the geometry-heavy/math-heavy
+portion of the implementation of this feature, which was the hardest but perhaps my favorite part of it. It definitely
+took a little longer than it could have, due to careless mistakes both in my math and in my typing, so there was a bit
+of guesswork involved in terms of finding the final solution, but it all worked out eventually. Of the stages listed
+above, this was most likely part of the new development/debugging portion of this feature.
 
 **Justify why the code is designed the way it is or what issues you wrestled with that made the design challenging.**
-
+The biggest issue that I wrestled with that made the design of this feature challenging was, as I mentioned above,
+figuring out the geometry and the math behind drawing a grid of different shapes within a fixed board. But, as I also
+mentioned above, another issue I wrestled with was making the design as clean and flexible as possible, because initially,
+the design was neither of those things. It definitely took me some time to figure out what I wanted the shared methods
+to be, and how I wanted to take advantage of the similarities that existed between two of the shapes but not all three
+and even between all three of the shapes, because that was perhaps the most important step in making the abstract class
+and correctly designing the children.  
 
 **Are there any assumptions or dependencies from this code that impact the overall design of the program? If not, how 
 did you hide or remove them?**
