@@ -388,7 +388,7 @@ which was advantageous because then the changes to the model and changes to the 
 
 Further our design implements abstractions in various ways to help make adding new features more simple. The main two abstractions
 that our design implements is through the abstract classes Board and Cell. To read in in-depth description of these, please
-continuing reading to the next paragraph. 
+continuing reading to the next paragraph.
 
 Describe an abstraction (either a class or class hierarchy) you created and how it helped (or hurt) the design.
 
@@ -518,7 +518,7 @@ I did not think of this until, I started writing this portion of the analysis.
 One alternative design that I considered during the project and further in the analysis, was a different set of subclasses
 for the abstract class Cell. In cell, there are methods which are related to chronons for the implementation of the
 Predator Prey simulation, so I think that is would've been logical to make subclasses based on the simulation type, similar
-to how Board is abstracted, rather than based on cell shape. Instead to account for the differences in cell shape, we could've
+to how Board is abstracted, rather than based on cell shape. Instead to acc``ount for the differences in cell shape, we could've
 created a separate class CellShape, with subclass for rectangle, rhombus, and hexagon. This was we would be able to create
 a subclass of Cell specific to Predator Prey so that all of the chronon related methods can be contained in the class that
 would be contained within the PredatorPreyCell instead of Cell. I think I would have preferred this design as it would have
