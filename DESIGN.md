@@ -277,7 +277,7 @@ Neumann neighborhood and 3 being a modified version of the moore neighborhood.
 
 * New Visual Features:
 In developing our program we tried to maintain a strict separation between visual component of the app from other parts of the application.
-And within developing teh visual components, we tried to incorporate composite pattern by layering and nesting the views. This had made
+And within developing the visual components, we tried to incorporate composite pattern by layering and nesting the views. This had made
 adding new visual components convenient for us. The basic idea of adding a  new visual component goes like this: we add a pane that will fit into
 the main view, which is a border pane. The border pane is divided up into five parts: top, bottom, left, right, and center. So if there is a new visual
 component then we would create a class or a component that has a Pane and add it to one of the five parts of the border pane. 

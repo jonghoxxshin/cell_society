@@ -51,6 +51,7 @@ public class SimulationController {
     private final String[] gameNames = {"gameOfLife", "percolation", "rockPaperScissors", "fire", "segregation", "predatorPrey"};
     private final String ANALYSIS_KPH18 = "analysis_KPH18";
     private final String ANALYSIS_JK386 = "analysis_jk386";
+    private final String ANALYSIS_JS576 = "analysis_js576";
     private final int PREDATORPREY_BOARD = 2;
     private final int SEGREGATION_BOARD = 3;
     private final int FIRE_BOARD = 4;
@@ -296,6 +297,7 @@ public class SimulationController {
         }
         myPropertiesList.add(ANALYSIS_KPH18);
         myPropertiesList.add(ANALYSIS_JK386);
+        myPropertiesList.add(ANALYSIS_JS576);
     }
 
     private KeyFrame makeKeyFrame() {

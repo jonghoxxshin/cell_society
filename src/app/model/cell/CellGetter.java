@@ -12,21 +12,16 @@ public abstract class CellGetter {
     private Cell[][] myCells;
     String csvName;
     private String myType;
-
     private int myHeight;
     private int myWidth;
     private int maxState;
     private int neighborType;
     private GridShapeType myGridShapeType;
-
     private String gameName;
-
     private int errorStatus;
     private String errorType;
-
     private double[] myProbs;
     private double[] myCounts;
-
     private int edgePolicy;
 
     /**

@@ -22,21 +22,17 @@ public abstract class Cell{
     private int myState;
     private int boardHeight;
     private int boardWidth;
-
     private int currentChronons;
     private int maxChronons = 10;
     private int currentEnergyLevel;
     private int edgeType = 0; //0 = torodial, 1 = finite, 2 = torodial-flipped
     private GridShapeType myGridShapeType;
     private boolean reproductionFlag = false;
-
     private final int NUM_CARDINAL_NEIGHBORS = 4;
     private final int NUM_ALL_BUT_LEFT_NEIGHBORS = 5;
     private final int NUM_NORMAL_NEIGHBORS = 8;
-
     private final int CARDINAL = 2;
     private final int ALL_BUT_LEFT = 3;
-
     private final int RULES_TYPE_WITH_CHRONONS = 4;
 
 
