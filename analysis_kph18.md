@@ -371,6 +371,25 @@ in separate paragraphs.
 
 Reflect on the coding details of your part of the project.
 
+Our project utilizes a model-view-controller design with various levels of abstraction. To implement, MVC, as you can see
+by looking at our project directory we have packages for model, view and controller. The model contains, all of the classes
+that operate the backend of our simulator. The model has many classes, but the main classes that are used in the modelling
+of the simulation are Simulation, Board, Cell, and Rules. The other classes are mainly used to assist these classes in their
+functionality. I'm going to provide a brief description of how the model interacts so that we can better understand how the
+MVC is implemented in our design. Simulation objects are created by the constructor that takes a Rules object and a Board
+object, then to implement the updating of the Board objects which contains an instance variable, that represents the 2D array
+of cells is updated by applying the rules for each cell in the Board based on the rules in the Rule object. So the Simulation object,
+essentially contains all the relevant information necessary to update the individual cells in the simulation. So, now the question
+arises of how the model interacts with the actual display of the simulation. The display of the simulation is contained within
+the view package. There are various classes for each individual portion of the view: the graph, the buttons, and the simulation
+to name a few. All of these classes are then compiled into a MainView object to display all of the individual components at once.
+The SimulationController class within the controller package is in charge of communicating between the model and the view,
+which was advantageous because then the changes to the model and changes to the view have minimal effects on each other.
+
+Further our design implements abstractions in various ways to help make adding new features more simple. The main two abstractions
+that our design implements is through the abstract classes Board and Cell. To read in in-depth description of these, please
+continuing reading to the next paragraph.
+
 Describe an abstraction (either a class or class hierarchy) you created and how it helped (or hurt) the design.
 
 Two abstractions that I created were the abstract class Board, and the abstract class Cell. Each of these proved to be very
@@ -499,7 +518,7 @@ I did not think of this until, I started writing this portion of the analysis.
 One alternative design that I considered during the project and further in the analysis, was a different set of subclasses
 for the abstract class Cell. In cell, there are methods which are related to chronons for the implementation of the
 Predator Prey simulation, so I think that is would've been logical to make subclasses based on the simulation type, similar
-to how Board is abstracted, rather than based on cell shape. Instead to account for the differences in cell shape, we could've
+to how Board is abstracted, rather than based on cell shape. Instead to acc``ount for the differences in cell shape, we could've
 created a separate class CellShape, with subclass for rectangle, rhombus, and hexagon. This was we would be able to create
 a subclass of Cell specific to Predator Prey so that all of the chronon related methods can be contained in the class that
 would be contained within the PredatorPreyCell instead of Cell. I think I would have preferred this design as it would have
