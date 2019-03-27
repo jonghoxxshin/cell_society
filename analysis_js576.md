@@ -92,9 +92,70 @@ responsible for both view and the model (with excessive use of the imageView cla
 different view components later on harder as the project progressed. However, this time, we did it differently and tried to have the view and the model as
 separated as possible starting from earlier stage of development. 
 
+Final aspect that makes this code flexible is the way we have divided up the visual components in many different classes.
+And within developing the visual components, we tried to incorporate composite pattern by layering and nesting the views. This had made
+adding new visual components convenient for us. The basic idea of adding a  new visual component goes like this: we add a pane that will fit into
+the main view, which is a border pane. The border pane is divided up into five parts: top, bottom, left, right, and center. So if there is a new visual
+component then we would create a class or a component that has a Pane and add it to one of the five parts of the border pane. 
+
+Each different view components are instantiated in the Mainview and put together on a borderPane object.
+```java
+   public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv, GraphView gv) {
+        myStartBoolean = false;
+        myBoardView = bv;
+        myRightView = rv;
+        myControlView = cv;
+        this.myRoot = root;
+        myRoot.setTop(this.makeTop());
+        myRoot.setCenter(this.makeCenter());
+        myRoot.setRight(this.makeRight());
+        myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
+        myScene.getStylesheets().add(getClass().getResource("/simulationStyle.css").toExternalForm());
+    }
+
+```
+To look at this in depth, lets consider how
+
+myRoot.setTop(this.makeTop());
+
+works.
+
+```java
+ private Node makeTop(){
+        return myControlView.getMyRoot();
+    }
+```
+This method is in MainView.java, which is called when myRoot.setTop(this.makeTop()); is called.
+What goes inside the top component of the Boarder Pane is an instance of ControlView that has some buttons that controls certain
+aspects of the simulation the program is running that the moment. 
+
+The uppermost layer of ControlView is an HBox object that takes in buttons and a slider object as its children.
+```java
+    public ControlView (SimulationController sc){
+        myProperties = ResourceBundle.getBundle("english");
+        myStartBoolean = false;
+        mySimulationController = sc;
+        myRoot = new HBox();
+        myPropertiesList = sc.getMyPropertiesList();
+        setView();
+
+    }
+    
+    private void setView(){
+        makeDropDown();
+        setButtons();
+        SpeedSlider speedSlider = new SpeedSlider(mySimulationController);
+        Slider tempSlider = speedSlider.getMySlider();
+        Label tempLabel = new Label(myProperties.getString("slider_label"));
+        tempLabel.setLabelFor(tempSlider);
+        myRoot.getChildren().add(tempSlider);
+        createGridOutlineButton();
+    }
+```
+
 As a result, if we were to make a change that affects only the visual aspect of the program, we would only have to modify the classes in view package.
 Similarly, if we want to change something in the model, then we modify the model package and leave the view package intact. By having two components separated we were able
-to end up with a code base that is self-contained and concise, easy to modify even towards later end of the procject.
+to end up with a code base that is self-contained and concise, easy to modify even towards later end of the project.
 
 #### What dependencies between the code are clear
 
@@ -200,38 +261,394 @@ because that file is the file that should configure the entire game.
 --------------------------------------------------
 ### Overall Design
 
-You can also make lists:
-
-* Bullets are made with asterisks
-
-1. You can order things with numbers.
-
 #### As briefly as possible, describe everything that needs to be done to add a new kind of simulation to the project.
+
+The first thing we have to do to add a new simulation we would need files that a configuration file requires to set up a new simulation.
+These include Rules text file and a CSV file that configures the initial configuration. Next, depending on the type of the game, if the game involve choronons or probabilities, we may
+have to add another type of Board object and add the option of choosing the board option to the simulation controller. Finally, we would add the option to the CSVParser to ensure the simulation gets constructed.
+Then it would automatically be added down in the drop down for new configurations.
+
 #### Describe the overall design of the program, without referring to specific data structures or actual code
+
+Three design principles we tried to achieve in implementing this project are open-closed principle, dependency inversion and single-responsibility.
+In general, I think we were able to implement a certain aspects of Open-Closed and single responsibility principles but we feel that we could have done better
+in implementing inversion of dependency.
+
+To be more specific, we have implemented a version of MVC pattern with completely self-contained model part(does not have any javafx codes) and a separate view components.
+These two are instantiated in the Controller class and interact with each other through controller class.
+
+We have created an abstract class of Board.java and Cell.java that can be extended to increase flexibility in implementing 
+different types of cells and games that require different rules and settings. 
+
+We used Enumeration to handle different kinds of GridShapeType.
+
+In creating visualization components, we used composite pattern and the views have nested structure that is easy to add or modify in the process of 
+development.
+
+And in writing most of our methods, we tried to have short methods that have single responsibility and encapsulate related features properly.
+
+However, we have failed to inverse the dependency between the View and the model and have a system where the controller class is a middleman taking care of all the aspect of
+update which has made our controller component larger then it had to be.
+
+We have packaged the three aspects of programs into separate folders for others to look at our packages and understand each classes' roles better.
+
 #### Justify why your overall code is designed the way it is and any issues the team wrestled with when coming up with the final design.
+
 
 
 --------------------------------------------------
 ### Flexibility
 
 #### Describe what you think makes this project's overall design flexible or not
+There are certain components that makes this code flexible and others that decreases the flexibility of the program. 
+
+One of the features that make the project's code more flexible is the abstraction that is done in the model package. We have abstract class Board.java and Cell.java that
+constitute the basis for possible variation and extension on creating different types of board and cells. Also we have adhered to the heuristic of having no public instance variable.
+These two features combined helped us adhere to the open-closed principle--this has helped our code to increase in flexibility. 
+```java
+public abstract class Board {
+    private Cell[][] cells;
+    private int myWidth;
+    private int myHeight;
+    private String myGame;
+    private int neighborType;
+    private final int[] orderToReplace = {2, 1, 0};
+    private CSVParser myParser;
+    private String edgePolicy;
+    }
+    
+public abstract class Cell{
+    private int type;
+    private int myX;
+    private int myY;
+    private int[][] neighbors;
+    private int myState;
+    private int boardHeight;
+    private int boardWidth;
+    private int currentChronons;
+    private int maxChronons = 10;
+    private int currentEnergyLevel;
+    private int edgeType = 0; //0 = torodial, 1 = finite, 2 = torodial-flipped
+    private GridShapeType myGridShapeType;
+    private boolean reproductionFlag = false;
+    private final int NUM_CARDINAL_NEIGHBORS = 4;
+    private final int NUM_ALL_BUT_LEFT_NEIGHBORS = 5;
+    private final int NUM_NORMAL_NEIGHBORS = 8;
+    private final int CARDINAL = 2;
+    private final int ALL_BUT_LEFT = 3;
+    private final int RULES_TYPE_WITH_CHRONONS = 4;
+    }
+    
+public abstract class CellGetter {
+    private Cell[][] myCells;
+    String csvName;
+    private String myType;
+    private int myHeight;
+    private int myWidth;
+    private int maxState;
+    private int neighborType;
+    private GridShapeType myGridShapeType;
+    private String gameName;
+    private int errorStatus;
+    private String errorType;
+    private double[] myProbs;
+    private double[] myCounts;
+    private int edgePolicy;
+    }
+    
+```
+However, looking back at some of the instance variables, I do believe that the abstract Cell.java could have been shorter if it had less instance variables and methods.
+
+Another aspect that makes the overall design flexible is the separation between the view and the model. In the previous project(game) one of the design mistakes I made was making components that was
+responsible for both view and the model (with excessive use of the imageView class in javafx package). Having the view and model combined made adding
+different view components later on harder as the project progressed. However, this time, we did it differently and tried to have the view and the model as
+separated as possible starting from earlier stage of development. 
+
+Final aspect that makes this code flexible is the way we have divided up the visual components in many different classes.
+And within developing the visual components, we tried to incorporate composite pattern by layering and nesting the views. This had made
+adding new visual components convenient for us. The basic idea of adding a  new visual component goes like this: we add a pane that will fit into
+the main view, which is a border pane. The border pane is divided up into five parts: top, bottom, left, right, and center. So if there is a new visual
+component then we would create a class or a component that has a Pane and add it to one of the five parts of the border pane. 
+
+Each different view components are instantiated in the Mainview and put together on a borderPane object.
+```java
+   public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv, GraphView gv) {
+        myStartBoolean = false;
+        myBoardView = bv;
+        myRightView = rv;
+        myControlView = cv;
+        this.myRoot = root;
+        myRoot.setTop(this.makeTop());
+        myRoot.setCenter(this.makeCenter());
+        myRoot.setRight(this.makeRight());
+        myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
+        myScene.getStylesheets().add(getClass().getResource("/simulationStyle.css").toExternalForm());
+    }
+
+```
+To look at this in depth, lets consider how
+
+myRoot.setTop(this.makeTop());
+
+works.
+
+```java
+ private Node makeTop(){
+        return myControlView.getMyRoot();
+    }
+```
+This method is in MainView.java, which is called when myRoot.setTop(this.makeTop()); is called.
+What goes inside the top component of the Boarder Pane is an instance of ControlView that has some buttons that controls certain
+aspects of the simulation the program is running that the moment. 
+
+The uppermost layer of ControlView is an HBox object that takes in buttons and a slider object as its children.
+```java
+    public ControlView (SimulationController sc){
+        myProperties = ResourceBundle.getBundle("english");
+        myStartBoolean = false;
+        mySimulationController = sc;
+        myRoot = new HBox();
+        myPropertiesList = sc.getMyPropertiesList();
+        setView();
+
+    }
+    
+    private void setView(){
+        makeDropDown();
+        setButtons();
+        SpeedSlider speedSlider = new SpeedSlider(mySimulationController);
+        Slider tempSlider = speedSlider.getMySlider();
+        Label tempLabel = new Label(myProperties.getString("slider_label"));
+        tempLabel.setLabelFor(tempSlider);
+        myRoot.getChildren().add(tempSlider);
+        createGridOutlineButton();
+    }
+```
+As a result, if we were to make a change that affects only the visual aspect of the program, we would only have to modify the classes in view package.
+Similarly, if we want to change something in the model, then we modify the model package and leave the view package intact. By having two components separated we were able
+to end up with a code base that is self-contained and concise, easy to modify even towards later end of the project.
+
 #### Describe one feature from the assignment specification that was implemented by a team mate in detail:
-What is interesting about this code? (why did you choose it?)
-Describe the design of this feature in detail? (what parts are closed? what implementation details are encapsulated? what assumptions are made? do they limit its flexibility?)
-How flexible is the design of this feature? (is it clear how to extend the code as designed? what kind of change might be hard given this design?)
+This function is implemented by Jaiveer and it calculates the coordinates of the polygon object that is needed to create a hexagonal board.
+```java
+private Double[] getHexPoints(int rowNumber, int columnNumber){
+        Double[] points = new Double[12];
 
+        if(columnNumber % 2 == 0){
+            points[0] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
+            points[1] = (rowNumber*cellHeight);
 
+            points[2] = ((3 * cellWidth / 4) * columnNumber) + (3*cellWidth/4);
+            points[3] = (rowNumber*cellHeight);
 
-You need to put blank lines to write some text
+            points[4] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth);
+            points[5] = (rowNumber*cellHeight) + (cellHeight / 2);
 
-in separate paragraphs.
+            points[6] = ((3 * cellWidth / 4) * columnNumber) + (3*cellWidth/4);
+            points[7] = (rowNumber*cellHeight) + cellHeight;
+
+            points[8] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
+            points[9] = (rowNumber*cellHeight) + cellHeight;
+
+            points[10] = (3 * cellWidth / 4) * columnNumber;
+            points[11] = (rowNumber*cellHeight) + (cellHeight / 2);
+        }
+        else{
+            // offset of cell height / 4
+            points[0] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
+            points[1] = (rowNumber*cellHeight) + (cellHeight/2);
+
+            points[2] = ((3 * cellWidth / 4) * columnNumber) + (3*cellWidth/4);
+            points[3] = (rowNumber*cellHeight) + (cellHeight/2);
+
+            points[4] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth);
+            points[5] = (rowNumber*cellHeight) + (cellHeight / 2) + (cellHeight/2);
+
+            points[6] = ((3 * cellWidth / 4) * columnNumber) + (3*cellWidth/4);
+            points[7] = (rowNumber*cellHeight) + cellHeight + (cellHeight/2);
+
+            points[8] = ((3 * cellWidth / 4) * columnNumber) + (cellWidth/4);
+            points[9] = (rowNumber*cellHeight) + cellHeight + (cellHeight/2);
+
+            points[10] = (3 * cellWidth / 4) * columnNumber;
+            points[11] = (rowNumber*cellHeight) + (cellHeight / 2) + (cellHeight/2);
+
+        }
+        return points;
+    }
+```
+I find this piece of code really interesting because it is scalable in adding different shapes to the board. When I was first asked to add different
+shapes to the board, I was thinking of making use cases for each of the different shapes. However, what it turned out to be was to use the built in Polygon
+API in javafx. The clipped method above calculates mathematical location for each of the 12 points required to draw an hexagon. 
+
+I choose this function for three reason. First is its conciseness. Although the function that calculates the points is quite long, the length is completely justified.
+It contains only the core operations that is required in calculating 12 points. And because it uses the built in api, Polygon(), the return value of this method can be a 
+parameter for Polygon()'s constructor which would create a hexagon and locate its position at the same time.
+
+Second reason is its flexibility. Adding another shape just requires writing a method to find the points required, just like the one above. Then we just give the return value of that function
+as parameter for Polygon()'s constructor. By this we can add any kind of shapes by just finding mathematical formula behind the shapes.
+
+Third reason is that this code directly works with the view component, which most of it is written by me. However, in writing and adding this code into a code base, there were no
+modifications made to existing code base and did not have to add a lot of code. Also it is very readable. Therefore, I think this code is a good example of open-closed principle being 
+held in our development process, that adding a feature only required us to write new codes without the need to modify any of the previous codes.
 
 --------------------------------------------------
 ### Your Design
 
 
 #### Describe an abstraction (either a class or class hierarchy) you created and how it helped (or hurt) the design.
+In writing my part of the code, which was most of the View package and the controller package, I did not implement any abstraction. There are some abstractions I wish I had implemented and there are some abstractions that
+I thought about implementing it but decided not to do so because of conflicting issues. 
+
+One of the abstractions I wish I had implement was Observable and Observer interface. I should have made these and let View components and model components to implement these interfaces so that
+I can have inversion of dependency between the model and the view. I did attempt this when we were about half way in the project. However, at that point it was already too late to fix all of the methods and classes that has been implemented without having implemented these
+interfaces. And I was worried that changing the basis of the program would cause a lot of miscommunication between the team members. Therefore, we have decided to not go futher with this refactoring and just keep the old method.
+
+This sure did have a really negative impact on our program in general. By not having the observer pattern, we did not have view and model communicate between each other. Instead we had all of the communication
+go through the controller class. This has lead the controller class to be excessively big with many methods that takes care of communication between view and model.
+These methods include :
+```java
+    /**
+     * Changes the Board whenever it needs to be changed
+     */
+    public void replaceBoardView(){
+        if(useImage){
+            myMainView.setMyBoardView(
+                    new BoardView(mySimulationModel.getMyBoard(),myProperties,this, useGrid, useImage, myImageList));
+        }
+        else if(color0 != null) myMainView.setMyBoardView(
+                new BoardView(mySimulationModel.getMyBoard(), myProperties, this, useGrid, null, color0, color1, color2));
+        else if(useGrid){
+            myMainView.setMyBoardView(
+                    new BoardView(mySimulationModel.getMyBoard(), myProperties, this, useGrid, useImage));
+        }
+        else myMainView.setMyBoardView(
+                    new BoardView(mySimulationModel.getMyBoard(), myProperties, this, useGrid, useImage));
+    }
+    
+        /**
+         * Called for every step of the Simulation, indicates changes need to be made to both model and view
+         */
+    public void next() {//need to update model and view for each step
+        startSimulation = myControlView.getMyStartBoolean();
+
+        if (startSimulation) {
+            getStateData();
+            if (mySimulationModel != null) {
+                mySimulationModel.setStart();
+                mySimulationModel.nextStep();
+
+                //mySimulationModel.printMyCells();
+            }
+            replaceBoardView();
+
+        }
+    }
+    
+    /**
+     * Replaces the board by creating a new board
+     */
+    public void setNewBoard(){
+        myBoardView = new BoardView(myBoard,myProperties,this, useGrid, null, color0,color1,color2);
+        myRightView  = new RightView(this, myBoardView, new GraphView(myProperties));
+        myMainView.setMyBoardView(myBoardView);
+    }
+    
+    
+
+```
+The way these methods work is that they are called by classes in View package. So the view class would call these methods that are in controller calss. Then these 
+methods would call functions that are in Model package. 
+
+Another inheritance I wish I created was smaller modules that composed the view components that was repeatedly used. In the GUI, I use a lot of Button or a HBox, VBox elements that I could have customized
+by extending the javafx class to avoid having to call similar methods over and over again. 
+
+For example :
+```java
+    private void setHBox0() {
+        HBox temp = new HBox();
+        Label tempLabel = new Label(myProperties.getString("state_0_color"));
+        temp.getChildren().add(tempLabel);
+        myColorPicker0 = new ColorPicker();
+        temp.getChildren().add(myColorPicker0);
+        temp.setAlignment(Pos.CENTER);
+        myRoot.getChildren().add(temp);
+    }
+
+    private void setHBox1() {
+        HBox temp = new HBox();
+        Label tempLabel = new Label(myProperties.getString("state_1_color"));
+        temp.getChildren().add(tempLabel);
+        myColorPicker1 = new ColorPicker();
+        myColorPicker1.setValue(Color.BLACK);
+        temp.getChildren().add(myColorPicker1);
+        temp.setAlignment(Pos.CENTER);
+        myRoot.getChildren().add(temp);
+
+    }
+
+    private void setHBox2() {
+        HBox temp = new HBox();
+        Label tempLabel = new Label(myProperties.getString("state_2_color"));
+        temp.getChildren().add(tempLabel);
+        myColorPicker2 = new ColorPicker();
+        myColorPicker2.setValue(Color.BLUE);
+        temp.getChildren().add(myColorPicker2);
+        temp.setAlignment(Pos.CENTER);
+        myRoot.getChildren().add(temp);
+
+    }
+```
+Much of the redundant code above could have been shorter if I had used the right encapsulation and made each of the visual elements more modular.
+
+One of the abstractions I thought about making and decided not to implement was a view interface or abstract class. As you can see in our View package, most of the classes are
+named somethingView.java. Naturally, all of these View classes do share some common features. However, I have concluded that they have more differences then the parts they share and the part they shared was 
+not significant enough to put it in a separate class. For example, the ControlView is mostly consist of buttons and its interactions with the controller to change the state of the program. And The BoardView is consist of
+a lot of math and graphical element to make a board and update its outputs. Therefore, these differences made me realize that there isn't a huge merit in abstracting out the views.
+
+However, now that I think about it, I think I could have taken a slightly different approach on abstraction. Instead of trying to abstract out all the common aspects of all view classes, I could have tried to seek
+common parts of couple of classes rather then all of the classes. For example, bot the controlView.java and RightView.java has characteristics of a toolbar. I should have
+abstracted out a class named toolbar.java that is used in Control and Right so that when I later decide to add a tool bar to the bottom of borderPane I could benefit from the abstraction.
 #### Discuss any Design Checklist issues within your code (justify why they do not need to be fixed or describe how they could be fixed if you had more time).
+One of the things that my design lack is its absence of inheritance. As I have described above, there are many cases where abstraction would have improved our code in many ways. I deeply regret not thinking enough about this issue.
+Also another problem is in BoardView in how I have three different constructors for different kind of board and a boolean to state whether the board uses a grid outline or not. All of these could have been improved if I used abstractions on BoardView and had different variations of BoardViews.
+Also I do have some duplicated codes, such as
+```java
+    private void setHBox0() {
+        HBox temp = new HBox();
+        Label tempLabel = new Label(myProperties.getString("state_0_color"));
+        temp.getChildren().add(tempLabel);
+        myColorPicker0 = new ColorPicker();
+        temp.getChildren().add(myColorPicker0);
+        temp.setAlignment(Pos.CENTER);
+        myRoot.getChildren().add(temp);
+    }
+
+    private void setHBox1() {
+        HBox temp = new HBox();
+        Label tempLabel = new Label(myProperties.getString("state_1_color"));
+        temp.getChildren().add(tempLabel);
+        myColorPicker1 = new ColorPicker();
+        myColorPicker1.setValue(Color.BLACK);
+        temp.getChildren().add(myColorPicker1);
+        temp.setAlignment(Pos.CENTER);
+        myRoot.getChildren().add(temp);
+
+    }
+
+    private void setHBox2() {
+        HBox temp = new HBox();
+        Label tempLabel = new Label(myProperties.getString("state_2_color"));
+        temp.getChildren().add(tempLabel);
+        myColorPicker2 = new ColorPicker();
+        myColorPicker2.setValue(Color.BLUE);
+        temp.getChildren().add(myColorPicker2);
+        temp.setAlignment(Pos.CENTER);
+        myRoot.getChildren().add(temp);
+
+    }
+```
+
 #### Describe one feature that you implemented in detail:
 Provide links to one or more GIT commits that contributed to implementing this feature, identifying whether the commit represented primarily new development, debugging, testing, refactoring, or something else.
 Justify why the code is designed the way it is or what issues you wrestled with that made the design challenging.
@@ -245,6 +662,8 @@ in separate paragraphs.
 
 --------------------------------------------------------
 ### Alternate Designs
+
+One of the ways I would have implemented different
 
 
 
