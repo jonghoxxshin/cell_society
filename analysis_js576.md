@@ -14,11 +14,17 @@ While coding this program, we tried hard to make sure that the code stays readab
 responsibility to a single module. Also we tried to make our method names short and intuitive while keeping it descriptive. Also we packaged our codes to make it
 easier to understand the overall structure of our code. It is divided up into four packages, model, view, controller and tests. Each of the names
 correspond to TDD development style and MVC framework which gives an external reader of codes a general idea which component would be located at which of the packages.
-Also we tried to encapsulate related features closer to each other. If you see in our model package, we have three sub-packages that has related classes such as classes that are
+Also we tried to encapsulate related features closer to each other.
+ 
+If you see in our model package, we have three sub-packages that has related classes such as classes that are
 related to board features and cell package has all the classes that are related to cell component of the model. However, I do think that some of our classes and methods can be shorter if we had
-implemented better encapsulation. For example, currently the SimulationController is about 340 lines, including comments and javadocumentation. This could have been reduced to
+implemented better encapsulation.
+ 
+For example, currently the SimulationController is about 340 lines, including comments and javadocumentation. This could have been reduced to
 about hundred lines if I had used appropriate inheritance or abstraction, or taken different approach in designing interaction
 between the view component and model component. I will elaborate on this later. 
+
+
 One other thing that make the codes in the view component easy to read is how its nested and encapsulated to meet composite pattern. Each classes are separated by the portion of the view they are responsible
 of. However, I think there is a lot of room for improvement in this component in terms of encapsulation and readability. I will also elaborate this later on in this analysis.
 #### What makes this project's code flexible or not
@@ -84,43 +90,112 @@ However, looking back at some of the instance variables, I do believe that the a
 Another aspect that makes the overall design flexible is the separation between the view and the model. In the previous project(game) one of the design mistakes I made was making components that was
 responsible for both view and the model (with excessive use of the imageView class in javafx package). Having the view and model combined made adding
 different view components later on harder as the project progressed. However, this time, we did it differently and tried to have the view and the model as
-separated as possible starting from earlier stage of development. As a result, if we were to make a change that affects only the visual aspect of the program, we would only have to modify the classes in view package.
+separated as possible starting from earlier stage of development. 
+
+As a result, if we were to make a change that affects only the visual aspect of the program, we would only have to modify the classes in view package.
 Similarly, if we want to change something in the model, then we modify the model package and leave the view package intact. By having two components separated we were able
 to end up with a code base that is self-contained and concise, easy to modify even towards later end of the procject.
 
 #### What dependencies between the code are clear
 
 One of the aspects that we have failed in designing this program is that we were unable to contain the number of dependencies between different classes.
-Although most of the classes have relatively 
-  
+Although most of the classes have relatively simple set of dependencies, couple of the classes definitely has way too many of them.
 
-You need to put blank lines to write some text
+One of the classes that definitely has excessive dependencies is the BoardView.java. This class has three different constructor and each of them has many dependencies.
 
-in separate paragraphs.
-
-You can put blocks of code in here like this:
 ```java
-    /**
-     * Returns sum of all values in given list.
-     */
-    public int getTotal (Collection<Integer> data) {
-        int total = 0;
-        for (int d : data) {
-            total += d;
+    public BoardView( Board board, ResourceBundle properties,SimulationController sc, boolean grid, boolean image, List<Image> list){
+        this( board, properties, sc, grid, list, Color.WHITE, Color.BLACK, Color.BLUE);
+        myImageArray = list;
+    }
+
+    public BoardView(Board board, ResourceBundle properties, SimulationController sc, boolean grid, boolean image){
+        this(board, properties, sc, grid, null, Color.WHITE, Color.BLACK, Color.BLUE);
+    }
+
+
+    public BoardView( Board board, ResourceBundle properties, SimulationController sc, boolean grid, List<Image> images, Color c0, Color c1, Color c2){
+        myProperties = properties;
+        myBoardWidth = board.getMyWidth();
+        myBoardHeight = board.getMyHeight();
+        myBoard = board;
+        useStroke = grid;
+        mySimulationController = sc;
+        myImageArray = images;
+        myGridShape = myBoard.getCellAtCoordinates(0,0).getMyGridShapeType();
+        myColor0 = c0;
+        myColor1 = c1;
+        myColor2 = c2;
+        myStrokeColor = Color.BLACK;
+        useImage = false;
+        cellHeight = BOARD_HEIGHT/myBoardHeight;
+        cellWidth = BOARD_WIDTH/myBoardWidth;
+        myImageViewBoard = new ImageView[myBoardWidth][myBoardHeight];
+        myColorBoard = new Shape[myBoardWidth][myBoardHeight];
+        myRoot = new Group();
+
+        if(myImageArray!=null) {
+            myRoot = createImageBoard(myBoardWidth, myBoardHeight);
+        } else if (myGridShape == GridShapeType.RECTANGLE) {
+            myRoot = createColorBoardRect(myBoardWidth, myBoardHeight);
+        } else {
+            myRoot = createColorBoardPolygon(myBoardWidth, myBoardHeight);
         }
-        return total;
+    }
+
+```
+The code piece shown above is the constructors of BoardView.java. Different constructors were used to handle different use cases
+for the boardView object. The dependencies include Board.java, properties file, Simulation controller, a boolean value, list of images and three color object.
+
+I think I could have definitely boil that down by making many different design choices. First, the need to have a simulation controller object seems quite bizarre and seem to complicate the dependencies.
+I should have implemented a dependency inversion using inheritance between the model and the views to reduce all the dependencies that goes through the controller class. One way I could have done this is implement some variation
+of Observable, Observer interfaces for model and view. One other way is having to import three colors separately. I could have wrapped around the three color object in a customized data structure or have made an ArrayList of Colors.
+Then, I should have not used a boolean as an input, but just used a different kind of constructor that takes different set of input types because now I have boolean and different constructors that
+takes care of different edge cases. I should have chosen just one of the two methods of taking care of different cases. This code we have at the moment is very redundant.  
+  
+Another class that has a lot of dependencies is the MainView.java class. However, the dependencies for this class seems to be easier to justify then
+those for BoardView.java class.
+```java
+    public MainView(BoardView bv,BorderPane root, SimulationController sc, ControlView cv, RightView rv, GraphView gv) {
+        myStartBoolean = false;
+        myBoardView = bv;
+        myRightView = rv;
+        myControlView = cv;
+        this.myRoot = root;
+        myRoot.setTop(this.makeTop());
+        myRoot.setCenter(this.makeCenter());
+        myRoot.setRight(this.makeRight());
+        myScene = new Scene(myRoot, VIEW_WIDTH, VIEW_HEIGHT);
+        myScene.getStylesheets().add(getClass().getResource("/simulationStyle.css").toExternalForm());
     }
 ```
+Most of the dependencies in this Class are other view components that are used in the MainView object.
 
-Emphasis, aka italics, with *asterisks* or _underscores_.
-
-Strong emphasis, aka bold, with **asterisks** or __underscores__.
-
-Combined emphasis with **asterisks and _underscores_**.
-
-
-You can put links to commits like this: [My favorite commit](https://coursework.cs.duke.edu/compsci307_2019spring/example_bins/commit/33a37fe42915da319f7ae140c8e66555cf28d2c8)
-
+One of the classes that I think has justifiable dependency is the SimulationController.java.
+Although the code did end up to be one of our longest classes, we only have one input into that class which the ResourceBundle Properties file.
+I think it is reasonable for the controller class, which is in charge of making sure all of the program works properly, to take in as a properties file as an input
+because that file is the file that should configure the entire game. 
+```java
+    public SimulationController( ResourceBundle myProperties) {//Will change to instantiating simulation and simulationView inside controller, not as input
+        this.myProperties = myProperties;
+        boardType = getBoardType();
+        getBoard();
+        myRules = new Rules(myProperties);
+        myBoardView = new BoardView(myBoard, myProperties, this, false, false);
+        mySimulationModel = new Simulation(myBoard, myRules);
+        useImage = false;
+        myImageList = new ArrayList<>();
+        initMyPropList();
+        myControlView = new ControlView(this);
+        myGraphView = new GraphView(myProperties);
+        myRightView = new RightView(this, myBoardView,myGraphView);
+        getStateData();
+        myFramesPerSecond = 1;//magic number that is set for now, need to be changed into form of input later
+        mySimulationModel.setStart();
+        setUpScene();
+        setTimeline();
+    }
+```
 
 --------------------------------------------------
 ### Overall Design
