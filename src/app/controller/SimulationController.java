@@ -49,6 +49,8 @@ public class SimulationController {
 
     private Simulation mySimulationModel;
     private final String[] gameNames = {"gameOfLife", "percolation", "rockPaperScissors", "fire", "segregation", "predatorPrey"};
+    private final String ANALYSIS_KPH18 = "analysis_KPH18";
+    private final String ANALYSIS_JK386 = "analysis_jk386";
     private final int PREDATORPREY_BOARD = 2;
     private final int SEGREGATION_BOARD = 3;
     private final int FIRE_BOARD = 4;
@@ -292,6 +294,8 @@ public class SimulationController {
             myPropertiesList.add(game + 2);
             myPropertiesList.add(game + 3);
         }
+        myPropertiesList.add(ANALYSIS_KPH18);
+        myPropertiesList.add(ANALYSIS_JK386);
     }
 
     private KeyFrame makeKeyFrame() {
@@ -312,11 +316,11 @@ public class SimulationController {
 
     private int getBoardType(){
         String myGame = myProperties.getString("type_of_game");
-        if (myGame.toLowerCase().equals("predatorprey")){
+        if (myGame.equalsIgnoreCase("predatorprey")){
             return PREDATORPREY_BOARD;
-        } else if (myGame.toLowerCase().equals("fire")){
+        } else if (myGame.equalsIgnoreCase("fire")){
             return FIRE_BOARD;
-        } else if (myGame.toLowerCase().equals("segregation")){
+        } else if (myGame.equalsIgnoreCase("segregation")){
             return SEGREGATION_BOARD;
         } else {
             return -1;

@@ -13,10 +13,10 @@ public class GridShape {
      * @author Kyle Harvey, Jaiveer Katariya, Jognho Shin
      */
     public GridShapeType getShape(String name){
-        if(name.toLowerCase().equals("rhombus")){
+        if(name.equalsIgnoreCase("rhombus")){
             return GridShapeType.RHOMBUS;
         }
-        else if(name.toLowerCase().equals("hexagon")){
+        else if(name.equalsIgnoreCase("hexagon")){
             return GridShapeType.HEXAGON;
         }
         else{

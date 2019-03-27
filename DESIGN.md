@@ -104,7 +104,7 @@ neighbors. So we need to clarify which of the cells we see as one cell's neighbo
 
 The way we handle visualization of different cell shapes is through the view component. We use the Shape class polygon to to implement
 different shapes. Therefore, in adding a different shape of cell we would create a method in creating boardView.java that would handle each of the cases.
-This would be just different in how we calculate the coordinates that makes up each of the coordinates we use. 
+This would be just diafferent in how we calculate the coordinates that makes up each of the coordinates we use. 
 
 For example, 
 ```java
@@ -209,7 +209,24 @@ So, in order to implement this parsing, one must modify the method getEdgeType()
 if the string matches the name of the new policy, and if so returns an integer n, that represents our nth policy.
 
 * New Neighbor Arrangement:
+Adding a new neighbor arrangement might be a slightly complex task given that different types of shapes visually have
+neighbors at varying relative coordinates. This simply means that to add a new neighbor type, we would have to manually
+add the new relative coordinates to each of the shapes that use them. Next, we'd have to integrate the process of getting
+these neighbors in the Cell class or its subclasses if the process for getting the neighbors for that specific shape are
+vastly different from that of other shape. We'd begin by assigning a new numeric value for the number of neighboring cells
+there would be for that new neighbor type in the Cell class, and add to the getTempNeighbors function an option to return
+an 2d array of dimensions [x][2], where x is the number of neighbors. In hindsight, there are definitely ways we could
+have worked around the getTempNeighbors function; for instance, the length of the array of neighbors would just be the
+length of the array neighborsType[][] used as an argument for the function findNeighbors(). This would have saved us
+the step of adding the new count to the getTempArrayFunction, and practically would've entirely removed the need for
+this function.
 
+The next steps would be to configure how this new neighbor type is used in simulations. First, we'd need to add the new
+neighbor type's name to the drop down menu from which the user can choose the neighbor type to make a new simulation.
+We'd also need to assign an integer value to that new neighbor type so that the PropertiesFileWriter object can write
+that integer to the neighborType keystring, and so that the new integer can be read by new Cells created from the properties
+file. Once this integer was assigned, we'd have to use it in the steps mentioned above to specify which set of neighbors
+we'd want to assign to the newly created cell. 
 
 * New Simulation Types:
 To implement a new simulation such as the cellular automata, Seeds, you must first identify a few
