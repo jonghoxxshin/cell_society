@@ -294,7 +294,24 @@ We have packaged the three aspects of programs into separate folders for others 
 
 #### Justify why your overall code is designed the way it is and any issues the team wrestled with when coming up with the final design.
 
+One design choice we implemented was the use of abstract classes for the Board and Cell objects. By creating classes to
+extend board and cell, we were able to reduce the amount of code in each class to that code that is directly specific to
+that type of class, whether it be cell shape, or game type.
+ 
+By extending the cell class, and using that implementation,
+it allowed us to more easily add new game types, by either using one of the existing types if applicable,
+and if not by creating a new subclass that only overrides the necessary functions. This will also address many of the
+instances of duplicate code as adding subclasses will eliminate the need for functions that are very similar but produce
+different results.
+ 
+For example, in Cell there are various methods for getting neighbors according to the current shape
+of the cell, to mitigate this, by creating subclasses for each of the cell shapes, we were able to simply override the
+getNeighbors() method with the appropriate values for that given shape. 
 
+Similarly in board, the update board
+functionality had multiple methods to allow for the different game rules, by adding subclasses of the board that are
+specific to game type we were able to reduce the amount of code in board in general, and reduce the amount of code in
+certain methods especially the number of conditionals, by using the variables we define explicitly in the subclasses.
 
 --------------------------------------------------
 ### Flexibility
@@ -609,8 +626,11 @@ a lot of math and graphical element to make a board and update its outputs. Ther
 However, now that I think about it, I think I could have taken a slightly different approach on abstraction. Instead of trying to abstract out all the common aspects of all view classes, I could have tried to seek
 common parts of couple of classes rather then all of the classes. For example, bot the controlView.java and RightView.java has characteristics of a toolbar. I should have
 abstracted out a class named toolbar.java that is used in Control and Right so that when I later decide to add a tool bar to the bottom of borderPane I could benefit from the abstraction.
+
 #### Discuss any Design Checklist issues within your code (justify why they do not need to be fixed or describe how they could be fixed if you had more time).
+
 One of the things that my design lack is its absence of inheritance. As I have described above, there are many cases where abstraction would have improved our code in many ways. I deeply regret not thinking enough about this issue.
+
 Also another problem is in BoardView in how I have three different constructors for different kind of board and a boolean to state whether the board uses a grid outline or not. All of these could have been improved if I used abstractions on BoardView and had different variations of BoardViews.
 Also I do have some duplicated codes, such as
 ```java
@@ -650,23 +670,32 @@ Also I do have some duplicated codes, such as
 ```
 
 #### Describe one feature that you implemented in detail:
-Provide links to one or more GIT commits that contributed to implementing this feature, identifying whether the commit represented primarily new development, debugging, testing, refactoring, or something else.
-Justify why the code is designed the way it is or what issues you wrestled with that made the design challenging.
-Are there any assumptions or dependencies from this code that impact the overall design of the program? If not, how did you hide or remove them?
 
+One of the features I implemented is enabling the control components of the simulation. These include one step, start, pause, and etc. I have made that
+boardView has an animation with given number frames per second. 
 
-You need to put blank lines to write some text
+Then for every one of these steps, Simulation controller is called to update changes on the model. In helping controling the simulation, I have boolean values
+that changes when the button on GUI is pressed. And the animation would be able to .play() only when this boolean is true. This piece connects all three components of the program.
+When input is taken in from the GUI (visual component) then the Controller(which acts as a middleware) takes the input then modify the state of the Model. Then as the model has been updated, the Controller 
+calls the view components to be updated. 
 
-in separate paragraphs.
+This is the link to feature mentioned above, committed after I completed debugging this feature. 
+https://coursework.cs.duke.edu/compsci307_2019spring/simulation_team11/commit/5677cb5f0994eb1d2e73b38a240f5487908f7373
+
+The dependencies used for this code has been start of many problems, mainly those that are related with failing to implement open-closed principle, observer pattern and etc.
+By controller mitigating all the data exchange from Model to Controller, Controller class has gotten larger then it should be and updating the view as we added more feature became too complicated too quickly.
+This is also the reason why I was unable to shift to using Observer pattern later in development. Then, I have a bad dependency where Model is dependent on both view and controller, Controller is dependent on model and view, and View is dependent on both
+model and controller. This is unnecessary and redundant dependencies.
 
 
 --------------------------------------------------------
 ### Alternate Designs
 
-One of the ways I would have implemented different
-
-
-
-Here is another way to look at my design:
-
-![This is cool, too bad you can't see it](crc-example.png "An alternate design")
+Some of the alternate designs I regret not choosing are :
+   1. More encapsulation
+   2. Less dependency
+   3. Oberserver, Observable interfaces
+   4. Abstraction on BoardView
+   5. Abstraction on Toolbars
+   6. Abstraction on SimulationController
+   7. and other alternative designs I suggested above
